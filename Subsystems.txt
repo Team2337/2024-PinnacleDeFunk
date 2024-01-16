@@ -1,0 +1,14 @@
+Intake
+	Motor * 2
+Shooter
+	Motor * 2
+Climb
+	Motor * 1
+Delivery
+	Motor * 1
+Vision
+	Camera * 2
+Trap Poker
+	Motor * 1
+Drive
+	Motor * 8
