@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.generated.TunerConstants;
 import frc.robot.nerdyfiles.utilities.Utilities;
+import frc.robot.subsystems.Intake;
 
 public class RobotContainer {
   private double MaxSpeed = 6; // 6 meters per second desired top speed
@@ -42,6 +43,7 @@ public class RobotContainer {
   /* Path follower */
   private Command runAuto = drivetrain.getAutoPath("Tests");
 
+  private final Intake intake = new Intake();
   private final Telemetry logger = new Telemetry(MaxSpeed);
 
   private void configureBindings() {

@@ -61,7 +61,7 @@ public final class Constants {
     public static final boolean ELBOW = false;
     public static final boolean DRIVETRAIN = false;
     public static final boolean HEADING = false;
-    public static final boolean INTAKE = false;
+    public static final boolean INTAKE = true;
     public static final boolean INTAKESPINNER = false;
     public static final boolean PDH = false;
     public static final boolean SHOULDER = false;
