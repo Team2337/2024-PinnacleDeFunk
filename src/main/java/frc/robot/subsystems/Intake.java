@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
@@ -108,4 +109,6 @@ public class Intake extends SubsystemBase {
         shuffleBoardSpeed = SmartDashboard.getNumber("IntakeSpeed", 0);
         setIntakeSpeed(shuffleBoardSpeed);
     }
+
+  
 }
