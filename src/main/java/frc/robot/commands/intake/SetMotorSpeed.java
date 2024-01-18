@@ -32,6 +32,4 @@ public class SetMotorSpeed extends Command {
     public boolean isFinished() {
         return false; 
     }
-
-    
 }
