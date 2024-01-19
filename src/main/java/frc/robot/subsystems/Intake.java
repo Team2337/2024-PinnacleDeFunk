@@ -3,7 +3,10 @@ package frc.robot.subsystems;
 import java.util.Map;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.ControlRequest;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.ControlModeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -11,6 +14,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -32,7 +36,7 @@ public class Intake extends SubsystemBase {
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", -1, "max", 1))
         .getEntry();
-
+        
         var setIntakeMotorLeftToDefault = new TalonFXConfiguration();
         intakeMotorLeft.getConfigurator().apply(setIntakeMotorLeftToDefault);
 
@@ -50,7 +54,7 @@ public class Intake extends SubsystemBase {
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         intakeMotorRight.getConfigurator().apply(rightMotorConfig);
-        
+        intakeMotorLeft.setSafetyEnabled(false);
     }
 
     public void setIntakeSpeed(double speed) {
@@ -91,6 +95,9 @@ public class Intake extends SubsystemBase {
         return intakeSensorBottom.get();
     }
 
+    public double getIntakeSpeed() {
+        return shuffleBoardSpeed;
+    }
     public void log() {
         if (Constants.DashboardLogging.INTAKE) {
             SmartDashboard.putNumber("Intake/Average Motor Temperature", getIntakeAverageTemp());
@@ -99,7 +106,7 @@ public class Intake extends SubsystemBase {
         }
         SmartDashboard.putBoolean("Intake/Top Sensor", getIntakeTopSensor());
         SmartDashboard.putBoolean("Intake/Bottom Sensor", getIntakeBottomSensor());
-//        SmartDashboard.putNumber("Set Intake Speed", getIntakeSpeed())
+        SmartDashboard.putNumber("Set Intake Speed", getIntakeSpeed());
     }
 
     @Override
@@ -107,8 +114,15 @@ public class Intake extends SubsystemBase {
         super.periodic();
         log();
         shuffleBoardSpeed = SmartDashboard.getNumber("IntakeSpeed", 0);
+        System.out.println(shuffleBoardSpeed);
         setIntakeSpeed(shuffleBoardSpeed);
+
     }
 
-  
+    public Command setIntakeSpeedLocal() {
+        return this.startEnd(
+            () -> setIntakeSpeed(0.1), 
+            () -> setIntakeSpeed(0.0)
+        );
+    }
 }

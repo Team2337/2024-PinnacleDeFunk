@@ -1,16 +1,16 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
-public class SetMotorSpeed extends Command {
-    private Intake intake;
+public class SetMotorVelocity extends Command {
+    private Shooter shooter;
     private double speed;
 
-    public SetMotorSpeed(Intake intake, double speed) {
-        this.intake = intake;
+    public SetMotorVelocity(Shooter shooter, double speed) {
+        this.shooter = shooter;
         this.speed = speed;
-        addRequirements(intake);
+        addRequirements(shooter);
     }
 
     @Override
@@ -20,16 +20,18 @@ public class SetMotorSpeed extends Command {
     
     @Override
     public void execute() {
-        intake.setIntakeSpeed(speed);
+        shooter.setShooterVelocity(speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        intake.stopMotors();
+        shooter.setBrake();
     }
 
     @Override
     public boolean isFinished() {
         return false; 
     }
+
+
 }
