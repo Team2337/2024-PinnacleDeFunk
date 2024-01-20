@@ -56,15 +56,12 @@ public final class Constants {
   private static Constants instance;
 
   public static final class DashboardLogging {
-    public static final boolean ARM = false;
     public static final boolean AUTO = false;
-    public static final boolean ELBOW = false;
     public static final boolean DRIVETRAIN = false;
     public static final boolean HEADING = false;
-    public static final boolean INTAKE = false;
-    public static final boolean INTAKESPINNER = false;
+    public static final boolean INTAKE = true;
     public static final boolean PDH = false;
-    public static final boolean SHOULDER = false;
+    public static final boolean SHOOTER = true;
     public static final boolean SWERVE = true;
     public static final boolean VISION = false;
   }
