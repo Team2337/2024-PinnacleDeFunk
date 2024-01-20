@@ -3,19 +3,19 @@ package frc.robot.subsystems;
 import java.util.Map;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.ControlRequest;
-import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.ControlModeValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
@@ -26,16 +26,18 @@ public class Intake extends SubsystemBase {
     private TalonFX intakeMotorRight = new TalonFX(21);
     private DigitalInput intakeSensorTop = new DigitalInput(0);
     private DigitalInput intakeSensorBottom = new DigitalInput(1);
-    private double shuffleBoardSpeed = 0;
     private double intakeMotorSpeed = 0;
-
-    public Intake() { 
-
-        Shuffleboard.getTab("Intake")
+    private ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
+    private GenericEntry shuffleboardSpeed = intakeTab 
         .add("IntakeSpeed", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", -1, "max", 1))
         .getEntry();
+    private GenericEntry addDashNum = intakeTab.add("Intake Speed from dash", 0).getEntry();
+    private double speedFromDash = 0; 
+    private static double motorShutDownTempCelcius = 70; 
+
+    public Intake() { 
         
         var setIntakeMotorLeftToDefault = new TalonFXConfiguration();
         intakeMotorLeft.getConfigurator().apply(setIntakeMotorLeftToDefault);
@@ -55,6 +57,8 @@ public class Intake extends SubsystemBase {
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         intakeMotorRight.getConfigurator().apply(rightMotorConfig);
         intakeMotorLeft.setSafetyEnabled(false);
+        setupShuffleboard(true);
+
     }
 
     public void setIntakeSpeed(double speed) {
@@ -95,8 +99,16 @@ public class Intake extends SubsystemBase {
         return intakeSensorBottom.get();
     }
 
-    public double getIntakeSpeed() {
-        return shuffleBoardSpeed;
+    private boolean isOverheated() {
+        return isMotorOverheated(intakeMotorLeft) || isMotorOverheated(intakeMotorRight);
+    }
+
+    private boolean isMotorOverheated(TalonFX motor) {
+        return motor.getDeviceTemp().getValueAsDouble() >= motorShutDownTempCelcius;
+    }
+
+    public double intakeSpeedFromDash() {
+        return speedFromDash;
     }
     public void log() {
         if (Constants.DashboardLogging.INTAKE) {
@@ -106,16 +118,29 @@ public class Intake extends SubsystemBase {
         }
         SmartDashboard.putBoolean("Intake/Top Sensor", getIntakeTopSensor());
         SmartDashboard.putBoolean("Intake/Bottom Sensor", getIntakeBottomSensor());
-        SmartDashboard.putNumber("Set Intake Speed", getIntakeSpeed());
+        addDashNum.setDouble(intakeSpeedFromDash());
+    }
+
+    private void setupShuffleboard(boolean logEnable) {
+        if (logEnable) {
+            ShuffleboardLayout widget = intakeTab.getLayout("Diagnositics", BuiltInLayouts.kList)
+            .withSize(2, 2)
+            .withPosition(4, 0);
+            widget.addNumber("Left Motor Temp", this::getIntakeLeftTemp);
+            widget.addNumber("Right Motor Temp", this::getIntakeRightTemp);
+            widget.addBoolean("Motors Overheating?", () -> isOverheated());
+        }
+    }
+
+    public void initialize() {
     }
 
     @Override
     public void periodic() {
         super.periodic();
         log();
-        shuffleBoardSpeed = SmartDashboard.getNumber("IntakeSpeed", 0);
-        System.out.println(shuffleBoardSpeed);
-        setIntakeSpeed(shuffleBoardSpeed);
+        speedFromDash = shuffleboardSpeed.getDouble(0);
+        setIntakeSpeed(speedFromDash);
 
     }
 

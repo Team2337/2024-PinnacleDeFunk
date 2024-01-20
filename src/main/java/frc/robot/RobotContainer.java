@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -65,7 +64,7 @@ public class RobotContainer {
 
     driverJoystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
     driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
-    driverJoystick.rightBumper().onTrue(drivetrain.applyRequest(() -> driveFacingAngle.withTargetDirection(new Rotation2d().fromDegrees(60))
+    driverJoystick.rightBumper().onTrue(drivetrain.applyRequest(() -> driveFacingAngle.withTargetDirection(Rotation2d.fromDegrees(60))
       .withVelocityX(Utilities.deadband(-driverJoystick.getLeftY(), driveDeadband) * (MaxSpeed/driveAdjustment)) // Drive forward with negative Y (forward)
       .withVelocityY(Utilities.deadband(-driverJoystick.getLeftX(), driveDeadband) * (MaxSpeed/driveAdjustment)) // Drive left with negative X (left)
       ).ignoringDisable(true));
