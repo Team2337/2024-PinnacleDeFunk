@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase {
 
     private ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
     private GenericEntry leftShooterVelocityFromDash = shooterTab
-        .add("LeftShooterVelocity", 0)
+        .add("ShooterVelocity", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("Min", -6000, "Max", 6000))
         .getEntry();
@@ -41,14 +41,18 @@ public class Shooter extends SubsystemBase {
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("Min", -6000, "Max", 6000))
         .getEntry();
-    private GenericEntry leftRightPercentDifferenceFromDash = shooterTab
-        .add("LeftRightPercentDifference", 0)
+    private GenericEntry percentDifferenceFromDash = shooterTab
+        .add("PercentDifference", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("Min", -100, "Max", 100))
         .getEntry();
 
     private GenericEntry leftDashNum = shooterTab.add("Left Shooter Speed", 0).getEntry();
     private GenericEntry rightDashNum = shooterTab.add("Right Shooter Speed", 0).getEntry();
+    private GenericEntry topLeftVelocity = shooterTab.add("Top Left Velocity", 0).getEntry();
+    private GenericEntry topRightVelocity = shooterTab.add("Top Right Velocity", 0).getEntry();
+    private GenericEntry bottomLeftVelocity = shooterTab.add("Bottom Left Velocity", 0).getEntry();
+    private GenericEntry bottomRightVelocity = shooterTab.add("Bottom Right Velocity", 0).getEntry();
     private double leftVelocityFromDash, rightVelocityFromDash = 0;
 
     public Shooter() {
@@ -222,6 +226,10 @@ public class Shooter extends SubsystemBase {
         }
         leftDashNum.setDouble(readLeftShooterVelocity());
         rightDashNum.setDouble(readRightShooterVelocity());
+        topLeftVelocity.setDouble(shooterMotorTopLeft.getVelocity().getValueAsDouble());
+        topRightVelocity.setDouble(shooterMotorTopRight.getVelocity().getValueAsDouble());
+        bottomLeftVelocity.setDouble(shooterMotorBottomLeft.getVelocity().getValueAsDouble());
+        bottomRightVelocity.setDouble(shooterMotorBottomRight.getVelocity().getValueAsDouble());
     }
 
     @Override
@@ -232,6 +240,6 @@ public class Shooter extends SubsystemBase {
         /*setLeftShooterVelocity(leftVelocityFromDash);
         rightVelocityFromDash = rightShooterVelocityFromDash.getDouble(0);
         setRightShooterVelocity(rightVelocityFromDash);*/
-        setTopBottomPrecentVelocity(leftRightPercentDifferenceFromDash.getDouble(0));
+        setLeftRightPrecentVelocity(percentDifferenceFromDash.getDouble(0));
     }
 }
