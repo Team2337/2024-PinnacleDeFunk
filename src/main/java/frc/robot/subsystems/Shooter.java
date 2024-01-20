@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
@@ -9,6 +11,10 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,6 +29,31 @@ public class Shooter extends SubsystemBase {
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, false, 0, 0, false, false, false);
     private final VelocityTorqueCurrentFOC torqueVelocity = new VelocityTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
     private final NeutralOut brake = new NeutralOut();
+
+    private ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
+    private GenericEntry leftShooterVelocityFromDash = shooterTab
+        .add("ShooterVelocity", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("Min", -6000, "Max", 6000))
+        .getEntry();
+    private GenericEntry rightShooterVelocityFromDash = shooterTab
+        .add("RightShooterVelocity", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("Min", -6000, "Max", 6000))
+        .getEntry();
+    private GenericEntry percentDifferenceFromDash = shooterTab
+        .add("PercentDifference", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("Min", -100, "Max", 100))
+        .getEntry();
+
+    private GenericEntry leftDashNum = shooterTab.add("Left Shooter Speed", 0).getEntry();
+    private GenericEntry rightDashNum = shooterTab.add("Right Shooter Speed", 0).getEntry();
+    private GenericEntry topLeftVelocity = shooterTab.add("Top Left Velocity", 0).getEntry();
+    private GenericEntry topRightVelocity = shooterTab.add("Top Right Velocity", 0).getEntry();
+    private GenericEntry bottomLeftVelocity = shooterTab.add("Bottom Left Velocity", 0).getEntry();
+    private GenericEntry bottomRightVelocity = shooterTab.add("Bottom Right Velocity", 0).getEntry();
+    private double leftVelocityFromDash, rightVelocityFromDash = 0;
 
     public Shooter() {
 
@@ -125,6 +156,16 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
     }
 
+    public void setTopShooterVelocity(double velocity) {
+        shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
+        shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
+    public void setBottomShooterVelocity(double velocity) {
+        shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
+        shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
     public void setTopShooterTorqueVelocity(double velocity) {
         shooterMotorTopLeft.setControl(torqueVelocity.withVelocity(velocity));
     }
@@ -155,6 +196,27 @@ public class Shooter extends SubsystemBase {
         shooterMotorTopRight.setControl(brake);
         shooterMotorBottomRight.setControl(brake);
     }
+
+    public double readLeftShooterVelocity() {
+        return leftVelocityFromDash;
+    }
+
+    public double readRightShooterVelocity() {
+        return rightVelocityFromDash;
+    }
+
+    public void setLeftRightPrecentVelocity(double percent) {
+        double velocity = readLeftShooterVelocity();
+        setLeftShooterVelocity(velocity);
+        setRightShooterVelocity((velocity*((100-percent)/100)));
+    }
+
+    public void setTopBottomPrecentVelocity(double percent) {
+        double velocity = readLeftShooterVelocity();
+        setTopShooterVelocity(velocity);
+        setBottomShooterVelocity((velocity*((100-percent)/100)));
+    }
+
     public void log() {
         if (Constants.DashboardLogging.SHOOTER) {
             SmartDashboard.putNumber("Shooter/Top Left Motor Temperature", getTopLeftMotorTemp());
@@ -162,13 +224,22 @@ public class Shooter extends SubsystemBase {
             SmartDashboard.putNumber("Shooter/Bottom Left Motor Temperature", getBottomLeftMotorTemp());
             SmartDashboard.putNumber("Shooter/Bottom Right Motor Temperature", getBottomRightMotorTemp());
         }
+        leftDashNum.setDouble(readLeftShooterVelocity());
+        rightDashNum.setDouble(readRightShooterVelocity());
+        topLeftVelocity.setDouble(shooterMotorTopLeft.getVelocity().getValueAsDouble());
+        topRightVelocity.setDouble(shooterMotorTopRight.getVelocity().getValueAsDouble());
+        bottomLeftVelocity.setDouble(shooterMotorBottomLeft.getVelocity().getValueAsDouble());
+        bottomRightVelocity.setDouble(shooterMotorBottomRight.getVelocity().getValueAsDouble());
     }
 
     @Override
     public void periodic() {
         super.periodic();
         log();
-        // shuffleBoardSpeed = SmartDashboard.getNumber("ShooterSpeed", 0);
-        // setShooterSpeed(shuffleBoardSpeed);
+        leftVelocityFromDash = leftShooterVelocityFromDash.getDouble(0);
+        /*setLeftShooterVelocity(leftVelocityFromDash);
+        rightVelocityFromDash = rightShooterVelocityFromDash.getDouble(0);
+        setRightShooterVelocity(rightVelocityFromDash);*/
+        setLeftRightPrecentVelocity(percentDifferenceFromDash.getDouble(0));
     }
 }
