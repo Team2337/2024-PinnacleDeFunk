@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import java.util.Map;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -26,7 +25,7 @@ public class Shooter extends SubsystemBase {
     private TalonFX shooterMotorTopRight = new TalonFX(41);
     private TalonFX shooterMotorBottomLeft = new TalonFX(42);
     private TalonFX shooterMotorBottomRight = new TalonFX(43);
-    private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, false, 0, 0, false, false, false);
+    private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private final VelocityTorqueCurrentFOC torqueVelocity = new VelocityTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
     private final NeutralOut brake = new NeutralOut();
 
@@ -36,23 +35,29 @@ public class Shooter extends SubsystemBase {
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("Min", -6000, "Max", 6000))
         .getEntry();
-    private GenericEntry rightShooterVelocityFromDash = shooterTab
-        .add("RightShooterVelocity", 0)
+    private GenericEntry upDownPercentDifferenceFromDash = shooterTab
+        .add("UpDownPercentDifference", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("Min", -6000, "Max", 6000))
+        .withProperties(Map.of("Min", -100, "Max", 100))
         .getEntry();
-    private GenericEntry percentDifferenceFromDash = shooterTab
-        .add("PercentDifference", 0)
+    private GenericEntry leftRightPercentDifferenceFromDash = shooterTab
+        .add("LeftRightPercentDifference", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("Min", -100, "Max", 100))
         .getEntry();
 
+    //Put data onto shooter tab
     private GenericEntry leftDashNum = shooterTab.add("Left Shooter Speed", 0).getEntry();
     private GenericEntry rightDashNum = shooterTab.add("Right Shooter Speed", 0).getEntry();
     private GenericEntry topLeftVelocity = shooterTab.add("Top Left Velocity", 0).getEntry();
     private GenericEntry topRightVelocity = shooterTab.add("Top Right Velocity", 0).getEntry();
     private GenericEntry bottomLeftVelocity = shooterTab.add("Bottom Left Velocity", 0).getEntry();
     private GenericEntry bottomRightVelocity = shooterTab.add("Bottom Right Velocity", 0).getEntry();
+    private GenericEntry topLeftTemp = shooterTab.add("Top Left Temp", 0).getEntry();
+    private GenericEntry topRightTemp = shooterTab.add("Top Right Temp", 0).getEntry();
+    private GenericEntry bottomLeftTemp = shooterTab.add("Bottom Left Temp", 0).getEntry();
+    private GenericEntry bottomRightTemp = shooterTab.add("Bottom Right Temp", 0).getEntry();
+
     private double leftVelocityFromDash, rightVelocityFromDash = 0;
 
     public Shooter() {
@@ -69,7 +74,7 @@ public class Shooter extends SubsystemBase {
         TalonFXConfiguration topLeftMotorConfig = new TalonFXConfiguration();
         topLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         topLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-        topLeftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        topLeftMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         topLeftMotorConfig.Slot0.kP = 0.11;
         topLeftMotorConfig.Slot0.kI = 0.5;
         topLeftMotorConfig.Slot0.kD = 0.0001;
@@ -87,7 +92,7 @@ public class Shooter extends SubsystemBase {
         TalonFXConfiguration topRightMotorConfig = new TalonFXConfiguration();
         topRightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         topRightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-        topRightMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        topRightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         topRightMotorConfig.Slot0.kP = 0.11;
         topRightMotorConfig.Slot0.kI = 0.5;
         topRightMotorConfig.Slot0.kD = 0.0001;
@@ -139,6 +144,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.getConfigurator().apply(bottomRightMotorConfig);
     }
 
+    //All motors the same
     public void setShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
@@ -146,6 +152,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
     }
 
+    //Left - Right
     public void setLeftShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
@@ -156,6 +163,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
     }
 
+    //Top - Bottom
     public void setTopShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
@@ -166,6 +174,24 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
     }
 
+    //Individual
+    public void setTopLeftShooterVelocity(double velocity) {
+        shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
+    public void setTopRightShooterVelocity(double velocity) {
+        shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
+    public void setBottomLeftShooterVelocity(double velocity) {
+        shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
+    public void setBottomRightShooterVelocity(double velocity) {
+        shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
+    //Torque Velocity methods
     public void setTopShooterTorqueVelocity(double velocity) {
         shooterMotorTopLeft.setControl(torqueVelocity.withVelocity(velocity));
     }
@@ -174,6 +200,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomLeft.setControl(torqueVelocity.withVelocity(velocity));
     }
 
+    //Get temps
     public double getTopLeftMotorTemp() {
         return shooterMotorTopLeft.getDeviceTemp().getValueAsDouble();
     }
@@ -190,6 +217,7 @@ public class Shooter extends SubsystemBase {
         return shooterMotorBottomRight.getDeviceTemp().getValueAsDouble();
     }
 
+    //Turn to brake mode
     public void setBrake() {
         shooterMotorTopLeft.setControl(brake);
         shooterMotorBottomLeft.setControl(brake);
@@ -197,6 +225,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.setControl(brake);
     }
 
+    //Read Velocity Values from dash
     public double readLeftShooterVelocity() {
         return leftVelocityFromDash;
     }
@@ -205,16 +234,28 @@ public class Shooter extends SubsystemBase {
         return rightVelocityFromDash;
     }
 
+    /*********Shooter Testing Commands*******/
+    //Change left right motor powers
     public void setLeftRightPrecentVelocity(double percent) {
         double velocity = readLeftShooterVelocity();
         setLeftShooterVelocity(velocity);
         setRightShooterVelocity((velocity*((100-percent)/100)));
     }
 
+    //Change up down motor powers
     public void setTopBottomPrecentVelocity(double percent) {
         double velocity = readLeftShooterVelocity();
         setTopShooterVelocity(velocity);
         setBottomShooterVelocity((velocity*((100-percent)/100)));
+    }
+
+    //Change both at the same time
+    public void setAllPercentVelocity(double upDownVelo, double leftRightVelo) {
+        double velocity = readLeftShooterVelocity();
+        setTopLeftShooterVelocity(velocity);
+        setTopRightShooterVelocity(velocity*((100-leftRightVelo)/100));
+        setBottomLeftShooterVelocity(velocity*((100-upDownVelo)/100));
+        setBottomRightShooterVelocity(velocity*(((100-upDownVelo)/100))*((100-leftRightVelo)/100));
     }
 
     public void log() {
@@ -226,10 +267,17 @@ public class Shooter extends SubsystemBase {
         }
         leftDashNum.setDouble(readLeftShooterVelocity());
         rightDashNum.setDouble(readRightShooterVelocity());
+        //Put Velocity Numbers Onto Shooter Tab
         topLeftVelocity.setDouble(shooterMotorTopLeft.getVelocity().getValueAsDouble());
         topRightVelocity.setDouble(shooterMotorTopRight.getVelocity().getValueAsDouble());
         bottomLeftVelocity.setDouble(shooterMotorBottomLeft.getVelocity().getValueAsDouble());
         bottomRightVelocity.setDouble(shooterMotorBottomRight.getVelocity().getValueAsDouble());
+        //Put Temp Numbers Onto Shooter Tab
+        topLeftTemp.setDouble(shooterMotorTopLeft.getDeviceTemp().getValueAsDouble());
+        topRightTemp.setDouble(shooterMotorTopRight.getDeviceTemp().getValueAsDouble());
+        bottomLeftTemp.setDouble(shooterMotorBottomLeft.getDeviceTemp().getValueAsDouble());
+        bottomRightTemp.setDouble(shooterMotorBottomRight.getDeviceTemp().getValueAsDouble());
+        
     }
 
     @Override
@@ -240,6 +288,10 @@ public class Shooter extends SubsystemBase {
         /*setLeftShooterVelocity(leftVelocityFromDash);
         rightVelocityFromDash = rightShooterVelocityFromDash.getDouble(0);
         setRightShooterVelocity(rightVelocityFromDash);*/
-        setLeftRightPrecentVelocity(percentDifferenceFromDash.getDouble(0));
+
+        //Different Options For Slider Tests
+        //setTopBottomPrecentVelocity(upDownPercentDifferenceFromDash.getDouble(0));
+        //setLeftRightPrecentVelocity(leftRightPercentDifferenceFromDash.getDouble(0));
+        setAllPercentVelocity(upDownPercentDifferenceFromDash.getDouble(0), leftRightPercentDifferenceFromDash.getDouble(0));
     }
 }
