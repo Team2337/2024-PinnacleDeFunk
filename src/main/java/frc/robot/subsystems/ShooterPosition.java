@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
@@ -9,7 +11,13 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 
@@ -30,6 +38,9 @@ public class ShooterPosition extends SubsystemBase {
   /* Keep a brake request so we can disable the motor */
   private final NeutralOut brake = new NeutralOut();
 
+  private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
+  private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -45,7 +56,7 @@ public class ShooterPosition extends SubsystemBase {
         positionMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         positionMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         
-        positionMotorConfig.Slot0.kP = 2.4; // An error of 0.5 rotations results in 1.2 volts output
+        positionMotorConfig.Slot0.kP = 24.0; // An error of 0.5 rotations results in 1.2 volts output
         positionMotorConfig.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
         // Peak output of 8 volts
         positionMotorConfig.Voltage.PeakForwardVoltage = 8;
@@ -81,9 +92,24 @@ public class ShooterPosition extends SubsystemBase {
     positionMotor.setControl(brake);
   }
 
+  public double getShooterPositionTemp() {
+    return positionMotor.getDeviceTemp().getValueAsDouble();
+  }
+
+  public double getShooterPositionPosition() {
+    return positionMotor.getPosition().getValueAsDouble();
+  }
+
+  public void log() {
+        if (Constants.DashboardLogging.SHOOTER) {
+            SmartDashboard.putNumber("Shooter/Shooter Position Motor Temperature", getShooterPositionTemp());
+        }
+        shooterPosition.setDouble(getShooterPositionPosition());
+    }
+
   @Override
   public void periodic() {
     super.periodic();
-
+      log();
   }
 }

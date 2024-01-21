@@ -87,7 +87,8 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(() -> shooterPosition::setShooterPosition(0.2));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(10), shooterPosition));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(0), shooterPosition));
   }
   public void setMaxSpeed(double speed) {
     driveAdjustment = speed;
