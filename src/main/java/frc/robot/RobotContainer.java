@@ -18,6 +18,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPosition;
 
 public class RobotContainer {
   private double MaxSpeed = 6; // 6 meters per second desired top speed
@@ -50,7 +51,9 @@ public class RobotContainer {
 
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
+  private final ShooterPosition shooterPosition = new ShooterPosition();
   private final Telemetry logger = new Telemetry(MaxSpeed);
+  
 
   private void configureBindings() {
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
@@ -84,6 +87,7 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
+    operatorJoystick.b().onTrue(() -> shooterPosition::setShooterPosition(0.2));
   }
   public void setMaxSpeed(double speed) {
     driveAdjustment = speed;
