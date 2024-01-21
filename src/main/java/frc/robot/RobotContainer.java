@@ -11,11 +11,13 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.generated.TunerConstants;
 import frc.robot.nerdyfiles.utilities.Utilities;
+import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
@@ -49,6 +51,7 @@ public class RobotContainer {
   /* Path follower */
   private Command runAuto = drivetrain.getAutoPath("Tests");
 
+  private final Delivery delivery = new Delivery();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
@@ -88,7 +91,8 @@ public class RobotContainer {
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
     operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(10), shooterPosition));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(0), shooterPosition));
+    // operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(0), shooterPosition));
+    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.1));
   }
   public void setMaxSpeed(double speed) {
     driveAdjustment = speed;
