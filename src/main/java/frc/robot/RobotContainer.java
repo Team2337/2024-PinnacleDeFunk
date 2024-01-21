@@ -91,7 +91,6 @@ public class RobotContainer {
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
     operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(10), shooterPosition));
-    // operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(0), shooterPosition));
     operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.1));
   }
   public void setMaxSpeed(double speed) {
