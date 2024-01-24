@@ -6,8 +6,13 @@ package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -18,13 +23,14 @@ import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.generated.TunerConstants;
 import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Delivery;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
 
 public class RobotContainer {
   private double MaxSpeed = 6; // 6 meters per second desired top speed
-  private double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity
+  private double MaxAngularRate = 0.4 * Math.PI; // 3/4 of a rotation per second max angular velocity @ 1.5
   private double driveAdjustment = 1;
   private double driveDeadband = 0.1;
   private double angularDeadband = 0.1;
@@ -34,7 +40,7 @@ public class RobotContainer {
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
 
-  public final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; 
+  public final Drivetrain drivetrain = TunerConstants.DriveTrain; 
 
   private final SwerveRequest.FieldCentric driveFieldCentric = new SwerveRequest.FieldCentric()
       .withRotationalDeadband(MaxAngularRate * angularDeadband) // Add a 10% deadband
@@ -49,13 +55,14 @@ public class RobotContainer {
 
 
   /* Path follower */
-  private Command runAuto = drivetrain.getAutoPath("Tests");
+  //private Command runAuto = drivetrain.getAutoPath("DifferentAuto");
 
   private final Delivery delivery = new Delivery();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
   private final Telemetry logger = new Telemetry(MaxSpeed);
+  private final SendableChooser<Command> autonChooser;
   
 
   private void configureBindings() {
@@ -98,12 +105,20 @@ public class RobotContainer {
   }
 
   public RobotContainer() {
-
+    
+    NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1));
+    NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0));
+    NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 5));
+    NamedCommands.registerCommand("StopShooter", new SetMotorVelocity(shooter, 0));
+    autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
+    SmartDashboard.putData("Auto Chooser", autonChooser);
   }
 
   public Command getAutonomousCommand() {
     /* First put the drivetrain into auto run mode, then run the auto */
-    return runAuto;
+    return autonChooser.getSelected();
   }
+
+
 }
