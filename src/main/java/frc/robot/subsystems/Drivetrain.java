@@ -34,6 +34,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
     private Field2d field = new Field2d();
+    public double rotationAngle = 0;
+    public boolean driveAtAngle, endGame, lockdownEnabled = false;
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -43,7 +45,6 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        SmartDashboard.putData("Field",field);
     }
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
@@ -51,7 +52,6 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        SmartDashboard.putData("Field",field);
     }
 
     public Pose2d modifyPose() {
@@ -113,9 +113,40 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
 
     @Override
     public void periodic() {
-        field.setRobotPose(modifyPose()); //this.getState().Pose
+        //field.setRobotPose(this.getState().Pose); 
         PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
-        field.getObject("target pose").setPose(pose);
+        //field.getObject("target pose").setPose(pose);
+        field.setRobotPose(pose);
       });
+      SmartDashboard.putBoolean("Drive At Angle", driveAtAngle);
+      SmartDashboard.putBoolean("End Game", endGame);
+      SmartDashboard.putBoolean("Lockdown Enabled", lockdownEnabled);
+      SmartDashboard.putNumber("Rotation Angle", rotationAngle);
+      SmartDashboard.putData("Field", field);
+    }
+
+    public void setRotationAngle(double angle) {
+        rotationAngle = angle;
+    }
+
+    public void setToDriveAtAngle() {
+        if (driveAtAngle) {
+            driveAtAngle = false;
+            rotationAngle = 0;
+        } else {
+            driveAtAngle = true;
+        }
+    }
+
+    public void setEndGame(boolean end) {
+        endGame = end;
+    }
+
+    public void enableLockdown() {
+        if (lockdownEnabled) {
+            lockdownEnabled = false;
+        } else {
+            lockdownEnabled = true;
+        }
     }
 }

@@ -20,7 +20,9 @@ import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
+import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.generated.TunerConstants;
+import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
@@ -34,19 +36,12 @@ public class RobotContainer {
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
+  private final NerdyOperatorStation operatorStation = new NerdyOperatorStation(2);
 
   public final Drivetrain drivetrain = TunerConstants.DriveTrain; 
-
-  private final SwerveRequest.FieldCentric driveFieldCentric = new SwerveRequest.FieldCentric()
-      .withRotationalDeadband(MaxAngularRate * angularDeadband) // Add a 10% deadband
-      .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric
-                                                               // driving in open loop
-  private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   private final SwerveRequest.RobotCentric forwardStraight = new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
-  private final SwerveRequest.FieldCentricFacingAngle driveFacingAngle = new SwerveRequest.FieldCentricFacingAngle()
-    .withRotationalDeadband(MaxAngularRate * angularDeadband) // Add a 10% deadband
-    .withDriveRequestType(DriveRequestType.OpenLoopVoltage); 
+  
 
 
   /* Path follower */
@@ -59,34 +54,29 @@ public class RobotContainer {
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final SendableChooser<Command> autonChooser;
   
-
+  
   private void configureBindings() {
+    drivetrain.registerTelemetry(logger::telemeterize);
+    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick)); // Drivetrain will execute this command periodically
+    
+    
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
-    
-    drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-    
-        drivetrain.applyRequest(() -> driveFieldCentric.withVelocityX(Utilities.deadband(-driverJoystick.getLeftY(), driveDeadband) * (MaxSpeed/driveAdjustment)) // Drive forward with negative Y (forward)
-            .withVelocityY(Utilities.deadband(-driverJoystick.getLeftX(), driveDeadband) * (MaxSpeed/driveAdjustment)) // Drive left with negative X (left)
-            .withRotationalRate(driverJoystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
-        ).ignoringDisable(true));
-
-    driverJoystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
     driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
-    driverJoystick.rightBumper().onTrue(drivetrain.applyRequest(() -> driveFacingAngle.withTargetDirection(Rotation2d.fromDegrees(60))
-      .withVelocityX(Utilities.deadband(-driverJoystick.getLeftY(), driveDeadband) * (MaxSpeed/driveAdjustment)) // Drive forward with negative Y (forward)
-      .withVelocityY(Utilities.deadband(-driverJoystick.getLeftX(), driveDeadband) * (MaxSpeed/driveAdjustment)) // Drive left with negative X (left)
-      ).ignoringDisable(true));
-
     // reset the field-centric heading on left bumper press
     driverJoystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
+    driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
+    driverJoystick.povRight().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(-90)));
+    driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
+    driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
+    driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+    driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
+    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
+    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
 
     // if (Utils.isSimulation()) {
     //   drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
     // }
-    drivetrain.registerTelemetry(logger::telemeterize);
 
-    driverJoystick.pov(0).whileTrue(drivetrain.applyRequest(() -> forwardStraight.withVelocityX(0.5).withVelocityY(0)));
-    driverJoystick.pov(180).whileTrue(drivetrain.applyRequest(() -> forwardStraight.withVelocityX(-0.5).withVelocityY(0)));
     //*************Operator Control ******************/
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
@@ -94,9 +84,13 @@ public class RobotContainer {
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
     operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(10), shooterPosition));
     operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.1));
+    //*************Operator Station *****************/
+    // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
+    // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+
   }
   public void setMaxSpeed(double speed) {
-    driveAdjustment = speed;
+    Constants.Swerve.driveAdjustment = speed;
   }
 
   public RobotContainer() {
