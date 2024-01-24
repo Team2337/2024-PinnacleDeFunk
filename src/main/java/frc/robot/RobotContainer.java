@@ -29,12 +29,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
 
 public class RobotContainer {
-  private double MaxSpeed = 6; // 6 meters per second desired top speed
-  private double MaxAngularRate = 0.4 * Math.PI; // 3/4 of a rotation per second max angular velocity @ 1.5
-  private double driveAdjustment = 1;
-  private double driveDeadband = 0.1;
-  private double angularDeadband = 0.1;
-  private double driveScale = 5;
+  
 
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
@@ -61,12 +56,12 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
-  private final Telemetry logger = new Telemetry(MaxSpeed);
+  private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final SendableChooser<Command> autonChooser;
   
 
   private void configureBindings() {
-    driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
+    driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
     
