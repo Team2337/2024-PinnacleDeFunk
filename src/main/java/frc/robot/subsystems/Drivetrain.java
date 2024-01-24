@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.generated.TunerConstants;
 
 /**
@@ -34,6 +35,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
     private Field2d field = new Field2d();
+    public double rotationAngle = 0;
+    public boolean driveAtAngle, endGame, lockdownEnabled = false;
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -43,7 +46,6 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        SmartDashboard.putData("Field",field);
     }
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
@@ -51,7 +53,6 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
-        SmartDashboard.putData("Field",field);
     }
 
     public Pose2d modifyPose() {
@@ -109,13 +110,66 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         });
         m_simNotifier.startPeriodic(kSimLoopPeriod);
     }
+
+    /**
+     * Sets the rotation angle for use with Field Centric Facing Angle
+     * @param angle
+     */
+     public void setRotationAngle(double angle) {
+        rotationAngle = angle;
+    }
+
+    /**
+     * Sets drive at angle to true or false based on a button press to turn on or off field centric facing angle
+     */
+    public void setToDriveAtAngle() {
+        if (driveAtAngle) {
+            driveAtAngle = false;
+            rotationAngle = 0;
+        } else {
+            driveAtAngle = true;
+        }
+    }
+
+    /**
+     * Sets boolean to indicate we are in endgame from the operator station
+     * @param end
+     */
+    public void setEndGame(boolean end) {
+        endGame = end;
+    }
+
+    /**
+     * Sets a boolean to indicate whether lockdown is enabled for use with swerve drive command
+     */
+    public void enableLockdown() {
+        if (lockdownEnabled) {
+            lockdownEnabled = false;
+        } else {
+            lockdownEnabled = true;
+        }
+    }
     
 
     @Override
     public void periodic() {
-        field.setRobotPose(modifyPose()); //this.getState().Pose
+        //field.setRobotPose(this.getState().Pose); 
         PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
-        field.getObject("target pose").setPose(pose);
+        //field.getObject("target pose").setPose(pose);
+        field.setRobotPose(pose);
       });
+      log();
     }
+
+    public void log() {
+        if (Constants.DashboardLogging.SWERVE) {
+            SmartDashboard.putBoolean("Drive At Angle", driveAtAngle);
+            SmartDashboard.putNumber("Rotation Angle", rotationAngle);
+            SmartDashboard.putData("Field", field);
+        }
+        SmartDashboard.putBoolean("Lockdown Enabled", lockdownEnabled);
+        SmartDashboard.putBoolean("End Game", endGame);
+    }
+
+   
 }
