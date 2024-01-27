@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import java.util.Map;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -22,6 +23,8 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 public class Climber extends SubsystemBase{
     private TalonFX climbMotorLeft = new TalonFX(60);
     private TalonFX climbMotorRight = new TalonFX(61); 
+    private double position;
+    private PositionVoltage positionRequest = new PositionVoltage(0).withSlot(0);
 
     private ShuffleboardTab climberTab = Shuffleboard.getTab("Climber");
     private GenericEntry leftClimbVelocityFromDash = climberTab
@@ -42,23 +45,30 @@ public class Climber extends SubsystemBase{
         .withProperties(Map.of("Min", -1, "Max", 1))
         .getEntry();
 
+    private GenericEntry climbPositionFromDash = climberTab
+        .add("Climber Position", 0) 
+        .withWidget(BuiltInWidgets.kTextView)
+       // .withProperties(Map.of("Min", -1, "Max", 1))
+        .getEntry();
+
+    
     public Climber() {
         var setClimbMotorLeftToDefault = new TalonFXConfiguration();
         climbMotorLeft.getConfigurator().apply(setClimbMotorLeftToDefault);
         
         var setClimbMotorRightToDefault = new TalonFXConfiguration();
-        climbMotorLeft.getConfigurator().apply(setClimbMotorRightToDefault);
+        climbMotorRight.getConfigurator().apply(setClimbMotorRightToDefault);
 
         TalonFXConfiguration leftMotorConfig = new TalonFXConfiguration();
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        leftMotorConfig.Slot0.kP = 0.11;
-        leftMotorConfig.Slot0.kI = 0.5;
+        leftMotorConfig.Slot0.kP = 10;
+        leftMotorConfig.Slot0.kI = 0.0;
         leftMotorConfig.Slot0.kD = 0.0001;
-        leftMotorConfig.Slot0.kV = 0.12;
-        leftMotorConfig.Voltage.PeakForwardVoltage = 12;
-        leftMotorConfig.Voltage.PeakReverseVoltage = -12;
+        //leftMotorConfig.Slot0.kV = 0.12;
+        leftMotorConfig.Voltage.PeakForwardVoltage = 8;
+        leftMotorConfig.Voltage.PeakReverseVoltage = -8;
         leftMotorConfig.Slot1.kP = 0.5;
         leftMotorConfig.Slot1.kI = 0.1;
         leftMotorConfig.Slot1.kD = 0.001;
@@ -72,12 +82,12 @@ public class Climber extends SubsystemBase{
         rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        rightMotorConfig.Slot0.kP = 0.11;
-        rightMotorConfig.Slot0.kI = 0.5;
+        rightMotorConfig.Slot0.kP = 10;
+        rightMotorConfig.Slot0.kI = 0.0;
         rightMotorConfig.Slot0.kD = 0.0001;
-        rightMotorConfig.Slot0.kV = 0.12;
-        rightMotorConfig.Voltage.PeakForwardVoltage = 12;
-        rightMotorConfig.Voltage.PeakReverseVoltage = -12;
+        //rightMotorConfig.Slot0.kV = 0.12;
+        rightMotorConfig.Voltage.PeakForwardVoltage = 8;
+        rightMotorConfig.Voltage.PeakReverseVoltage = -8;
         rightMotorConfig.Slot1.kP = 0.5;
         rightMotorConfig.Slot1.kI = 0.1;
         rightMotorConfig.Slot1.kD = 0.001;
@@ -86,13 +96,20 @@ public class Climber extends SubsystemBase{
         
         climbMotorRight.setSafetyEnabled(false); 
         climbMotorRight.getConfigurator().apply(rightMotorConfig);
-        setupShuffleboard(true);
+        setupShuffleboard(false);
 
     }
 
     // Set Climber Position
-    public void setClimberPosition(double Position) {
+    public void setClimberPosition(double position) {
+        this.position = position;
+        climbMotorLeft.setControl(positionRequest.withPosition(position));
+        climbMotorRight.setControl(positionRequest.withPosition(position));
         
+    }
+
+    public double getClimberPosition() {
+        return climbMotorLeft.getPosition().getValueAsDouble();
     }
 
     public void setClimbSpeed(double speed) {
@@ -141,6 +158,7 @@ public class Climber extends SubsystemBase{
             .withPosition(4, 0);
             widget.addNumber("Left Motor Temp", this::getClimbLeftTemp);
             widget.addNumber("Right Motor Temp", this::getClimbRightTemp);
+            //widget.addNumber("Climber Position", this::getClimberPosition);
         }
     }
 
@@ -151,10 +169,11 @@ public class Climber extends SubsystemBase{
     public void periodic() {
         super.periodic();
         log();        
-        
+        SmartDashboard.putNumber("Climber Position", getClimberPosition());
+        //setClimberPosition(climbPositionFromDash.getDouble(0));
         // setRightClimbSpeed(rightClimbVelocityFromDash.getDouble(0));
         // setLeftClimbSpeed(leftClimbVelocityFromDash.getDouble(0));
-        setClimbSpeed(climbVelocityFromDash.getDouble(0));
+     //   setClimbSpeed(climbVelocityFromDash.getDouble(0));
     }
 
    /*  public Command setClimbSpeedLocal() {

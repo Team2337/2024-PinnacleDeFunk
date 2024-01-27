@@ -85,8 +85,10 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(10), shooterPosition));
-    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.1));
+    //operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(5.0), shooterPosition));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberPosition(0)));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(100)));
+    // operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.1));
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
