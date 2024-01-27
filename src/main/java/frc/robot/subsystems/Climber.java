@@ -27,19 +27,25 @@ public class Climber extends SubsystemBase{
     private GenericEntry leftClimbVelocityFromDash = climberTab
         .add("Left Climber Velocity", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("Min", -5, "Max", 5))
+        .withProperties(Map.of("Min", -1, "Max", 1))
         .getEntry();
 
     private GenericEntry rightClimbVelocityFromDash = climberTab
         .add("Right Climber Velocity", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
-        .withProperties(Map.of("Min", -5, "Max", 5))
+        .withProperties(Map.of("Min", -1, "Max", 1))
+        .getEntry();
+
+    private GenericEntry climbVelocityFromDash = climberTab
+        .add("Climber Velocity", 0) 
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("Min", -1, "Max", 1))
         .getEntry();
 
     public Climber() {
         var setClimbMotorLeftToDefault = new TalonFXConfiguration();
         climbMotorLeft.getConfigurator().apply(setClimbMotorLeftToDefault);
-
+        
         var setClimbMotorRightToDefault = new TalonFXConfiguration();
         climbMotorLeft.getConfigurator().apply(setClimbMotorRightToDefault);
 
@@ -47,15 +53,46 @@ public class Climber extends SubsystemBase{
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        leftMotorConfig.Slot0.kP = 0.11;
+        leftMotorConfig.Slot0.kI = 0.5;
+        leftMotorConfig.Slot0.kD = 0.0001;
+        leftMotorConfig.Slot0.kV = 0.12;
+        leftMotorConfig.Voltage.PeakForwardVoltage = 12;
+        leftMotorConfig.Voltage.PeakReverseVoltage = -12;
+        leftMotorConfig.Slot1.kP = 0.5;
+        leftMotorConfig.Slot1.kI = 0.1;
+        leftMotorConfig.Slot1.kD = 0.001;
+        leftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
+        leftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        
+        climbMotorLeft.setSafetyEnabled(false); 
         climbMotorLeft.getConfigurator().apply(leftMotorConfig);
-        climbMotorRight.setSafetyEnabled(false);
 
         TalonFXConfiguration rightMotorConfig= new TalonFXConfiguration();
         rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        rightMotorConfig.Slot0.kP = 0.11;
+        rightMotorConfig.Slot0.kI = 0.5;
+        rightMotorConfig.Slot0.kD = 0.0001;
+        rightMotorConfig.Slot0.kV = 0.12;
+        rightMotorConfig.Voltage.PeakForwardVoltage = 12;
+        rightMotorConfig.Voltage.PeakReverseVoltage = -12;
+        rightMotorConfig.Slot1.kP = 0.5;
+        rightMotorConfig.Slot1.kI = 0.1;
+        rightMotorConfig.Slot1.kD = 0.001;
+        rightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
+        rightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        
+        climbMotorRight.setSafetyEnabled(false); 
         climbMotorRight.getConfigurator().apply(rightMotorConfig);
-        climbMotorRight.setSafetyEnabled(false);
+        setupShuffleboard(true);
+
+    }
+
+    // Set Climber Position
+    public void setClimberPosition(double Position) {
+        
     }
 
     public void setClimbSpeed(double speed) {
@@ -97,15 +134,15 @@ public class Climber extends SubsystemBase{
         }
     }
 
-    // private void setupShuffleboard(boolean logEnable) {
-    //     if (logEnable) {
-    //         ShuffleboardLayout widClimbTab.getLayout("Diagnositics", BuiltInLayouts.kList)
-    //         .withSize(2, 2)
-    //         .withPosition(4, 0);
-    //         widget.addNumber("Left Motor Temp", this::getIntakeLeftTemp);
-    //         widget.addNumber("Right Motor Temp", this::getIntakeRightTemp);
-    //     }
-    // }
+    private void setupShuffleboard(boolean logEnable) {
+        if (logEnable) {
+            ShuffleboardLayout widget =  climberTab.getLayout("Climber", BuiltInLayouts.kList)
+            .withSize(2, 2)
+            .withPosition(4, 0);
+            widget.addNumber("Left Motor Temp", this::getClimbLeftTemp);
+            widget.addNumber("Right Motor Temp", this::getClimbRightTemp);
+        }
+    }
 
     public void initialize() {
     }    
@@ -114,8 +151,10 @@ public class Climber extends SubsystemBase{
     public void periodic() {
         super.periodic();
         log();        
-        setRightClimbSpeed(rightClimbVelocityFromDash.getDouble(0));
-        setLeftClimbSpeed(leftClimbVelocityFromDash.getDouble(0));
+        
+        // setRightClimbSpeed(rightClimbVelocityFromDash.getDouble(0));
+        // setLeftClimbSpeed(leftClimbVelocityFromDash.getDouble(0));
+        setClimbSpeed(climbVelocityFromDash.getDouble(0));
     }
 
    /*  public Command setClimbSpeedLocal() {
