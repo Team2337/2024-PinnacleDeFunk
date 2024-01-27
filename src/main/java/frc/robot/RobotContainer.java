@@ -29,10 +29,10 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
+import frc.robot.subsystems.Vision;
 
 public class RobotContainer {
   
-
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
@@ -52,7 +52,10 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
+  private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
+
+  public String allianceColor = null;
   
   
   private void configureBindings() {

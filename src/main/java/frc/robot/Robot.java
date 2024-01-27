@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
 import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,11 +27,13 @@ public class Robot extends TimedRobot {
 
   private final boolean UseLimelight = false;
 
+
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
 
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
+    
   }
   @Override
   public void robotPeriodic() {
@@ -46,10 +52,23 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {}
-
+  public void disabledInit() {
+  }
+  
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    Optional<Alliance> ally = DriverStation.getAlliance();
+    if (ally.isPresent()) {
+        if (ally.get() == Alliance.Red) {
+            m_robotContainer.allianceColor = "red";
+        }
+        if (ally.get() == Alliance.Blue) {
+            m_robotContainer.allianceColor = "blue";
+        }
+    }
+    
+    SmartDashboard.putString("Alliance Color", m_robotContainer.allianceColor);
+  }
 
   @Override
   public void disabledExit() {}
