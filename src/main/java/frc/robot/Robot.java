@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.nerdyfiles.vision.LimelightHelpers;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Vision.LimelightColor;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -25,7 +27,7 @@ public class Robot extends TimedRobot {
   
   private final Pigeon2 pigeon = new Pigeon2(0);
 
-  private final boolean UseLimelight = false;
+  private final boolean UseLimelight = true;
 
 
   @Override
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
       if (lastResult.valid) {
         m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp());
       }
+      //SmartDashboard.putNumber("Robot Vision Pose", Vision.getVisionPoseY(LimelightColor.ORANGE))
     }
   }
 
