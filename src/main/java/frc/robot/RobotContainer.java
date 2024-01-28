@@ -32,6 +32,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
 import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Vision.LimelightColor;
 
 public class RobotContainer {
   
@@ -115,5 +116,8 @@ public class RobotContainer {
     return autonChooser.getSelected();
   }
 
+  public double getVisionLatency(LimelightColor color) {
+    return vision.getLatency(color);
+  }
 
 }

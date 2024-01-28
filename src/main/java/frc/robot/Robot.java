@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
   private final Pigeon2 pigeon = new Pigeon2(0);
 
   private final boolean UseLimelight = true;
+  private double visionCounter = 0;
 
 
   @Override
@@ -43,12 +44,15 @@ public class Robot extends TimedRobot {
     pigeon.getYaw();
     SmartDashboard.putNumber("Yaw", pigeon.getYaw().getValueAsDouble());
     if (UseLimelight) {    
-      var lastResult = LimelightHelpers.getLatestResults("limelight").targetingResults;
+      var lastResult = LimelightHelpers.getLatestResults("limelight-orange").targetingResults;
 
       Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
 
-      if (lastResult.valid) {
-        m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp());
+      if ((lastResult.valid) && (visionCounter > 10)) {
+        m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + m_robotContainer.getVisionLatency(LimelightColor.ORANGE) + 2) / 1000));
+        visionCounter = 0;
+      } else {
+        visionCounter++;
       }
       //SmartDashboard.putNumber("Robot Vision Pose", Vision.getVisionPoseY(LimelightColor.ORANGE))
     }
