@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   
   private final Pigeon2 pigeon = new Pigeon2(0);
 
-  private final boolean UseLimelight = true;
+  private final boolean UseLimelight = false;
   private double visionCounter = 0;
 
 
@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
+    m_robotContainer.drivetrain.setVisionMeasurementStdDevs(StdDevs,xyz);
     
   }
   @Override
