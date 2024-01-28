@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   
   private final Pigeon2 pigeon = new Pigeon2(0);
 
-  private final boolean UseLimelight = false;
+  private final boolean UseLimelight = true;
   private double visionCounter = 0;
 
 
@@ -36,7 +36,6 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
-    m_robotContainer.drivetrain.setVisionMeasurementStdDevs(StdDevs,xyz);
     
   }
   @Override
@@ -49,7 +48,7 @@ public class Robot extends TimedRobot {
 
       Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
 
-      if ((lastResult.valid) && (visionCounter > 10)) {
+      if ((lastResult.valid) && (visionCounter > 0)) {
         m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + m_robotContainer.getVisionLatency(LimelightColor.ORANGE) + 2) / 1000));
         visionCounter = 0;
       } else {
