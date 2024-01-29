@@ -8,7 +8,11 @@ import java.util.Optional;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -27,16 +31,27 @@ public class Robot extends TimedRobot {
   
   private final Pigeon2 pigeon = new Pigeon2(0);
 
-  private final boolean UseLimelight = true;
+  //TODO: Validate This
+  private final boolean UseLimelight = false;
   private double visionCounter = 0;
+  private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
 
 
   @Override
   public void robotInit() {
     m_robotContainer = new RobotContainer();
-
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
-    
+    /**
+   * Sets the value at the given indices.
+   *
+   * @param row The row of the element.
+   * @param col The column of the element.
+   * @param value The value to insert at the given location.
+   */
+    visionStdDevs.set(0,0,2); 
+    visionStdDevs.set(1,0,2);
+    visionStdDevs.set(2,0,Math.toRadians(90));
+    m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
   }
   @Override
   public void robotPeriodic() {
@@ -47,6 +62,7 @@ public class Robot extends TimedRobot {
       var lastResult = LimelightHelpers.getLatestResults("limelight-orange").targetingResults;
 
       Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
+      
 
       if ((lastResult.valid) && (visionCounter > 0)) {
         m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + m_robotContainer.getVisionLatency(LimelightColor.ORANGE) + 2) / 1000));
