@@ -23,6 +23,7 @@ import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.swerve.SwerveDriveCommand;
+import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.nerdyfiles.utilities.Utilities;
@@ -79,6 +80,8 @@ public class RobotContainer {
     
     driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+
+    driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     // if (Utils.isSimulation()) {
     //   drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));

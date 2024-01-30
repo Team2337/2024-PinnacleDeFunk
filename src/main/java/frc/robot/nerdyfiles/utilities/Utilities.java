@@ -125,4 +125,35 @@ public class Utilities {
   public static double q(short val) {
     return val * Math.pow(2, -14);
   }
+
+  /**
+   * Scales any input to -1 to 1 to mimic a joystick input
+   * @param input
+   * @param oldMax
+   * @param oldMin
+   * @return
+   */
+  public static double scaleVisionToOne(double input, double oldMax, double oldMin) {
+    double newMin = -1;
+    double newMax = 1;
+
+    return (((input - oldMin)*(newMax - newMin))/(oldMax - oldMin))+newMin;
+  }
+
+  /**
+   * Scales output from limelight to -1 to 1 to mimic a joystick input
+   * Limelight output is in range of -29.8 to 29.8 degrees
+   * @param input
+   * @param oldMax
+   * @param oldMin
+   * @return
+   */
+  public static double scaleVisionToOne(double input) {
+    double newMin = -1;
+    double newMax = 1;
+    double oldMin = -29.8;
+    double oldMax = 29.8;
+
+    return (((input - oldMin)*(newMax - newMin))/(oldMax - oldMin))+newMin;
+  }
 }
