@@ -11,6 +11,8 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,6 +23,7 @@ import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.swerve.SwerveDriveCommand;
+import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.nerdyfiles.utilities.Utilities;
@@ -29,10 +32,11 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Vision.LimelightColor;
 
 public class RobotContainer {
   
-
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
@@ -52,7 +56,10 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
+  private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
+
+  public String allianceColor = null;
   
   
   private void configureBindings() {
@@ -73,6 +80,8 @@ public class RobotContainer {
     
     driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+
+    driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     // if (Utils.isSimulation()) {
     //   drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
@@ -110,5 +119,8 @@ public class RobotContainer {
     return autonChooser.getSelected();
   }
 
+  public double getVisionLatency(LimelightColor color) {
+    return vision.getLatency(color);
+  }
 
 }

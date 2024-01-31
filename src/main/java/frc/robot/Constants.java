@@ -32,7 +32,7 @@ public final class Constants {
     public static final boolean PDH = false;
     public static final boolean SHOOTER = true;
     public static final boolean SWERVE = true;
-    public static final boolean VISION = false;
+    public static final boolean VISION = true;
   }
 
   // Driver dashboard

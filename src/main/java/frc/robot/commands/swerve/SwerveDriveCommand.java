@@ -5,6 +5,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -69,6 +70,7 @@ public class SwerveDriveCommand extends Command{
             swerveRequest = lockdown;
             // Otherwise, drive field centric
         } else {
+            SmartDashboard.putNumber("Joystick Rotation", rotation);
             swerveRequest = drive
                 .withVelocityX(forward)
                 .withVelocityY(strafe)
