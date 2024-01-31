@@ -21,7 +21,7 @@ public class VisionRotate extends Command{
     private SwerveRequest swerveRequest;
     private double forward, rotation, strafe = 0;
     private String limelightName;
-    private double kP = 0.25;
+    private double kP = 0.7;
 
     public VisionRotate(Drivetrain drivetrain, CommandXboxController driverJoystick, String limelightName) {
         this.drivetrain = drivetrain;
@@ -42,19 +42,22 @@ public class VisionRotate extends Command{
         forward = Utilities.deadband(-driverJoystick.getLeftY(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         strafe = Utilities.deadband(-driverJoystick.getLeftX(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         rotation = LimelightHelpers.getTX(limelightName);
-        //if(Math.abs(rotation) > 0) {
+        if(Math.abs(rotation) > 0) {
             rotation = Utilities.scaleVisionToOne(rotation);
             rotation = rotation * Constants.Swerve.MaxAngularRate;
-            rotation = -rotation * kP;
-        // } else {
-        //     rotation = 0;
-        // }
+            rotation = -rotation * kP; //Needs to be greater than 0.48 to turn
+            // if(Math.abs(rotation) < 0.48) {
+            //     rotation = Math.copySign(0.48,rotation);
+            // }
+         } else {
+             rotation = 0;
+         }
+        //rotation = 0.48;
         SmartDashboard.putNumber("Rotation", rotation);
-        //rotation = 0;
         swerveRequest = drive
-        .withVelocityX(forward)
-        .withVelocityY(strafe)
-        .withRotationalRate(rotation);
+            .withVelocityX(forward)
+            .withVelocityY(strafe)
+            .withRotationalRate(rotation);
         
         drivetrain.setControl(swerveRequest);
 
