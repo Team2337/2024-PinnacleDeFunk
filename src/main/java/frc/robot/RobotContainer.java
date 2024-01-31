@@ -25,6 +25,7 @@ import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
+import frc.robot.generated.TunerConstantsPractice;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Delivery;
@@ -42,7 +43,8 @@ public class RobotContainer {
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
   private final NerdyOperatorStation operatorStation = new NerdyOperatorStation(2);
 
-  public final Drivetrain drivetrain = TunerConstants.DriveTrain; 
+
+  public final Drivetrain drivetrain;// = TunerConstants.DriveTrain; 
   private final SwerveRequest.RobotCentric forwardStraight = new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   
@@ -104,7 +106,23 @@ public class RobotContainer {
   }
 
   public RobotContainer() {
+    RobotType.Type robotType = RobotType.getRobotType();
+    switch (robotType) {
+      case SKILLSBOT:
+        drivetrain = TunerConstants.DriveTrain;
+        break;
+      case PRACTICE:
+        drivetrain = TunerConstantsPractice.DriveTrain;
+        break;
+      case COMPETITION:
+      default:
+        drivetrain = TunerConstants.DriveTrain;
+
+       
+        break;
+    }
     
+
     NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1));
     NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 5));
