@@ -3,10 +3,12 @@ package frc.robot.subsystems;
 import java.util.Map;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -26,6 +28,7 @@ public class Intake extends SubsystemBase {
     private TalonFX intakeMotorRight = new TalonFX(21, "Upper");
     private DigitalInput intakeSensorTop = new DigitalInput(0);
     private DigitalInput intakeSensorBottom = new DigitalInput(1);
+    private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
     private GenericEntry shuffleboardSpeed = intakeTab 
         .add("IntakeSpeed", 0)
@@ -48,14 +51,26 @@ public class Intake extends SubsystemBase {
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        leftMotorConfig.Slot0.kP = 0.11;
+        leftMotorConfig.Slot0.kI = 0.5;
+        leftMotorConfig.Slot0.kD = 0.0001;
+        leftMotorConfig.Slot0.kV = 0.12;
+        leftMotorConfig.Voltage.PeakForwardVoltage = 8;
+        leftMotorConfig.Voltage.PeakReverseVoltage = -8;
         intakeMotorLeft.getConfigurator().apply(leftMotorConfig);
 
         TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
         rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        rightMotorConfig.Slot0.kP = 0.11;
+        rightMotorConfig.Slot0.kI = 0.5;
+        rightMotorConfig.Slot0.kD = 0.0001;
+        rightMotorConfig.Slot0.kV = 0.12;
+        rightMotorConfig.Voltage.PeakForwardVoltage = 8;
+        rightMotorConfig.Voltage.PeakReverseVoltage = -8;
         intakeMotorRight.getConfigurator().apply(rightMotorConfig);
-        intakeMotorLeft.setSafetyEnabled(false);
+        intakeMotorRight.setSafetyEnabled(false);
         setupShuffleboard(true);
 
     }
@@ -63,6 +78,12 @@ public class Intake extends SubsystemBase {
     public void setIntakeSpeed(double speed) {
         intakeMotorLeft.set(speed);
         intakeMotorRight.set(speed);
+    }
+
+    public void setIntakeVelocity(double velocity) {
+        intakeMotorLeft.setControl(velocityVoltage.withVelocity(velocity));
+        intakeMotorRight.setControl(velocityVoltage.withVelocity(-velocity));
+        SmartDashboard.putNumber("Name", velocity);
     }
 
     public void setLeftIntakeSpeed(double speed) {

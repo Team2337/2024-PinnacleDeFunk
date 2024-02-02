@@ -16,6 +16,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
@@ -43,6 +44,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
+    private double lastTime = Utils.getCurrentTimeSeconds();
+    private Pose2d m_lastPose = new Pose2d();
 
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
@@ -152,6 +155,19 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         } else {
             lockdownEnabled = true;
         }
+    }
+
+    public double iStillHateCTRE() {
+        double currentTime = Utils.getCurrentTimeSeconds();
+        double diffTime = currentTime - lastTime;
+        lastTime = currentTime;
+        Pose2d pose = this.getState().Pose;
+        Translation2d distanceDiff = pose.minus(m_lastPose).getTranslation();
+        m_lastPose = pose;
+
+        Translation2d velocities = distanceDiff.div(diffTime);
+
+        return velocities.getX();
     }
     
 
