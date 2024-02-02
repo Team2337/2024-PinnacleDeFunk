@@ -22,11 +22,10 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Intake extends SubsystemBase {
     
-    private TalonFX intakeMotorLeft = new TalonFX(20);
-    private TalonFX intakeMotorRight = new TalonFX(21);
+    private TalonFX intakeMotorLeft = new TalonFX(20, "Upper");
+    private TalonFX intakeMotorRight = new TalonFX(21, "Upper");
     private DigitalInput intakeSensorTop = new DigitalInput(0);
     private DigitalInput intakeSensorBottom = new DigitalInput(1);
-    private double intakeMotorSpeed = 0;
     private ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
     private GenericEntry shuffleboardSpeed = intakeTab 
         .add("IntakeSpeed", 0)
