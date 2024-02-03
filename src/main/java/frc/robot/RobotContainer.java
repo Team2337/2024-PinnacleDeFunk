@@ -135,6 +135,7 @@ public class RobotContainer {
   }
 
   public double getDrivetrainVelocityX() {
-    return drivetrain.drivetrainVelocityX;
+    //return drivetrain.drivetrainVelocityX;
+    return logger.getXVelocity();
   }
 }

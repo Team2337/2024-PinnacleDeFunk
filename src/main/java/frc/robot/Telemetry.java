@@ -8,7 +8,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.networktables.DoubleArrayPublisher;
 import edu.wpi.first.networktables.DoublePublisher;
-import edu.wpi.first.networktables.DoubleSubscriber;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StringPublisher;
@@ -114,11 +113,9 @@ public class Telemetry {
 
         SignalLogger.writeDoubleArray("odometry", new double[] {pose.getX(), pose.getY(), pose.getRotation().getDegrees()});
         SignalLogger.writeDouble("odom period", state.OdometryPeriod, "seconds");
-        SmartDashboard.putNumber("X Velocity", xVelocity);
     }
 
     public double getXVelocity() {
-        DoubleSubscriber velXDlx = driveStats.getDoubleTopic("Velocity X").subscribe(4);
-        return velXDlx.get();
+        return xVelocity;
     }
 }

@@ -81,9 +81,8 @@ public class Intake extends SubsystemBase {
     }
 
     public void setIntakeVelocity(double velocity) {
-        intakeMotorLeft.setControl(velocityVoltage.withVelocity(velocity));
-        intakeMotorRight.setControl(velocityVoltage.withVelocity(-velocity));
-        SmartDashboard.putNumber("Name", velocity);
+        intakeMotorLeft.setControl(velocityVoltage.withVelocity(-velocity));
+        intakeMotorRight.setControl(velocityVoltage.withVelocity(velocity));
     }
 
     public void setLeftIntakeSpeed(double speed) {

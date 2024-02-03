@@ -7,7 +7,6 @@ import frc.robot.subsystems.Intake;
 
 public class SetIntakeVelocity extends Command {
     private Intake intake;
-    private double velocity;
     private Supplier<Double> xVelocity;
 
     public SetIntakeVelocity(Intake intake, Supplier<Double> xVelocity) {
@@ -23,7 +22,7 @@ public class SetIntakeVelocity extends Command {
     
     @Override
     public void execute() {
-        intake.setIntakeVelocity(velocity);
+        intake.setIntakeVelocity(xVelocity.get() * 25);
     }
 
     @Override
