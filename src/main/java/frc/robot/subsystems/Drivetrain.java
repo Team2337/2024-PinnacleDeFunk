@@ -40,6 +40,9 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private Field2d field = new Field2d();
     public double rotationAngle = 0;
     public boolean driveAtAngle, endGame, lockdownEnabled = false;
+    public double drivetrainVelocityX = 0;
+    private Pose2d pose = new Pose2d(0,0,new Rotation2d(0));
+    private SwerveDriveState state = new SwerveDriveState(Constants.Swerve.MaxSpeed);
 
     private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
 
@@ -157,17 +160,17 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         }
     }
 
-    public double iStillHateCTRE() {
+    public void iStillHateCTRE() {
         double currentTime = Utils.getCurrentTimeSeconds();
         double diffTime = currentTime - lastTime;
         lastTime = currentTime;
-        Pose2d pose = this.getState().Pose;
+        pose = this.getState().Pose;
         Translation2d distanceDiff = pose.minus(m_lastPose).getTranslation();
         m_lastPose = pose;
 
         Translation2d velocities = distanceDiff.div(diffTime);
 
-        return velocities.getX();
+        drivetrainVelocityX = velocities.getX();
     }
     
 
@@ -178,6 +181,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //field.getObject("target pose").setPose(pose);
         field.setRobotPose(pose);
       });
+      iStillHateCTRE();
       log();
     }
 

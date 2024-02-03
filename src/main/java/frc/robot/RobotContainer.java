@@ -135,6 +135,6 @@ public class RobotContainer {
   }
 
   public double getDrivetrainVelocityX() {
-    return drivetrain.iStillHateCTRE();
+    return drivetrain.drivetrainVelocityX;
   }
 }
