@@ -1,7 +1,6 @@
 package frc.robot.nerdyfiles.utilities;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class CTREUtils {
 

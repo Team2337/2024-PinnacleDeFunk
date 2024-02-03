@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -33,7 +32,7 @@ public final class Constants {
     public static final boolean PDH = false;
     public static final boolean SHOOTER = true;
     public static final boolean SWERVE = true;
-    public static final boolean VISION = false;
+    public static final boolean VISION = true;
   }
 
   // Driver dashboard

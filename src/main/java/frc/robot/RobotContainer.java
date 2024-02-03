@@ -5,10 +5,8 @@
 package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.util.PathPlannerLogging;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -21,7 +19,9 @@ import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.swerve.SwerveDriveCommand;
+import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
+import frc.robot.generated.TunerConstantsPractice;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Climber;
@@ -30,17 +30,18 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Vision.LimelightColor;
 
 public class RobotContainer {
   
-
   /* Setting up bindings for necessary control of the swerve drive platform */
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
   private final NerdyOperatorStation operatorStation = new NerdyOperatorStation(2);
 
-  public final Drivetrain drivetrain = TunerConstants.DriveTrain; 
-  private final SwerveRequest.RobotCentric forwardStraight = new SwerveRequest.RobotCentric().withDriveRequestType(DriveRequestType.OpenLoopVoltage);
+
+  public final Drivetrain drivetrain;
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   
 
@@ -54,7 +55,10 @@ public class RobotContainer {
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
+  private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
+
+  public String allianceColor = null;
   
   
   private void configureBindings() {
@@ -63,26 +67,24 @@ public class RobotContainer {
     
     
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
-    driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
-    // reset the field-centric heading on left bumper press
-    driverJoystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
     driverJoystick.povRight().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(-90)));
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
-    driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
-    driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
     
     driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
-
-    // if (Utils.isSimulation()) {
-    //   drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
-    // }
+    driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
+    driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+    driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
+    
+    // reset the field-centric heading on left bumper press
+    driverJoystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
+    driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
+    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.5));
+    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.5));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
     operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.05)));
@@ -97,7 +99,23 @@ public class RobotContainer {
   }
 
   public RobotContainer() {
+    RobotType.Type robotType = RobotType.getRobotType();
+    switch (robotType) {
+      case SKILLSBOT:
+        drivetrain = TunerConstants.DriveTrain;
+        break;
+      case PRACTICE:
+        drivetrain = TunerConstantsPractice.DriveTrain;
+        break;
+      case COMPETITION:
+      default:
+        drivetrain = TunerConstants.DriveTrain;
+
+       
+        break;
+    }
     
+
     NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1));
     NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 5));
@@ -112,5 +130,8 @@ public class RobotContainer {
     return autonChooser.getSelected();
   }
 
+  public double getVisionLatency(LimelightColor color) {
+    return vision.getLatency(color);
+  }
 
 }
