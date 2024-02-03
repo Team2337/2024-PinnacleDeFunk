@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
@@ -49,7 +50,7 @@ public class RobotContainer {
   /* Path follower */
   //private Command runAuto = drivetrain.getAutoPath("DifferentAuto");
 
-  private final Climber climb = new Climber();
+  private final Climber climb = new Climber(operatorJoystick);
   private final Delivery delivery = new Delivery();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
@@ -87,8 +88,13 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.5));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.05)));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    operatorJoystick.b().whileTrue(new SetClimbSpeed(climb, operatorJoystick));
+    operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    // operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    // operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.disableOverride()));
+    operatorJoystick.a().onFalse(new InstantCommand(() -> climb.enableOverride()));
+
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));

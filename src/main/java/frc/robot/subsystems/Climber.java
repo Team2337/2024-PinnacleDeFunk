@@ -6,10 +6,13 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.units.Velocity;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
@@ -20,8 +23,16 @@ public class Climber extends PIDSubsystem {
     AnalogInput input = new AnalogInput(0);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
 
-    public Climber() {
+    CommandXboxController operatorJoystick;
+
+    double climberMaxSetPoint = 10;
+    double climberMinSetPoint = 1.6;
+
+    boolean climberOverride = true;
+
+    public Climber(CommandXboxController operatorJoystick) {
         super(new PIDController(0.1, 0.0, 0.0001));
+        this.operatorJoystick = operatorJoystick;
         getController().setTolerance(2.0);
         setSetpoint(pot.get());
         enable();
@@ -55,7 +66,22 @@ public class Climber extends PIDSubsystem {
     }
 
     public void setClimberSetpoint(double setPoint) {
-        this.setSetpoint(setPoint);
+        if (!climberOverride) {
+            if (setPoint < climberMinSetPoint) {
+                setPoint = climberMinSetPoint;
+            } else if (setPoint > climberMaxSetPoint) {
+                setPoint = climberMaxSetPoint;
+            }
+            this.setSetpoint(setPoint);
+        }
+    }
+
+    public void enablePID(boolean override) {
+        if (override) {
+            enable();
+        } else {
+            disable();
+        }
     }
     
     public void setClimbSpeed(double speed) {
@@ -76,6 +102,19 @@ public class Climber extends PIDSubsystem {
         return climbMotorRight.getDeviceTemp().getValueAsDouble();
     }
 
+    public void getSetSetPoint() {
+        setSetpoint(pot.get());
+    }
+
+    public void enableOverride() {
+       climberOverride = true;
+    }
+    public void disableOverride() {
+       climberOverride = false;
+    }
+    public Boolean getOverrideState() {
+        return climberOverride;
+    }
 
     public void log() {
         if (Constants.DashboardLogging.CLIMB) {
@@ -86,6 +125,7 @@ public class Climber extends PIDSubsystem {
             SmartDashboard.putBoolean("Climb at Set Point", getController().atSetpoint());
             
         }
+        SmartDashboard.putBoolean("Climber Override", climberOverride);
     }
 
     public void initialize() {
