@@ -79,8 +79,8 @@ public class Shooter extends SubsystemBase {
         topLeftMotorConfig.Slot0.kI = 0.5;
         topLeftMotorConfig.Slot0.kD = 0.0001;
         topLeftMotorConfig.Slot0.kV = 0.12;
-        topLeftMotorConfig.Voltage.PeakForwardVoltage = 8;
-        topLeftMotorConfig.Voltage.PeakReverseVoltage = -8;
+        topLeftMotorConfig.Voltage.PeakForwardVoltage = 12;
+        topLeftMotorConfig.Voltage.PeakReverseVoltage = -12;
         topLeftMotorConfig.Slot1.kP = 0.5;
         topLeftMotorConfig.Slot1.kI = 0.1;
         topLeftMotorConfig.Slot1.kD = 0.001;
@@ -97,8 +97,8 @@ public class Shooter extends SubsystemBase {
         topRightMotorConfig.Slot0.kI = 0.5;
         topRightMotorConfig.Slot0.kD = 0.0001;
         topRightMotorConfig.Slot0.kV = 0.12;
-        topRightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        topRightMotorConfig.Voltage.PeakReverseVoltage = -8;
+        topRightMotorConfig.Voltage.PeakForwardVoltage = 12;
+        topRightMotorConfig.Voltage.PeakReverseVoltage = -12;
         topRightMotorConfig.Slot1.kP = 0.5;
         topRightMotorConfig.Slot1.kI = 0.1;
         topRightMotorConfig.Slot1.kD = 0.001;
@@ -115,8 +115,8 @@ public class Shooter extends SubsystemBase {
         bottomLeftMotorConfig.Slot0.kI = 0.5;
         bottomLeftMotorConfig.Slot0.kD = 0.0001;
         bottomLeftMotorConfig.Slot0.kV = 0.12;
-        bottomLeftMotorConfig.Voltage.PeakForwardVoltage = 8;
-        bottomLeftMotorConfig.Voltage.PeakReverseVoltage = -8;
+        bottomLeftMotorConfig.Voltage.PeakForwardVoltage = 12;
+        bottomLeftMotorConfig.Voltage.PeakReverseVoltage = -12;
         bottomLeftMotorConfig.Slot1.kP = 0.5;
         bottomLeftMotorConfig.Slot1.kI = 0.1;
         bottomLeftMotorConfig.Slot1.kD = 0.001;
@@ -133,8 +133,8 @@ public class Shooter extends SubsystemBase {
         bottomRightMotorConfig.Slot0.kI = 0.5;
         bottomRightMotorConfig.Slot0.kD = 0.0001;
         bottomRightMotorConfig.Slot0.kV = 0.12;
-        bottomRightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        bottomRightMotorConfig.Voltage.PeakReverseVoltage = -8;
+        bottomRightMotorConfig.Voltage.PeakForwardVoltage = 12;
+        bottomRightMotorConfig.Voltage.PeakReverseVoltage = -12;
         bottomRightMotorConfig.Slot1.kP = 0.5;
         bottomRightMotorConfig.Slot1.kI = 0.1;
         bottomRightMotorConfig.Slot1.kD = 0.001;

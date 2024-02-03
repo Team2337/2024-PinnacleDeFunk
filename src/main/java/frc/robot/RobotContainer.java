@@ -23,6 +23,8 @@ import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.generated.TunerConstantsPractice;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
+import frc.robot.nerdyfiles.utilities.Utilities;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -47,6 +49,7 @@ public class RobotContainer {
   /* Path follower */
   //private Command runAuto = drivetrain.getAutoPath("DifferentAuto");
 
+  private final Climber climb = new Climber();
   private final Delivery delivery = new Delivery();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
@@ -84,12 +87,12 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.5));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(10), shooterPosition));
-    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.1));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.05)));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
-
+    
   }
   public void setMaxSpeed(double speed) {
     Constants.Swerve.driveAdjustment = speed;
