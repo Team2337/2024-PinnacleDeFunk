@@ -42,14 +42,14 @@ public class TunerConstantsPractice {
     // Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
     // This may need to be tuned to your individual robot
     private static final double kCoupleRatio = 3.5714285714285716;
-
-    private static final double kDriveGearRatio = 8.142857142857142;
+        //Increasing this makes the drive length longer
+    private static final double kDriveGearRatio = 8.5;//8.142857142857142;
     private static final double kSteerGearRatio = 12.8;
     private static final double kWheelRadiusInches = 2;
 
     private static final boolean kSteerMotorReversed = false;
-    private static final boolean kInvertLeftSide = false;
-    private static final boolean kInvertRightSide = true;
+    private static final boolean kInvertLeftSide = true;
+    private static final boolean kInvertRightSide = false;
 
     private static final String kCANbusName = "Upper";
     private static final int kPigeonId = 0;
@@ -91,8 +91,8 @@ public class TunerConstantsPractice {
     private static final int kFrontLeftEncoderId = 2;
     private static final double kFrontLeftEncoderOffset = 0.477783203125;
 
-    private static final double kFrontLeftXPosInches = 14.5;
-    private static final double kFrontLeftYPosInches = 14.5;
+    private static final double kFrontLeftXPosInches = 11.875;
+    private static final double kFrontLeftYPosInches = 11.875;
 
     // Front Right
     private static final int kFrontRightDriveMotorId = 18;
@@ -100,8 +100,8 @@ public class TunerConstantsPractice {
     private static final int kFrontRightEncoderId = 1;
     private static final double kFrontRightEncoderOffset = 0.255859375;
 
-    private static final double kFrontRightXPosInches = 14.5;
-    private static final double kFrontRightYPosInches = -14.5;
+    private static final double kFrontRightXPosInches = 11.875;
+    private static final double kFrontRightYPosInches = -11.875;
 
     // Back Left
     private static final int kBackLeftDriveMotorId = 8;
@@ -109,8 +109,8 @@ public class TunerConstantsPractice {
     private static final int kBackLeftEncoderId = 3;
     private static final double kBackLeftEncoderOffset = -0.36279296875;
 
-    private static final double kBackLeftXPosInches = -14.5;
-    private static final double kBackLeftYPosInches = 14.5;
+    private static final double kBackLeftXPosInches = -11.875;
+    private static final double kBackLeftYPosInches = 11.875;
 
     // Back Right
     private static final int kBackRightDriveMotorId = 10;
@@ -118,8 +118,8 @@ public class TunerConstantsPractice {
     private static final int kBackRightEncoderId = 4;
     private static final double kBackRightEncoderOffset = 0.00244140625;
 
-    private static final double kBackRightXPosInches = -14.5;
-    private static final double kBackRightYPosInches = -14.5;
+    private static final double kBackRightXPosInches = -11.875;
+    private static final double kBackRightYPosInches = -11.875;
 
 
     private static final SwerveModuleConstants FrontLeft = ConstantCreator.createModuleConstants(
