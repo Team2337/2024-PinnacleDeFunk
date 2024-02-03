@@ -22,8 +22,8 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Intake extends SubsystemBase {
     
-    private TalonFX intakeMotorLeft = new TalonFX(20); // 20
-    private TalonFX intakeMotorRight = new TalonFX(21); // 21
+    private TalonFX intakeMotorLeft = new TalonFX(20); 
+    private TalonFX intakeMotorRight = new TalonFX(21); 
     private DigitalInput intakeSensorTop = new DigitalInput(0);
     private DigitalInput intakeSensorBottom = new DigitalInput(1);
     private double intakeMotorSpeed = 0;
