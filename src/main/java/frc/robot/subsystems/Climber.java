@@ -8,6 +8,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
@@ -18,13 +20,17 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
-public class Climber extends SubsystemBase {
-    private TalonFX climbMotorLeft = new TalonFX(60);
-    private TalonFX climbMotorRight = new TalonFX(61);
+public class Climber extends PIDSubsystem {
+    private TalonFX climbMotorLeft = new TalonFX(54); 
+    private TalonFX climbMotorRight = new TalonFX(55); 
+    private final SimpleMotorFeedforward m_shooterFeedforward =
+      new SimpleMotorFeedforward(
+          0.1, 0.1);
     
     AnalogInput input = new AnalogInput(0);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 180, 30);
@@ -50,7 +56,7 @@ public class Climber extends SubsystemBase {
             .withWidget(BuiltInWidgets.kNumberSlider)
             .withProperties(Map.of("Min", -1, "Max", 1))
             .getEntry();
-
+    
     private GenericEntry climbPositionFromDash = climberTab
             .add("Climber Position", 0)
             .withWidget(BuiltInWidgets.kTextView)
@@ -58,14 +64,19 @@ public class Climber extends SubsystemBase {
             .getEntry();
 
     public Climber() {
-        input.setAverageBits(2);
+        super(new PIDController(0.1, 0.0, 0.0001));
+        getController().setTolerance(2.0);
+        setSetpoint(pot.get());
+        enable();
+
+        // input.setAverageBits(2);
 
         var setClimbMotorLeftToDefault = new TalonFXConfiguration();
         climbMotorLeft.getConfigurator().apply(setClimbMotorLeftToDefault);
 
         var setClimbMotorRightToDefault = new TalonFXConfiguration();
         climbMotorRight.getConfigurator().apply(setClimbMotorRightToDefault);
-
+        
         TalonFXConfiguration leftMotorConfig = new TalonFXConfiguration();
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -82,9 +93,19 @@ public class Climber extends SubsystemBase {
         leftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         leftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
 
+        // leftMotorConfig.DifferentialSensors.DifferentialRemoteSensorID = 0;
+        // leftMotorConfig.DifferentialSensors.DifferentialSensorSource.RemoteCANcoder
         climbMotorLeft.setSafetyEnabled(false);
         climbMotorLeft.getConfigurator().apply(leftMotorConfig);
+/* 
+         TalonFXConfiguration config = new TalonFXConfiguration();
+        config.sum0Term = FeedbackDevice.RemoteSensor0;
+        config.diff0Term = FeedbackDevice.RemoteSensor0;
+        config.remoteFilter0.remoteSensorSource = RemoteSensorSource.CANCoder;
+        config.remoteFilter0.remoteSensorDeviceID = cancoder.getDeviceID();
 
+        config.primaryPID.selectedFeedbackSensor = FeedbackDevice.RemoteSensor0;
+         */
         TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
         rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -100,10 +121,15 @@ public class Climber extends SubsystemBase {
         rightMotorConfig.Slot1.kD = 0.001;
         rightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         rightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
-
+        
         climbMotorRight.setSafetyEnabled(false);
         climbMotorRight.getConfigurator().apply(rightMotorConfig);
         setupShuffleboard(false);
+        
+    }
+
+    public void setClimberSetpoint(double position) {
+        this.setSetpoint(position);
     }
 
     // Set Climber Position
@@ -111,7 +137,6 @@ public class Climber extends SubsystemBase {
         this.position = position;
         climbMotorLeft.setControl(positionRequest.withPosition(position));
         climbMotorRight.setControl(positionRequest.withPosition(position));
-
     }
 
     public double getClimberLeftPosition() {
@@ -126,7 +151,7 @@ public class Climber extends SubsystemBase {
     public double getClimberPostition() {
         return pot.get();
     }
-
+    
     public void setClimbSpeed(double speed) {
         climbMotorLeft.set(speed);
         climbMotorRight.set(speed);
@@ -164,6 +189,9 @@ public class Climber extends SubsystemBase {
             SmartDashboard.putNumber("Climb/Left Motor Temperature", getClimbLeftTemp());
             SmartDashboard.putNumber("Climb/Right Motor Temperature", getClimbRightTemp());
             SmartDashboard.putNumber("Climb Position", pot.get());
+            SmartDashboard.putNumber("Climb Set Point", getSetpoint());
+            SmartDashboard.putBoolean("Climb at Set Point", getController().atSetpoint());
+            
         }
     }
 
@@ -178,26 +206,31 @@ public class Climber extends SubsystemBase {
     }
 
     public void initialize() {
+        setSetpoint(pot.get());
     }
 
     @Override
     public void periodic() {
         super.periodic();
         log();
-
-        // SmartDashboard.putNumber("Climber Left Position", getClimberLeftPosition());
-        // setClimberPosition(climbPositionFromDash.getDouble(0));
-        // setRightClimbSpeed(rightClimbVelocityFromDash.getDouble(0));
-        // setLeftClimbSpeed(leftClimbVelocityFromDash.getDouble(0));
-        // setClimbSpeed(climbVelocityFromDash.getDouble(0));
     }
 
-    /*
-     * public Command setClimbSpeedLocal() {
-     * return this.startEnd(
-     * () -> setClimbSpeed(0.1),
-     * () -> setClimbSpeed(0.0)
-     * );
-     * }
-     */
+    @Override
+    protected void useOutput(double output, double setpoint) {
+        if (output > 0.75) {
+            output  = 0.75;
+        } else if (output < -0.75) {
+            output = -0.75;
+        }
+        // climbMotorLeft.setVoltage(output + m_shooterFeedforward.calculate(setpoint));
+        climbMotorLeft.set(output);
+        SmartDashboard.putNumber("Climb Output", output);
+    }
+
+    @Override
+    protected double getMeasurement() {
+       return pot.get();
+    }
+
+   
 }
