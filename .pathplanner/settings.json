@@ -2,8 +2,15 @@
   "robotWidth": 0.75,
   "robotLength": 1.0,
   "holonomicMode": true,
-  "pathFolders": [],
-  "autoFolders": [],
+  "pathFolders": [
+    "ACB-CenterSpikesStraight",
+    "B-CenterSpikesStraight",
+    "Tests"
+  ],
+  "autoFolders": [
+    "Blue Autos",
+    "Testing Autos"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

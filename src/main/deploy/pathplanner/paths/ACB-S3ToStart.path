@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 2.9,
+        "y": 6.95
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.44990003490805314,
-        "y": 0.0
+        "x": 2.175417092232631,
+        "y": 6.362676077183453
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 0.0
+        "x": 1.29,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 3.4111891176083935,
-        "y": 0.0
+        "x": 1.9551216904875544,
+        "y": 6.1332017003656665
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 6.0,
+    "maxVelocity": 3.0,
     "maxAcceleration": 0.5,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxAngularVelocity": 270.0,
+    "maxAngularAcceleration": 90.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Tests",
+  "folder": "ACB-CenterSpikesStraight",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 25.5,
     "velocity": 0
   },
   "useDefaultConstraints": false

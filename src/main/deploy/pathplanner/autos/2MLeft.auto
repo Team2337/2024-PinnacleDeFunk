@@ -14,24 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "DriveForward2Meters"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "DriveBack2Meters"
+            "pathName": "2MetersLeft"
           }
         }
       ]
     }
   },
-  "folder": "Testing Autos",
+  "folder": null,
   "choreoAuto": false
 }
