@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.climber.SetClimbSpeed;
+import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
@@ -62,13 +63,11 @@ public class RobotContainer {
 
   public String allianceColor = null;
   
-  
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));
-    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
-    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> logger.getXVelocity()));
-    
+    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote()));    
+    delivery.setDefaultCommand(new DeliveryDefault(delivery));
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -87,8 +86,8 @@ public class RobotContainer {
     driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
+    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
+    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
     operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
@@ -127,8 +126,8 @@ public class RobotContainer {
     }
     
 
-    NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1));
-    NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0));
+    NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
+    NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0, () -> doWeHaveNote()));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 5));
     NamedCommands.registerCommand("StopShooter", new SetMotorVelocity(shooter, 0));
     autonChooser = AutoBuilder.buildAutoChooser();
@@ -148,5 +147,17 @@ public class RobotContainer {
   public double getDrivetrainVelocityX() {
     //return drivetrain.drivetrainVelocityX;
     return logger.getXVelocity();
+  }
+
+  public boolean isShooterAtTrap() {
+    return shooterPosition.shooterAtTrap;
+  }
+  
+  public boolean isShooterAtIntake() {
+    return shooterPosition.shooterAtIntake;
+  }
+
+  public boolean doWeHaveNote() {
+    return(intake.getIntakeSensor() || delivery.getDeliveryBottomSensor() || delivery.getDeliveryTopSensor() || delivery.getTrapSensor());
   }
 }

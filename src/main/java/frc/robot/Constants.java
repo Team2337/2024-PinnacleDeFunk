@@ -166,6 +166,14 @@ public final class Constants {
 
   }
 
+  public static class Delivery {
+    public static final double DELIVERY_SPEED = 0.2;
+  }
+
+  public static class Intake {
+    public static final double INTAKE_VELOCITY = 5;
+  }
+
   public static enum LEDState {
     Cone,
     Cube,

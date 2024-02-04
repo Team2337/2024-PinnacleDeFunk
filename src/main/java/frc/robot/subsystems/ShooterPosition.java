@@ -9,6 +9,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,6 +37,11 @@ public class ShooterPosition extends SubsystemBase {
 
   private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
   private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
+
+  public boolean shooterAtIntake, shooterAtTrap = false;
+
+  private DigitalInput tempShooterPosition = new DigitalInput(5);
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -101,11 +107,13 @@ public class ShooterPosition extends SubsystemBase {
             SmartDashboard.putNumber("Shooter/Shooter Position Motor Temperature", getShooterPositionTemp());
         }
         shooterPosition.setDouble(getShooterPositionPosition());
+        SmartDashboard.putBoolean("Temp Shooter Position Sensor", shooterAtIntake);
     }
 
   @Override
   public void periodic() {
     super.periodic();
       log();
+      shooterAtIntake = !tempShooterPosition.get();
   }
 }

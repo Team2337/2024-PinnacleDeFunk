@@ -8,7 +8,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -24,10 +23,10 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Intake extends SubsystemBase {
 
-    private TalonFX intakeMotorLeft = new TalonFX(20, "Upper");
-    private TalonFX intakeMotorRight = new TalonFX(21, "Upper");
-    private DigitalInput intakeSensorTop = new DigitalInput(0);
-    private DigitalInput intakeSensorBottom = new DigitalInput(1);
+    private TalonFX intakeMotorLeft = new TalonFX(20);
+    private TalonFX intakeMotorRight = new TalonFX(21);
+    private DigitalInput intakeSensor = new DigitalInput(0);
+    
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
     private GenericEntry shuffleboardSpeed = intakeTab 
@@ -55,8 +54,8 @@ public class Intake extends SubsystemBase {
         leftMotorConfig.Slot0.kI = 0.5;
         leftMotorConfig.Slot0.kD = 0.0001;
         leftMotorConfig.Slot0.kV = 0.12;
-        leftMotorConfig.Voltage.PeakForwardVoltage = 8;
-        leftMotorConfig.Voltage.PeakReverseVoltage = -8;
+        leftMotorConfig.Voltage.PeakForwardVoltage = 12;
+        leftMotorConfig.Voltage.PeakReverseVoltage = -12;
         intakeMotorLeft.getConfigurator().apply(leftMotorConfig);
 
         TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
@@ -67,8 +66,8 @@ public class Intake extends SubsystemBase {
         rightMotorConfig.Slot0.kI = 0.5;
         rightMotorConfig.Slot0.kD = 0.0001;
         rightMotorConfig.Slot0.kV = 0.12;
-        rightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        rightMotorConfig.Voltage.PeakReverseVoltage = -8;
+        rightMotorConfig.Voltage.PeakForwardVoltage = 12;
+        rightMotorConfig.Voltage.PeakReverseVoltage = -12;
         intakeMotorRight.getConfigurator().apply(rightMotorConfig);
         intakeMotorRight.setSafetyEnabled(false);
         setupShuffleboard(true);
@@ -81,6 +80,11 @@ public class Intake extends SubsystemBase {
     }
 
     public void setIntakeVelocity(double velocity) {
+        intakeMotorLeft.setControl(velocityVoltage.withVelocity(velocity));
+        intakeMotorRight.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
+    public void driveOverVelocity(double velocity) {
         intakeMotorLeft.setControl(velocityVoltage.withVelocity(-velocity));
         intakeMotorRight.setControl(velocityVoltage.withVelocity(velocity));
     }
@@ -110,13 +114,10 @@ public class Intake extends SubsystemBase {
         return (intakeMotorLeft.getDeviceTemp().getValueAsDouble() +  intakeMotorRight.getDeviceTemp().getValueAsDouble()) / 2;
     }
 
-    public boolean getIntakeTopSensor() {
-        return intakeSensorTop.get();
+    public boolean getIntakeSensor() {
+        return !intakeSensor.get();
     }
 
-    public boolean getIntakeBottomSensor() {
-        return intakeSensorBottom.get();
-    }
 
     private boolean isOverheated() {
         return isMotorOverheated(intakeMotorLeft) || isMotorOverheated(intakeMotorRight);
@@ -135,8 +136,7 @@ public class Intake extends SubsystemBase {
             SmartDashboard.putNumber("Intake/Left Motor Temperature", getIntakeLeftTemp());
             SmartDashboard.putNumber("Intake/Right Motor Temperature", getIntakeRightTemp());
         }
-        SmartDashboard.putBoolean("Intake/Top Sensor", getIntakeTopSensor());
-        SmartDashboard.putBoolean("Intake/Bottom Sensor", getIntakeBottomSensor());
+        SmartDashboard.putBoolean("Intake/Intake Sensor", getIntakeSensor());
         addDashNum.setDouble(intakeSpeedFromDash());
     }
 
