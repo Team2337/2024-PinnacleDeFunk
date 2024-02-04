@@ -9,6 +9,8 @@ import frc.robot.subsystems.Climber;
 public class SetClimbSpeed extends Command {
     private Climber climber;
     CommandXboxController operatorJoystick;
+    private double speed;
+    private double climberMaxJoystick = 0.2;
 
     public SetClimbSpeed(Climber climber, CommandXboxController operatorJoystick) {
         this.climber = climber;
@@ -18,16 +20,16 @@ public class SetClimbSpeed extends Command {
 
     @Override
     public void initialize() {
-    if (climber.getOverrideState()) {
         climber.enablePID(false);
-        }
     }
     
     @Override
     public void execute() {
-        if (climber.getOverrideState()) {
-                climber.setClimbSpeed(Utilities.deadband(operatorJoystick.getRightY(), 0.1));
-            }
+        speed = Utilities.deadband(operatorJoystick.getRightY(), 0.1);
+        if ( Math.abs(speed) > climberMaxJoystick) {
+            speed = Math.copySign(climberMaxJoystick, speed);
+        }
+        climber.setClimbSpeed(speed);
     }
 
     @Override
