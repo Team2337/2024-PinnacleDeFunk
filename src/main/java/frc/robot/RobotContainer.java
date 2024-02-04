@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
+import frc.robot.commands.elevator.SetElevatorSpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
@@ -30,6 +31,7 @@ import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
@@ -54,6 +56,7 @@ public class RobotContainer {
 
   private final Climber climb = new Climber(operatorJoystick);
   private final Delivery delivery = new Delivery();
+  private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
@@ -90,11 +93,16 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
-    operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
-    operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
+    // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    // operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    // operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> elevator.setElevatorSetpoint(2.06)));
+    operatorJoystick.b().onFalse(new InstantCommand(() -> elevator.getSetSetPoint()));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> elevator.setElevatorSetpoint(10)));
+    operatorJoystick.a().onFalse(new InstantCommand(() -> elevator.getSetSetPoint()));
     operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
+    operatorJoystick.back().whileTrue(new SetElevatorSpeed(elevator, () -> Utilities.deadband(operatorJoystick.getLeftY(), 0.1)));
 
     
     //*************Operator Station *****************/
