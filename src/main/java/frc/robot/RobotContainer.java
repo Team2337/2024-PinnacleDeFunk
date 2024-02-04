@@ -12,8 +12,11 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.climber.DisableClimberPID;
+import frc.robot.commands.climber.EnableClimberPID;
 import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetMotorSpeed;
@@ -66,13 +69,14 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick)); // Drivetrain will execute this command periodically
     
-    
+    climb.setDefaultCommand(new ConditionalCommand(new SetClimbSpeed(climb, operatorJoystick), new EnableClimberPID(climb), operatorJoystick.povUp()));
+ 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
     driverJoystick.povRight().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(-90)));
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
-    
+
     driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
@@ -88,12 +92,12 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.5));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().whileTrue(new SetClimbSpeed(climb, operatorJoystick));
-    operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
-    // operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
-    // operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.disableOverride()));
-    operatorJoystick.a().onFalse(new InstantCommand(() -> climb.enableOverride()));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.enablePID(false)));
+    operatorJoystick.b().onFalse(new InstantCommand(() -> climb.enablePID(true)));
+    //operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    //operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    operatorJoystick.a().onTrue(new SetClimbSpeed(climb, operatorJoystick));
+    operatorJoystick.a().onFalse(new EnableClimberPID(climb));
 
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
