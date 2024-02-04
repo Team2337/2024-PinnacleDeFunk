@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.delivery.SetDeliverySpeed;
+import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
@@ -63,9 +64,11 @@ public class RobotContainer {
   
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
-    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick)); // Drivetrain will execute this command periodically
+    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));
+    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
+    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> logger.getXVelocity()));
     
-    
+
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
     driverJoystick.povRight().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(-90)));
@@ -83,8 +86,8 @@ public class RobotContainer {
     driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.5));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.5));
+    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1));
+    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
     operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.05)));
@@ -134,4 +137,8 @@ public class RobotContainer {
     return vision.getLatency(color);
   }
 
+  public double getDrivetrainVelocityX() {
+    //return drivetrain.drivetrainVelocityX;
+    return logger.getXVelocity();
+  }
 }
