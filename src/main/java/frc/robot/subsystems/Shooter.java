@@ -29,6 +29,18 @@ public class Shooter extends SubsystemBase {
     private final VelocityTorqueCurrentFOC torqueVelocity = new VelocityTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
     private final NeutralOut brake = new NeutralOut();
 
+    private final double slot0kP = 0.11;
+    private final double slot0kI = 0.5;
+    private final double slot0kD = 0.0001;
+    private final double slot0kV = 0.12;
+    private final double PeakForwardVoltage = 12;
+    private final double PeakReverseVoltage = -12;
+    private final double Slot1kP = 0.5;
+    private final double Slot1kI = 0.1;
+    private final double Slot1kD = 0.001;
+    private final double PeakForwardTorqueCurrent = 40;
+    private final double PeakReverseTorqueCurrent = -40;
+
     private ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
     private GenericEntry leftShooterVelocityFromDash = shooterTab
         .add("ShooterVelocity", 0)
@@ -75,17 +87,17 @@ public class Shooter extends SubsystemBase {
         topLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         topLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         topLeftMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        topLeftMotorConfig.Slot0.kP = 0.11;
-        topLeftMotorConfig.Slot0.kI = 0.5;
-        topLeftMotorConfig.Slot0.kD = 0.0001;
-        topLeftMotorConfig.Slot0.kV = 0.12;
-        topLeftMotorConfig.Voltage.PeakForwardVoltage = 12;
-        topLeftMotorConfig.Voltage.PeakReverseVoltage = -12;
-        topLeftMotorConfig.Slot1.kP = 0.5;
-        topLeftMotorConfig.Slot1.kI = 0.1;
-        topLeftMotorConfig.Slot1.kD = 0.001;
-        topLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
-        topLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        topLeftMotorConfig.Slot0.kP = slot0kP;
+        topLeftMotorConfig.Slot0.kI = slot0kI;
+        topLeftMotorConfig.Slot0.kD = slot0kD;
+        topLeftMotorConfig.Slot0.kV = slot0kV;
+        topLeftMotorConfig.Voltage.PeakForwardVoltage = PeakForwardVoltage;
+        topLeftMotorConfig.Voltage.PeakReverseVoltage = PeakReverseVoltage;
+        topLeftMotorConfig.Slot1.kP = Slot1kP;
+        topLeftMotorConfig.Slot1.kI = Slot1kI;
+        topLeftMotorConfig.Slot1.kD = Slot1kD;
+        topLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = PeakForwardTorqueCurrent;
+        topLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = PeakReverseTorqueCurrent;
         
         shooterMotorTopLeft.getConfigurator().apply(topLeftMotorConfig);
         
@@ -93,17 +105,17 @@ public class Shooter extends SubsystemBase {
         topRightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         topRightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         topRightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        topRightMotorConfig.Slot0.kP = 0.11;
-        topRightMotorConfig.Slot0.kI = 0.5;
-        topRightMotorConfig.Slot0.kD = 0.0001;
-        topRightMotorConfig.Slot0.kV = 0.12;
-        topRightMotorConfig.Voltage.PeakForwardVoltage = 12;
-        topRightMotorConfig.Voltage.PeakReverseVoltage = -12;
-        topRightMotorConfig.Slot1.kP = 0.5;
-        topRightMotorConfig.Slot1.kI = 0.1;
-        topRightMotorConfig.Slot1.kD = 0.001;
-        topRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
-        topRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        topRightMotorConfig.Slot0.kP = slot0kP;
+        topRightMotorConfig.Slot0.kI = slot0kI;
+        topRightMotorConfig.Slot0.kD = slot0kD;
+        topRightMotorConfig.Slot0.kV = slot0kV;
+        topRightMotorConfig.Voltage.PeakForwardVoltage = PeakForwardVoltage;
+        topRightMotorConfig.Voltage.PeakReverseVoltage = PeakReverseVoltage;
+        topRightMotorConfig.Slot1.kP = Slot1kP;
+        topRightMotorConfig.Slot1.kI = Slot1kI;
+        topRightMotorConfig.Slot1.kD = Slot1kD;
+        topRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = PeakForwardTorqueCurrent;
+        topRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = PeakReverseTorqueCurrent;
         
         shooterMotorTopRight.getConfigurator().apply(topRightMotorConfig);
 
@@ -111,17 +123,17 @@ public class Shooter extends SubsystemBase {
         bottomLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         bottomLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         bottomLeftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        bottomLeftMotorConfig.Slot0.kP = 0.11;
-        bottomLeftMotorConfig.Slot0.kI = 0.5;
-        bottomLeftMotorConfig.Slot0.kD = 0.0001;
-        bottomLeftMotorConfig.Slot0.kV = 0.12;
-        bottomLeftMotorConfig.Voltage.PeakForwardVoltage = 12;
-        bottomLeftMotorConfig.Voltage.PeakReverseVoltage = -12;
-        bottomLeftMotorConfig.Slot1.kP = 0.5;
-        bottomLeftMotorConfig.Slot1.kI = 0.1;
-        bottomLeftMotorConfig.Slot1.kD = 0.001;
-        bottomLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
-        bottomLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        bottomLeftMotorConfig.Slot0.kP = slot0kP;
+        bottomLeftMotorConfig.Slot0.kI = slot0kI;
+        bottomLeftMotorConfig.Slot0.kD = slot0kD;
+        bottomLeftMotorConfig.Slot0.kV = slot0kV;
+        bottomLeftMotorConfig.Voltage.PeakForwardVoltage = PeakForwardVoltage;
+        bottomLeftMotorConfig.Voltage.PeakReverseVoltage = PeakReverseVoltage;
+        bottomLeftMotorConfig.Slot1.kP = Slot1kP;
+        bottomLeftMotorConfig.Slot1.kI = Slot1kI;
+        bottomLeftMotorConfig.Slot1.kD = Slot1kD;
+        bottomLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = PeakForwardTorqueCurrent;
+        bottomLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = PeakReverseTorqueCurrent;
         
         shooterMotorBottomLeft.getConfigurator().apply(bottomLeftMotorConfig);
 
@@ -129,17 +141,17 @@ public class Shooter extends SubsystemBase {
         bottomRightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         bottomRightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         bottomRightMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        bottomRightMotorConfig.Slot0.kP = 0.11;
-        bottomRightMotorConfig.Slot0.kI = 0.5;
-        bottomRightMotorConfig.Slot0.kD = 0.0001;
-        bottomRightMotorConfig.Slot0.kV = 0.12;
-        bottomRightMotorConfig.Voltage.PeakForwardVoltage = 12;
-        bottomRightMotorConfig.Voltage.PeakReverseVoltage = -12;
-        bottomRightMotorConfig.Slot1.kP = 0.5;
-        bottomRightMotorConfig.Slot1.kI = 0.1;
-        bottomRightMotorConfig.Slot1.kD = 0.001;
-        bottomRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
-        bottomRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        bottomRightMotorConfig.Slot0.kP = slot0kP;
+        bottomRightMotorConfig.Slot0.kI = slot0kI;
+        bottomRightMotorConfig.Slot0.kD = slot0kD;
+        bottomRightMotorConfig.Slot0.kV = slot0kV;
+        bottomRightMotorConfig.Voltage.PeakForwardVoltage = PeakForwardVoltage;
+        bottomRightMotorConfig.Voltage.PeakReverseVoltage = PeakReverseVoltage;
+        bottomRightMotorConfig.Slot1.kP = Slot1kP;
+        bottomRightMotorConfig.Slot1.kI = Slot1kI;
+        bottomRightMotorConfig.Slot1.kD = Slot1kD;
+        bottomRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = PeakForwardTorqueCurrent;
+        bottomRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = PeakReverseTorqueCurrent;
         
         shooterMotorBottomRight.getConfigurator().apply(bottomRightMotorConfig);
     }
