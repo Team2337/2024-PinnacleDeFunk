@@ -1,20 +1,20 @@
 package frc.robot.commands.climber;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.nerdyfiles.utilities.Utilities;
+import frc.robot.Constants;
 import frc.robot.subsystems.Climber;
 
 
 public class SetClimbSpeed extends Command {
     private Climber climber;
-    CommandXboxController operatorJoystick;
     private double speed;
-    private double climberMaxJoystick = 0.2;
+    Supplier<Double> operatorY;
 
-    public SetClimbSpeed(Climber climber, CommandXboxController operatorJoystick) {
+    public SetClimbSpeed(Climber climber, Supplier<Double> operatorY) {
         this.climber = climber;
-        this.operatorJoystick = operatorJoystick;
+        this.operatorY = operatorY;
         addRequirements(climber);
     }
 
@@ -25,9 +25,9 @@ public class SetClimbSpeed extends Command {
     
     @Override
     public void execute() {
-        speed = Utilities.deadband(operatorJoystick.getRightY(), 0.1);
-        if ( Math.abs(speed) > climberMaxJoystick) {
-            speed = Math.copySign(climberMaxJoystick, speed);
+        speed = operatorY.get();
+        if ( Math.abs(speed) > Constants.Climber.CLIMBER_MAX_JOYSTICK_SPEED) {
+            speed = Math.copySign(Constants.Climber.CLIMBER_MAX_JOYSTICK_SPEED, speed);
         }
         climber.setClimbSpeed(speed);
     }

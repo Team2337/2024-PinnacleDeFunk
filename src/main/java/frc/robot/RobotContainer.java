@@ -12,11 +12,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.climber.SetClimbSpeed;
-import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
@@ -41,7 +39,7 @@ public class RobotContainer {
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
   private final NerdyOperatorStation operatorStation = new NerdyOperatorStation(2);
-
+  private final CommandXboxController testJoystick = new CommandXboxController(5);
 
   public final Drivetrain drivetrain;
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
@@ -88,16 +86,20 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.5));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(1.6)));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
     operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
     operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
     operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
-    operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, operatorJoystick));
+    operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
+
+    
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     
-  }
+     //************* Test Joystick *****************/
+     // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    }
   public void setMaxSpeed(double speed) {
     Constants.Swerve.driveAdjustment = speed;
   }

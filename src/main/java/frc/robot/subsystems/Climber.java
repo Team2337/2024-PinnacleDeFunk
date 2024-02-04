@@ -123,10 +123,10 @@ public class Climber extends PIDSubsystem {
 
     @Override
     protected void useOutput(double output, double setpoint) {
-        if (output > 0.2) {
-            output  = 0.2;
-        } else if (output < -0.2) {
-            output = -0.2;
+        if (output > Constants.Climber.CLIMBER_MAX_PID_SPEED) {
+            output  = Constants.Climber.CLIMBER_MAX_PID_SPEED;
+        } else if (output < -Constants.Climber.CLIMBER_MAX_PID_SPEED) {
+            output = -Constants.Climber.CLIMBER_MAX_PID_SPEED;
         }
         setClimbSpeed(output);
         SmartDashboard.putNumber("Climb Output", output);
