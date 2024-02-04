@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
@@ -40,7 +41,7 @@ public class RobotContainer {
   private final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
   private final NerdyOperatorStation operatorStation = new NerdyOperatorStation(2);
-
+  private final CommandXboxController testJoystick = new CommandXboxController(5);
 
   public final Drivetrain drivetrain;
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
@@ -50,7 +51,7 @@ public class RobotContainer {
   /* Path follower */
   //private Command runAuto = drivetrain.getAutoPath("DifferentAuto");
 
-  private final Climber climb = new Climber();
+  private final Climber climb = new Climber(operatorJoystick);
   private final Delivery delivery = new Delivery();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
@@ -74,7 +75,7 @@ public class RobotContainer {
     driverJoystick.povRight().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(-90)));
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
-    
+
     driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
@@ -90,13 +91,20 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.05)));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
+    operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
     operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
+
+    
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     
-  }
+     //************* Test Joystick *****************/
+     // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    }
   public void setMaxSpeed(double speed) {
     Constants.Swerve.driveAdjustment = speed;
   }
