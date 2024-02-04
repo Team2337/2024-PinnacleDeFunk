@@ -23,7 +23,7 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Intake extends SubsystemBase {
-    
+
     private TalonFX intakeMotorLeft = new TalonFX(20, "Upper");
     private TalonFX intakeMotorRight = new TalonFX(21, "Upper");
     private DigitalInput intakeSensorTop = new DigitalInput(0);
