@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
@@ -25,7 +24,6 @@ import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.generated.TunerConstantsPractice;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
-import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
@@ -93,7 +91,10 @@ public class RobotContainer {
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 5));
     operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.3));
     operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, -0.3));
-    operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
+    //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
+    operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPositionVelocity(5)));
+    operatorJoystick.povDown().onTrue(new InstantCommand(() -> shooterPosition.setShooterPositionVelocity(-5)));
+
     // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
     // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
     // operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));

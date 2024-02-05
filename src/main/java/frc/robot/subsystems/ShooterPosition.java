@@ -4,6 +4,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -33,6 +34,9 @@ public class ShooterPosition extends SubsystemBase {
   private final PositionTorqueCurrentFOC torquePosition = new PositionTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
   /* Keep a brake request so we can disable the motor */
   private final NeutralOut brake = new NeutralOut();
+
+  private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 2, false, false, false);
+
 
   private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
   private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
@@ -88,6 +92,10 @@ public class ShooterPosition extends SubsystemBase {
     positionMotor.setControl(brake);
   }
 
+  public void setShooterPositionVelocity(double velocity) {
+      positionMotor.setControl(velocityVoltage.withVelocity(velocity));
+  }
+  
   public double getShooterPositionTemp() {
     return positionMotor.getDeviceTemp().getValueAsDouble();
   }
