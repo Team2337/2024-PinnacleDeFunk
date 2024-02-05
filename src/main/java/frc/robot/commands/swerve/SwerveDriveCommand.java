@@ -4,6 +4,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -60,6 +61,22 @@ public class SwerveDriveCommand extends Command{
                 .withVelocityX(forward)
                 .withVelocityY(strafe);
             // If endgame switch is true, drive robot centric
+        } else if (drivetrain.pointAtSpeaker) {
+            double speakerX = Constants.FieldElements.speakerCenter.getX();
+            double speakerY = Constants.FieldElements.speakerCenter.getY();
+            Pose2d currentPose = drivetrain.getPose();
+            double currentPoseX = currentPose.getX();
+            double currentPoseY = currentPose.getY();
+
+            double angleToSpeakerRad = Math.atan2(currentPoseY - speakerY, currentPoseX - speakerX);
+            double angleToSpeaker = Math.toDegrees(angleToSpeakerRad);
+            SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
+
+         swerveRequest = driveFacingAngle
+                .withTargetDirection(Rotation2d.fromDegrees(angleToSpeaker))
+                .withVelocityX(forward)
+                .withVelocityY(strafe);
+        
         } else if (drivetrain.endGame) {
             swerveRequest = robotCentric
                 .withVelocityX(forward)
