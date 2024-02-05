@@ -2,9 +2,12 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -14,7 +17,7 @@ import frc.robot.Constants;
 
 public class Delivery extends SubsystemBase {
     
-    private VictorSP deliveryMotor = new VictorSP(0);
+    private VictorSPX deliveryMotor = new VictorSPX(30);
     private DigitalInput deliverySensor = new DigitalInput(2);
     private ShuffleboardTab deliveryTab = Shuffleboard.getTab("Delivery");
     private GenericEntry shuffleboardSpeed = deliveryTab 
@@ -27,15 +30,17 @@ public class Delivery extends SubsystemBase {
 
     public Delivery() { 
         deliveryMotor.setInverted(false);
-        deliveryMotor.setSafetyEnabled(true);
+        deliveryMotor.setNeutralMode(NeutralMode.Brake);
+        
     }
 
     public void setDeliverySpeed(double speed) {
-        deliveryMotor.set(speed);
+        deliveryMotor.set(ControlMode.PercentOutput, speed);
+        
     }
 
     public void stopMotors() {
-        deliveryMotor.stopMotor();
+        deliveryMotor.set(ControlMode.PercentOutput, 0);
     }
 
     public boolean getDeliverySensor() {
