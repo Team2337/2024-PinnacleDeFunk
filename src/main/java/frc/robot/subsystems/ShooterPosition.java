@@ -55,8 +55,8 @@ public class ShooterPosition extends SubsystemBase {
         positionMotorConfig.Slot0.kP = 24.0; // An error of 0.5 rotations results in 1.2 volts output
         positionMotorConfig.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
         // Peak output of 8 volts
-        positionMotorConfig.Voltage.PeakForwardVoltage = 8;
-        positionMotorConfig.Voltage.PeakReverseVoltage = -8;
+        positionMotorConfig.Voltage.PeakForwardVoltage = 2;
+        positionMotorConfig.Voltage.PeakReverseVoltage = -2;
         
         positionMotorConfig.Slot1.kP = 40; // An error of 1 rotations results in 40 amps output
         positionMotorConfig.Slot1.kD = 2; // A change of 1 rotation per second results in 2 amps output
@@ -100,8 +100,13 @@ public class ShooterPosition extends SubsystemBase {
         if (Constants.DashboardLogging.SHOOTER) {
             SmartDashboard.putNumber("Shooter/Shooter Position Motor Temperature", getShooterPositionTemp());
         }
-        shooterPosition.setDouble(getShooterPositionPosition());
+        // shooterPosition.setDouble(getShooterPositionPosition());
+        SmartDashboard.getNumber("Shooter Position", getShooterPositionPosition());
     }
+
+  public void initialize() {
+    setShooterPosition(getShooterPositionPosition());
+  }
 
   @Override
   public void periodic() {

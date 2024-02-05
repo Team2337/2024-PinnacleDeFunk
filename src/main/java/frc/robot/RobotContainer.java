@@ -87,15 +87,18 @@ public class RobotContainer {
     driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1));
-    operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
-    operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
-    operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
-    operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
-    operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
+    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 50));
+    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -50));
+    operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 95, 100));
+    operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 5));
+    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.3));
+    operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, -0.3));
+    operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
+    // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
+    // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    // operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
+    // operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
+    // operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
 
     
     //*************Operator Station *****************/

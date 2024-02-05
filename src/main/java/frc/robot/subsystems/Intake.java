@@ -55,8 +55,8 @@ public class Intake extends SubsystemBase {
         leftMotorConfig.Slot0.kI = 0.5;
         leftMotorConfig.Slot0.kD = 0.0001;
         leftMotorConfig.Slot0.kV = 0.12;
-        leftMotorConfig.Voltage.PeakForwardVoltage = 8;
-        leftMotorConfig.Voltage.PeakReverseVoltage = -8;
+        leftMotorConfig.Voltage.PeakForwardVoltage = 12;
+        leftMotorConfig.Voltage.PeakReverseVoltage = -12;
         intakeMotorLeft.getConfigurator().apply(leftMotorConfig);
 
         TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
@@ -67,8 +67,8 @@ public class Intake extends SubsystemBase {
         rightMotorConfig.Slot0.kI = 0.5;
         rightMotorConfig.Slot0.kD = 0.0001;
         rightMotorConfig.Slot0.kV = 0.12;
-        rightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        rightMotorConfig.Voltage.PeakReverseVoltage = -8;
+        rightMotorConfig.Voltage.PeakForwardVoltage = 12;
+        rightMotorConfig.Voltage.PeakReverseVoltage = -12;
         intakeMotorRight.getConfigurator().apply(rightMotorConfig);
         intakeMotorRight.setSafetyEnabled(false);
         setupShuffleboard(true);
@@ -81,6 +81,11 @@ public class Intake extends SubsystemBase {
     }
 
     public void setIntakeVelocity(double velocity) {
+        intakeMotorLeft.setControl(velocityVoltage.withVelocity(velocity));
+        intakeMotorRight.setControl(velocityVoltage.withVelocity(velocity));
+    }
+
+    public void setDriveOver(double velocity) {
         intakeMotorLeft.setControl(velocityVoltage.withVelocity(-velocity));
         intakeMotorRight.setControl(velocityVoltage.withVelocity(velocity));
     }
