@@ -23,9 +23,9 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
  * project.
  */
 public class ShooterPositionVelocity extends SubsystemBase {
-  private final TalonFX positionMotor = new TalonFX(50);
+  private final TalonFX positionMotor = new TalonFX(50, "Upper");
 
-  private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 2, false, false, false);
+  private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
   private final NeutralOut brake = new NeutralOut();
   private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
   private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
@@ -48,8 +48,8 @@ public class ShooterPositionVelocity extends SubsystemBase {
         positionMotorConfig.Slot0.kI = 0.5;
         positionMotorConfig.Slot0.kD = 0.0001;
         positionMotorConfig.Slot0.kV = 0.12;
-        positionMotorConfig.Voltage.PeakForwardVoltage = 2;
-        positionMotorConfig.Voltage.PeakReverseVoltage = -2;
+        positionMotorConfig.Voltage.PeakForwardVoltage = 5;
+        positionMotorConfig.Voltage.PeakReverseVoltage = -5;
         
         
         positionMotor.getConfigurator().apply(positionMotorConfig);
@@ -65,6 +65,10 @@ public class ShooterPositionVelocity extends SubsystemBase {
   
   public double getShooterPositionTemp() {
     return positionMotor.getDeviceTemp().getValueAsDouble();
+  }
+
+  public void setBrake() {
+    positionMotor.setControl(brake);
   }
 
   public void log() {

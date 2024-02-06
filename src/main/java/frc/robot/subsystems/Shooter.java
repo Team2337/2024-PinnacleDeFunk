@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
@@ -21,10 +22,10 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Shooter extends SubsystemBase {
 
-    private TalonFX shooterMotorTopLeft = new TalonFX(40);
-    private TalonFX shooterMotorTopRight = new TalonFX(41);
-    private TalonFX shooterMotorBottomLeft = new TalonFX(42);
-    private TalonFX shooterMotorBottomRight = new TalonFX(43);
+    private TalonFX shooterMotorTopLeft = new TalonFX(40, "Upper");
+    private TalonFX shooterMotorTopRight = new TalonFX(41, "Upper");
+    private TalonFX shooterMotorBottomLeft = new TalonFX(42, "Upper");
+    private TalonFX shooterMotorBottomRight = new TalonFX(43, "Upper");
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private final VelocityTorqueCurrentFOC torqueVelocity = new VelocityTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
     private final NeutralOut brake = new NeutralOut();
@@ -71,6 +72,9 @@ public class Shooter extends SubsystemBase {
         var setShooterMotorBottomRightToDefault = new TalonFXConfiguration();
         shooterMotorTopLeft.getConfigurator().apply(setShooterMotorBottomRightToDefault);
 
+        ClosedLoopRampsConfigs rampsConfigs = new ClosedLoopRampsConfigs();
+        rampsConfigs.withVoltageClosedLoopRampPeriod(5);
+        
         TalonFXConfiguration topLeftMotorConfig = new TalonFXConfiguration();
         topLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         topLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
@@ -86,6 +90,7 @@ public class Shooter extends SubsystemBase {
         topLeftMotorConfig.Slot1.kD = 0.001;
         topLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         topLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        topLeftMotorConfig.withClosedLoopRamps(rampsConfigs);
         
         shooterMotorTopLeft.getConfigurator().apply(topLeftMotorConfig);
         
@@ -104,7 +109,8 @@ public class Shooter extends SubsystemBase {
         topRightMotorConfig.Slot1.kD = 0.001;
         topRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         topRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
-        
+        topRightMotorConfig.withClosedLoopRamps(rampsConfigs);
+
         shooterMotorTopRight.getConfigurator().apply(topRightMotorConfig);
 
         TalonFXConfiguration bottomLeftMotorConfig = new TalonFXConfiguration();
@@ -122,7 +128,8 @@ public class Shooter extends SubsystemBase {
         bottomLeftMotorConfig.Slot1.kD = 0.001;
         bottomLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         bottomLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
-        
+        bottomLeftMotorConfig.withClosedLoopRamps(rampsConfigs);
+
         shooterMotorBottomLeft.getConfigurator().apply(bottomLeftMotorConfig);
 
        TalonFXConfiguration bottomRightMotorConfig = new TalonFXConfiguration();
@@ -140,10 +147,13 @@ public class Shooter extends SubsystemBase {
         bottomRightMotorConfig.Slot1.kD = 0.001;
         bottomRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         bottomRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        bottomRightMotorConfig.withClosedLoopRamps(rampsConfigs);
         
         shooterMotorBottomRight.getConfigurator().apply(bottomRightMotorConfig);
     }
 
+    
+    
     //All motors the same
     public void setShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));

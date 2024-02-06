@@ -29,7 +29,7 @@ public class Delivery extends SubsystemBase {
     private double speedFromDash = 0; 
 
     public Delivery() { 
-        deliveryMotor.setInverted(false);
+        deliveryMotor.setInverted(true);
         deliveryMotor.setNeutralMode(NeutralMode.Brake);
         
     }

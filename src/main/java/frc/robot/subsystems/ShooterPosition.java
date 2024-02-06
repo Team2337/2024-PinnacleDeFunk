@@ -25,7 +25,7 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
  * project.
  */
 public class ShooterPosition extends SubsystemBase {
-  private final TalonFX positionMotor = new TalonFX(50);
+  private final TalonFX positionMotor = new TalonFX(50, "Upper");
   
   /* Be able to switch which control request to use based on a button press */
   /* Start at position 0, enable FOC, no feed forward, use slot 0 */

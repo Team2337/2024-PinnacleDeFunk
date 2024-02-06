@@ -19,6 +19,7 @@ import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
+import frc.robot.commands.shooterPosition.SetShooterPositionVelocity;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
@@ -87,15 +88,16 @@ public class RobotContainer {
     driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 50));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -50));
+    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40));
+    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 95, 100));
-    operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 5));
-    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.3));
-    operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, -0.3));
+    operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 70));
+    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.9));
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
-    operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
-    operatorJoystick.povDown().onTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
+    // operatorJoystick.povUp().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
+    // operatorJoystick.povDown().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
+    operatorJoystick.povUp().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, 5));
+    operatorJoystick.povDown().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, -5));
 
     // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
     // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
