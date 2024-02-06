@@ -30,6 +30,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
+import frc.robot.subsystems.ShooterPositionVelocity;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Vision.LimelightColor;
 
@@ -53,7 +54,8 @@ public class RobotContainer {
   private final Delivery delivery = new Delivery();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
-  private final ShooterPosition shooterPosition = new ShooterPosition();
+  //private final ShooterPosition shooterPosition = new ShooterPosition();
+  private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
@@ -92,8 +94,8 @@ public class RobotContainer {
     operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.3));
     operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, -0.3));
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
-    operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPositionVelocity(5)));
-    operatorJoystick.povDown().onTrue(new InstantCommand(() -> shooterPosition.setShooterPositionVelocity(-5)));
+    operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
+    operatorJoystick.povDown().onTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
 
     // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
     // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
