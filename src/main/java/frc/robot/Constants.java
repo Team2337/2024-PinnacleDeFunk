@@ -1,5 +1,12 @@
 package frc.robot;
 
+import java.util.List;
+
+import com.pathplanner.lib.path.PathPlannerPath;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -186,6 +193,17 @@ public final class Constants {
       // The inverse of getAllianceColor
       return DriverStation.getAlliance().get() == Alliance.Blue ? Red : Blue;
     }
+  }
+
+  
+
+
+  public static final class FieldElemnts {
+
+      public static List<Translation2d> testPoints = PathPlannerPath.bezierFromPoses(
+        new Pose2d(1.0, 1.0, Rotation2d.fromDegrees(0)),
+        new Pose2d(1.0, 2.0, Rotation2d.fromDegrees(90))
+      );
   }
 
 }

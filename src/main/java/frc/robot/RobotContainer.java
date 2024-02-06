@@ -7,6 +7,7 @@ package frc.robot;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.FollowPathCommand;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -110,7 +111,10 @@ public class RobotContainer {
     
      //************* Test Joystick *****************/
      // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
-    }
+
+     //testJoystick.a().onTrue(drivetrain.followPathCommand(drivetrain.createPath(Constants.FieldElemnts.testPoints, 2, 2)));
+  }
+
   public void setMaxSpeed(double speed) {
     Constants.Swerve.driveAdjustment = speed;
   }
