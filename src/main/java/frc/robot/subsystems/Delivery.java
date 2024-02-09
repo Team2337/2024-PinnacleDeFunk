@@ -4,7 +4,9 @@ import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -18,7 +20,9 @@ import frc.robot.Constants;
 public class Delivery extends SubsystemBase {
     
     private VictorSPX deliveryMotor = new VictorSPX(30);
-    private DigitalInput deliverySensor = new DigitalInput(2);
+    private DigitalInput deliveryTopSensor = new DigitalInput(1);
+    private DigitalInput deliveryBottomSensor = new DigitalInput(2);
+    private DigitalInput trapSensor = new DigitalInput(3);
     private ShuffleboardTab deliveryTab = Shuffleboard.getTab("Delivery");
     private GenericEntry shuffleboardSpeed = deliveryTab 
         .add("DeliverySpeed", 0)
@@ -32,19 +36,27 @@ public class Delivery extends SubsystemBase {
         deliveryMotor.setInverted(true);
         deliveryMotor.setNeutralMode(NeutralMode.Brake);
         
-    }
-
-    public void setDeliverySpeed(double speed) {
-        deliveryMotor.set(ControlMode.PercentOutput, speed);
         
     }
 
-    public void stopMotors() {
-        deliveryMotor.set(ControlMode.PercentOutput, 0);
+    public void setDeliverySpeed(double speed) {
+        deliveryMotor.set(VictorSPXControlMode.PercentOutput, speed);
     }
 
-    public boolean getDeliverySensor() {
-        return deliverySensor.get();
+    public void stopMotors() {
+        deliveryMotor.set(VictorSPXControlMode.PercentOutput, 0);
+    }
+
+    public boolean getDeliveryTopSensor() {
+        return !deliveryTopSensor.get();
+    }
+
+    public boolean getDeliveryBottomSensor() {
+        return !deliveryBottomSensor.get();
+    }
+
+    public boolean getTrapSensor() {
+        return !trapSensor.get();
     }
 
     public double deliverySpeedFromDash() {
@@ -53,7 +65,9 @@ public class Delivery extends SubsystemBase {
     public void log() {
         if (Constants.DashboardLogging.DELIVERY) {
         }
-        SmartDashboard.putBoolean("Delivery/Top Sensor", getDeliverySensor());
+        SmartDashboard.putBoolean("Delivery/Top Sensor", getDeliveryTopSensor());
+        SmartDashboard.putBoolean("Delivery/Bottom Sensor", getDeliveryBottomSensor());
+        SmartDashboard.putBoolean("Delivery/Trap Sensor", getTrapSensor());
         addDashNum.setDouble(deliverySpeedFromDash());
     }
 
@@ -68,6 +82,5 @@ public class Delivery extends SubsystemBase {
         setDeliverySpeed(speedFromDash);
 
     }
-
-    
 }
+

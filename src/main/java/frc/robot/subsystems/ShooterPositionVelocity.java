@@ -29,6 +29,7 @@ public class ShooterPositionVelocity extends SubsystemBase {
   private final NeutralOut brake = new NeutralOut();
   private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
   private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
+  public boolean shooterAtIntake, shooterAtTrap = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
