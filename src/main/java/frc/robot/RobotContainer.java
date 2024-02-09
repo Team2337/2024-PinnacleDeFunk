@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.auto.AutoStartDelivery;
+import frc.robot.commands.auto.AutoStartDeliveryTemp;
+import frc.robot.commands.auto.AutoStartDeliveryToSensor;
 import frc.robot.commands.auto.AutoStartIntake;
 import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
@@ -145,12 +147,12 @@ public class RobotContainer {
     }
     
 
-    NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 0.3));
+    NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 0.9));
     //NamedCommands.registerCommand("SetShooterPosition", new InstantCommand(() -> shooterPositionVelocity.setShooterPosition(10), shooterPositionVelocity));
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
-    NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
-    NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0, () -> doWeHaveNote()));
-    NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 5));
+    NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
+    NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery));
+    NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 70));
     NamedCommands.registerCommand("StopShooter", new SetMotorVelocity(shooter, 0));
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
