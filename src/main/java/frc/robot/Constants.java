@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -118,6 +119,10 @@ public final class Constants {
        
         break;
     }
+  }
+
+  public static final class FieldElements {
+    public static Translation2d speakerCenter = new Translation2d(0,5.55);
   }
 
   public static final class Auto {

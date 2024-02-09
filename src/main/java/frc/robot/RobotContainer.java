@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -22,12 +23,12 @@ import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
+import frc.robot.commands.shooterPosition.SetShooterPositionVelocity;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.generated.TunerConstantsPractice;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
-import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
@@ -35,6 +36,7 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosition;
+import frc.robot.subsystems.ShooterPositionVelocity;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Vision.LimelightColor;
 
@@ -60,6 +62,7 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   private final ShooterPosition shooterPosition = new ShooterPosition();
+  private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
@@ -71,6 +74,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));
     intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote()));    
     delivery.setDefaultCommand(new DeliveryDefault(delivery));
+    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -78,8 +82,8 @@ public class RobotContainer {
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
 
-    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
-    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true)));
+    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
     driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
     driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
@@ -89,20 +93,24 @@ public class RobotContainer {
     driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
 
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
-    operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 500, 1000));
-    operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 1000));
+    // operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
+    // operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
+    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
+    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
+    operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
+    operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 70));
+    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery));
+    //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
+    // operatorJoystick.povUp().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
+    // operatorJoystick.povDown().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
+    operatorJoystick.povUp().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, 5));
+    operatorJoystick.povDown().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, -5));
+
     // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
     // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
     // operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
     // operatorJoystick.a().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> elevator.setElevatorSetpoint(2.06)));
-    operatorJoystick.b().onFalse(new InstantCommand(() -> elevator.getSetSetPoint()));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> elevator.setElevatorSetpoint(10)));
-    operatorJoystick.a().onFalse(new InstantCommand(() -> elevator.getSetSetPoint()));
-    operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
-    operatorJoystick.back().whileTrue(new SetElevatorSpeed(elevator, () -> Utilities.deadband(operatorJoystick.getLeftY(), 0.1)));
+    // operatorJoystick.povUp().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
 
     
     //*************Operator Station *****************/

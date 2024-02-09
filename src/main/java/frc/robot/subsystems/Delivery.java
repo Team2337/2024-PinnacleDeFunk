@@ -2,10 +2,11 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -13,14 +14,12 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Delivery extends SubsystemBase {
     
-    private TalonFX deliveryMotor = new TalonFX(30);
+    private VictorSPX deliveryMotor = new VictorSPX(30);
     private DigitalInput deliveryTopSensor = new DigitalInput(1);
     private DigitalInput deliveryBottomSensor = new DigitalInput(2);
     private DigitalInput trapSensor = new DigitalInput(3);
@@ -34,25 +33,18 @@ public class Delivery extends SubsystemBase {
     private double speedFromDash = 0; 
 
     public Delivery() { 
+        deliveryMotor.setInverted(true);
+        deliveryMotor.setNeutralMode(NeutralMode.Brake);
         
-        var setDeliveryMotorLeftToDefault = new TalonFXConfiguration();
-        deliveryMotor.getConfigurator().apply(setDeliveryMotorLeftToDefault);
-
-        TalonFXConfiguration leftMotorConfig = new TalonFXConfiguration();
-        leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        deliveryMotor.getConfigurator().apply(leftMotorConfig);
-
-        deliveryMotor.setSafetyEnabled(true);
+        
     }
 
     public void setDeliverySpeed(double speed) {
-        deliveryMotor.set(speed);
+        deliveryMotor.set(VictorSPXControlMode.PercentOutput, speed);
     }
 
     public void stopMotors() {
-        deliveryMotor.stopMotor();
+        deliveryMotor.set(VictorSPXControlMode.PercentOutput, 0);
     }
 
     public boolean getDeliveryTopSensor() {

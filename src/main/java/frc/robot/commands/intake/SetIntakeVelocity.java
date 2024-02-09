@@ -31,7 +31,7 @@ public class SetIntakeVelocity extends Command {
         if (!haveNote.get()) {
             intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
         } else if (!intake.getIntakeSensor()) {
-            intake.driveOverVelocity(xVelocity.get() * 25 + 5);
+            intake.setDriveOver(xVelocity.get() * 25 + 5);
         } else if (shooterAtIntake.get())  {
             intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
             // TODO: Decide how to get shooter into position 

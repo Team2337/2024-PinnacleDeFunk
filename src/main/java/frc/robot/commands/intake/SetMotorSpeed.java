@@ -24,7 +24,7 @@ public class SetMotorSpeed extends Command {
     
     @Override
     public void execute() {
-        intake.setIntakeSpeed(speed);
+        intake.setIntakeVelocity(speed);
     }
 
     @Override
