@@ -29,6 +29,6 @@ public class AutoStartIntake extends Command {
 
     @Override
     public boolean isFinished() {
-        return (intake.getIntakeTopSensor()); 
+        return (intake.getIntakeSensor()); 
     }
 }

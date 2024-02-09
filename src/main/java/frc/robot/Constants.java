@@ -128,9 +128,6 @@ public final class Constants {
   public static final class Auto {
   }
 
-  public static final class Delivery {
-    public static double deliverySpeed = 0.3;
-  }
 
   // Robot-specific configuration for our swerve drive algorithm
   public static final class Swerve {

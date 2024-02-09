@@ -23,7 +23,7 @@ public class AutoStartDelivery extends Command{
     @Override
     public void execute() {
         if (upToSpeed.get()) {
-            delivery.setDeliverySpeed(Constants.Delivery.deliverySpeed);
+            delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SPEED);
         } 
     }
 
