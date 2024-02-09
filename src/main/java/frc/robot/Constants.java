@@ -170,7 +170,7 @@ public final class Constants {
   }
 
   public static class Delivery {
-    public static final double DELIVERY_SPEED = 0.2;
+    public static final double DELIVERY_SPEED = 0.9;
   }
 
   public static class Elevator {

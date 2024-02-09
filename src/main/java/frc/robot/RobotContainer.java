@@ -21,6 +21,7 @@ import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.elevator.SetElevatorSpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
+import frc.robot.commands.intake.SetTempIntakeVelocity;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.shooterPosition.SetShooterPositionVelocity;
@@ -61,7 +62,7 @@ public class RobotContainer {
   private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
-  private final ShooterPosition shooterPosition = new ShooterPosition();
+  //private final ShooterPosition shooterPosition = new ShooterPosition();
   private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final Vision vision = new Vision(this);
@@ -72,9 +73,9 @@ public class RobotContainer {
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));
-    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote()));    
+    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote()));    
     delivery.setDefaultCommand(new DeliveryDefault(delivery));
-    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
+    intake.setDefaultCommand(new SetTempIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -166,11 +167,13 @@ public class RobotContainer {
   }
 
   public boolean isShooterAtTrap() {
-    return shooterPosition.shooterAtTrap;
+    //return shooterPosition.shooterAtTrap;
+    return shooterPositionVelocity.shooterAtIntake;
   }
   
   public boolean isShooterAtIntake() {
-    return shooterPosition.shooterAtIntake;
+    //return shooterPosition.shooterAtIntake;
+    return shooterPositionVelocity.shooterAtIntake;
   }
 
   public boolean doWeHaveNote() {
