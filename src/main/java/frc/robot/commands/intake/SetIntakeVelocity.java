@@ -22,7 +22,7 @@ public class SetIntakeVelocity extends Command {
     
     @Override
     public void execute() {
-        intake.setIntakeVelocity(xVelocity.get() * 25);
+        intake.setDriveOver(xVelocity.get() * 25);
     }
 
     @Override

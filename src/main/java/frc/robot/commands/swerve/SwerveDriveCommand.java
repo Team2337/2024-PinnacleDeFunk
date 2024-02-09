@@ -52,8 +52,8 @@ public class SwerveDriveCommand extends Command{
         forward = Utilities.deadband(-driverJoystick.getLeftY(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         strafe = Utilities.deadband(-driverJoystick.getLeftX(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         rotation = -driverJoystick.getRightX() * Constants.Swerve.MaxAngularRate;
-        strafe = 0;
-        rotation = 0;
+        //strafe = 0;
+        //rotation = 0;
         //If we have set an angle to drive at and driver has hit drive at angle button, drive at that angle
         if ((drivetrain.rotationAngle != 0) && (drivetrain.driveAtAngle)) {
             swerveRequest = driveFacingAngle

@@ -25,7 +25,7 @@ public class SetMotorVelocity extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        shooter.setBrake();
+        shooter.setShooterDutyCycleZero();
     }
 
     @Override

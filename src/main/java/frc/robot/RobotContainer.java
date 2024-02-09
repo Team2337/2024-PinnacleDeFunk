@@ -90,7 +90,7 @@ public class RobotContainer {
     //*************Operator Control ******************/
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40));
-    operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 95, 100));
+    operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 70));
     operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.9));
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
