@@ -4,11 +4,13 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.PositionTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,7 +26,7 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
  * project.
  */
 public class ShooterPosition extends SubsystemBase {
-  private final TalonFX positionMotor = new TalonFX(50);
+  private final TalonFX positionMotor = new TalonFX(50, "Upper");
   
   /* Be able to switch which control request to use based on a button press */
   /* Start at position 0, enable FOC, no feed forward, use slot 0 */
@@ -34,8 +36,16 @@ public class ShooterPosition extends SubsystemBase {
   /* Keep a brake request so we can disable the motor */
   private final NeutralOut brake = new NeutralOut();
 
+  private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 2, false, false, false);
+
+
   private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
   private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
+
+  public boolean shooterAtIntake, shooterAtTrap = false;
+
+  private DigitalInput tempShooterPosition = new DigitalInput(5);
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -55,8 +65,8 @@ public class ShooterPosition extends SubsystemBase {
         positionMotorConfig.Slot0.kP = 24.0; // An error of 0.5 rotations results in 1.2 volts output
         positionMotorConfig.Slot0.kD = 0.1; // A change of 1 rotation per second results in 0.1 volts output
         // Peak output of 8 volts
-        positionMotorConfig.Voltage.PeakForwardVoltage = 8;
-        positionMotorConfig.Voltage.PeakReverseVoltage = -8;
+        positionMotorConfig.Voltage.PeakForwardVoltage = 2;
+        positionMotorConfig.Voltage.PeakReverseVoltage = -2;
         
         positionMotorConfig.Slot1.kP = 40; // An error of 1 rotations results in 40 amps output
         positionMotorConfig.Slot1.kD = 2; // A change of 1 rotation per second results in 2 amps output
@@ -88,6 +98,10 @@ public class ShooterPosition extends SubsystemBase {
     positionMotor.setControl(brake);
   }
 
+  public void setShooterPositionVelocity(double velocity) {
+      positionMotor.setControl(velocityVoltage.withVelocity(velocity));
+  }
+  
   public double getShooterPositionTemp() {
     return positionMotor.getDeviceTemp().getValueAsDouble();
   }
@@ -100,12 +114,18 @@ public class ShooterPosition extends SubsystemBase {
         if (Constants.DashboardLogging.SHOOTER) {
             SmartDashboard.putNumber("Shooter/Shooter Position Motor Temperature", getShooterPositionTemp());
         }
-        shooterPosition.setDouble(getShooterPositionPosition());
+        // shooterPosition.setDouble(getShooterPositionPosition());
+        SmartDashboard.getNumber("Shooter Position", getShooterPositionPosition());
     }
+
+  public void initialize() {
+    setShooterPosition(getShooterPositionPosition());
+  }
 
   @Override
   public void periodic() {
     super.periodic();
       log();
+      shooterAtIntake = !tempShooterPosition.get();
   }
 }

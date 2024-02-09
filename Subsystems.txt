@@ -1,17 +1,20 @@
 Intake
 	Motor * 2
-	DIO Sensor * 2
+	DIO Sensor * 1
 Shooter
-	Motor * 2
+	Motor * 4
 Climb
 	Motor * 1
 Delivery
-	Motor * 1
-	DIO Sensor * 1
+	Motor * 1 - shared controller
+	DIO Sensor * 2
 Vision
 	Camera * 2
 Trap Poker
 	Motor * 1
+Trap
+	Motor * 1 - shared controller 
+	DIO Sensor * 1
 Drive
 	Motor * 8
 

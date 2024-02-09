@@ -2,7 +2,9 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
+import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.NeutralOut;
 import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -21,14 +23,15 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Shooter extends SubsystemBase {
 
-    private TalonFX shooterMotorTopLeft = new TalonFX(40);
-    private TalonFX shooterMotorTopRight = new TalonFX(41);
-    private TalonFX shooterMotorBottomLeft = new TalonFX(42);
-    private TalonFX shooterMotorBottomRight = new TalonFX(43);
+    private TalonFX shooterMotorTopLeft = new TalonFX(40, "Upper");
+    private TalonFX shooterMotorTopRight = new TalonFX(41, "Upper");
+    private TalonFX shooterMotorBottomLeft = new TalonFX(42, "Upper");
+    private TalonFX shooterMotorBottomRight = new TalonFX(43, "Upper");
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private final VelocityTorqueCurrentFOC torqueVelocity = new VelocityTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
     private final NeutralOut brake = new NeutralOut();
     public boolean shooterUpToSpeed = false;
+    private final DutyCycleOut dutyCycle = new DutyCycleOut(0);
 
     private ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
     private GenericEntry leftShooterVelocityFromDash = shooterTab
@@ -60,6 +63,12 @@ public class Shooter extends SubsystemBase {
     private GenericEntry bottomRightTemp = shooterTab.add("Bottom Right Temp", 0).getEntry();
 
     private double leftVelocityFromDash, rightVelocityFromDash, globalVelocity = 0;
+    //private double leftVelocityFromDash, rightVelocityFromDash = 0;
+    private double shooterKP = 0.8;
+    private double shooterKI = 0;
+    private double shooterKD = 0;
+    private double shooterKV = 0.12;
+
 
     public Shooter() {
 
@@ -72,21 +81,25 @@ public class Shooter extends SubsystemBase {
         var setShooterMotorBottomRightToDefault = new TalonFXConfiguration();
         shooterMotorTopLeft.getConfigurator().apply(setShooterMotorBottomRightToDefault);
 
+        ClosedLoopRampsConfigs rampsConfigs = new ClosedLoopRampsConfigs();
+        rampsConfigs.withVoltageClosedLoopRampPeriod(5);
+        
         TalonFXConfiguration topLeftMotorConfig = new TalonFXConfiguration();
         topLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         topLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         topLeftMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        topLeftMotorConfig.Slot0.kP = 0.11;
-        topLeftMotorConfig.Slot0.kI = 0.5;
-        topLeftMotorConfig.Slot0.kD = 0.0001;
-        topLeftMotorConfig.Slot0.kV = 0.12;
-        topLeftMotorConfig.Voltage.PeakForwardVoltage = 8;
-        topLeftMotorConfig.Voltage.PeakReverseVoltage = -8;
+        topLeftMotorConfig.Slot0.kP = shooterKP;
+        topLeftMotorConfig.Slot0.kI = shooterKI;
+        topLeftMotorConfig.Slot0.kD = shooterKD;
+        topLeftMotorConfig.Slot0.kV = shooterKV;
+        topLeftMotorConfig.Voltage.PeakForwardVoltage = 12;
+        topLeftMotorConfig.Voltage.PeakReverseVoltage = -12;
         topLeftMotorConfig.Slot1.kP = 0.5;
         topLeftMotorConfig.Slot1.kI = 0.1;
         topLeftMotorConfig.Slot1.kD = 0.001;
         topLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         topLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        topLeftMotorConfig.withClosedLoopRamps(rampsConfigs);
         
         shooterMotorTopLeft.getConfigurator().apply(topLeftMotorConfig);
         
@@ -94,57 +107,62 @@ public class Shooter extends SubsystemBase {
         topRightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         topRightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         topRightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        topRightMotorConfig.Slot0.kP = 0.11;
-        topRightMotorConfig.Slot0.kI = 0.5;
-        topRightMotorConfig.Slot0.kD = 0.0001;
-        topRightMotorConfig.Slot0.kV = 0.12;
-        topRightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        topRightMotorConfig.Voltage.PeakReverseVoltage = -8;
+        topRightMotorConfig.Slot0.kP = shooterKP;
+        topRightMotorConfig.Slot0.kI = shooterKI;
+        topRightMotorConfig.Slot0.kD = shooterKD;
+        topRightMotorConfig.Slot0.kV = shooterKV;
+        topRightMotorConfig.Voltage.PeakForwardVoltage = 12;
+        topRightMotorConfig.Voltage.PeakReverseVoltage = -12;
         topRightMotorConfig.Slot1.kP = 0.5;
         topRightMotorConfig.Slot1.kI = 0.1;
         topRightMotorConfig.Slot1.kD = 0.001;
         topRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         topRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
-        
+        topRightMotorConfig.withClosedLoopRamps(rampsConfigs);
+
         shooterMotorTopRight.getConfigurator().apply(topRightMotorConfig);
 
         TalonFXConfiguration bottomLeftMotorConfig = new TalonFXConfiguration();
         bottomLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         bottomLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         bottomLeftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        bottomLeftMotorConfig.Slot0.kP = 0.11;
-        bottomLeftMotorConfig.Slot0.kI = 0.5;
-        bottomLeftMotorConfig.Slot0.kD = 0.0001;
-        bottomLeftMotorConfig.Slot0.kV = 0.12;
-        bottomLeftMotorConfig.Voltage.PeakForwardVoltage = 8;
-        bottomLeftMotorConfig.Voltage.PeakReverseVoltage = -8;
+        bottomLeftMotorConfig.Slot0.kP = shooterKP;
+        bottomLeftMotorConfig.Slot0.kI = shooterKI;
+        bottomLeftMotorConfig.Slot0.kD = shooterKD;
+        bottomLeftMotorConfig.Slot0.kV = shooterKV;
+        bottomLeftMotorConfig.Voltage.PeakForwardVoltage = 12;
+        bottomLeftMotorConfig.Voltage.PeakReverseVoltage = -12;
         bottomLeftMotorConfig.Slot1.kP = 0.5;
         bottomLeftMotorConfig.Slot1.kI = 0.1;
         bottomLeftMotorConfig.Slot1.kD = 0.001;
         bottomLeftMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         bottomLeftMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
-        
+        bottomLeftMotorConfig.withClosedLoopRamps(rampsConfigs);
+
         shooterMotorBottomLeft.getConfigurator().apply(bottomLeftMotorConfig);
 
        TalonFXConfiguration bottomRightMotorConfig = new TalonFXConfiguration();
         bottomRightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         bottomRightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         bottomRightMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        bottomRightMotorConfig.Slot0.kP = 0.11;
-        bottomRightMotorConfig.Slot0.kI = 0.5;
-        bottomRightMotorConfig.Slot0.kD = 0.0001;
-        bottomRightMotorConfig.Slot0.kV = 0.12;
-        bottomRightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        bottomRightMotorConfig.Voltage.PeakReverseVoltage = -8;
+        bottomRightMotorConfig.Slot0.kP = shooterKP;
+        bottomRightMotorConfig.Slot0.kI = shooterKI;
+        bottomRightMotorConfig.Slot0.kD = shooterKD;
+        bottomRightMotorConfig.Slot0.kV = shooterKV;
+        bottomRightMotorConfig.Voltage.PeakForwardVoltage = 12;
+        bottomRightMotorConfig.Voltage.PeakReverseVoltage = -12;
         bottomRightMotorConfig.Slot1.kP = 0.5;
         bottomRightMotorConfig.Slot1.kI = 0.1;
         bottomRightMotorConfig.Slot1.kD = 0.001;
         bottomRightMotorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 40;
         bottomRightMotorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -40;
+        bottomRightMotorConfig.withClosedLoopRamps(rampsConfigs);
         
         shooterMotorBottomRight.getConfigurator().apply(bottomRightMotorConfig);
     }
 
+    
+    
     //All motors the same
     public void setShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
@@ -152,6 +170,13 @@ public class Shooter extends SubsystemBase {
         shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
         globalVelocity = velocity;
+    }
+
+    public void setShooterDutyCycleZero() {
+        shooterMotorTopLeft.setControl(dutyCycle.withOutput(0));
+        shooterMotorBottomLeft.setControl(dutyCycle.withOutput(0));
+        shooterMotorTopRight.setControl(dutyCycle.withOutput(0));
+        shooterMotorBottomRight.setControl(dutyCycle.withOutput(0));
     }
 
     //Left - Right
@@ -274,8 +299,8 @@ public class Shooter extends SubsystemBase {
     }
 
     //Change both at the same time
-    public void setAllPercentVelocity(double upDownVelo, double leftRightVelo) {
-        double velocity = readLeftShooterVelocity();
+    public void setAllPercentVelocity(double upDownVelo, double leftRightVelo, double velocity) {
+        //double velocity = readLeftShooterVelocity();
         setTopLeftShooterVelocity(velocity);
         setTopRightShooterVelocity(velocity*((100-leftRightVelo)/100));
         setBottomLeftShooterVelocity(velocity*((100-upDownVelo)/100));
@@ -288,6 +313,7 @@ public class Shooter extends SubsystemBase {
             SmartDashboard.putNumber("Shooter/Top Right Motor Temperature", getTopRightMotorTemp());
             SmartDashboard.putNumber("Shooter/Bottom Left Motor Temperature", getBottomLeftMotorTemp());
             SmartDashboard.putNumber("Shooter/Bottom Right Motor Temperature", getBottomRightMotorTemp());
+            SmartDashboard.putNumber("Shooter/Top Right Error", shooterMotorTopRight.getClosedLoopError().getValueAsDouble());
         }
         leftDashNum.setDouble(readLeftShooterVelocity());
         rightDashNum.setDouble(readRightShooterVelocity());
@@ -301,6 +327,7 @@ public class Shooter extends SubsystemBase {
         topRightTemp.setDouble(shooterMotorTopRight.getDeviceTemp().getValueAsDouble());
         bottomLeftTemp.setDouble(shooterMotorBottomLeft.getDeviceTemp().getValueAsDouble());
         bottomRightTemp.setDouble(shooterMotorBottomRight.getDeviceTemp().getValueAsDouble());
+
         
     }
 
@@ -316,7 +343,7 @@ public class Shooter extends SubsystemBase {
         //Different Options For Slider Tests
         //setTopBottomPrecentVelocity(upDownPercentDifferenceFromDash.getDouble(0));
         //setLeftRightPrecentVelocity(leftRightPercentDifferenceFromDash.getDouble(0));
-        setAllPercentVelocity(upDownPercentDifferenceFromDash.getDouble(0), leftRightPercentDifferenceFromDash.getDouble(0));
+        //setAllPercentVelocity(upDownPercentDifferenceFromDash.getDouble(0), leftRightPercentDifferenceFromDash.getDouble(0));
 
         checkShooterUpToSpeed();
     }

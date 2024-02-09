@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.Optional;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
@@ -40,6 +41,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
+
+    m_robotContainer.drivetrain.configNeutralMode(NeutralModeValue.Coast);
+
     /**
    * Sets the value at the given indices.
    *
@@ -97,6 +101,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    m_robotContainer.drivetrain.configNeutralMode(NeutralModeValue.Brake);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     if (m_autonomousCommand != null) {
@@ -112,6 +117,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    m_robotContainer.drivetrain.configNeutralMode(NeutralModeValue.Brake);
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }

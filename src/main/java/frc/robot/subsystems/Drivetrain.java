@@ -38,8 +38,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private double m_lastSimTime;
     private Field2d field = new Field2d();
     public double rotationAngle = 0;
-    public boolean driveAtAngle, endGame, lockdownEnabled = false;
-
+    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker = false;
     private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
@@ -65,6 +64,10 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         double x = pose.getX();
         double y = pose.getY();
         return new Pose2d(x, y, newRotation);
+    }
+
+    public Pose2d getPose() {
+        return this.getState().Pose;
     }
 
     private void configurePathPlanner() {
@@ -153,8 +156,11 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
             lockdownEnabled = true;
         }
     }
-    
 
+    public void setPointAtSpeaker(boolean pointSpeaker) {
+        pointAtSpeaker = pointSpeaker;
+    }
+    
     @Override
     public void periodic() {
         //field.setRobotPose(this.getState().Pose); 
@@ -162,6 +168,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //field.getObject("target pose").setPose(pose);
         field.setRobotPose(pose);
       });
+      
       log();
     }
 
