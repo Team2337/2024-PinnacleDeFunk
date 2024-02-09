@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -69,7 +70,6 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));
     intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
     //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> logger.getXVelocity()));
-    
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -77,8 +77,8 @@ public class RobotContainer {
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
 
-    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
-    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true)));
+    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
     driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
     driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
