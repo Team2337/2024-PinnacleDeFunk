@@ -164,12 +164,25 @@ public final class Constants {
   public static final double VISION_OFFSET = 0;
 
   public static class Climber {
-
     public static final double CLIMBER_MAX_SETPOINT = 10;
     public static final double CLIMBER_MIN_SETPOINT = 2.06;
     public static final double CLIMBER_MAX_JOYSTICK_SPEED = 0.2;
     public static final double CLIMBER_MAX_PID_SPEED = 0.2;
+  }
 
+  public static class Delivery {
+    public static final double DELIVERY_SPEED = 0.9;
+  }
+
+  public static class Elevator {
+    public static final double ELEVATOR_MAX_SETPOINT = 10;
+    public static final double ELEVATOR_MIN_SETPOINT = 2.06;
+    public static final double ELEVATOR_MAX_JOYSTICK_SPEED = 0.2;
+    public static final double ELEVATOR_MAX_PID_SPEED = 0.2;
+  }
+
+  public static class Intake {
+    public static final double INTAKE_VELOCITY = 5;
   }
 
   public static class ShooterPosPot {
