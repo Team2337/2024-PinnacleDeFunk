@@ -5,27 +5,21 @@
 package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
-import frc.robot.commands.elevator.SetElevatorSpeed;
-import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.intake.SetTempIntakeVelocity;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.shooterPosition.SetShooterPosPot;
-import frc.robot.commands.shooterPosition.SetShooterPositionVelocity;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
@@ -38,8 +32,6 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShooterPosPot;
-import frc.robot.subsystems.ShooterPosition;
-import frc.robot.subsystems.ShooterPositionVelocity;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Vision.LimelightColor;
 
@@ -90,13 +82,13 @@ public class RobotContainer {
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
     driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
-    driverJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
+    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery));
     //driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
     
     // reset the field-centric heading on left bumper press
     driverJoystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
     driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
-
+    
     //*************Operator Control ******************/
     // operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
     // operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
@@ -105,7 +97,7 @@ public class RobotContainer {
     operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
     operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15)));
-    operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery));
+    operatorJoystick.b().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
 
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
     // operatorJoystick.povUp().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
