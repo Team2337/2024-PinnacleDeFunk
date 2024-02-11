@@ -21,18 +21,22 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class ShooterPosPot extends PIDSubsystem {
-    private TalonFX shootPosPotMotor = new TalonFX(54);
+    private TalonFX shootPosPotMotor = new TalonFX(29);
+    public boolean shooterAtIntake, shooterAtTrap = false;
     private ShuffleboardTab shooterPosPotTab = Shuffleboard.getTab("ShooterPosPot");
-
-    private GenericEntry motorTempEntry = shooterPosPotTab.add("Shooter Pos Pot", 0).getEntry();
    
-    AnalogInput input = new AnalogInput(1);
+    AnalogInput input = new AnalogInput(2);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
 
     CommandXboxController operatorJoystick;
+    double offset = 1.6;
 
-    double shooterPotMaxSetPoint = 50;
-    double shooterPotMinSetPoint = 3.9;
+    // Radial Pot Values
+    double shooterPotMaxSetPoint = 49 + offset;
+    double shooterPotMinSetPoint = 2.34 + offset;
+
+    // String Pot Values
+    // double shooterPotMinSetPoint = 3;
 
     public ShooterPosPot(CommandXboxController operatorJoystick) {
         super(new PIDController(0.1, 0.0, 0.0001));
@@ -48,8 +52,8 @@ public class ShooterPosPot extends PIDSubsystem {
         shootPosPotMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         shootPosPotMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         shootPosPotMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 8;
-        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -8;
+        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 5;
+        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -5;
 
         shootPosPotMotor.setSafetyEnabled(false);
         shootPosPotMotor.getConfigurator().apply(shootPosPotMotorConfig);
@@ -75,7 +79,7 @@ public class ShooterPosPot extends PIDSubsystem {
         }
     }
 
-    public void setClimbSpeed(double speed) {
+    public void setShooterPosPotSpeed(double speed) {
         shootPosPotMotor.set(speed);
     }
 
@@ -87,7 +91,7 @@ public class ShooterPosPot extends PIDSubsystem {
         return shootPosPotMotor.getDeviceTemp().getValueAsDouble();
     }
    
-    public void getSettedSetPoint() {
+    public void getSetPoint() {
         setSetpoint(pot.get());
     }
 
@@ -117,8 +121,8 @@ public class ShooterPosPot extends PIDSubsystem {
         } else if (output < -Constants.ShooterPosPot.SHOOTERPOT_MAX_PID_SPEED) {
             output = -Constants.ShooterPosPot.SHOOTERPOT_MAX_PID_SPEED;
         }
-        // setClimbSpeed(output);
-        SmartDashboard.putNumber("Shooter Pos Pot", output);
+        setShooterPosPotSpeed(output);
+        SmartDashboard.putNumber("ShooterPosPot/Output", output);
     }
 
     @Override

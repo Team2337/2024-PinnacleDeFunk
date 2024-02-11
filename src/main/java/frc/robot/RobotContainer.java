@@ -24,6 +24,7 @@ import frc.robot.commands.intake.SetMotorSpeed;
 import frc.robot.commands.intake.SetTempIntakeVelocity;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
+import frc.robot.commands.shooterPosition.SetShooterPosPot;
 import frc.robot.commands.shooterPosition.SetShooterPositionVelocity;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
@@ -36,6 +37,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPosPot;
 import frc.robot.subsystems.ShooterPosition;
 import frc.robot.subsystems.ShooterPositionVelocity;
 import frc.robot.subsystems.Vision;
@@ -63,7 +65,8 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   //private final ShooterPosition shooterPosition = new ShooterPosition();
-  private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
+  private final ShooterPosPot shooterPot = new ShooterPosPot(operatorJoystick);
+  // private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
@@ -101,11 +104,15 @@ public class RobotContainer {
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 70));
     operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(25)));
+
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
     // operatorJoystick.povUp().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
     // operatorJoystick.povDown().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
-    operatorJoystick.povUp().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, 5));
-    operatorJoystick.povDown().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, -5));
+    // operatorJoystick.povUp().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, 5));
+    // operatorJoystick.povDown().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, -5));
+
+
 
     // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
     // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
@@ -117,6 +124,7 @@ public class RobotContainer {
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+    operatorStation.greenButton.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
     
      //************* Test Joystick *****************/
      // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
@@ -168,12 +176,12 @@ public class RobotContainer {
 
   public boolean isShooterAtTrap() {
     //return shooterPosition.shooterAtTrap;
-    return shooterPositionVelocity.shooterAtIntake;
+    return shooterPot.shooterAtIntake;
   }
   
   public boolean isShooterAtIntake() {
     //return shooterPosition.shooterAtIntake;
-    return shooterPositionVelocity.shooterAtIntake;
+    return shooterPot.shooterAtIntake;
   }
 
   public boolean doWeHaveNote() {
