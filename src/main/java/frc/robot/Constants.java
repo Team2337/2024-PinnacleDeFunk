@@ -31,6 +31,7 @@ public final class Constants {
     public static final boolean INTAKE = true;
     public static final boolean PDH = false;
     public static final boolean SHOOTER = true;
+    public static final boolean SHOOTERPOT = true;
     public static final boolean SWERVE = true;
     public static final boolean VISION = true;
   }
@@ -184,6 +185,15 @@ public final class Constants {
 
   public static class Intake {
     public static final double INTAKE_VELOCITY = 70;
+  }
+
+  public static class ShooterPosPot {
+
+    public static final double SHOOTERPOT_MAX_SETPOINT = 10;
+    public static final double SHOOTERPOT_MIN_SETPOINT = 2.06;
+    public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
+    public static final double SHOOTERPOT_MAX_PID_SPEED = 0.2;
+
   }
 
   public static enum LEDState {
