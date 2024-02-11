@@ -1,9 +1,6 @@
 package frc.robot.commands.shooterPosition;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.ShooterPositionVelocity;
 
 public class SetShooterPositionVelocity extends Command {
