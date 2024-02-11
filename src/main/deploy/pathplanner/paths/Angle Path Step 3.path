@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.325730468864645,
-        "y": 5.5040931765173085
+        "x": 5.27,
+        "y": 7.09
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8058747672416873,
-        "y": 5.5040931765173085
+        "x": 4.803848922961754,
+        "y": 5.972526638348569
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.894982565999367,
-        "y": 5.5040931765173085
+        "x": 2.67,
+        "y": 5.574358195791997
       },
       "prevControl": {
-        "x": 2.403127431076544,
-        "y": 5.492382339971527
+        "x": 3.8176619814865878,
+        "y": 5.515804013063089
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.75,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryTemp"
+                "name": "AutoSetShooterPositionVelocityUp"
               }
             }
           ]
@@ -50,8 +50,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

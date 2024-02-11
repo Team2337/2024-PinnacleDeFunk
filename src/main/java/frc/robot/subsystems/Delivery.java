@@ -2,11 +2,9 @@ package frc.robot.subsystems;
 
 import java.util.Map;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
 
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -79,7 +77,7 @@ public class Delivery extends SubsystemBase {
         super.periodic();
         log();
         speedFromDash = shuffleboardSpeed.getDouble(0);
-        setDeliverySpeed(speedFromDash);
+        //setDeliverySpeed(speedFromDash);
 
     }
 }

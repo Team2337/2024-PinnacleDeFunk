@@ -29,7 +29,7 @@ public class ShooterPositionVelocity extends SubsystemBase {
   private final NeutralOut brake = new NeutralOut();
   private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
   private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
-  public boolean shooterAtIntake, shooterAtTrap = false;
+  public boolean shooterAtIntake, shooterAtTrap = true;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -68,6 +68,10 @@ public class ShooterPositionVelocity extends SubsystemBase {
     return positionMotor.getDeviceTemp().getValueAsDouble();
   }
 
+  public double getShooterPositionPosition() {
+    return positionMotor.getPosition().getValueAsDouble();
+  }
+
   public void setBrake() {
     positionMotor.setControl(brake);
   }
@@ -77,14 +81,18 @@ public class ShooterPositionVelocity extends SubsystemBase {
             SmartDashboard.putNumber("Shooter/Shooter Position Motor Temperature", getShooterPositionTemp());
         }
         SmartDashboard.putNumber("Shooter/ShooterPosition Velocity", getShooterPositionVelocity());
+        SmartDashboard.putNumber("Shooter/Shooter Position Position", getShooterPositionPosition());
+        SmartDashboard.putBoolean("Shooter/Shooter at Intake", shooterAtIntake);
     }
 
   public void initialize() {
   }
-
+  
   @Override
   public void periodic() {
     super.periodic();
+    shooterAtIntake = true;
+    
       log();
   }
 }

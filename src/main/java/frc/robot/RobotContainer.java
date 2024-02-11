@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -15,17 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.auto.AutoSetShooterPositionVelocity;
 import frc.robot.commands.auto.AutoStartDelivery;
 import frc.robot.commands.auto.AutoStartDeliveryTemp;
 import frc.robot.commands.auto.AutoStartDeliveryToSensor;
 import frc.robot.commands.auto.AutoStartIntake;
-import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
-import frc.robot.commands.elevator.SetElevatorSpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
-import frc.robot.commands.intake.SetTempIntakeVelocity;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.shooterPosition.SetShooterPositionVelocity;
@@ -40,7 +37,6 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.ShooterPosition;
 import frc.robot.subsystems.ShooterPositionVelocity;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Vision.LimelightColor;
@@ -76,10 +72,7 @@ public class RobotContainer {
   
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
-    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));
-    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote()));    
-    delivery.setDefaultCommand(new DeliveryDefault(delivery));
-    intake.setDefaultCommand(new SetTempIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
+    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));   
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -104,7 +97,8 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
     operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
     operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 70));
-    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery));
+    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery,Constants.Delivery.DELIVERY_REVERSE_SPEED));
+    operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery,Constants.Delivery.DELIVERY_FORWARD_SPEED));
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
     // operatorJoystick.povUp().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
     // operatorJoystick.povDown().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
@@ -147,9 +141,11 @@ public class RobotContainer {
     }
     
 
-    NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 0.9));
+    NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 40));
     //NamedCommands.registerCommand("SetShooterPosition", new InstantCommand(() -> shooterPositionVelocity.setShooterPosition(10), shooterPositionVelocity));
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
+    NamedCommands.registerCommand("AutoSetShooterPositionVelocityUp", new AutoSetShooterPositionVelocity(shooterPositionVelocity, 10, 7).withTimeout(2));
+    NamedCommands.registerCommand("AutoSetShooterPositionVelocityDown", new AutoSetShooterPositionVelocity(shooterPositionVelocity, -10, 0).withTimeout(2));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 70));
@@ -157,6 +153,12 @@ public class RobotContainer {
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
     SmartDashboard.putData("Auto Chooser", autonChooser);
+  }
+
+  public void instantiateSubsystemsTeleop() {
+    delivery.setDefaultCommand(new DeliveryDefault(delivery));
+    //intake.setDefaultCommand(new SetTempIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
+    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote())); 
   }
 
   public Command getAutonomousCommand() {
@@ -175,12 +177,13 @@ public class RobotContainer {
 
   public boolean isShooterAtTrap() {
     //return shooterPosition.shooterAtTrap;
-    return shooterPositionVelocity.shooterAtIntake;
+    return shooterPositionVelocity.shooterAtTrap;
   }
   
   public boolean isShooterAtIntake() {
     //return shooterPosition.shooterAtIntake;
     return shooterPositionVelocity.shooterAtIntake;
+    
   }
 
   public boolean doWeHaveNote() {

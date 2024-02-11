@@ -19,7 +19,7 @@ public class AutoStartIntake extends Command {
     
     @Override
     public void execute() {
-        intake.setIntakeSpeed(speed);
+        intake.setIntakeVelocity(speed);
     }
 
     @Override
@@ -29,6 +29,7 @@ public class AutoStartIntake extends Command {
 
     @Override
     public boolean isFinished() {
-        return (intake.getIntakeSensor()); 
+        //return (intake.getIntakeSensor()); 
+        return false;
     }
 }

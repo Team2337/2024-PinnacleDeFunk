@@ -34,6 +34,7 @@ public class SetMotorSpeed extends Command {
 
     @Override
     public boolean isFinished() {
-        return haveNote.get(); 
+        //return haveNote.get(); 
+        return false;
     }
 }

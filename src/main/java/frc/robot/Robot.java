@@ -118,10 +118,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_robotContainer.drivetrain.configNeutralMode(NeutralModeValue.Brake);
+    m_robotContainer.instantiateSubsystemsTeleop();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    //TODO: OMG REMOVE BEFORE COMP
     pigeon.setYaw(0);
   }
 

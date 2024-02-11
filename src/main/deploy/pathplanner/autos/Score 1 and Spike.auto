@@ -37,13 +37,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               }
             ]

@@ -19,7 +19,7 @@ public class AutoStartDeliveryTemp extends Command{
     @Override
     public void execute() {
         
-        delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SPEED);
+        delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
         
     }
 

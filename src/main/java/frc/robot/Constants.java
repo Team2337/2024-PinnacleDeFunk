@@ -171,7 +171,8 @@ public final class Constants {
   }
 
   public static class Delivery {
-    public static final double DELIVERY_SPEED = 0.9;
+    public static final double DELIVERY_FORWARD_SPEED = 1;
+    public static final double DELIVERY_REVERSE_SPEED = -0.5;
   }
 
   public static class Elevator {
@@ -182,7 +183,7 @@ public final class Constants {
   }
 
   public static class Intake {
-    public static final double INTAKE_VELOCITY = 5;
+    public static final double INTAKE_VELOCITY = 70;
   }
 
   public static enum LEDState {

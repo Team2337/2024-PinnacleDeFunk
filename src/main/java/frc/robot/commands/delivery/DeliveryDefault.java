@@ -1,11 +1,11 @@
 package frc.robot.commands.delivery;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Delivery;
 
 public class DeliveryDefault extends Command {
     private Delivery delivery;
-    private double speed;
 
     public DeliveryDefault(Delivery delivery) {
         this.delivery = delivery;
@@ -19,8 +19,8 @@ public class DeliveryDefault extends Command {
     
     @Override
     public void execute() {
-        if (delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
-            delivery.setDeliverySpeed(speed);
+        if (!delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
+            delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
         } else {
             delivery.stopMotors();
         }
