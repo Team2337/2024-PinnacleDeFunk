@@ -1,17 +1,13 @@
 package frc.robot.subsystems;
 
-import java.util.Map;
-
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
