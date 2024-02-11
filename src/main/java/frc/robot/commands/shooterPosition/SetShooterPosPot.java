@@ -22,16 +22,18 @@ public class SetShooterPosPot extends Command {
 
     @Override
     public void initialize() {
-        shooterPosPot.enablePID(false);
+        shooterPosPot.disable();
     }
     
     @Override
     public void execute() {
         
             if (operatorPovUp.get()) {
-                speed = 0.2;
+                speed = 0.1;
             } else if (operatorPovDown.get()) {
-                speed = -0.2;
+                speed = -0.1;
+            } else {
+                speed = 0;
             }
         shooterPosPot.setShooterPosPotSpeed(speed);
     }
@@ -39,8 +41,8 @@ public class SetShooterPosPot extends Command {
     @Override
     public void end(boolean interrupted) {
         shooterPosPot.stopMotor();
-        shooterPosPot.getSetPoint();
-        shooterPosPot.enablePID(true);
+        shooterPosPot.getAndSetSetPoint();
+        shooterPosPot.enable();
     }
 
     @Override

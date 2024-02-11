@@ -21,7 +21,7 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class ShooterPosPot extends PIDSubsystem {
-    private TalonFX shootPosPotMotor = new TalonFX(29);
+    private TalonFX shootPosPotMotor = new TalonFX(50, "Upper");
     public boolean shooterAtIntake, shooterAtTrap = false;
     private ShuffleboardTab shooterPosPotTab = Shuffleboard.getTab("ShooterPosPot");
    
@@ -52,8 +52,8 @@ public class ShooterPosPot extends PIDSubsystem {
         shootPosPotMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         shootPosPotMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         shootPosPotMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 5;
-        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -5;
+        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 1;
+        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -1;
 
         shootPosPotMotor.setSafetyEnabled(false);
         shootPosPotMotor.getConfigurator().apply(shootPosPotMotorConfig);
@@ -69,16 +69,6 @@ public class ShooterPosPot extends PIDSubsystem {
             this.setSetpoint(setPoint);
     }
 
-    
-
-    public void enablePID(boolean override) {
-        if (override) {
-            enable();
-        } else {
-            disable();
-        }
-    }
-
     public void setShooterPosPotSpeed(double speed) {
         shootPosPotMotor.set(speed);
     }
@@ -91,7 +81,7 @@ public class ShooterPosPot extends PIDSubsystem {
         return shootPosPotMotor.getDeviceTemp().getValueAsDouble();
     }
    
-    public void getSetPoint() {
+    public void getAndSetSetPoint() {
         setSetpoint(pot.get());
     }
 
