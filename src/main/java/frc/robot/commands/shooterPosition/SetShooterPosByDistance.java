@@ -15,8 +15,8 @@ public class SetShooterPosByDistance extends Command {
     private ShooterPosPot shooterPosPot;
     private Supplier<Pose2d> currentPose;
     private Translation2d speakerPose;
-    private double speed, speakerX, speakerY, currentX, currentY, distanceInMeters, newSetPoint;
-    private double minMetersFromSpeaker  = 1;
+    private double speakerX, speakerY, currentX, currentY, distanceInMeters, newPositionSetPoint;
+    private double minMetersFromSpeaker  = 0.889;
     private double maxMetersFromSpeaker = 5.105;
     private double minStringpotvalue = 5.15;
     private double maxStringpotValue = 9.95;
@@ -43,8 +43,16 @@ public class SetShooterPosByDistance extends Command {
 
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX),2) + Math.pow((currentY - speakerY),2));
 
-        newSetPoint = Utilities.scaleAnyToAny(distanceInMeters, minMetersFromSpeaker, maxMetersFromSpeaker, minStringpotvalue, maxStringpotValue);
-        SmartDashboard.putNumber("PotSetpoint by distance", newSetPoint);
+        newPositionSetPoint = Utilities.scaleAnyToAny(distanceInMeters, minMetersFromSpeaker, maxMetersFromSpeaker, minStringpotvalue, maxStringpotValue);
+        SmartDashboard.putNumber("PotSetpoint by distance", newPositionSetPoint);
+
+        if (newPositionSetPoint < minStringpotvalue) {
+            newPositionSetPoint = minStringpotvalue;
+        }
+         
+        if (newPositionSetPoint > maxStringpotValue) {
+            newPositionSetPoint = maxStringpotValue;
+        }
 
         //shooterPosPot.setSetpoint(newSetPoint);
     }
