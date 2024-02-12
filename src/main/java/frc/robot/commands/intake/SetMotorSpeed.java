@@ -1,15 +1,19 @@
 package frc.robot.commands.intake;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 public class SetMotorSpeed extends Command {
     private Intake intake;
     private double speed;
+    private Supplier<Boolean> haveNote;
 
-    public SetMotorSpeed(Intake intake, double speed) {
+    public SetMotorSpeed(Intake intake, double speed, Supplier<Boolean> haveNote) {
         this.intake = intake;
         this.speed = speed;
+        this.haveNote = haveNote;
         addRequirements(intake);
     }
 
@@ -30,6 +34,6 @@ public class SetMotorSpeed extends Command {
 
     @Override
     public boolean isFinished() {
-        return false; 
+        return haveNote.get(); 
     }
 }

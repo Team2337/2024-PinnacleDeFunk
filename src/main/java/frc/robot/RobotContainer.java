@@ -9,17 +9,18 @@ import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
-import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
+import frc.robot.commands.intake.SetTempIntakeVelocity;
 import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
+import frc.robot.commands.shooterPosition.SetShooterPosPot;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
@@ -28,10 +29,10 @@ import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.ShooterPosition;
-import frc.robot.subsystems.ShooterPositionVelocity;
+import frc.robot.subsystems.ShooterPosPot;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Vision.LimelightColor;
 
@@ -53,23 +54,24 @@ public class RobotContainer {
 
   private final Climber climb = new Climber(operatorJoystick);
   private final Delivery delivery = new Delivery();
+  private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
   //private final ShooterPosition shooterPosition = new ShooterPosition();
-  private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
+  private final ShooterPosPot shooterPot = new ShooterPosPot(operatorJoystick);
+  // private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
 
   public String allianceColor = null;
   
-  
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));
-    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
-    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> logger.getXVelocity()));
-    
+    //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote()));    
+    delivery.setDefaultCommand(new DeliveryDefault(delivery));
+    intake.setDefaultCommand(new SetTempIntakeVelocity(intake, () -> getDrivetrainVelocityX()));
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -77,26 +79,34 @@ public class RobotContainer {
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
 
-    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
-    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
-    driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
+    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true)));
+    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
     driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
+    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery));
+    //driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
     
     // reset the field-centric heading on left bumper press
     driverJoystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
     driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
-
+    
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 50));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -50));
-    operatorJoystick.x().whileTrue(new SetMotorVelocityBySide(shooter, 95, 100));
-    operatorJoystick.y().whileTrue(new SetMotorVelocity(shooter, 5));
-    operatorJoystick.a().whileTrue(new SetDeliverySpeed(delivery, 0.3));
-    operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, -0.3));
+    // operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
+    // operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
+    operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
+    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
+    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
+    operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15)));
+    operatorJoystick.b().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
+
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
-    operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
-    operatorJoystick.povDown().onTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
+    // operatorJoystick.povUp().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
+    // operatorJoystick.povDown().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(-5)));
+    // operatorJoystick.povUp().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, 5));
+    // operatorJoystick.povDown().whileTrue(new SetShooterPositionVelocity(shooterPositionVelocity, -5));
+
+
 
     // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(2.06)));
     // operatorJoystick.b().onFalse(new InstantCommand(() -> climb.getSetSetPoint()));
@@ -108,6 +118,7 @@ public class RobotContainer {
     //*************Operator Station *****************/
     // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+    operatorStation.greenButton.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
     
      //************* Test Joystick *****************/
      // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
@@ -137,8 +148,8 @@ public class RobotContainer {
     }
     
 
-    NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1));
-    NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0));
+    NamedCommands.registerCommand("StartIntake", new SetMotorSpeed(intake, 0.1, () -> doWeHaveNote()));
+    NamedCommands.registerCommand("StopIntake", new SetMotorSpeed(intake, 0.0, () -> doWeHaveNote()));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 5));
     NamedCommands.registerCommand("StopShooter", new SetMotorVelocity(shooter, 0));
     autonChooser = AutoBuilder.buildAutoChooser();
@@ -158,5 +169,19 @@ public class RobotContainer {
   public double getDrivetrainVelocityX() {
     //return drivetrain.drivetrainVelocityX;
     return logger.getXVelocity();
+  }
+
+  public boolean isShooterAtTrap() {
+    //return shooterPosition.shooterAtTrap;
+    return shooterPot.shooterAtIntake;
+  }
+  
+  public boolean isShooterAtIntake() {
+    //return shooterPosition.shooterAtIntake;
+    return shooterPot.shooterAtIntake;
+  }
+
+  public boolean doWeHaveNote() {
+    return(intake.getIntakeSensor() || delivery.getDeliveryBottomSensor() || delivery.getDeliveryTopSensor() || delivery.getTrapSensor());
   }
 }

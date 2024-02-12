@@ -23,10 +23,10 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Intake extends SubsystemBase {
 
-    private TalonFX intakeMotorLeft = new TalonFX(20, "Upper");
+    private TalonFX intakeMotorLeft = new TalonFX(20,"Upper");
     private TalonFX intakeMotorRight = new TalonFX(21, "Upper");
-    private DigitalInput intakeSensorTop = new DigitalInput(0);
-    private DigitalInput intakeSensorBottom = new DigitalInput(1);
+    private DigitalInput intakeSensor = new DigitalInput(0);
+    
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private ShuffleboardTab intakeTab = Shuffleboard.getTab("Intake");
     private GenericEntry shuffleboardSpeed = intakeTab 
@@ -85,8 +85,8 @@ public class Intake extends SubsystemBase {
     }
 
     public void setDriveOver(double velocity) {
-        intakeMotorLeft.setControl(velocityVoltage.withVelocity(-velocity));
-        intakeMotorRight.setControl(velocityVoltage.withVelocity(velocity));
+        intakeMotorLeft.setControl(velocityVoltage.withVelocity(velocity));
+        intakeMotorRight.setControl(velocityVoltage.withVelocity(-velocity));
     }
 
     public void setLeftIntakeSpeed(double speed) {
@@ -114,13 +114,10 @@ public class Intake extends SubsystemBase {
         return (intakeMotorLeft.getDeviceTemp().getValueAsDouble() +  intakeMotorRight.getDeviceTemp().getValueAsDouble()) / 2;
     }
 
-    public boolean getIntakeTopSensor() {
-        return intakeSensorTop.get();
+    public boolean getIntakeSensor() {
+        return !intakeSensor.get();
     }
 
-    public boolean getIntakeBottomSensor() {
-        return intakeSensorBottom.get();
-    }
 
     private boolean isOverheated() {
         return isMotorOverheated(intakeMotorLeft) || isMotorOverheated(intakeMotorRight);
@@ -139,8 +136,7 @@ public class Intake extends SubsystemBase {
             SmartDashboard.putNumber("Intake/Left Motor Temperature", getIntakeLeftTemp());
             SmartDashboard.putNumber("Intake/Right Motor Temperature", getIntakeRightTemp());
         }
-        SmartDashboard.putBoolean("Intake/Top Sensor", getIntakeTopSensor());
-        SmartDashboard.putBoolean("Intake/Bottom Sensor", getIntakeBottomSensor());
+        SmartDashboard.putBoolean("Intake/Intake Sensor", getIntakeSensor());
         addDashNum.setDouble(intakeSpeedFromDash());
     }
 

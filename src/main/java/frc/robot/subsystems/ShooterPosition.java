@@ -10,6 +10,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -25,7 +26,7 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
  * project.
  */
 public class ShooterPosition extends SubsystemBase {
-  private final TalonFX positionMotor = new TalonFX(50);
+  private final TalonFX positionMotor = new TalonFX(50, "Upper");
   
   /* Be able to switch which control request to use based on a button press */
   /* Start at position 0, enable FOC, no feed forward, use slot 0 */
@@ -40,6 +41,11 @@ public class ShooterPosition extends SubsystemBase {
 
   private ShuffleboardTab shooterPositionTab = Shuffleboard.getTab("Shooter Position");
   private GenericEntry shooterPosition = shooterPositionTab.add("Shooter Position", 0).getEntry();
+
+  public boolean shooterAtIntake, shooterAtTrap = false;
+
+  private DigitalInput tempShooterPosition = new DigitalInput(5);
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -120,5 +126,6 @@ public class ShooterPosition extends SubsystemBase {
   public void periodic() {
     super.periodic();
       log();
+      shooterAtIntake = !tempShooterPosition.get();
   }
 }

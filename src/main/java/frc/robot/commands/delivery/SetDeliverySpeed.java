@@ -1,15 +1,14 @@
 package frc.robot.commands.delivery;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Delivery;
 
 public class SetDeliverySpeed extends Command {
     private Delivery delivery;
-    private double speed;
 
-    public SetDeliverySpeed(Delivery delivery, double speed) {
+    public SetDeliverySpeed(Delivery delivery) {
         this.delivery = delivery;
-        this.speed = speed;
         addRequirements(delivery);
     }
 
@@ -20,7 +19,7 @@ public class SetDeliverySpeed extends Command {
     
     @Override
     public void execute() {
-        delivery.setDeliverySpeed(speed);
+        delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SPEED);
     }
 
     @Override

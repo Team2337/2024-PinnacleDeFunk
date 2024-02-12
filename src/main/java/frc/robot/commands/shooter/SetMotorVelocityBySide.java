@@ -21,13 +21,14 @@ public class SetMotorVelocityBySide extends Command {
     
     @Override
     public void execute() {
-        shooter.setLeftShooterVelocity(leftVelocity);
-        shooter.setRightShooterVelocity(rightVelocity);
+        // shooter.setLeftShooterVelocity(leftVelocity);
+        // shooter.setRightShooterVelocity(rightVelocity);
+        shooter.setAllPercentVelocity(2, 2, 75);
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooter.setBrake();
+        shooter.setShooterDutyCycleZero();
     }
 
     @Override
