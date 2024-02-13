@@ -12,6 +12,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -93,7 +95,7 @@ public class Robot extends TimedRobot {
         }
     }
     
-    SmartDashboard.putString("Alliance Color", m_robotContainer.allianceColor);
+    //SmartDashboard.putString("Alliance Color", m_robotContainer.allianceColor);
   }
 
   @Override
@@ -123,6 +125,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     pigeon.setYaw(0);
+    m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
   }
 
   @Override
