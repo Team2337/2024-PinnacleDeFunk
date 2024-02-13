@@ -60,9 +60,7 @@ public class RobotContainer {
   private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
-  //private final ShooterPosition shooterPosition = new ShooterPosition();
   private final ShooterPosPot shooterPot = new ShooterPosPot(operatorJoystick);
-  // private final ShooterPositionVelocity shooterPositionVelocity = new ShooterPositionVelocity();
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final Vision vision = new Vision(this);
   private final SendableChooser<Command> autonChooser;
@@ -95,10 +93,13 @@ public class RobotContainer {
     // operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
-    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15))); 
+    operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
+      .andThen(new SetMotorVelocityBySide(shooter, 70, 65)));
     operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15)));
-    operatorJoystick.b().whileTrue(new SetMotorVelocityBySide(shooter, 70, 65));
+    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
+    operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED));
+    operatorJoystick.start().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6.1)));
 
     //operatorJoystick.povUp().onTrue(new InstantCommand(() -> shooterPosition.setShooterPosition(30)));
     // operatorJoystick.povUp().whileTrue(new InstantCommand(() -> shooterPositionVelocity.setShooterPositionVelocity(5)));
@@ -150,6 +151,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
     // NamedCommands.registerCommand("AutoSetShooterPositionVelocityUp", new AutoSetShooterPositionVelocity(shooterPositionVelocity, 10, 7).withTimeout(2));
     // NamedCommands.registerCommand("AutoSetShooterPositionVelocityDown", new AutoSetShooterPositionVelocity(shooterPositionVelocity, -10, 0).withTimeout(2));
+    NamedCommands.registerCommand("ShooterPositionClose", new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15))); //5.15, 8.1, 9.95
+    NamedCommands.registerCommand("ShooterPositionFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
+    NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 70));

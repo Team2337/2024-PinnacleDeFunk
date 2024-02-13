@@ -45,7 +45,7 @@
                           {
                             "type": "named",
                             "data": {
-                              "name": "AutoSetShooterPositionVelocityUp"
+                              "name": "ShooterPositionFar"
                             }
                           },
                           {
@@ -83,7 +83,7 @@
                           {
                             "type": "named",
                             "data": {
-                              "name": "AutoSetShooterPositionVelocityDown"
+                              "name": "ShooterPositionClose"
                             }
                           }
                         ]
@@ -124,7 +124,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoSetShooterPositionVelocityDown"
+                        "name": "ShooterPositionClose"
                       }
                     }
                   ]
