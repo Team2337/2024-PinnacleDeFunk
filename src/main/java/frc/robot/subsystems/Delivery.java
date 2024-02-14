@@ -77,7 +77,7 @@ public class Delivery extends SubsystemBase {
         super.periodic();
         log();
         speedFromDash = shuffleboardSpeed.getDouble(0);
-        setDeliverySpeed(speedFromDash);
+        //setDeliverySpeed(speedFromDash);
 
     }
 }

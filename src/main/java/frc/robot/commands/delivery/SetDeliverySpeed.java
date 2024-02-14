@@ -6,9 +6,11 @@ import frc.robot.subsystems.Delivery;
 
 public class SetDeliverySpeed extends Command {
     private Delivery delivery;
+    private double speed;
 
-    public SetDeliverySpeed(Delivery delivery) {
+    public SetDeliverySpeed(Delivery delivery, double speed) {
         this.delivery = delivery;
+        this.speed = speed;
         addRequirements(delivery);
     }
 
@@ -19,7 +21,7 @@ public class SetDeliverySpeed extends Command {
     
     @Override
     public void execute() {
-        delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SPEED);
+        delivery.setDeliverySpeed(speed);
     }
 
     @Override
