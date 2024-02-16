@@ -28,6 +28,7 @@ import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.generated.TunerConstantsPractice;
+import frc.robot.generated.TunerConstantsPracticeWithKraken;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Delivery;
@@ -137,7 +138,7 @@ public class RobotContainer {
         drivetrain = TunerConstants.DriveTrain;
         break;
       case PRACTICE:
-        drivetrain = TunerConstantsPractice.DriveTrain;
+        drivetrain = TunerConstantsPracticeWithKraken.DriveTrain;
         break;
       case COMPETITION:
       default:

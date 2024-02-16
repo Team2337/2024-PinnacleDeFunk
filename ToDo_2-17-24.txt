@@ -1,0 +1,17 @@
+ReZero Modules
+Limelight Firmware
+Updated Coral TF Lite
+Auto 2 Meters
+Tune gear ratio
+Test main
+	-Intake
+	-Shooter Position
+	-Delivery
+	-Shooting
+	-Drive Over
+add back in sensors
+Test Alex-Speaker-Aiming branch
+Test PointAtSpeaker with SetShooterPosByDistance
+Limelight tuning on robot
+Baseline Auto Programs
+Slow Down ShooterPosition Slow down when testing
