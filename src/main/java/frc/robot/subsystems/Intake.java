@@ -159,7 +159,7 @@ public class Intake extends SubsystemBase {
         super.periodic();
         log();
         speedFromDash = shuffleboardSpeed.getDouble(0);
-        setIntakeSpeed(speedFromDash);
+        //setIntakeSpeed(speedFromDash);
 
     }
 
