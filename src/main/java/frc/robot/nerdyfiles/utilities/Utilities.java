@@ -156,4 +156,17 @@ public class Utilities {
 
     return (((input - oldMin)*(newMax - newMin))/(oldMax - oldMin))+newMin;
   }
+
+  /**
+   * Scales any input to any output
+   * @param input
+   * @param oldMin
+   * @param oldMax
+   * @param newMin
+   * @param newMax
+   * @return
+   */
+  public static double scaleAnyToAny(double input, double oldMin, double oldMax, double newMin, double newMax) {
+    return (((input - oldMin)*(newMax - newMin))/(oldMax - oldMin))+newMin;
+  }
 }

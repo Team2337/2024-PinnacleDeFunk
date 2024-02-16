@@ -22,7 +22,6 @@ public class SetDeliverySpeed extends Command {
     @Override
     public void execute() {
         delivery.setDeliverySpeed(speed);
-        
     }
 
     @Override
