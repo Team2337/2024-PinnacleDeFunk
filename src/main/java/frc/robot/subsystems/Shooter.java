@@ -30,6 +30,7 @@ public class Shooter extends SubsystemBase {
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
     private final VelocityTorqueCurrentFOC torqueVelocity = new VelocityTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
     private final NeutralOut brake = new NeutralOut();
+    public boolean shooterUpToSpeed = false;
     private final DutyCycleOut dutyCycle = new DutyCycleOut(0);
 
     private ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
@@ -61,7 +62,8 @@ public class Shooter extends SubsystemBase {
     private GenericEntry bottomLeftTemp = shooterTab.add("Bottom Left Temp", 0).getEntry();
     private GenericEntry bottomRightTemp = shooterTab.add("Bottom Right Temp", 0).getEntry();
 
-    private double leftVelocityFromDash, rightVelocityFromDash = 0;
+    private double leftVelocityFromDash, rightVelocityFromDash, globalVelocity = 0;
+    //private double leftVelocityFromDash, rightVelocityFromDash = 0;
     private double shooterKP = 0.8;
     private double shooterKI = 0;
     private double shooterKD = 0;
@@ -167,6 +169,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     public void setShooterDutyCycleZero() {
@@ -180,48 +183,58 @@ public class Shooter extends SubsystemBase {
     public void setLeftShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     public void setRightShooterVelocity(double velocity) {
         shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     //Top - Bottom
     public void setTopShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     public void setBottomShooterVelocity(double velocity) {
         shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     //Individual
     public void setTopLeftShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     public void setTopRightShooterVelocity(double velocity) {
         shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     public void setBottomLeftShooterVelocity(double velocity) {
         shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     public void setBottomRightShooterVelocity(double velocity) {
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     //Torque Velocity methods
     public void setTopShooterTorqueVelocity(double velocity) {
         shooterMotorTopLeft.setControl(torqueVelocity.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     public void setBottomShooterTorqueVelocity(double velocity) {
         shooterMotorBottomLeft.setControl(torqueVelocity.withVelocity(velocity));
+        globalVelocity = velocity;
     }
 
     //Get temps
@@ -256,6 +269,18 @@ public class Shooter extends SubsystemBase {
 
     public double readRightShooterVelocity() {
         return rightVelocityFromDash;
+    }
+
+    public boolean getShooterUpToSpeed() {
+        return shooterUpToSpeed;
+    }
+
+    public void checkShooterUpToSpeed() {
+        if (shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) {
+            shooterUpToSpeed = true;
+        } else {
+            shooterUpToSpeed = false;
+        }
     }
 
     /*********Shooter Testing Commands*******/
@@ -319,5 +344,7 @@ public class Shooter extends SubsystemBase {
         //setTopBottomPrecentVelocity(upDownPercentDifferenceFromDash.getDouble(0));
         //setLeftRightPrecentVelocity(leftRightPercentDifferenceFromDash.getDouble(0));
         //setAllPercentVelocity(upDownPercentDifferenceFromDash.getDouble(0), leftRightPercentDifferenceFromDash.getDouble(0));
+
+        checkShooterUpToSpeed();
     }
 }

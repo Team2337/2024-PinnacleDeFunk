@@ -1,29 +1,30 @@
-package frc.robot.commands.delivery;
+package frc.robot.commands.auto;
+
+import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Delivery;
 
-public class DeliveryDefault extends Command {
+public class AutoStartDelivery extends Command{
+    
     private Delivery delivery;
+    private Supplier<Boolean> upToSpeed;
 
-    public DeliveryDefault(Delivery delivery) {
+    public AutoStartDelivery(Delivery delivery, Supplier<Boolean> upToSpeed) {
         this.delivery = delivery;
+        this.upToSpeed = upToSpeed;
         addRequirements(delivery);
     }
 
     @Override
-    public void initialize() {
-        
-    }
+    public void initialize() {}
     
     @Override
     public void execute() {
-        if (!delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
+        if (upToSpeed.get()) {
             delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
-        } else {
-            delivery.stopMotors();
-        }
+        } 
     }
 
     @Override

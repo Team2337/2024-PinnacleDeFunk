@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.0,
-      "y": 0.0
+      "x": 1.2883,
+      "y": 5.552144
     },
     "rotation": 0
   },
@@ -14,24 +14,24 @@
         {
           "type": "path",
           "data": {
-            "pathName": "DriveForward2Meters"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
+            "pathName": "SB-StartToS1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "DriveBack2Meters"
+            "pathName": "SB-S1ToS2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SB-S2ToS3"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Blue Autos",
   "choreoAuto": false
 }

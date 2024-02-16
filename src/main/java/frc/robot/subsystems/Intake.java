@@ -3,7 +3,9 @@ package frc.robot.subsystems;
 import java.util.Map;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
+import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -48,7 +50,7 @@ public class Intake extends SubsystemBase {
 
         TalonFXConfiguration leftMotorConfig = new TalonFXConfiguration();
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         leftMotorConfig.Slot0.kP = 0.11;
         leftMotorConfig.Slot0.kI = 0.5;
@@ -60,7 +62,7 @@ public class Intake extends SubsystemBase {
 
         TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
         rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         rightMotorConfig.Slot0.kP = 0.11;
         rightMotorConfig.Slot0.kI = 0.5;
@@ -69,7 +71,6 @@ public class Intake extends SubsystemBase {
         rightMotorConfig.Voltage.PeakForwardVoltage = 12;
         rightMotorConfig.Voltage.PeakReverseVoltage = -12;
         intakeMotorRight.getConfigurator().apply(rightMotorConfig);
-        intakeMotorRight.setSafetyEnabled(false);
         setupShuffleboard(true);
 
     }

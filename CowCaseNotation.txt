@@ -1,0 +1,16 @@
+Color-StartPos-COW-NoteNumber-EndPose(Optional)
+
+Start Positions
+	Bottom
+	Speaker
+		Right
+		Center
+		Left
+	Top
+
+C = sCore
+O = Obtain
+W = Wacate
+
+Example
+Blue-SC-C0-C1-C2-C3-C8-N7
