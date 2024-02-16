@@ -93,9 +93,9 @@ public class Robot extends TimedRobot {
         if (ally.get() == Alliance.Blue) {
             m_robotContainer.allianceColor = "blue";
         }
+        SmartDashboard.putString("Alliance Color", m_robotContainer.allianceColor);
     }
     
-    //SmartDashboard.putString("Alliance Color", m_robotContainer.allianceColor);
   }
 
   @Override

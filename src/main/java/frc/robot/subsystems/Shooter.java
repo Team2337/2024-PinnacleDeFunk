@@ -1,12 +1,11 @@
 package frc.robot.subsystems;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 import com.ctre.phoenix6.configs.ClosedLoopRampsConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.controls.NeutralOut;
-import com.ctre.phoenix6.controls.VelocityTorqueCurrentFOC;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -28,10 +27,13 @@ public class Shooter extends SubsystemBase {
     private TalonFX shooterMotorBottomLeft = new TalonFX(42, "Upper");
     private TalonFX shooterMotorBottomRight = new TalonFX(43, "Upper");
     private final VelocityVoltage velocityVoltage = new VelocityVoltage(0, 0, true, 0, 0, false, false, false);
-    private final VelocityTorqueCurrentFOC torqueVelocity = new VelocityTorqueCurrentFOC(0, 0, 0, 1, false, false, false);
-    private final NeutralOut brake = new NeutralOut();
     public boolean shooterUpToSpeed = false;
     private final DutyCycleOut dutyCycle = new DutyCycleOut(0);
+    private Supplier<String> allianceColor;
+    private Supplier<Double> poseY;
+    private double speakerCenterY, topLeftVelo, topRightVelo, bottomLeftVelo, bottomRightVelo;
+    private boolean clockwiseRotation = false;
+    
 
     private ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
     private GenericEntry leftShooterVelocityFromDash = shooterTab
@@ -70,7 +72,9 @@ public class Shooter extends SubsystemBase {
     private double shooterKV = 0.12;
 
 
-    public Shooter() {
+    public Shooter(Supplier<String> allianceColor, Supplier<Double> poseY) {
+        this.allianceColor = allianceColor;
+        this.poseY = poseY;
 
         var setShooterMotorTopLeftToDefault = new TalonFXConfiguration();
         shooterMotorTopLeft.getConfigurator().apply(setShooterMotorTopLeftToDefault);
@@ -161,17 +165,6 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.getConfigurator().apply(bottomRightMotorConfig);
     }
 
-    
-    
-    //All motors the same
-    public void setShooterVelocity(double velocity) {
-        shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
-        shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
-        shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
-        shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
-    }
-
     public void setShooterDutyCycleZero() {
         shooterMotorTopLeft.setControl(dutyCycle.withOutput(0));
         shooterMotorBottomLeft.setControl(dutyCycle.withOutput(0));
@@ -179,31 +172,6 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomRight.setControl(dutyCycle.withOutput(0));
     }
 
-    //Left - Right
-    public void setLeftShooterVelocity(double velocity) {
-        shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
-        shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
-    }
-
-    public void setRightShooterVelocity(double velocity) {
-        shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
-        shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
-    }
-
-    //Top - Bottom
-    public void setTopShooterVelocity(double velocity) {
-        shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
-        shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
-    }
-
-    public void setBottomShooterVelocity(double velocity) {
-        shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
-        shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
-    }
 
     //Individual
     public void setTopLeftShooterVelocity(double velocity) {
@@ -226,17 +194,6 @@ public class Shooter extends SubsystemBase {
         globalVelocity = velocity;
     }
 
-    //Torque Velocity methods
-    public void setTopShooterTorqueVelocity(double velocity) {
-        shooterMotorTopLeft.setControl(torqueVelocity.withVelocity(velocity));
-        globalVelocity = velocity;
-    }
-
-    public void setBottomShooterTorqueVelocity(double velocity) {
-        shooterMotorBottomLeft.setControl(torqueVelocity.withVelocity(velocity));
-        globalVelocity = velocity;
-    }
-
     //Get temps
     public double getTopLeftMotorTemp() {
         return shooterMotorTopLeft.getDeviceTemp().getValueAsDouble();
@@ -254,23 +211,6 @@ public class Shooter extends SubsystemBase {
         return shooterMotorBottomRight.getDeviceTemp().getValueAsDouble();
     }
 
-    //Turn to brake mode
-    public void setBrake() {
-        shooterMotorTopLeft.setControl(brake);
-        shooterMotorBottomLeft.setControl(brake);
-        shooterMotorTopRight.setControl(brake);
-        shooterMotorBottomRight.setControl(brake);
-    }
-
-    //Read Velocity Values from dash
-    public double readLeftShooterVelocity() {
-        return leftVelocityFromDash;
-    }
-
-    public double readRightShooterVelocity() {
-        return rightVelocityFromDash;
-    }
-
     public boolean getShooterUpToSpeed() {
         return shooterUpToSpeed;
     }
@@ -283,28 +223,32 @@ public class Shooter extends SubsystemBase {
         }
     }
 
-    /*********Shooter Testing Commands*******/
-    //Change left right motor powers
-    public void setLeftRightPrecentVelocity(double percent) {
-        double velocity = readLeftShooterVelocity();
-        setLeftShooterVelocity(velocity);
-        setRightShooterVelocity((velocity*((100-percent)/100)));
-    }
-
-    //Change up down motor powers
-    public void setTopBottomPrecentVelocity(double percent) {
-        double velocity = readLeftShooterVelocity();
-        setTopShooterVelocity(velocity);
-        setBottomShooterVelocity((velocity*((100-percent)/100)));
-    }
-
     //Change both at the same time
-    public void setAllPercentVelocity(double upDownVelo, double leftRightVelo, double velocity) {
+    public void setAllPercentVelocityByPercent(double upDownVelo, double leftRightVelo, double velocity) {
         //double velocity = readLeftShooterVelocity();
         setTopLeftShooterVelocity(velocity);
         setTopRightShooterVelocity(velocity*((100-leftRightVelo)/100));
         setBottomLeftShooterVelocity(velocity*((100-upDownVelo)/100));
         setBottomRightShooterVelocity(velocity*(((100-upDownVelo)/100))*((100-leftRightVelo)/100));
+    }
+
+    public void setAllPercentVelocity() {
+        double maxVelocity = Constants.Shooter.SHOOTER_MAX_VELOCITY;
+        if (clockwiseRotation) {
+            topLeftVelo = maxVelocity;
+            bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+            topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF;
+            bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+        } else {
+            topRightVelo = maxVelocity;
+            bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+            topLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF;
+            bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+        }
+        setTopLeftShooterVelocity(topLeftVelo);
+        setTopRightShooterVelocity(topRightVelo);
+        setBottomLeftShooterVelocity(bottomLeftVelo);
+        setBottomRightShooterVelocity(bottomRightVelo);
     }
 
     public void log() {
@@ -315,8 +259,6 @@ public class Shooter extends SubsystemBase {
             SmartDashboard.putNumber("Shooter/Bottom Right Motor Temperature", getBottomRightMotorTemp());
             SmartDashboard.putNumber("Shooter/Top Right Error", shooterMotorTopRight.getClosedLoopError().getValueAsDouble());
         }
-        leftDashNum.setDouble(readLeftShooterVelocity());
-        rightDashNum.setDouble(readRightShooterVelocity());
         //Put Velocity Numbers Onto Shooter Tab
         topLeftVelocity.setDouble(shooterMotorTopLeft.getVelocity().getValueAsDouble());
         topRightVelocity.setDouble(shooterMotorTopRight.getVelocity().getValueAsDouble());
@@ -329,6 +271,16 @@ public class Shooter extends SubsystemBase {
         bottomRightTemp.setDouble(shooterMotorBottomRight.getDeviceTemp().getValueAsDouble());
 
         
+    }
+
+    public double getSpeakerCenter() {
+        if (allianceColor.get() == "red") {
+            speakerCenterY = Constants.FieldElements.redSpeakerCenter.getY();
+        } else {
+            speakerCenterY = Constants.FieldElements.blueSpeakerCenter.getY();
+        }
+
+        return speakerCenterY;
     }
 
     @Override
@@ -345,6 +297,13 @@ public class Shooter extends SubsystemBase {
         //setLeftRightPrecentVelocity(leftRightPercentDifferenceFromDash.getDouble(0));
         //setAllPercentVelocity(upDownPercentDifferenceFromDash.getDouble(0), leftRightPercentDifferenceFromDash.getDouble(0));
 
+
         checkShooterUpToSpeed();
+        if (poseY.get() < getSpeakerCenter()) {
+            clockwiseRotation = false;
+        } else {
+            clockwiseRotation = true;
+        }
+       
     }
 }

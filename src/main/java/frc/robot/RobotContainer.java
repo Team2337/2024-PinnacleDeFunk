@@ -21,7 +21,6 @@ import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
-import frc.robot.commands.shooter.SetMotorVelocity;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.shooterPosition.SetShooterPosByDistance;
 import frc.robot.commands.shooterPosition.SetShooterPosPot;
@@ -60,7 +59,7 @@ public class RobotContainer {
   private final Delivery delivery = new Delivery();
   private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
-  private final Shooter shooter = new Shooter();
+  private final Shooter shooter = new Shooter(() -> getAllianceColor(), () -> getPoseY());
   private final ShooterPosPot shooterPot = new ShooterPosPot(operatorJoystick);
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
   private final Vision vision = new Vision(this);
@@ -78,9 +77,10 @@ public class RobotContainer {
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
 
-    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true)));
+    driverJoystick.a().onTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
+      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose())));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
-    driverJoystick.b().whileTrue(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose()));
+    //driverJoystick.b().whileTrue(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose()));
     driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
     driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED));
@@ -97,7 +97,7 @@ public class RobotContainer {
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
     operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15))); 
     operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
-      .andThen(new SetMotorVelocityBySide(shooter, 70, 65)));
+      .andThen(new SetMotorVelocityBySide(shooter)));
     operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
     operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED));
@@ -158,8 +158,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery));
-    NamedCommands.registerCommand("StartShooter", new SetMotorVelocity(shooter, 70));
-    NamedCommands.registerCommand("StopShooter", new SetMotorVelocity(shooter, 0));
+    NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter));
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
     SmartDashboard.putData("Auto Chooser", autonChooser);
@@ -193,6 +192,14 @@ public class RobotContainer {
   public boolean isShooterAtIntake() {
     //return shooterPosition.shooterAtIntake;
     return shooterPot.shooterAtIntake;
+  }
+
+  public String getAllianceColor () {
+    return allianceColor;
+  }
+
+  public double getPoseY () {
+    return drivetrain.getState().Pose.getY();
   }
 
   public boolean doWeHaveNote() {

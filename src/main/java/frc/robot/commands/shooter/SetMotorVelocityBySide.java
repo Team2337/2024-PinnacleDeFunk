@@ -5,12 +5,9 @@ import frc.robot.subsystems.Shooter;
 
 public class SetMotorVelocityBySide extends Command {
     private Shooter shooter;
-    private double leftVelocity, rightVelocity;
 
-    public SetMotorVelocityBySide(Shooter shooter, double leftVelocity, double rightVelocity) {
+    public SetMotorVelocityBySide(Shooter shooter) {
         this.shooter = shooter;
-        this.leftVelocity = leftVelocity;
-        this.rightVelocity = rightVelocity;
         addRequirements(shooter);
     }
 
@@ -21,9 +18,8 @@ public class SetMotorVelocityBySide extends Command {
     
     @Override
     public void execute() {
-        // shooter.setLeftShooterVelocity(leftVelocity);
-        // shooter.setRightShooterVelocity(rightVelocity);
-        shooter.setAllPercentVelocity(2, 2, 75);
+        //shooter.setAllPercentVelocityByPercent(2, 2, 75);
+        shooter.setAllPercentVelocity();;
     }
 
     @Override

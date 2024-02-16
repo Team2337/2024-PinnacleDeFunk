@@ -35,7 +35,7 @@ public class SetShooterPosByDistance extends Command {
     
     @Override
     public void execute() {
-        speakerPose = Constants.FieldElements.speakerCenter;
+        speakerPose = Constants.FieldElements.blueSpeakerCenter;
         speakerX = speakerPose.getX();      
         speakerY = speakerPose.getY(); 
         currentX = currentPose.get().getX();

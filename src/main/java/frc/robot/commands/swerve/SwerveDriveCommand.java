@@ -61,8 +61,8 @@ public class SwerveDriveCommand extends Command{
                 .withVelocityY(strafe);
             // If endgame switch is true, drive robot centric
         } else if (drivetrain.pointAtSpeaker) {
-            double speakerX = Constants.FieldElements.speakerCenter.getX();
-            double speakerY = Constants.FieldElements.speakerCenter.getY();
+            double speakerX = Constants.FieldElements.blueSpeakerCenter.getX();
+            double speakerY = Constants.FieldElements.blueSpeakerCenter.getY();
             Pose2d currentPose = drivetrain.getPose();
             double currentPoseX = currentPose.getX();
             double currentPoseY = currentPose.getY();
