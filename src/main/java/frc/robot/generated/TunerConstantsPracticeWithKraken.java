@@ -91,7 +91,7 @@ public class TunerConstantsPracticeWithKraken {
     private static final int kFrontLeftDriveMotorId = 1;
     private static final int kFrontLeftSteerMotorId = 2;
     private static final int kFrontLeftEncoderId = 2;
-    private static final double kFrontLeftEncoderOffset = 0.448486328125;
+    private static final double kFrontLeftEncoderOffset = 0.448974609375;
 
     private static final double kFrontLeftXPosInches = 11.875;
     private static final double kFrontLeftYPosInches = 11.875;
@@ -109,7 +109,7 @@ public class TunerConstantsPracticeWithKraken {
     private static final int kBackLeftDriveMotorId = 8;
     private static final int kBackLeftSteerMotorId = 9;
     private static final int kBackLeftEncoderId = 3;
-    private static final double kBackLeftEncoderOffset = 0.439453125;
+    private static final double kBackLeftEncoderOffset = 0.423095703125;
 
     private static final double kBackLeftXPosInches = -11.875;
     private static final double kBackLeftYPosInches = 11.875;
@@ -118,7 +118,7 @@ public class TunerConstantsPracticeWithKraken {
     private static final int kBackRightDriveMotorId = 10;
     private static final int kBackRightSteerMotorId = 11;
     private static final int kBackRightEncoderId = 4;
-    private static final double kBackRightEncoderOffset = -0.0224609375;
+    private static final double kBackRightEncoderOffset = -0.01708984375;
 
     private static final double kBackRightXPosInches = -11.875;
     private static final double kBackRightYPosInches = -11.875;
