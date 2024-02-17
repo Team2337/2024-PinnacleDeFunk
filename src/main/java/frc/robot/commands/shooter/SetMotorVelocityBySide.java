@@ -19,7 +19,7 @@ public class SetMotorVelocityBySide extends Command {
     @Override
     public void execute() {
         //shooter.setAllPercentVelocityByPercent(2, 2, 75);
-        shooter.setAllPercentVelocity();;
+        shooter.setAllPercentVelocity();
     }
 
     @Override

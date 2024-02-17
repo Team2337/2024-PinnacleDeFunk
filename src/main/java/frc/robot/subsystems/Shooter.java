@@ -258,6 +258,10 @@ public class Shooter extends SubsystemBase {
             SmartDashboard.putNumber("Shooter/Bottom Left Motor Temperature", getBottomLeftMotorTemp());
             SmartDashboard.putNumber("Shooter/Bottom Right Motor Temperature", getBottomRightMotorTemp());
             SmartDashboard.putNumber("Shooter/Top Right Error", shooterMotorTopRight.getClosedLoopError().getValueAsDouble());
+            SmartDashboard.putNumber("Shooter/Top Left Motor Amp", shooterMotorTopRight.getStatorCurrent().getValueAsDouble());
+            SmartDashboard.putNumber("Shooter/Top Right Motor Amp", shooterMotorTopLeft.getStatorCurrent().getValueAsDouble());
+            SmartDashboard.putNumber("Shooter/Bottom Left Motor Amp", shooterMotorBottomLeft.getStatorCurrent().getValueAsDouble());
+            SmartDashboard.putNumber("Shooter/Bottom Right Motor Amp", shooterMotorBottomRight.getStatorCurrent().getValueAsDouble());
         }
         //Put Velocity Numbers Onto Shooter Tab
         topLeftVelocity.setDouble(shooterMotorTopLeft.getVelocity().getValueAsDouble());

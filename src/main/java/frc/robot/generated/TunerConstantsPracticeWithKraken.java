@@ -45,7 +45,7 @@ public class TunerConstantsPracticeWithKraken {
     // This may need to be tuned to your individual robot
     private static final double kCoupleRatio = 3;
 
-    private static final double kDriveGearRatio = 5.142857142857142;
+    private static final double kDriveGearRatio = 5.55;//5.142857142857142;
     private static final double kSteerGearRatio = 12.8;
     private static final double kWheelRadiusInches = 2;
 
