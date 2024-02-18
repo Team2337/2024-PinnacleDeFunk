@@ -1,0 +1,166 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.25,
+      "y": 5.55
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Approach N1 - Step 1"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Obtain N1 - Step 2"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionClose"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Approach N2 - Step 3"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Obtain N2 - Step 4"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionClose"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Approach N3 - Step 5"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Obtain N3 - Step 6"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionClose"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Score N3 - Step 7"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

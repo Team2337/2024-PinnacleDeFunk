@@ -39,38 +39,6 @@
                       }
                     },
                     {
-                      "type": "sequential",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionFar"
-                            }
-                          },
-                          {
-                            "type": "deadline",
-                            "data": {
-                              "commands": [
-                                {
-                                  "type": "wait",
-                                  "data": {
-                                    "waitTime": 2.0
-                                  }
-                                },
-                                {
-                                  "type": "named",
-                                  "data": {
-                                    "name": "AutoStartDeliveryTemp"
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
                       "type": "parallel",
                       "data": {
                         "commands": [
@@ -111,20 +79,39 @@
                             "data": {
                               "pathName": "Angle Path Step 3"
                             }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
+                            }
                           }
                         ]
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "Angle Path Step 4"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "ShooterPositionClose"
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Angle Path Step 4"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
+                            }
+                          }
+                        ]
                       }
                     }
                   ]

@@ -60,6 +60,29 @@
               "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionClose"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionByDistance"
+              }
             }
           ]
         }

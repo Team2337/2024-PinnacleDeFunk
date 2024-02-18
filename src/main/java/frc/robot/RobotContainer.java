@@ -97,8 +97,9 @@ public class RobotContainer {
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
     operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15))); 
-    operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
-      .andThen(new SetMotorVelocityBySide(shooter)));
+    // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
+    //   .andThen(new SetMotorVelocityBySide(shooter)));
+    operatorJoystick.b().whileTrue(new SetMotorVelocityBySide(shooter));
     operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
     operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED));
@@ -157,8 +158,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPositionClose", new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15))); //5.15, 8.1, 9.95
     NamedCommands.registerCommand("ShooterPositionFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
     NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
+    NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose()));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
-    NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery));
+    NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(2));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter));
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
