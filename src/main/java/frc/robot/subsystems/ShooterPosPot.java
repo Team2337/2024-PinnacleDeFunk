@@ -87,6 +87,7 @@ public class ShooterPosPot extends PIDSubsystem {
             SmartDashboard.putNumber("ShooterPosPot/ Position", pot.get());
             SmartDashboard.putNumber("ShooterPosPot/ Set Point", getSetpoint());
             SmartDashboard.putBoolean("ShooterPosPot/  at Set Point", getController().atSetpoint());
+            SmartDashboard.putNumber("ShooterPosPot/Motor Amp", shootPosPotMotor.getStatorCurrent().getValueAsDouble());
         }
     }
 

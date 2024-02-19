@@ -86,10 +86,10 @@ public class Shooter extends SubsystemBase {
         shooterMotorTopLeft.getConfigurator().apply(setShooterMotorBottomRightToDefault);
 
         ClosedLoopRampsConfigs rampsConfigs = new ClosedLoopRampsConfigs();
-        rampsConfigs.withVoltageClosedLoopRampPeriod(5);
+        rampsConfigs.withVoltageClosedLoopRampPeriod(0.5);
         
         TalonFXConfiguration topLeftMotorConfig = new TalonFXConfiguration();
-        topLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
+        topLeftMotorConfig.withCurrentLimits(CTREUtils.setShooterCurrentLimit());
         topLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         topLeftMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         topLeftMotorConfig.Slot0.kP = shooterKP;
@@ -108,7 +108,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorTopLeft.getConfigurator().apply(topLeftMotorConfig);
         
         TalonFXConfiguration topRightMotorConfig = new TalonFXConfiguration();
-        topRightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
+        topRightMotorConfig.withCurrentLimits(CTREUtils.setShooterCurrentLimit());
         topRightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         topRightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         topRightMotorConfig.Slot0.kP = shooterKP;
@@ -127,7 +127,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorTopRight.getConfigurator().apply(topRightMotorConfig);
 
         TalonFXConfiguration bottomLeftMotorConfig = new TalonFXConfiguration();
-        bottomLeftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
+        bottomLeftMotorConfig.withCurrentLimits(CTREUtils.setShooterCurrentLimit());
         bottomLeftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         bottomLeftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         bottomLeftMotorConfig.Slot0.kP = shooterKP;
@@ -146,7 +146,7 @@ public class Shooter extends SubsystemBase {
         shooterMotorBottomLeft.getConfigurator().apply(bottomLeftMotorConfig);
 
        TalonFXConfiguration bottomRightMotorConfig = new TalonFXConfiguration();
-        bottomRightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
+        bottomRightMotorConfig.withCurrentLimits(CTREUtils.setShooterCurrentLimit());
         bottomRightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         bottomRightMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         bottomRightMotorConfig.Slot0.kP = shooterKP;
