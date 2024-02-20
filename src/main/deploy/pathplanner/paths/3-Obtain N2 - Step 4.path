@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.25,
+        "x": 2.18,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7200675201975633,
-        "y": 5.079932479802436
+        "x": 2.415159976411594,
+        "y": 5.55
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.24,
-        "y": 4.682923638877245
+        "x": 2.9556299734131106,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 1.7672605052146255,
-        "y": 5.15566313366262
+        "x": 2.7077486904733825,
+        "y": 5.55
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoStartDeliveryTemp"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 1.0,
     "maxAcceleration": 0.5,
@@ -57,14 +39,14 @@
   },
   "goalEndState": {
     "velocity": 1.0,
-    "rotation": -25.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue-SpeakerCenter-C0-C1-C2-C3",
+  "folder": "3-Blue-SpeakerCenter-C0-C1-C2-C3",
   "previewStartingState": {
     "rotation": 0,
-    "velocity": 0
+    "velocity": 1.0
   },
   "useDefaultConstraints": false
 }

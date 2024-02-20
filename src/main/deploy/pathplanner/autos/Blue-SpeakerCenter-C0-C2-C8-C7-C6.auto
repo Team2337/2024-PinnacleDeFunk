@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.25,
+      "x": 1.22,
       "y": 5.55
     },
     "rotation": 0
@@ -26,13 +26,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "3-Approach N1 - Step 1"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionByDistance"
+                              "pathName": "2 - Approach N2 - Step 1"
                             }
                           }
                         ]
@@ -45,13 +39,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "3-Obtain N1 - Step 2"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionClose"
+                              "pathName": "2 - Obtain N2 - Step 2"
                             }
                           }
                         ]
@@ -64,13 +52,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "3-Approach N2 - Step 3"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionByDistance"
+                              "pathName": "2 - Score N2 - Step 3"
                             }
                           }
                         ]
@@ -83,13 +65,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "3-Obtain N2 - Step 4"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionClose"
+                              "pathName": "2 - Approach N8 - Step 4"
                             }
                           }
                         ]
@@ -102,13 +78,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "3-Approach N3 - Step 5"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionByDistance"
+                              "pathName": "2 - Obtain N8 - Step 5"
                             }
                           }
                         ]
@@ -121,13 +91,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "3-Obtain N3 - Step 6"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionClose"
+                              "pathName": "2 - Shoot N8 - Step 6"
                             }
                           }
                         ]
@@ -140,13 +104,72 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "3-Score N3 - Step 7"
+                              "pathName": "2 - Approach N7 - Step 7"
                             }
-                          },
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
                           {
-                            "type": "named",
+                            "type": "path",
                             "data": {
-                              "name": "ShooterPositionByDistance"
+                              "pathName": "2 - Obtain N7 - Step 8"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "2 - Score N7 - Step 9"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "2 - Approach N6 - Step 10"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "2 - Obtain N6 - Step 11"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "2 - Score N6 - Step 12"
                             }
                           }
                         ]

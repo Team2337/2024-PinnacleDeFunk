@@ -3,20 +3,17 @@
   "robotLength": 0.74,
   "holonomicMode": true,
   "pathFolders": [
-    "ACB-CenterSpikesStraight",
-    "B-CenterSpikesStraight",
-    "New Folder",
-    "New New Folder",
-    "Blue-SpeakerCenter-C0-C1-C2-C3",
-    "Score 2 Note",
+    "3-Blue-SpeakerCenter-C0-C1-C2-C3",
+    "2-Blue-SpeakerCenter-C0-C2-C8-C7-C6",
+    "1-Blue-SpeakerRight-C0-C3-C8-C2",
     "Tests"
   ],
   "autoFolders": [
     "Blue Autos",
     "Testing Autos"
   ],
-  "defaultMaxVel": 3.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 10.0,
+  "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 4.5

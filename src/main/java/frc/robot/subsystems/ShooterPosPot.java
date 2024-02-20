@@ -48,8 +48,8 @@ public class ShooterPosPot extends PIDSubsystem {
         shootPosPotMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         shootPosPotMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         shootPosPotMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 10;
-        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -10;
+        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 12;
+        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -12;
 
         shootPosPotMotor.setSafetyEnabled(false);
         shootPosPotMotor.getConfigurator().apply(shootPosPotMotorConfig);

@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.24,
-        "y": 4.68
+        "x": 8.22,
+        "y": 5.77
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4324283942685536,
-        "y": 4.490165162350303
+        "x": 7.499222634405315,
+        "y": 6.445286852837857
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.85,
-        "y": 4.15
+        "x": 5.53,
+        "y": 6.15
       },
       "prevControl": {
-        "x": 2.6619027710863414,
-        "y": 4.326904735677938
+        "x": 6.260060999589259,
+        "y": 6.243349401238204
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Shoot Wing Line"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 10.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -15.0,
+    "rotation": 5.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Blue-SpeakerCenter-C0-C1-C2-C3",
+  "folder": "2-Blue-SpeakerCenter-C0-C2-C8-C7-C6",
   "previewStartingState": {
-    "rotation": -25.0,
-    "velocity": 3.0
+    "rotation": 0,
+    "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

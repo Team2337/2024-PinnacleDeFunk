@@ -96,7 +96,7 @@ public class RobotContainer {
     // operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -0.1, () -> doWeHaveNote()));
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15))); 
+    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.7))); 
     // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
     //   .andThen(new SetMotorVelocityBySide(shooter)));
     operatorJoystick.b().whileTrue(new SetMotorVelocityBySide(shooter));
@@ -161,6 +161,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose()));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(2));
+    NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter));
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
