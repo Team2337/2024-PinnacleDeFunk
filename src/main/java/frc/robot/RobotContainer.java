@@ -78,8 +78,8 @@ public class RobotContainer {
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
 
-    driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true)));
-      //.alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose())));
+    driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
+      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose())));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
     //driverJoystick.b().whileTrue(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose()));
     driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
@@ -100,7 +100,7 @@ public class RobotContainer {
     // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
     //   .andThen(new SetMotorVelocityBySide(shooter)));
     operatorJoystick.b().whileTrue(new SetMotorVelocityBySide(shooter));
-    operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
+    operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.3)));
     operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED));
     operatorJoystick.start().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6.1)));
@@ -155,7 +155,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
     // NamedCommands.registerCommand("AutoSetShooterPositionVelocityUp", new AutoSetShooterPositionVelocity(shooterPositionVelocity, 10, 7).withTimeout(2));
     // NamedCommands.registerCommand("AutoSetShooterPositionVelocityDown", new AutoSetShooterPositionVelocity(shooterPositionVelocity, -10, 0).withTimeout(2));
-    NamedCommands.registerCommand("ShooterPositionClose", new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.15))); //5.15, 8.1, 9.95
+    NamedCommands.registerCommand("ShooterPositionPickup", new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.7))); //5.15, 8.1, 9.95
     NamedCommands.registerCommand("ShooterPositionFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
     NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose()));
@@ -163,6 +163,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(2));
     NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter));
+    NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
     SmartDashboard.putData("Auto Chooser", autonChooser);
