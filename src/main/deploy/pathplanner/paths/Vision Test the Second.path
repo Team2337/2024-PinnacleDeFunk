@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.9,
-        "y": 5.55
+        "x": 3.94,
+        "y": 6.11
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8449739896150164,
-        "y": 5.38052574440332
+        "x": 3.882706455756974,
+        "y": 5.343809844112474
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.9,
-        "y": 6.95
+        "x": 1.6613944881607856,
+        "y": 5.36
       },
       "prevControl": {
-        "x": 1.6246785878699395,
-        "y": 6.500360703274127
+        "x": 2.9105387827201836,
+        "y": 5.282167794257898
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,15 +33,15 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.05,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDelivery"
+                "name": "StartShooter"
               }
             }
           ]
@@ -50,15 +50,15 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.7,
+      "waypointRelativePos": 0.45,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "AutoStartIntake"
+                "name": "AutoStartDeliveryTemp"
               }
             }
           ]
@@ -67,21 +67,21 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 0.5,
-    "maxAngularVelocity": 270.0,
-    "maxAngularAcceleration": 90.0
+    "maxVelocity": 10.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 25.498298120736212,
+    "velocity": 0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "ACB-CenterSpikesStraight",
+  "folder": "Tests",
   "previewStartingState": {
-    "rotation": 0.0,
-    "velocity": 0.0
+    "rotation": 0,
+    "velocity": 0
   },
   "useDefaultConstraints": false
 }

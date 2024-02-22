@@ -6,11 +6,9 @@ import frc.robot.subsystems.Shooter;
 public class AutoStartShoot extends Command{
     
     private Shooter shooter;
-    private double velocity;
 
-    public AutoStartShoot(Shooter shooter, double velocity) {
+    public AutoStartShoot(Shooter shooter) {
         this.shooter = shooter;
-        this.velocity = velocity;
         addRequirements(shooter);
     }
 
@@ -19,12 +17,12 @@ public class AutoStartShoot extends Command{
     
     @Override
     public void execute() {
-        shooter.setShooterVelocity(velocity);
+        shooter.setAllPercentVelocity();
     }
 
     @Override
     public void end(boolean interrupted) {
-        shooter.setShooterVelocity(0);
+        shooter.setShooterDutyCycleZero();
     }
 
     @Override

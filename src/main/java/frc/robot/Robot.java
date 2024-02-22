@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   private final Pigeon2 pigeon = new Pigeon2(0);
 
   //TODO: Validate This
-  private final boolean UseLimelight = false;
+  private final boolean UseLimelight = true;
   private double visionCounter = 0;
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
 
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     pigeon.getYaw();
     SmartDashboard.putNumber("Yaw", pigeon.getYaw().getValueAsDouble());
     if (UseLimelight) {    
-      var lastResult = LimelightHelpers.getLatestResults("limelight-orange").targetingResults;
+      var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
 
       Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
       
@@ -93,9 +93,9 @@ public class Robot extends TimedRobot {
         if (ally.get() == Alliance.Blue) {
             m_robotContainer.allianceColor = "blue";
         }
+        SmartDashboard.putString("Alliance Color", m_robotContainer.allianceColor);
     }
     
-    //SmartDashboard.putString("Alliance Color", m_robotContainer.allianceColor);
   }
 
   @Override
@@ -127,7 +127,7 @@ public class Robot extends TimedRobot {
     }
     //TODO: OMG REMOVE BEFORE COMP
     pigeon.setYaw(0);
-    m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
+    //m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
   }
 
   @Override

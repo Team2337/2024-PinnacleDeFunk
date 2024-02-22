@@ -7,7 +7,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.ShooterPosPot;
 
 
@@ -17,9 +16,9 @@ public class SetShooterPosByDistance extends Command {
     private Translation2d speakerPose;
     private double speakerX, speakerY, currentX, currentY, distanceInMeters, newSetpoint;
     private double minMetersFromSpeaker = 1.335;
-    private double maxMetersFromSpeaker = 4.15;//5.08;
-    private double minStringPotValue = 5.3;//5.15;
-    private double maxStringPotValue = 9.95;
+    private double maxMetersFromSpeaker = 4.15;//5.1816;
+    private double minStringPotValue = 5.3;
+    private double maxStringPotValue = 10.1;
 
 
     public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose) {
@@ -35,13 +34,15 @@ public class SetShooterPosByDistance extends Command {
     
     @Override
     public void execute() {
-        speakerPose = Constants.FieldElements.speakerCenter;
+        speakerPose = Constants.FieldElements.blueSpeakerCenter;
         speakerX = speakerPose.getX();      
         speakerY = speakerPose.getY(); 
         currentX = currentPose.get().getX();
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        newSetpoint = Utilities.scaleAnyToAny(distanceInMeters, minMetersFromSpeaker, maxMetersFromSpeaker, minStringPotValue, maxStringPotValue);
+        //newSetpoint = Utilities.scaleAnyToAny(distanceInMeters, minMetersFromSpeaker, maxMetersFromSpeaker, minStringPotValue, maxStringPotValue);
+        //newSetpoint = (distanceInMeters * 1.08309) + 4.6963; //distance * slope + y intersept
+        newSetpoint = (-0.20335152 * Math.pow(distanceInMeters, 2)) + (2.4585446 * distanceInMeters) + 2.7245656;
         
         if (newSetpoint < minStringPotValue) {
             newSetpoint = minStringPotValue;

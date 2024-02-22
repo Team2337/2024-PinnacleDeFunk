@@ -123,7 +123,8 @@ public final class Constants {
   }
 
   public static final class FieldElements {
-    public static Translation2d speakerCenter = new Translation2d(0,5.55);
+    public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
+    public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
   }
 
   public static final class Auto {
@@ -185,6 +186,12 @@ public final class Constants {
 
   public static class Intake {
     public static final double INTAKE_VELOCITY = 70;
+  }
+
+  public static class Shooter {
+    public static final double SHOOTER_MAX_VELOCITY = 75;
+    public static final double SHOOTER_BOTTOM_DIFF = -2;
+    public static final double SHOOTER_LEFTRIGHT_DIFF = -2;
   }
 
   public static class ShooterPosPot {

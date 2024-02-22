@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 1.22,
-        "y": 6.2
+        "y": 5.36
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6419230556007463,
-        "y": 6.417538427088266
+        "x": 2.423249419195842,
+        "y": 5.086798542076552
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.89,
-        "y": 6.991369417831561
+        "x": 3.9377803061932433,
+        "y": 6.114843750220242
       },
       "prevControl": {
-        "x": 1.9882655859748246,
-        "y": 6.593200975274989
+        "x": 2.689439696304476,
+        "y": 6.289244276601762
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,9 +33,26 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "StartShooter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -50,21 +67,15 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.75,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
                 "name": "AutoStartDeliveryToSensor"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPositionClose"
               }
             }
           ]
@@ -73,7 +84,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
         "data": {
@@ -81,7 +92,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionByDistance"
+                "name": "StopShooter"
               }
             }
           ]
@@ -90,20 +101,20 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 10.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 30.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1-Blue-SpeakerRight-C0-C3-C8-C2",
+  "folder": "Tests",
   "previewStartingState": {
-    "rotation": 30.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": false

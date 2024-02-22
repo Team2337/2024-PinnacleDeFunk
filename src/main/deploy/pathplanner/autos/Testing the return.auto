@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 2
+      "x": 0.0,
+      "y": 0.0
     },
     "rotation": 0
   },
@@ -12,14 +12,14 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AutoSetShooterPositionVelocityDown"
+            "pathName": "New Path"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Testing Autos",
   "choreoAuto": false
 }

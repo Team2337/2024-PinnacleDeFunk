@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
 public class Telemetry {
     private final double MaxSpeed;
     private double xVelocity = 0;
+    private double yVelocity = 0;
 
     /**
      * Construct a telemetry object, with the specified max speed of the robot
@@ -101,6 +102,7 @@ public class Telemetry {
         velocityY.set(velocities.getY());
         odomFreq.set(1.0 / state.OdometryPeriod);
         xVelocity = velocities.getX();
+        yVelocity = velocities.getY();
 
         /* Telemeterize the module's states */
         for (int i = 0; i < 4; ++i) {
@@ -117,5 +119,9 @@ public class Telemetry {
 
     public double getXVelocity() {
         return xVelocity;
+    }
+    
+    public double getYVelocity() {
+        return yVelocity;
     }
 }

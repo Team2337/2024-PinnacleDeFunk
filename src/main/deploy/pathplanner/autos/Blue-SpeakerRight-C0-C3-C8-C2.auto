@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2883,
-      "y": 5.552144
+      "x": 1.22,
+      "y": 6.2
     },
-    "rotation": 0
+    "rotation": 30.0
   },
   "command": {
     "type": "sequential",
@@ -24,66 +24,91 @@
                       "data": {
                         "commands": [
                           {
-                            "type": "wait",
+                            "type": "path",
                             "data": {
-                              "waitTime": 3.95
+                              "pathName": "Angle Path Step 1"
                             }
                           },
                           {
-                            "type": "path",
+                            "type": "wait",
                             "data": {
-                              "pathName": "ACB-StartToS1"
+                              "waitTime": 5.0
                             }
                           }
                         ]
                       }
                     },
                     {
-                      "type": "deadline",
+                      "type": "parallel",
                       "data": {
                         "commands": [
                           {
-                            "type": "wait",
+                            "type": "path",
                             "data": {
-                              "waitTime": 3.55
+                              "pathName": "Angle Path Step 2"
                             }
                           },
                           {
-                            "type": "path",
+                            "type": "named",
                             "data": {
-                              "pathName": "ACB-S1ToS1.5"
+                              "name": "ShooterPositionClose"
                             }
                           }
                         ]
                       }
                     },
                     {
-                      "type": "deadline",
+                      "type": "sequential",
                       "data": {
                         "commands": [
                           {
-                            "type": "wait",
+                            "type": "named",
                             "data": {
-                              "waitTime": 2.9
-                            }
-                          },
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "ACB-S1.5ToS2"
+                              "name": "AutoStartDeliveryToSensor"
                             }
                           }
                         ]
                       }
                     },
                     {
-                      "type": "deadline",
+                      "type": "parallel",
                       "data": {
                         "commands": [
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "ACB-S2ToS3"
+                              "pathName": "Angle Path Step 3"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPositionClose"
+                      }
+                    },
+                    {
+                      "type": "parallel",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "Angle Path Step 4"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "ShooterPositionByDistance"
                             }
                           }
                         ]
@@ -96,6 +121,12 @@
                 "type": "named",
                 "data": {
                   "name": "StartShooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoStartIntake"
                 }
               }
             ]

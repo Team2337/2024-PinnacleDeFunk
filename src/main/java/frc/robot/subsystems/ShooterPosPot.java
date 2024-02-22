@@ -35,7 +35,7 @@ public class ShooterPosPot extends PIDSubsystem {
     // double shooterPotMinSetPoint = 3;
 
     public ShooterPosPot(CommandXboxController operatorJoystick) {
-        super(new PIDController(1.3, 0.0, 0.0001));
+        super(new PIDController(0.71, 0.0, 0.0001));
         this.operatorJoystick = operatorJoystick;
         getController().setTolerance(2.0);
         setSetpoint(pot.get());
@@ -48,8 +48,8 @@ public class ShooterPosPot extends PIDSubsystem {
         shootPosPotMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         shootPosPotMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         shootPosPotMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 10;
-        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -10;
+        shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 12;
+        shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -12;
 
         shootPosPotMotor.setSafetyEnabled(false);
         shootPosPotMotor.getConfigurator().apply(shootPosPotMotorConfig);
@@ -87,6 +87,7 @@ public class ShooterPosPot extends PIDSubsystem {
             SmartDashboard.putNumber("ShooterPosPot/ Position", pot.get());
             SmartDashboard.putNumber("ShooterPosPot/ Set Point", getSetpoint());
             SmartDashboard.putBoolean("ShooterPosPot/  at Set Point", getController().atSetpoint());
+            SmartDashboard.putNumber("ShooterPosPot/Motor Amp", shootPosPotMotor.getStatorCurrent().getValueAsDouble());
         }
     }
 
