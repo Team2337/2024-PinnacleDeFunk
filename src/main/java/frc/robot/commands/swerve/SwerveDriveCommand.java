@@ -1,5 +1,7 @@
 package frc.robot.commands.swerve;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
@@ -33,10 +35,12 @@ public class SwerveDriveCommand extends Command{
 
     private PhoenixPIDController turnPID = new PhoenixPIDController(5, 0, 0);
     private double forward, rotation, strafe = 0;
+    private Supplier<Double> yVelocity;
 
-    public SwerveDriveCommand(Drivetrain drivetrain, CommandXboxController driverJoystick) {
+    public SwerveDriveCommand(Drivetrain drivetrain, CommandXboxController driverJoystick, Supplier<Double> yVelocity) {
         this.drivetrain = drivetrain;
         this.driverJoystick = driverJoystick;
+        this.yVelocity = yVelocity;
         addRequirements(drivetrain);
     }
 
@@ -70,9 +74,12 @@ public class SwerveDriveCommand extends Command{
             double angleToSpeakerRad = Math.atan2(currentPoseY - speakerY, currentPoseX - speakerX);
             double angleToSpeaker = Math.toDegrees(angleToSpeakerRad);
             SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
+            double modAngleToSpeaker = angleToSpeaker + (yVelocity.get() * 8);
+            SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
+            SmartDashboard.putNumber("Y Velocity", yVelocity.get());
 
          swerveRequest = driveFacingAngle
-                .withTargetDirection(Rotation2d.fromDegrees(angleToSpeaker))
+                .withTargetDirection(Rotation2d.fromDegrees(modAngleToSpeaker))
                 .withVelocityX(forward)
                 .withVelocityY(strafe);
         

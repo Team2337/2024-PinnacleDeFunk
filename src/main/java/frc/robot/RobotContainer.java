@@ -70,7 +70,7 @@ public class RobotContainer {
   
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
-    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick));   
+    drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY()));   
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -187,6 +187,11 @@ public class RobotContainer {
   public double getDrivetrainVelocityX() {
     //return drivetrain.drivetrainVelocityX;
     return logger.getXVelocity();
+  }
+
+  public double getDrivetrainVelocityY() {
+    //return drivetrain.drivetrainVelocityX;
+    return logger.getYVelocity();
   }
 
   public boolean isShooterAtTrap() {
