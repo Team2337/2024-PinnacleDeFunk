@@ -24,16 +24,16 @@ public final class Constants {
 
   public static final class DashboardLogging {
     public static final boolean AUTO = false;
-    public static final boolean CLIMB = true;
-    public static final boolean DELIVERY = true;
+    public static final boolean CLIMB = false;
+    public static final boolean DELIVERY = false;
     public static final boolean DRIVETRAIN = false;
     public static final boolean HEADING = false;
-    public static final boolean INTAKE = true;
+    public static final boolean INTAKE = false;
     public static final boolean PDH = false;
     public static final boolean SHOOTER = true;
-    public static final boolean SHOOTERPOT = true;
-    public static final boolean SWERVE = true;
-    public static final boolean VISION = true;
+    public static final boolean SHOOTERPOT = false;
+    public static final boolean SWERVE = false;
+    public static final boolean VISION = false;
   }
 
   // Driver dashboard

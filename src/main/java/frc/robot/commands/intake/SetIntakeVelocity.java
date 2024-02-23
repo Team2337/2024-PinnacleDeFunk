@@ -28,12 +28,12 @@ public class SetIntakeVelocity extends Command {
     
     @Override
     public void execute() {
+        //TODO: Go through again and validate
         if (!haveNote.get()) {
             intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
         } else if (!intake.getIntakeSensor()) {
             intake.setDriveOver(xVelocity.get() * 25 + 5);
         } else if (shooterAtIntake.get())  {
-            // TODO: Decide how to get shooter into position 
             //intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
             intake.setDriveOver(xVelocity.get() * 25 + 5);
 

@@ -30,7 +30,6 @@ public class Robot extends TimedRobot {
   
   private final Pigeon2 pigeon = new Pigeon2(0);
 
-  //TODO: Validate This
   private final boolean UseLimelight = true;
   private double visionCounter = 0;
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
@@ -128,7 +127,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    //TODO: OMG REMOVE BEFORE COMP
     if (!didAutoRun) {
       pigeon.setYaw(0);
     }
