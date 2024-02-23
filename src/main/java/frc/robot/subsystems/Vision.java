@@ -99,7 +99,6 @@ public class Vision extends SubsystemBase {
     // Automatically switch our Limelight to our default pipeline on construction
     switchPipeLine(Pipeline.DEFAULT, LimelightColor.BLUE);
     switchPipeLine(Pipeline.DEFAULT, LimelightColor.ORANGE);
-    //TODO: Fix this  
     pipelineAllianceColor = "blue";
     // Systems check
     if (Constants.DO_SYSTEMS_CHECK) {
@@ -136,7 +135,6 @@ public class Vision extends SubsystemBase {
     //   //distanceToTargetMetersB = calculateDistanceToTargetMeters(LimelightColor.BLUE);
     // }
 
-    // //TODO: Uncomment for limelight testing 
     // if (currentPipelineB == Pipeline.DEFAULT && pipelineAllianceColor == "blue") {
     //   NetworkTable limelightBlue = NetworkTableInstance.getDefault().getTable("limelight-blue");
     //   limelightBlue.getEntry("pipeline").setNumber(1);
@@ -302,7 +300,6 @@ public class Vision extends SubsystemBase {
    * Returns the horizontal offset from the crosshair to the target in degree (-27 to 27) 
    * @return - tx value from the limelight plus an offset if desired to allow for fine tuning of vision centering or if we want to shoot to the side of the target
    */
-  //TODO: Check vision offset
   public double getTx(LimelightColor color) { 
     if (color == LimelightColor.BLUE) {
       return txB + Constants.VISION_OFFSET;

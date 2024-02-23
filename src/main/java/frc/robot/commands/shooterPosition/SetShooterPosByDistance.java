@@ -15,8 +15,6 @@ public class SetShooterPosByDistance extends Command {
     private Supplier<Pose2d> currentPose;
     private Translation2d speakerPose;
     private double speakerX, speakerY, currentX, currentY, distanceInMeters, newSetpoint;
-    private double minMetersFromSpeaker = 1.335;
-    private double maxMetersFromSpeaker = 4.15;//5.1816;
     private double minStringPotValue = 5.3;
     private double maxStringPotValue = 10.1;
     private Supplier<String> allianceColor;
@@ -46,8 +44,7 @@ public class SetShooterPosByDistance extends Command {
         currentX = currentPose.get().getX();
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        //newSetpoint = Utilities.scaleAnyToAny(distanceInMeters, minMetersFromSpeaker, maxMetersFromSpeaker, minStringPotValue, maxStringPotValue);
-        //newSetpoint = (distanceInMeters * 1.08309) + 4.6963; //distance * slope + y intersept
+        //TODO: Make a new one
         newSetpoint = (-0.20335152 * Math.pow(distanceInMeters, 2)) + (2.4585446 * distanceInMeters) + 2.7245656;
         
         if (newSetpoint < minStringPotValue) {

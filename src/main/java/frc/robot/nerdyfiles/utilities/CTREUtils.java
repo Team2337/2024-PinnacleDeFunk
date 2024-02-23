@@ -23,7 +23,6 @@ public class CTREUtils {
   }
 
   public static CurrentLimitsConfigs setShooterCurrentLimit() {
-    //TODO: Valdiate with documentation
     CurrentLimitsConfigs defaultCurrentLimit = new CurrentLimitsConfigs();
     defaultCurrentLimit.SupplyCurrentLimit = 40.0;
     defaultCurrentLimit.SupplyCurrentThreshold = 50.0;
@@ -36,7 +35,6 @@ public class CTREUtils {
   }
 
   public static CurrentLimitsConfigs setLowCurrentLimit() {
-    //TODO: Valdiate with documentation
     CurrentLimitsConfigs lowCurrentLimit = new CurrentLimitsConfigs();
     lowCurrentLimit.SupplyCurrentLimit = 30.0;
     lowCurrentLimit.SupplyCurrentThreshold = 30.0;
