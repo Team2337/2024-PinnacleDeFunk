@@ -12,8 +12,6 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -24,7 +22,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.nerdyfiles.vision.LimelightHelpers;
-import frc.robot.subsystems.Vision.LimelightColor;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -37,6 +34,8 @@ public class Robot extends TimedRobot {
   private final boolean UseLimelight = true;
   private double visionCounter = 0;
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
+  private Pose2d llPose;
+  private boolean didAutoRun = false;
 
 
   @Override
@@ -66,16 +65,19 @@ public class Robot extends TimedRobot {
     if (UseLimelight) {    
       var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
 
-      Pose2d llPose = lastResult.getBotPose2d_wpiBlue();
+      if (m_robotContainer.getAllianceColor() == "blue") {
+        llPose = lastResult.getBotPose2d_wpiBlue();
+      } else {
+        llPose = lastResult.getBotPose2d_wpiRed();
+      }
       
-
+      double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
       if ((lastResult.valid) && (visionCounter > 0)) {
-        m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + m_robotContainer.getVisionLatency(LimelightColor.ORANGE) + 2) / 1000));
+        m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
         visionCounter = 0;
       } else {
         visionCounter++;
       }
-      //SmartDashboard.putNumber("Robot Vision Pose", Vision.getVisionPoseY(LimelightColor.ORANGE))
     }
   }
 
@@ -109,6 +111,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    didAutoRun = true;
   }
 
   @Override
@@ -126,7 +129,9 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     //TODO: OMG REMOVE BEFORE COMP
-    pigeon.setYaw(0);
+    if (!didAutoRun) {
+      pigeon.setYaw(0);
+    }
     //m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
   }
 

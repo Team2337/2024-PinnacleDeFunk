@@ -31,16 +31,18 @@ public class SwerveDriveCommand extends Command{
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage)
         .withRotationalDeadband(Constants.Swerve.MaxAngularRate * Constants.Swerve.angularDeadband);
 
-    private final SwerveRequest.SwerveDriveBrake lockdown = new SwerveRequest.SwerveDriveBrake();
+        private final SwerveRequest.SwerveDriveBrake lockdown = new SwerveRequest.SwerveDriveBrake();
+        
+        private PhoenixPIDController turnPID = new PhoenixPIDController(5, 0, 0);
+        private double forward, rotation, strafe, speakerY, speakerX = 0;
+        private Supplier<Double> yVelocity;
+        private Supplier<String> allianceColor;
 
-    private PhoenixPIDController turnPID = new PhoenixPIDController(5, 0, 0);
-    private double forward, rotation, strafe = 0;
-    private Supplier<Double> yVelocity;
-
-    public SwerveDriveCommand(Drivetrain drivetrain, CommandXboxController driverJoystick, Supplier<Double> yVelocity) {
+    public SwerveDriveCommand(Drivetrain drivetrain, CommandXboxController driverJoystick, Supplier<Double> yVelocity, Supplier<String> allianceColor) {
         this.drivetrain = drivetrain;
         this.driverJoystick = driverJoystick;
         this.yVelocity = yVelocity;
+        this.allianceColor = allianceColor;
         addRequirements(drivetrain);
     }
 
@@ -65,8 +67,14 @@ public class SwerveDriveCommand extends Command{
                 .withVelocityY(strafe);
             // If endgame switch is true, drive robot centric
         } else if (drivetrain.pointAtSpeaker) {
-            double speakerX = Constants.FieldElements.blueSpeakerCenter.getX();
-            double speakerY = Constants.FieldElements.blueSpeakerCenter.getY();
+            
+            if (allianceColor.get() == "blue") {
+                speakerX = Constants.FieldElements.blueSpeakerCenter.getX();
+                speakerY = Constants.FieldElements.blueSpeakerCenter.getY();
+            } else {
+                speakerX = Constants.FieldElements.redSpeakerCenter.getX();
+                speakerY = Constants.FieldElements.redSpeakerCenter.getY();
+            }
             Pose2d currentPose = drivetrain.getPose();
             double currentPoseX = currentPose.getX();
             double currentPoseY = currentPose.getY();
