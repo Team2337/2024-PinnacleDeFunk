@@ -19,11 +19,13 @@ public class SetShooterPosByDistance extends Command {
     private double maxMetersFromSpeaker = 4.15;//5.1816;
     private double minStringPotValue = 5.3;
     private double maxStringPotValue = 10.1;
+    private Supplier<String> allianceColor;
 
 
-    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose) {
+    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor) {
         this.shooterPosPot = shooterPosPot;
         this.currentPose = currentPose;
+        this.allianceColor = allianceColor;
         addRequirements(shooterPosPot);
     }
 
@@ -34,7 +36,11 @@ public class SetShooterPosByDistance extends Command {
     
     @Override
     public void execute() {
-        speakerPose = Constants.FieldElements.blueSpeakerCenter;
+        if (allianceColor.get() == "blue") {
+            speakerPose = Constants.FieldElements.blueSpeakerCenter;
+        } else {
+            speakerPose = Constants.FieldElements.redSpeakerCenter;
+        }
         speakerX = speakerPose.getX();      
         speakerY = speakerPose.getY(); 
         currentX = currentPose.get().getX();
@@ -53,7 +59,11 @@ public class SetShooterPosByDistance extends Command {
         
         SmartDashboard.putNumber("Shooter/Distance in meters", distanceInMeters);
         SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
-        shooterPosPot.setSetpoint(newSetpoint);
+        if (currentY <= Constants.FieldElements.midFieldInMeters) { 
+            shooterPosPot.setSetpoint(newSetpoint);
+        } else {
+            shooterPosPot.setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);
+        }
     }
 
     @Override

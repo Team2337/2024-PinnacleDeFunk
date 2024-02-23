@@ -125,6 +125,7 @@ public final class Constants {
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
+    public static double midFieldInMeters = 4; //TODO: 8.28
   }
 
   public static final class Auto {
@@ -200,6 +201,8 @@ public final class Constants {
     public static final double SHOOTERPOT_MIN_SETPOINT = 2.06;
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
     public static final double SHOOTERPOT_MAX_PID_SPEED = 0.2;
+
+    public static final double SHOOTER_AT_PICKUP = 5.7;
 
   }
 
