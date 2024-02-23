@@ -125,7 +125,7 @@ public final class Constants {
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
-    public static double midFieldInMeters = 4; //TODO: 8.28
+    public static double midFieldInMeters = 8.28; 
   }
 
   public static final class Auto {
