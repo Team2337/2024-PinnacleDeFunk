@@ -11,13 +11,15 @@ public class SetIntakeVelocity extends Command {
     private Supplier<Double> xVelocity;
     private Supplier<Boolean> shooterAtIntake;
     private Supplier<Boolean> haveNote;
+    private Supplier<Boolean> override;
 
 
-    public SetIntakeVelocity(Intake intake, Supplier<Double> xVelocity, Supplier<Boolean> shooterAtIntake, Supplier<Boolean> haveNote) {
+    public SetIntakeVelocity(Intake intake, Supplier<Double> xVelocity, Supplier<Boolean> shooterAtIntake, Supplier<Boolean> haveNote, Supplier<Boolean> override) {
         this.intake = intake;
         this.xVelocity = xVelocity;
         this.shooterAtIntake = shooterAtIntake;
         this.haveNote = haveNote;
+        this.override = override;
         addRequirements(intake);
     }
 
@@ -29,14 +31,18 @@ public class SetIntakeVelocity extends Command {
     @Override
     public void execute() {
         //TODO: Go through again and validate
-        if (!haveNote.get()) {
-            intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
-        } else if (!intake.getIntakeSensor()) {
-            intake.setDriveOver(xVelocity.get() * 25 + 5);
-        } else if (shooterAtIntake.get())  {
-            //intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
-            intake.setDriveOver(xVelocity.get() * 25 + 5);
+        if (!override.get()) {
+            if (!haveNote.get()) {
+                intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
+            } else if (!intake.getIntakeSensor()) {
+                intake.setDriveOver(xVelocity.get() * 25 + 5);
+            } else if (shooterAtIntake.get())  {
+                //intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
+                intake.setDriveOver(xVelocity.get() * 25 + 5);
 
+            } else {
+                intake.stopMotors();
+            }
         } else {
             intake.stopMotors();
         }

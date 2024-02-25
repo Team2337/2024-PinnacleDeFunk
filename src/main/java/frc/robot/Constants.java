@@ -31,7 +31,7 @@ public final class Constants {
     public static final boolean INTAKE = false;
     public static final boolean PDH = false;
     public static final boolean SHOOTER = true;
-    public static final boolean SHOOTERPOT = false;
+    public static final boolean SHOOTERPOT = true;
     public static final boolean SWERVE = false;
     public static final boolean VISION = false;
   }
@@ -175,6 +175,7 @@ public final class Constants {
 
   public static class Delivery {
     public static final double DELIVERY_FORWARD_SPEED = 1;
+    public static final double DELIVERY_SLOW_SPEED = 0.5;
     public static final double DELIVERY_REVERSE_SPEED = -0.5;
   }
 
@@ -186,12 +187,12 @@ public final class Constants {
   }
 
   public static class Intake {
-    public static final double INTAKE_VELOCITY = 70;
+    public static final double INTAKE_VELOCITY = 75;
   }
 
   public static class Shooter {
     public static final double SHOOTER_MAX_VELOCITY = 75;
-    public static final double SHOOTER_BOTTOM_DIFF = -2;
+    public static final double SHOOTER_BOTTOM_DIFF = -5;
     public static final double SHOOTER_LEFTRIGHT_DIFF = -2;
   }
 
@@ -200,9 +201,9 @@ public final class Constants {
     public static final double SHOOTERPOT_MAX_SETPOINT = 10;
     public static final double SHOOTERPOT_MIN_SETPOINT = 2.06;
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
-    public static final double SHOOTERPOT_MAX_PID_SPEED = 0.2;
+    public static final double SHOOTERPOT_MAX_PID_SPEED = 0.7;
 
-    public static final double SHOOTER_AT_PICKUP = 5.7;
+    public static final double SHOOTER_AT_PICKUP = 10.5;//5.7;
 
   }
 

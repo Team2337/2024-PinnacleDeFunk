@@ -19,7 +19,13 @@ public class AutoStartDeliveryToSensor extends Command{
     @Override
     public void execute() {
         
-        delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
+        if (!delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
+            delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
+        } else if (delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
+            delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SLOW_SPEED);
+        } else {
+            delivery.stopMotors();
+        }
         
     }
 

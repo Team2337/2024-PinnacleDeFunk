@@ -27,6 +27,7 @@ import frc.robot.commands.shooterPosition.SetShooterPosPot;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
+import frc.robot.generated.TunerConstantsComp;
 import frc.robot.generated.TunerConstantsPracticeWithKraken;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.subsystems.Climber;
@@ -52,7 +53,7 @@ public class RobotContainer {
   /* Path follower */
   //private Command runAuto = drivetrain.getAutoPath("DifferentAuto");
 
-  private final Climber climb = new Climber(operatorJoystick);
+  //private final Climber climb = new Climber(operatorJoystick);
   private final Delivery delivery = new Delivery();
   //private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
@@ -88,7 +89,9 @@ public class RobotContainer {
     //*************Operator Control ******************/
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
-    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); 
+    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6))); 
+    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); 
+    operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8))); 
     // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
     //   .andThen(new SetMotorVelocityBySide(shooter)));
     operatorJoystick.y().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.05));
@@ -125,7 +128,7 @@ public class RobotContainer {
         break;
       case COMPETITION:
       default:
-        drivetrain = TunerConstants.DriveTrain;
+        drivetrain = TunerConstantsComp.DriveTrain;
 
        
         break;
@@ -135,7 +138,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 40));
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
     NamedCommands.registerCommand("ShooterPositionPickup", new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //5.15, 8.1, 9.95
-    NamedCommands.registerCommand("ShooterPositionFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.1)));
+    NamedCommands.registerCommand("ShooterPositionClose", new InstantCommand(() -> shooterPot.setShooterPositionPoint(6)));
     NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor()).withTimeout(2));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
@@ -150,7 +153,7 @@ public class RobotContainer {
 
   public void instantiateSubsystemsTeleop() {
     delivery.setDefaultCommand(new DeliveryDefault(delivery));
-    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote())); 
+    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn())); 
   }
 
   public Command getAutonomousCommand() {

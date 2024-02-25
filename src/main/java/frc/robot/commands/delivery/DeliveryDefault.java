@@ -21,6 +21,8 @@ public class DeliveryDefault extends Command {
     public void execute() {
         if (!delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
             delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
+        } else if (delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
+            delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SLOW_SPEED);
         } else {
             delivery.stopMotors();
         }

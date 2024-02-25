@@ -61,7 +61,7 @@ public class Intake extends SubsystemBase {
         TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
         rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
-        rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        rightMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         rightMotorConfig.Slot0.kP = 0.11;
         rightMotorConfig.Slot0.kI = 0.5;
         rightMotorConfig.Slot0.kD = 0.0001;
