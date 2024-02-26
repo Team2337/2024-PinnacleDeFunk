@@ -15,7 +15,7 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Climber extends PIDSubsystem {
-    private TalonFX climbMotor = new TalonFX(54); 
+    private TalonFX climbMotor = new TalonFX(54, "Upper"); 
     
     AnalogInput input = new AnalogInput(0);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
@@ -30,7 +30,7 @@ public class Climber extends PIDSubsystem {
         this.operatorJoystick = operatorJoystick;
         getController().setTolerance(2.0);
         setSetpoint(pot.get());
-        enable();
+        //enable();
 
         var setClimbMotorToDefault = new TalonFXConfiguration();
         climbMotor.getConfigurator().apply(setClimbMotorToDefault);
@@ -58,7 +58,7 @@ public class Climber extends PIDSubsystem {
 
     public void enablePID(boolean override) {
         if (override) {
-            enable();
+            //enable();
         } else {
             disable();
         }

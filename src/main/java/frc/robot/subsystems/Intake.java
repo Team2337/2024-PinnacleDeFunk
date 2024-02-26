@@ -50,7 +50,7 @@ public class Intake extends SubsystemBase {
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        leftMotorConfig.Slot0.kP = 0.11;
+        leftMotorConfig.Slot0.kP = 0.21;
         leftMotorConfig.Slot0.kI = 0.5;
         leftMotorConfig.Slot0.kD = 0.0001;
         leftMotorConfig.Slot0.kV = 0.12;
@@ -62,7 +62,7 @@ public class Intake extends SubsystemBase {
         rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        rightMotorConfig.Slot0.kP = 0.11;
+        rightMotorConfig.Slot0.kP = 0.21;
         rightMotorConfig.Slot0.kI = 0.5;
         rightMotorConfig.Slot0.kD = 0.0001;
         rightMotorConfig.Slot0.kV = 0.12;
@@ -134,6 +134,10 @@ public class Intake extends SubsystemBase {
             SmartDashboard.putNumber("Intake/Average Motor Temperature", getIntakeAverageTemp());
             SmartDashboard.putNumber("Intake/Left Motor Temperature", getIntakeLeftTemp());
             SmartDashboard.putNumber("Intake/Right Motor Temperature", getIntakeRightTemp());
+            SmartDashboard.putNumber("Intake/Intake Left Velo", intakeMotorLeft.getVelocity().getValueAsDouble());
+            SmartDashboard.putNumber("Intake/Intake Right Velo", intakeMotorRight.getVelocity().getValueAsDouble());
+            SmartDashboard.putNumber("Intake/Intake Left Current", intakeMotorLeft.getStatorCurrent().getValueAsDouble());
+            SmartDashboard.putNumber("Intake/Intake Right Current", intakeMotorRight.getStatorCurrent().getValueAsDouble());
         }
         SmartDashboard.putBoolean("Intake/Intake Sensor", getIntakeSensor());
         addDashNum.setDouble(intakeSpeedFromDash());

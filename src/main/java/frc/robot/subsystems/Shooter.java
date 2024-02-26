@@ -32,6 +32,7 @@ public class Shooter extends SubsystemBase {
     private Supplier<String> allianceColor;
     private Supplier<Double> poseY;
     private double speakerCenterY, topLeftVelo, topRightVelo, bottomLeftVelo, bottomRightVelo;
+    private double delayCounter = 0;
     private boolean clockwiseRotation = false;
     
 
@@ -216,9 +217,13 @@ public class Shooter extends SubsystemBase {
     }
 
     public void checkShooterUpToSpeed() {
-        if (shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) {
+        
+        if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) && (globalVelocity > 5) ) {//&& (delayCounter >= 20)) {
             shooterUpToSpeed = true;
+        // } else if (delayCounter < 20) {
+        //     delayCounter++;
         } else {
+            delayCounter = 0;
             shooterUpToSpeed = false;
         }
     }
@@ -245,6 +250,20 @@ public class Shooter extends SubsystemBase {
             topLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF;
             bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
         }
+        setTopLeftShooterVelocity(topLeftVelo);
+        setTopRightShooterVelocity(topRightVelo);
+        setBottomLeftShooterVelocity(bottomLeftVelo);
+        setBottomRightShooterVelocity(bottomRightVelo);
+    }
+
+    public void setAllPercentVelocityAmp() {
+        double maxVelocity = Constants.Shooter.SHOOTER_MAX_VELOCITY;
+
+        topLeftVelo = maxVelocity;
+        bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+        topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF;
+        bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+
         setTopLeftShooterVelocity(topLeftVelo);
         setTopRightShooterVelocity(topRightVelo);
         setBottomLeftShooterVelocity(bottomLeftVelo);

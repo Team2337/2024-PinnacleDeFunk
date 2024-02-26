@@ -15,7 +15,7 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Elevator extends PIDSubsystem {
-    private TalonFX elevatorMotor = new TalonFX(44);
+    private TalonFX elevatorMotor = new TalonFX(44, "Upper");
     
     AnalogInput input = new AnalogInput(1);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
