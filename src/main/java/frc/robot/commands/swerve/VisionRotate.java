@@ -3,7 +3,6 @@ package frc.robot.commands.swerve;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -45,22 +44,17 @@ public class VisionRotate extends Command{
             rotation = Utilities.scaleVisionToOne(rotation);
             rotation = rotation * Constants.Swerve.MaxAngularRate;
             rotation = -rotation * kP; //Needs to be greater than 0.48 to turn
-            // if(Math.abs(rotation) < 0.48) {
-            //     rotation = Math.copySign(0.48,rotation);
-            // }
          } else {
              rotation = 0;
          }
-        //rotation = 0.48;
-        SmartDashboard.putNumber("Rotation", rotation);
         swerveRequest = drive
             .withVelocityX(forward)
             .withVelocityY(strafe)
             .withRotationalRate(rotation);
-        
         drivetrain.setControl(swerveRequest);
-
-
+        
+        
+        //SmartDashboard.putNumber("Rotation", rotation);
     }
 
     @Override

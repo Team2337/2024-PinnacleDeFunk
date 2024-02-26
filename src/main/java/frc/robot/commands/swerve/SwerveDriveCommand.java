@@ -8,7 +8,6 @@ import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -81,10 +80,10 @@ public class SwerveDriveCommand extends Command{
 
             double angleToSpeakerRad = Math.atan2(currentPoseY - speakerY, currentPoseX - speakerX);
             double angleToSpeaker = Math.toDegrees(angleToSpeakerRad);
-            SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
             double modAngleToSpeaker = angleToSpeaker + (yVelocity.get() * 8);
-            SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
-            SmartDashboard.putNumber("Y Velocity", yVelocity.get());
+            // SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
+            // SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
+            // SmartDashboard.putNumber("Y Velocity", yVelocity.get());
 
          swerveRequest = driveFacingAngle
                 .withTargetDirection(Rotation2d.fromDegrees(modAngleToSpeaker))
@@ -101,7 +100,7 @@ public class SwerveDriveCommand extends Command{
             swerveRequest = lockdown;
             // Otherwise, drive field centric
         } else {
-            SmartDashboard.putNumber("Joystick Rotation", rotation);
+            // SmartDashboard.putNumber("Joystick Rotation", rotation);
             swerveRequest = drive
                 .withVelocityX(forward)
                 .withVelocityY(strafe)

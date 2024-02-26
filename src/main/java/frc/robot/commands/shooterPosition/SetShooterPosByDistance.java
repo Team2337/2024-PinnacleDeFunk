@@ -46,8 +46,6 @@ public class SetShooterPosByDistance extends Command {
         currentX = currentPose.get().getX();
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        //TODO: Make a new one
-        //newSetpoint = (-0.20335152 * Math.pow(distanceInMeters, 2)) + (2.4585446 * distanceInMeters) + 2.7245656;
         newSetpoint = (-0.28906779 * Math.pow(distanceInMeters, 2)) + (3.3739266 * distanceInMeters) + 1.6819181;
 
         modNewSetpoint = newSetpoint + (xVelocity.get() / 2);
@@ -60,9 +58,9 @@ public class SetShooterPosByDistance extends Command {
         }
         
         SmartDashboard.putNumber("Shooter/Distance in meters", distanceInMeters);
-        SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
-        SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
-        SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
+        // SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
+        // SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
+        // SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
         if (currentY <= Constants.FieldElements.midFieldInMeters) { 
             shooterPosPot.setSetpoint(modNewSetpoint);
         } else {

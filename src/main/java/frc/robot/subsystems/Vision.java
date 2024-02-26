@@ -87,7 +87,6 @@ public class Vision extends SubsystemBase {
   private boolean hasValidTargetB, hasValidTargetO = false;
   private double distanceToTargetMetersB = 0.0;
   private double distanceToTargetMetersO = 0.0;
-  private LimelightColor color;
   private String allianceColor;
   private String botPoseColor = "botpose_wpi";
   RobotContainer robotContainer;
