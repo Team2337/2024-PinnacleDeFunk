@@ -32,7 +32,7 @@ public class SetIntakeVelocity extends Command {
     
     @Override
     public void execute() {
-        //TODO: Go through again and validate
+        //TODO: Go through again and validate Yes we actually need to do this
         if (!override.get()) {
             if (!haveNote.get()) {
                 intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);

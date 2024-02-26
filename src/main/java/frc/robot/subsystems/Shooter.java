@@ -32,7 +32,6 @@ public class Shooter extends SubsystemBase {
     private Supplier<String> allianceColor;
     private Supplier<Double> poseY;
     private double speakerCenterY, topLeftVelo, topRightVelo, bottomLeftVelo, bottomRightVelo;
-    private double delayCounter = 0;
     private boolean clockwiseRotation = false;
     
 
@@ -66,7 +65,6 @@ public class Shooter extends SubsystemBase {
     private GenericEntry bottomRightTemp = shooterTab.add("Bottom Right Temp", 0).getEntry();
 
     private double leftVelocityFromDash, rightVelocityFromDash, globalVelocity = 0;
-    //private double leftVelocityFromDash, rightVelocityFromDash = 0;
     private double shooterKP = 0.8;
     private double shooterKI = 0;
     private double shooterKD = 0;
@@ -218,12 +216,9 @@ public class Shooter extends SubsystemBase {
 
     public void checkShooterUpToSpeed() {
         
-        if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) && (globalVelocity > 5) ) {//&& (delayCounter >= 20)) {
+        if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) && (globalVelocity > 5) ) {
             shooterUpToSpeed = true;
-        // } else if (delayCounter < 20) {
-        //     delayCounter++;
         } else {
-            delayCounter = 0;
             shooterUpToSpeed = false;
         }
     }
