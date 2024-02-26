@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.LED.LEDRunnable;
 import frc.robot.commands.auto.AutoStartDelivery;
 import frc.robot.commands.auto.AutoStartDeliveryTemp;
 import frc.robot.commands.auto.AutoStartDeliveryToSensor;
@@ -30,6 +31,7 @@ import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.generated.TunerConstantsComp;
 import frc.robot.generated.TunerConstantsPracticeWithKraken;
+import frc.robot.nerdyfiles.leds.LED;
 import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.ClimberPosition;
@@ -59,6 +61,7 @@ public class RobotContainer {
   private final Delivery delivery = new Delivery();
   //private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
+  private final LED led = new LED();
   private final Shooter shooter = new Shooter(() -> getAllianceColor(), () -> getPoseY());
   private final ShooterPosPot shooterPot = new ShooterPosPot(operatorJoystick, () -> doWeHaveNote());
   private final Telemetry logger = new Telemetry(Constants.Swerve.MaxSpeed);
@@ -69,6 +72,7 @@ public class RobotContainer {
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
+    led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> shooter.getShooterUpToSpeed()).ignoringDisable(true));
 
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -92,9 +96,9 @@ public class RobotContainer {
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
 
-    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6))); 
-    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); 
-    operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.3))); 
+    // operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6))); 
+    // operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); 
+    // operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.3))); 
 
     // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
     //   .andThen(new SetMotorVelocityBySide(shooter)));
@@ -102,9 +106,9 @@ public class RobotContainer {
     operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter));
     operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
 
-    // operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(10)));
-    // operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberPosition(-10)));
-    // operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
+    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(-20)));
+    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberPosition(0)));
+    operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
 
     
     //*************Operator Station *****************/

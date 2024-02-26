@@ -41,7 +41,7 @@ public class SetIntakeVelocity extends Command {
                 //intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
             } else if (intake.getIntakeSensor() && !bottomSensor.get()) {
                 intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
-            } else if (shooterAtIntake.get())  {
+            } else if (shooterAtIntake.get() && intake.getIntakeSensor())  {
                 intake.setIntakeVelocity(Constants.Intake.INTAKE_VELOCITY);
                 //intake.setDriveOver(xVelocity.get() * 25 + 5);
             } else {

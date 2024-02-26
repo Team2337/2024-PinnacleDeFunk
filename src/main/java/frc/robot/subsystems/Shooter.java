@@ -277,6 +277,7 @@ public class Shooter extends SubsystemBase {
             SmartDashboard.putNumber("Shooter/Bottom Left Motor Amp", shooterMotorBottomLeft.getStatorCurrent().getValueAsDouble());
             SmartDashboard.putNumber("Shooter/Bottom Right Motor Amp", shooterMotorBottomRight.getStatorCurrent().getValueAsDouble());
         }
+        SmartDashboard.putBoolean("Shooter/Up To Speed?", shooterUpToSpeed);
         //Put Velocity Numbers Onto Shooter Tab
         topLeftVelocity.setDouble(shooterMotorTopLeft.getVelocity().getValueAsDouble());
         topRightVelocity.setDouble(shooterMotorTopRight.getVelocity().getValueAsDouble());

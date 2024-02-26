@@ -6,11 +6,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -21,8 +17,8 @@ public class ClimberPosition extends SubsystemBase {
     private final PositionVoltage voltagePosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
     CommandXboxController operatorJoystick;
 
-    double climberMaxSetPoint = 10;
-    double climberMinSetPoint = -10;
+    double climberMaxSetPoint = 30;
+    double climberMinSetPoint = -30;
 
     public ClimberPosition(CommandXboxController operatorJoystick) {
         this.operatorJoystick = operatorJoystick;
@@ -41,7 +37,7 @@ public class ClimberPosition extends SubsystemBase {
 
         climbMotor.setSafetyEnabled(false);
         climbMotor.getConfigurator().apply(climbMotorConfig);
-        
+        climbMotor.setPosition(0);
     }
 
     public void setClimberSetpoint(double setPoint) {
@@ -77,10 +73,6 @@ public class ClimberPosition extends SubsystemBase {
         if (Constants.DashboardLogging.CLIMB) {
         }
         SmartDashboard.putNumber("Climber/Get Climber Position", getClimberPosition());
-    }
-
-    public void initialize() {
-        climbMotor.setPosition(0);
     }
 
     @Override

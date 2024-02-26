@@ -158,7 +158,7 @@ public final class Constants {
   public static final double MOTOR_MINIMUM_TEMP_CELSIUS = 15.0; // Used in Shuffleboard for temperature dials
   public static final double MOTOR_SHUTDOWN_TEMP_CELSIUS = 70.0;
 
-  public static final int LEDSTRIP_PWM_ID = 9;
+  public static final int LEDSTRIP_PWM_ID = 0;
 
   public static final double VISION_TOLERANCE = 1.5;
 
@@ -194,7 +194,7 @@ public final class Constants {
     public static final double SHOOTER_MAX_VELOCITY = 75; 
     public static final double SHOOTER_BOTTOM_DIFF = -5; 
     public static final double SHOOTER_LEFTRIGHT_DIFF = -2; 
-    
+
     public static final double SHOOTER_MAX_VELOCITY_AMP = 20; 
     public static final double SHOOTER_BOTTOM_DIFF_AMP = -3; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = -2; 
