@@ -15,8 +15,7 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Climber extends PIDSubsystem {
-    private TalonFX climbMotorLeft = new TalonFX(54); 
-    private TalonFX climbMotorRight = new TalonFX(55); 
+    private TalonFX climbMotor = new TalonFX(54, "Upper"); 
     
     AnalogInput input = new AnalogInput(0);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
@@ -31,13 +30,10 @@ public class Climber extends PIDSubsystem {
         this.operatorJoystick = operatorJoystick;
         getController().setTolerance(2.0);
         setSetpoint(pot.get());
-        enable();
+        //enable();
 
-        var setClimbMotorLeftToDefault = new TalonFXConfiguration();
-        climbMotorLeft.getConfigurator().apply(setClimbMotorLeftToDefault);
-
-        var setClimbMotorRightToDefault = new TalonFXConfiguration();
-        climbMotorRight.getConfigurator().apply(setClimbMotorRightToDefault);
+        var setClimbMotorToDefault = new TalonFXConfiguration();
+        climbMotor.getConfigurator().apply(setClimbMotorToDefault);
         
         TalonFXConfiguration leftMotorConfig = new TalonFXConfiguration();
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
@@ -46,18 +42,8 @@ public class Climber extends PIDSubsystem {
         leftMotorConfig.Voltage.PeakForwardVoltage = 8;
         leftMotorConfig.Voltage.PeakReverseVoltage = -8;
 
-        climbMotorLeft.setSafetyEnabled(false);
-        climbMotorLeft.getConfigurator().apply(leftMotorConfig);
-
-        TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
-        rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        rightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        rightMotorConfig.Voltage.PeakReverseVoltage = -8;
-        
-        climbMotorRight.setSafetyEnabled(false);
-        climbMotorRight.getConfigurator().apply(rightMotorConfig);
+        climbMotor.setSafetyEnabled(false);
+        climbMotor.getConfigurator().apply(leftMotorConfig);
         
     }
 
@@ -72,28 +58,22 @@ public class Climber extends PIDSubsystem {
 
     public void enablePID(boolean override) {
         if (override) {
-            enable();
+            //enable();
         } else {
             disable();
         }
     }
     
     public void setClimbSpeed(double speed) {
-        climbMotorLeft.set(speed);
-        climbMotorRight.set(speed);
+        climbMotor.set(speed);
     }
 
     public void stopMotors() {
-        climbMotorLeft.stopMotor();
-        climbMotorRight.stopMotor();
+        climbMotor.stopMotor();
     }
 
-    public double getClimbLeftTemp() {
-        return climbMotorLeft.getDeviceTemp().getValueAsDouble();
-    }
-
-    public double getClimbRightTemp() {
-        return climbMotorRight.getDeviceTemp().getValueAsDouble();
+    public double getClimbTemp() {
+        return climbMotor.getDeviceTemp().getValueAsDouble();
     }
 
     public void getSetSetPoint() {
@@ -102,8 +82,7 @@ public class Climber extends PIDSubsystem {
 
     public void log() {
         if (Constants.DashboardLogging.CLIMB) {
-            SmartDashboard.putNumber("Climb/Left Motor Temperature", getClimbLeftTemp());
-            SmartDashboard.putNumber("Climb/Right Motor Temperature", getClimbRightTemp());
+            SmartDashboard.putNumber("Climb/Motor Temperature", getClimbTemp());
             SmartDashboard.putNumber("Climb Position", pot.get());
             SmartDashboard.putNumber("Climb Set Point", getSetpoint());
             SmartDashboard.putBoolean("Climb at Set Point", getController().atSetpoint());

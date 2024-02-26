@@ -65,7 +65,6 @@ public class Shooter extends SubsystemBase {
     private GenericEntry bottomRightTemp = shooterTab.add("Bottom Right Temp", 0).getEntry();
 
     private double leftVelocityFromDash, rightVelocityFromDash, globalVelocity = 0;
-    //private double leftVelocityFromDash, rightVelocityFromDash = 0;
     private double shooterKP = 0.8;
     private double shooterKI = 0;
     private double shooterKD = 0;
@@ -216,7 +215,8 @@ public class Shooter extends SubsystemBase {
     }
 
     public void checkShooterUpToSpeed() {
-        if (shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) {
+        
+        if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) && (globalVelocity > 5) ) {
             shooterUpToSpeed = true;
         } else {
             shooterUpToSpeed = false;
@@ -245,6 +245,20 @@ public class Shooter extends SubsystemBase {
             topLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF;
             bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
         }
+        setTopLeftShooterVelocity(topLeftVelo);
+        setTopRightShooterVelocity(topRightVelo);
+        setBottomLeftShooterVelocity(bottomLeftVelo);
+        setBottomRightShooterVelocity(bottomRightVelo);
+    }
+
+    public void setAllPercentVelocityAmp() {
+        double maxVelocity = Constants.Shooter.SHOOTER_MAX_VELOCITY;
+
+        topLeftVelo = maxVelocity;
+        bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+        topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF;
+        bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+
         setTopLeftShooterVelocity(topLeftVelo);
         setTopRightShooterVelocity(topRightVelo);
         setBottomLeftShooterVelocity(bottomLeftVelo);

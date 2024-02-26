@@ -128,9 +128,9 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
     if (!didAutoRun) {
-      pigeon.setYaw(0);
+      //m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
     }
-    //m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
+    pigeon.setYaw(0);
   }
 
   @Override

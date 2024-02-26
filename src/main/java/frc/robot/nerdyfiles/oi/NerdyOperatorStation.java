@@ -24,15 +24,15 @@ public class NerdyOperatorStation extends Joystick {
     */
   public JoystickButton  greenButton  = new JoystickButton(this, 1);
   public JoystickButton  redButton    = new JoystickButton(this, 2);
-  public JoystickButton  whiteButton  = new JoystickButton(this, 7);
-  public JoystickButton  yellowButton = new JoystickButton(this, 8);
-  public JoystickButton  blueButton   = new JoystickButton(this, 9);
-  public JoystickButton  blackButton  = new JoystickButton(this, 10);
+  public JoystickButton  whiteButton  = new JoystickButton(this, 3);
+  public JoystickButton  yellowButton = new JoystickButton(this, 4);
+  public JoystickButton  blueButton   = new JoystickButton(this, 5);
+  public JoystickButton  blackButton  = new JoystickButton(this, 6);
 
-  public JoystickButton  clearSwitch  = new JoystickButton(this, 3);
-  public JoystickButton  yellowSwitch = new JoystickButton(this, 4);
-  public JoystickButton  blueSwitch   = new JoystickButton(this, 5);
-  public JoystickButton  blackSwitch  = new JoystickButton(this, 6);
+  public JoystickButton  clearSwitch  = new JoystickButton(this, 7);
+  public JoystickButton  yellowSwitch = new JoystickButton(this, 8);
+  public JoystickButton  blueSwitch   = new JoystickButton(this, 10);
+  public JoystickButton  blackSwitch  = new JoystickButton(this, 9);
 
   public JoystickButton redLeftSwitch = new JoystickButton(this, 11);
   public JoystickButton redRightSwitch = new JoystickButton(this, 12);

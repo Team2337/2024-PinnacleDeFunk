@@ -15,8 +15,7 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Elevator extends PIDSubsystem {
-    private TalonFX elevatorMotorLeft = new TalonFX(44); 
-    private TalonFX elevatorMotorRight = new TalonFX(45); 
+    private TalonFX elevatorMotor = new TalonFX(44, "Upper");
     
     AnalogInput input = new AnalogInput(1);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
@@ -33,11 +32,8 @@ public class Elevator extends PIDSubsystem {
         setSetpoint(pot.get());
         enable();
 
-        var setElevatorMotorLeftToDefault = new TalonFXConfiguration();
-        elevatorMotorLeft.getConfigurator().apply(setElevatorMotorLeftToDefault);
-
-        var setElevatorMotorRightToDefault = new TalonFXConfiguration();
-        elevatorMotorRight.getConfigurator().apply(setElevatorMotorRightToDefault);
+        var setElevatorMotorToDefault = new TalonFXConfiguration();
+        elevatorMotor.getConfigurator().apply(setElevatorMotorToDefault);
         
         TalonFXConfiguration leftMotorConfig = new TalonFXConfiguration();
         leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
@@ -46,19 +42,9 @@ public class Elevator extends PIDSubsystem {
         leftMotorConfig.Voltage.PeakForwardVoltage = 8;
         leftMotorConfig.Voltage.PeakReverseVoltage = -8;
 
-        elevatorMotorLeft.setSafetyEnabled(false);
-        elevatorMotorLeft.getConfigurator().apply(leftMotorConfig);
+        elevatorMotor.setSafetyEnabled(false);
+        elevatorMotor.getConfigurator().apply(leftMotorConfig);
 
-        TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
-        rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        rightMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        rightMotorConfig.Voltage.PeakForwardVoltage = 8;
-        rightMotorConfig.Voltage.PeakReverseVoltage = -8;
-        
-        elevatorMotorRight.setSafetyEnabled(false);
-        elevatorMotorRight.getConfigurator().apply(rightMotorConfig);
-        
     }
 
     public void setElevatorSetpoint(double setPoint) {
@@ -79,21 +65,15 @@ public class Elevator extends PIDSubsystem {
     }
     
     public void setElevatorSpeed(double speed) {
-        elevatorMotorLeft.set(speed);
-        elevatorMotorRight.set(speed);
+        elevatorMotor.set(speed);
     }
 
     public void stopMotors() {
-        elevatorMotorLeft.stopMotor();
-        elevatorMotorRight.stopMotor();
+        elevatorMotor.stopMotor();
     }
 
-    public double getElevatorLeftTemp() {
-        return elevatorMotorLeft.getDeviceTemp().getValueAsDouble();
-    }
-
-    public double getElevatorRightTemp() {
-        return elevatorMotorRight.getDeviceTemp().getValueAsDouble();
+    public double getElevatorTemp() {
+        return elevatorMotor.getDeviceTemp().getValueAsDouble();
     }
 
     public void getSetSetPoint() {
@@ -102,8 +82,7 @@ public class Elevator extends PIDSubsystem {
 
     public void log() {
         if (Constants.DashboardLogging.CLIMB) {
-            SmartDashboard.putNumber("Elevator/Left Motor Temperature", getElevatorLeftTemp());
-            SmartDashboard.putNumber("Elevator/Right Motor Temperature", getElevatorRightTemp());
+            SmartDashboard.putNumber("Elevator/Motor Temperature", getElevatorTemp());
             SmartDashboard.putNumber("Elevator Position", pot.get());
             SmartDashboard.putNumber("Elevator Set Point", getSetpoint());
             SmartDashboard.putBoolean("Elevator at Set Point", getController().atSetpoint());

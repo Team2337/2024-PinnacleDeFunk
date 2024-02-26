@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.function.Supplier;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -20,6 +22,7 @@ public class ShooterPosPot extends PIDSubsystem {
     private TalonFX shootPosPotMotor = new TalonFX(50, "Upper");
     public boolean shooterAtIntake, shooterAtTrap = false;
     private ShuffleboardTab shooterPosPotTab = Shuffleboard.getTab("ShooterPosPot");
+    private Supplier<Boolean> haveNote;
    
     AnalogInput input = new AnalogInput(2);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
@@ -34,9 +37,10 @@ public class ShooterPosPot extends PIDSubsystem {
     // String Pot Values
     // double shooterPotMinSetPoint = 3;
 
-    public ShooterPosPot(CommandXboxController operatorJoystick) {
-        super(new PIDController(0.71, 0.0, 0.0001));
+    public ShooterPosPot(CommandXboxController operatorJoystick, Supplier<Boolean> haveNote) {
+        super(new PIDController(0.3, 0.0, 0.0001));//0.71 = P
         this.operatorJoystick = operatorJoystick;
+        this.haveNote = haveNote;
         getController().setTolerance(2.0);
         setSetpoint(pot.get());
         enable();
@@ -47,7 +51,7 @@ public class ShooterPosPot extends PIDSubsystem {
         TalonFXConfiguration shootPosPotMotorConfig = new TalonFXConfiguration();
         shootPosPotMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         shootPosPotMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        shootPosPotMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        shootPosPotMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         shootPosPotMotorConfig.Voltage.PeakForwardVoltage = 12;
         shootPosPotMotorConfig.Voltage.PeakReverseVoltage = -12;
 
@@ -81,6 +85,20 @@ public class ShooterPosPot extends PIDSubsystem {
         setSetpoint(pot.get());
     }
 
+    public void isShooterAtIntake() {
+        if ((pot.get() >= (Constants.ShooterPosPot.SHOOTER_AT_PICKUP - Constants.ShooterPosPot.SHOOTERPOS_RANGE)) && (pot.get() <= (Constants.ShooterPosPot.SHOOTER_AT_PICKUP + Constants.ShooterPosPot.SHOOTERPOS_RANGE))) {
+            shooterAtIntake = true;
+        } else {
+            shooterAtIntake = false;
+        }
+    }
+
+    public void checkForNote() {
+        if (!haveNote.get()) {
+            setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);
+        }
+    }
+
     public void log() {
         if (Constants.DashboardLogging.SHOOTERPOT) {
             SmartDashboard.putNumber("ShooterPosPot/ Motor Temperature", getShootPosPotTemp());
@@ -89,6 +107,8 @@ public class ShooterPosPot extends PIDSubsystem {
             SmartDashboard.putNumber("ShooterPosPot/Motor Amp", shootPosPotMotor.getStatorCurrent().getValueAsDouble());
         }
         SmartDashboard.putNumber("ShooterPosPot/ Position", pot.get());
+
+        
     }
 
     public void initialize() {
@@ -98,6 +118,8 @@ public class ShooterPosPot extends PIDSubsystem {
     @Override
     public void periodic() {
         super.periodic();
+        isShooterAtIntake();
+        checkForNote();
         log();
     }
 
