@@ -6,11 +6,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -75,6 +71,9 @@ public class ClimberPosition extends SubsystemBase {
 
     public void log() {
         if (Constants.DashboardLogging.CLIMB) {
+        }
+        if (Constants.DashboardLogging.TEMP) {
+            SmartDashboard.putNumber("Temps/Climber Temp", getClimbTemp() );
         }
         SmartDashboard.putNumber("Climber/Get Climber Position", getClimberPosition());
     }

@@ -27,7 +27,6 @@ public class SetShooterPosPot extends Command {
     
     @Override
     public void execute() {
-        
             if (operatorPovUp.get()) {
                 speed = 0.1;
             } else if (operatorPovDown.get()) {

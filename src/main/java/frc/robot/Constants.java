@@ -27,13 +27,16 @@ public final class Constants {
     public static final boolean CLIMB = false;
     public static final boolean DELIVERY = false;
     public static final boolean DRIVETRAIN = false;
+    public static final boolean ELEVATOR = false;
     public static final boolean HEADING = false;
-    public static final boolean INTAKE = true;
+    public static final boolean INTAKE = false;
     public static final boolean PDH = false;
     public static final boolean SHOOTER = true;
-    public static final boolean SHOOTERPOT = true;
+    public static final boolean SHOOTERPOT = false;
     public static final boolean SWERVE = false;
     public static final boolean VISION = false;
+
+    public static final boolean TEMP = false;
   }
 
   // Driver dashboard
@@ -126,6 +129,11 @@ public final class Constants {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
     public static double midFieldInMeters = 8.28; 
+  }
+
+  public static final class Global {
+    public static double motorShutDownTempCelcius = 70;     
+    public static double logDelay = 20;
   }
 
   public static final class Auto {
