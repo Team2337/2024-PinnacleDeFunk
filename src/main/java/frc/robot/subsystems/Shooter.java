@@ -33,8 +33,8 @@ public class Shooter extends SubsystemBase {
     private Supplier<Double> poseY;
     private double speakerCenterY, topLeftVelo, topRightVelo, bottomLeftVelo, bottomRightVelo;
     private boolean clockwiseRotation = false;
+    private double logDelayCounter = 0;
     
-
     private ShuffleboardTab shooterTab = Shuffleboard.getTab("Shooter");
     private GenericEntry leftShooterVelocityFromDash = shooterTab
         .add("ShooterVelocity", 0)
@@ -63,6 +63,7 @@ public class Shooter extends SubsystemBase {
     private GenericEntry topRightTemp = shooterTab.add("Top Right Temp", 0).getEntry();
     private GenericEntry bottomLeftTemp = shooterTab.add("Bottom Left Temp", 0).getEntry();
     private GenericEntry bottomRightTemp = shooterTab.add("Bottom Right Temp", 0).getEntry();
+
 
     private double leftVelocityFromDash, rightVelocityFromDash, globalVelocity = 0;
     private double shooterKP = 0.8;
@@ -265,31 +266,38 @@ public class Shooter extends SubsystemBase {
         setBottomRightShooterVelocity(bottomRightVelo);
     }
 
+    private boolean isOverheated() {
+        return isMotorOverheated(shooterMotorTopRight) || isMotorOverheated(shooterMotorTopLeft) || isMotorOverheated(shooterMotorBottomLeft) || isMotorOverheated(shooterMotorBottomRight);
+    }
+
+    private boolean isMotorOverheated(TalonFX motor) {
+        return motor.getDeviceTemp().getValueAsDouble() >= Constants.Global.motorShutDownTempCelcius;
+    }
+
     public void log() {
         if (Constants.DashboardLogging.SHOOTER) {
-            SmartDashboard.putNumber("Shooter/Top Left Motor Temperature", getTopLeftMotorTemp());
-            SmartDashboard.putNumber("Shooter/Top Right Motor Temperature", getTopRightMotorTemp());
-            SmartDashboard.putNumber("Shooter/Bottom Left Motor Temperature", getBottomLeftMotorTemp());
-            SmartDashboard.putNumber("Shooter/Bottom Right Motor Temperature", getBottomRightMotorTemp());
-            SmartDashboard.putNumber("Shooter/Top Right Error", shooterMotorTopRight.getClosedLoopError().getValueAsDouble());
             SmartDashboard.putNumber("Shooter/Top Left Motor Amp", shooterMotorTopRight.getStatorCurrent().getValueAsDouble());
             SmartDashboard.putNumber("Shooter/Top Right Motor Amp", shooterMotorTopLeft.getStatorCurrent().getValueAsDouble());
             SmartDashboard.putNumber("Shooter/Bottom Left Motor Amp", shooterMotorBottomLeft.getStatorCurrent().getValueAsDouble());
             SmartDashboard.putNumber("Shooter/Bottom Right Motor Amp", shooterMotorBottomRight.getStatorCurrent().getValueAsDouble());
         }
-        SmartDashboard.putBoolean("Shooter/Up To Speed?", shooterUpToSpeed);
-        //Put Velocity Numbers Onto Shooter Tab
+        if (Constants.DashboardLogging.TEMP) {
+            if (logDelayCounter >= Constants.Global.logDelay) {
+                SmartDashboard.putBoolean("Temps/Shooter Overheating?", isOverheated());
+                topLeftTemp.setDouble(shooterMotorTopLeft.getDeviceTemp().getValueAsDouble());
+                topRightTemp.setDouble(shooterMotorTopRight.getDeviceTemp().getValueAsDouble());
+                bottomLeftTemp.setDouble(shooterMotorBottomLeft.getDeviceTemp().getValueAsDouble());
+                bottomRightTemp.setDouble(shooterMotorBottomRight.getDeviceTemp().getValueAsDouble());
+                logDelayCounter = 0;
+            }
+        }       //Put Velocity Numbers Onto Shooter Tab       
         topLeftVelocity.setDouble(shooterMotorTopLeft.getVelocity().getValueAsDouble());
         topRightVelocity.setDouble(shooterMotorTopRight.getVelocity().getValueAsDouble());
         bottomLeftVelocity.setDouble(shooterMotorBottomLeft.getVelocity().getValueAsDouble());
         bottomRightVelocity.setDouble(shooterMotorBottomRight.getVelocity().getValueAsDouble());
         //Put Temp Numbers Onto Shooter Tab
-        topLeftTemp.setDouble(shooterMotorTopLeft.getDeviceTemp().getValueAsDouble());
-        topRightTemp.setDouble(shooterMotorTopRight.getDeviceTemp().getValueAsDouble());
-        bottomLeftTemp.setDouble(shooterMotorBottomLeft.getDeviceTemp().getValueAsDouble());
-        bottomRightTemp.setDouble(shooterMotorBottomRight.getDeviceTemp().getValueAsDouble());
 
-        
+        logDelayCounter++;
     }
 
     public double getSpeakerCenter() {
@@ -306,7 +314,7 @@ public class Shooter extends SubsystemBase {
     public void periodic() {
         super.periodic();
         log();
-        leftVelocityFromDash = leftShooterVelocityFromDash.getDouble(0);
+        //leftVelocityFromDash = leftShooterVelocityFromDash.getDouble(0);
         /*setLeftShooterVelocity(leftVelocityFromDash);
         rightVelocityFromDash = rightShooterVelocityFromDash.getDouble(0);
         setRightShooterVelocity(rightVelocityFromDash);*/

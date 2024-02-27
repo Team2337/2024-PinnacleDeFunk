@@ -72,6 +72,9 @@ public class ClimberPosition extends SubsystemBase {
     public void log() {
         if (Constants.DashboardLogging.CLIMB) {
         }
+        if (Constants.DashboardLogging.TEMP) {
+            SmartDashboard.putNumber("Temps/Climber Temp", getClimbTemp() );
+        }
         SmartDashboard.putNumber("Climber/Get Climber Position", getClimberPosition());
     }
 

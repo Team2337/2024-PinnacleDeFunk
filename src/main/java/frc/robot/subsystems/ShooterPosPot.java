@@ -10,8 +10,6 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -21,8 +19,8 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 public class ShooterPosPot extends PIDSubsystem {
     private TalonFX shootPosPotMotor = new TalonFX(50, "Upper");
     public boolean shooterAtIntake, shooterAtTrap = false;
-    private ShuffleboardTab shooterPosPotTab = Shuffleboard.getTab("ShooterPosPot");
     private Supplier<Boolean> haveNote;
+    private double logDelayCounter = 0;
    
     AnalogInput input = new AnalogInput(2);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
@@ -80,6 +78,14 @@ public class ShooterPosPot extends PIDSubsystem {
     public double getShootPosPotTemp() {
         return shootPosPotMotor.getDeviceTemp().getValueAsDouble();
     }
+
+    private boolean isOverheated() {
+        return isMotorOverheated(shootPosPotMotor);
+    }
+
+    private boolean isMotorOverheated(TalonFX motor) {
+        return motor.getDeviceTemp().getValueAsDouble() >= Constants.Global.motorShutDownTempCelcius;
+    }
    
     public void getAndSetSetPoint() {
         setSetpoint(pot.get());
@@ -101,14 +107,18 @@ public class ShooterPosPot extends PIDSubsystem {
 
     public void log() {
         if (Constants.DashboardLogging.SHOOTERPOT) {
-            SmartDashboard.putNumber("ShooterPosPot/ Motor Temperature", getShootPosPotTemp());
             SmartDashboard.putNumber("ShooterPosPot/ Set Point", getSetpoint());
             SmartDashboard.putBoolean("ShooterPosPot/  at Set Point", getController().atSetpoint());
             SmartDashboard.putNumber("ShooterPosPot/Motor Amp", shootPosPotMotor.getStatorCurrent().getValueAsDouble());
         }
+        if (Constants.DashboardLogging.TEMP) {
+            if (logDelayCounter >= Constants.Global.logDelay) {
+                SmartDashboard.putNumber("ShooterPosPot/ Motor Temperature", getShootPosPotTemp());
+                logDelayCounter = 0;
+            }
+        }
         SmartDashboard.putNumber("ShooterPosPot/ Position", pot.get());
-
-        
+        logDelayCounter++;
     }
 
     public void initialize() {
@@ -131,7 +141,7 @@ public class ShooterPosPot extends PIDSubsystem {
             output = -Constants.ShooterPosPot.SHOOTERPOT_MAX_PID_SPEED;
         }
         setShooterPosPotSpeed(output);
-        SmartDashboard.putNumber("ShooterPosPot/Output", output);
+        //SmartDashboard.putNumber("ShooterPosPot/Output", output);
     }
 
     @Override

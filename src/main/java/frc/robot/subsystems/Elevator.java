@@ -81,13 +81,14 @@ public class Elevator extends PIDSubsystem {
     }
 
     public void log() {
-        if (Constants.DashboardLogging.CLIMB) {
-            SmartDashboard.putNumber("Elevator/Motor Temperature", getElevatorTemp());
-            SmartDashboard.putNumber("Elevator Position", pot.get());
+        if (Constants.DashboardLogging.ELEVATOR) {
             SmartDashboard.putNumber("Elevator Set Point", getSetpoint());
-            SmartDashboard.putBoolean("Elevator at Set Point", getController().atSetpoint());
-            
+            SmartDashboard.putBoolean("Elevator at Set Point", getController().atSetpoint());   
         }
+        if (Constants.DashboardLogging.TEMP) {
+            SmartDashboard.putNumber("Temps/Motor Temperature", getElevatorTemp());
+        }
+        SmartDashboard.putNumber("Elevator Position", pot.get());
     }
 
     public void initialize() {
@@ -108,7 +109,7 @@ public class Elevator extends PIDSubsystem {
             output = -Constants.Elevator.ELEVATOR_MAX_PID_SPEED;
         }
         setElevatorSpeed(output);
-        SmartDashboard.putNumber("Elevator Output", output);
+        //SmartDashboard.putNumber("Elevator Output", output);
     }
 
     @Override
