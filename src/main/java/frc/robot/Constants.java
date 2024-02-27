@@ -53,9 +53,10 @@ public final class Constants {
     INTAKESPINNERLAMPREY(21,0,3,3),
     INTAKESENSOR(15, 6, 3, 3),
     PASTARMPOSITION(15,3,6,3);
-
+    
+    
     public final int x, y, width, height;
-
+    
     private DriverDashboardPositions(int x, int y, int w, int h) {
       this.x = x;
       this.y = y;
@@ -64,7 +65,8 @@ public final class Constants {
     }
   }
   public static final ShuffleboardTab DRIVER_DASHBOARD = Shuffleboard.getTab("DRIVER DASHBOARD");
-
+  
+  private ShuffleboardTab systemsCheck = Shuffleboard.getTab("Systems Check");
   // Systems check
   public static enum SystemsCheckPositions {
     // Temperatures (3x4 widgets)
@@ -79,12 +81,12 @@ public final class Constants {
     L_CLIMBER_TEMP(0, 8),
     R_CLIMBER_TEMP(3, 8),
     // Delivery Sensors (3x3 widgets)
-    L_COLOR_SENSOR(7, 0),
-    R_COLOR_SENSOR(10, 0),
-    CENTERING_SENSOR(13, 0),
+    TOP_SENSOR(7, 0),
+    INTAKE_SENSOR(5, 0),
+    SHOOTER_POSITION(5, 3),
     // Other sensors (also 3x3 widgets)
-    STRING_POT(7, 3),
-    PIXY_CAM(10, 3),
+    BOTTOM_SENSOR(7, 3),
+    POSE_ROTATION(5, 4),
     LIMELIGHT(13, 3),
     ROLL_DEGREES(19, 0);
 

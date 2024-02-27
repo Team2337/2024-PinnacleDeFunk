@@ -10,10 +10,12 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
+import frc.robot.Constants.SystemsCheckPositions;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class ShooterPosPot extends PIDSubsystem {
@@ -56,6 +58,7 @@ public class ShooterPosPot extends PIDSubsystem {
         shootPosPotMotor.setSafetyEnabled(false);
         shootPosPotMotor.getConfigurator().apply(shootPosPotMotorConfig);
 
+        setupShuffleboard();
     }
 
     public void setShooterPositionPoint(double setPoint) {
@@ -117,8 +120,16 @@ public class ShooterPosPot extends PIDSubsystem {
                 logDelayCounter = 0;
             }
         }
-        SmartDashboard.putNumber("ShooterPosPot/ Position", pot.get());
         logDelayCounter++;
+    }
+
+    public void setupShuffleboard() {
+      ShuffleboardTab systemsCheck = Constants.SYSTEMS_CHECK_TAB;
+      
+      systemsCheck.addDouble("Shooter Position", () -> pot.get())
+        .withPosition(SystemsCheckPositions.SHOOTER_POSITION.x, SystemsCheckPositions.SHOOTER_POSITION.y)
+        .withSize(2, 1);
+    
     }
 
     public void initialize() {

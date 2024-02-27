@@ -8,6 +8,10 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -68,6 +72,11 @@ public class RobotContainer {
   private final SendableChooser<Command> autonChooser;
 
   public String allianceColor = null;
+  
+  private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
+  // private ComplexWidget autoChooser = autoTab
+  //   .add("Auto Chooser", autonChooser)
+  //   .withSize(3,2);
   
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
@@ -154,7 +163,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
-    SmartDashboard.putData("Auto Chooser", autonChooser);
+    autoTab.add("Auton Chooser", autonChooser)
+    .withSize(3,1)
+    .withPosition(3, 0);
+    // SmartDashboard.putData("Auto Chooser", autonChooser);
+
   }
 
   public void instantiateSubsystemsTeleop() {
@@ -192,6 +205,6 @@ public class RobotContainer {
   }
 
   public boolean doWeHaveNote() {
-    return(intake.getIntakeSensor() || delivery.getDeliveryBottomSensor() || delivery.getDeliveryTopSensor() || delivery.getTrapSensor());
+    return(intake.getIntakeSensor() || delivery.getDeliveryBottomSensor() || delivery.getDeliveryTopSensor());
   }
 }

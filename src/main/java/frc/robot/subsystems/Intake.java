@@ -7,10 +7,12 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.SystemsCheckPositions;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class Intake extends SubsystemBase {
@@ -52,6 +54,8 @@ public class Intake extends SubsystemBase {
         rightMotorConfig.Voltage.PeakForwardVoltage = 12;
         rightMotorConfig.Voltage.PeakReverseVoltage = -12;
         intakeMotorRight.getConfigurator().apply(rightMotorConfig);
+
+        setupShuffleboard();
     }
 
     public void setIntakeSpeed(double speed) {
@@ -122,12 +126,16 @@ public class Intake extends SubsystemBase {
                 logDelayCounter = 0;
             }
         }
-        SmartDashboard.putBoolean("Intake/Intake Sensor", getIntakeSensor());
         logDelayCounter++;
     }
 
-
-    public void initialize() {
+    public void setupShuffleboard() {
+      ShuffleboardTab systemsCheck = Constants.SYSTEMS_CHECK_TAB;
+      
+      systemsCheck.addBoolean("Intake Sensor", () -> getIntakeSensor())
+        .withPosition(SystemsCheckPositions.INTAKE_SENSOR.x, SystemsCheckPositions.INTAKE_SENSOR.y)
+        .withSize(2, 2);
+    
     }
 
     @Override

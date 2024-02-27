@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.Constants.SystemsCheckPositions;
 import frc.robot.generated.TunerConstants;
 
 /**
@@ -36,10 +37,9 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
-    private Field2d field = new Field2d();
+    //private Field2d field = new Field2d();
     public double rotationAngle = 0;
     public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker = false;
-    private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -49,6 +49,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
+        setupShuffleboard();
     }
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
@@ -56,6 +58,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
+        setupShuffleboard();
     }
 
     public Pose2d modifyPose() {
@@ -166,7 +170,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //field.setRobotPose(this.getState().Pose); 
         PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
         //field.getObject("target pose").setPose(pose);
-        field.setRobotPose(pose);
+        //TODO: If auto doesn't work, uncomment
+        //field.setRobotPose(pose);
       });
       
       log();
@@ -176,10 +181,19 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Constants.DashboardLogging.SWERVE) {
             SmartDashboard.putBoolean("Drive At Angle", driveAtAngle);
             SmartDashboard.putNumber("Rotation Angle", rotationAngle);
-            SmartDashboard.putData("Field", field);
+            //SmartDashboard.putData("Field", field);
         }
         SmartDashboard.putBoolean("Lockdown Enabled", lockdownEnabled);
         SmartDashboard.putBoolean("End Game", endGame);
+    }
+
+    public void setupShuffleboard() {
+      ShuffleboardTab systemsCheck = Constants.SYSTEMS_CHECK_TAB;
+      
+      systemsCheck.addDouble("Pose Rotation", () -> this.getState().Pose.getRotation().getDegrees())
+        .withPosition(SystemsCheckPositions.POSE_ROTATION.x, SystemsCheckPositions.POSE_ROTATION.y)
+        .withSize(2, 1);
+    
     }
 
    
