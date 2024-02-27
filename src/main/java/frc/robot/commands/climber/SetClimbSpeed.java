@@ -10,7 +10,7 @@ import frc.robot.subsystems.ClimberPosition;
 public class SetClimbSpeed extends Command {
     private ClimberPosition climber;
     private double speed;
-    Supplier<Double> operatorY;
+    private Supplier<Double> operatorY;
 
     public SetClimbSpeed(ClimberPosition climber, Supplier<Double> operatorY) {
         this.climber = climber;
