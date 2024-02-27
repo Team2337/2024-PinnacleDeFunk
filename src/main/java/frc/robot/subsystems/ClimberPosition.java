@@ -17,8 +17,8 @@ public class ClimberPosition extends SubsystemBase {
     private final PositionVoltage voltagePosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
     CommandXboxController operatorJoystick;
 
-    double climberMaxSetPoint = 10;
-    double climberMinSetPoint = -10;
+    double climberMaxSetPoint = 30;
+    double climberMinSetPoint = -30;
 
     public ClimberPosition(CommandXboxController operatorJoystick) {
         this.operatorJoystick = operatorJoystick;
@@ -37,7 +37,7 @@ public class ClimberPosition extends SubsystemBase {
 
         climbMotor.setSafetyEnabled(false);
         climbMotor.getConfigurator().apply(climbMotorConfig);
-        
+        climbMotor.setPosition(0);
     }
 
     public void setClimberSetpoint(double setPoint) {
@@ -76,10 +76,6 @@ public class ClimberPosition extends SubsystemBase {
             SmartDashboard.putNumber("Temps/Climber Temp", getClimbTemp() );
         }
         SmartDashboard.putNumber("Climber/Get Climber Position", getClimberPosition());
-    }
-
-    public void initialize() {
-        climbMotor.setPosition(0);
     }
 
     @Override
