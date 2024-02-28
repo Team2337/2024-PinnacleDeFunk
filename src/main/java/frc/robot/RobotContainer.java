@@ -8,6 +8,10 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -69,6 +73,11 @@ public class RobotContainer {
 
   public String allianceColor = null;
   
+  private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
+  // private ComplexWidget autoChooser = autoTab
+  //   .add("Auto Chooser", autonChooser)
+  //   .withSize(3,2);
+  
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
@@ -83,14 +92,17 @@ public class RobotContainer {
     driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
       .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX())));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
-    driverJoystick.x().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+    //driverJoystick.x().toggleOnFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+    driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
+    driverJoystick.leftBumper().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+    driverJoystick.rightBumper().toggleOnTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
+    driverJoystick.rightBumper().toggleOnFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
     //driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
     
     // reset the field-centric heading on left bumper press
-    driverJoystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
-    driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
+    // driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
     
     //*************Operator Control ******************/
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
@@ -103,7 +115,7 @@ public class RobotContainer {
     // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
     //   .andThen(new SetMotorVelocityBySide(shooter)));
     operatorJoystick.y().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true).withTimeout(0.05));
-    operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter));
+    operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorStation.blackButton.getAsBoolean()));
     operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
 
     operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(-20)));
@@ -112,9 +124,13 @@ public class RobotContainer {
 
     
     //*************Operator Station *****************/
-    // operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
-    // operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
-    // operatorStation.greenButton.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
+    operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
+    operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+    operatorStation.whiteButton.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
+    operatorStation.blackButton.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
+      .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP))));
+    operatorStation.redLeftSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleLeft())));
+    operatorStation.redRightSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleRight())));
     
      //************* Test Joystick *****************/
      // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
@@ -150,11 +166,15 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(0.5));
     //NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));
-    NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter));
+    NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter, () -> false));
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
-    SmartDashboard.putData("Auto Chooser", autonChooser);
+    autoTab.add("Auton Chooser", autonChooser)
+    .withSize(3,1)
+    .withPosition(3, 0);
+    // SmartDashboard.putData("Auto Chooser", autonChooser);
+
   }
 
   public void instantiateSubsystemsTeleop() {
@@ -191,7 +211,24 @@ public class RobotContainer {
     return drivetrain.getState().Pose.getY();
   }
 
-  public boolean doWeHaveNote() {
-    return(intake.getIntakeSensor() || delivery.getDeliveryBottomSensor() || delivery.getDeliveryTopSensor() || delivery.getTrapSensor());
+  public double getAmpRotationAngle() {
+    if (allianceColor == "red") {
+      return 90;
+    } else {
+      return -90;
+    }
   }
+
+  public double getEndgameRotationAngleLeft() {
+    return -30;
+  }
+
+  public double getEndgameRotationAngleRight() {
+    return 30;
+  }
+
+  public boolean doWeHaveNote() {
+    return(intake.getIntakeSensor() || delivery.getDeliveryBottomSensor() || delivery.getDeliveryTopSensor());
+  }
+
 }

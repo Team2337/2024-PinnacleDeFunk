@@ -18,9 +18,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.SystemsCheckPositions;
 import frc.robot.nerdyfiles.vision.LimelightHelpers;
 
 public class Robot extends TimedRobot {
@@ -55,10 +57,12 @@ public class Robot extends TimedRobot {
     visionStdDevs.set(1,0,2);
     visionStdDevs.set(2,0,Math.toRadians(90));
     m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
+
   }
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run(); 
+    
     pigeon.getYaw();
     SmartDashboard.putNumber("Yaw", pigeon.getYaw().getValueAsDouble());
     if (UseLimelight) {    
@@ -153,4 +157,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void simulationPeriodic() {}
+
+  
 }

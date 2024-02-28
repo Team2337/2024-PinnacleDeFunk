@@ -8,7 +8,9 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathHolonomic;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.PathPlannerLogging;
@@ -17,6 +19,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -26,6 +29,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
+import frc.robot.Constants.SystemsCheckPositions;
 import frc.robot.generated.TunerConstants;
 
 /**
@@ -36,10 +40,9 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
-    private Field2d field = new Field2d();
+    //private Field2d field = new Field2d();
     public double rotationAngle = 0;
     public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker = false;
-    private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto");
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -49,6 +52,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
+        setupShuffleboard();
     }
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
@@ -56,6 +61,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
+        setupShuffleboard();
     }
 
     public Pose2d modifyPose() {
@@ -87,7 +94,14 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
                                             new ReplanningConfig()),
-            ()->false, // Change this if the path needs to be flipped on red vs blue
+            //()->false, // Change this if the path needs to be flipped on red vs blue
+            () -> {
+                var alliance = DriverStation.getAlliance();
+                if (alliance.isPresent()) {
+                    return alliance.get() == DriverStation.Alliance.Red;
+                }
+                return false;
+            },
             this); // Subsystem for requirements
     }
 
@@ -132,10 +146,15 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     public void setToDriveAtAngle() {
         if (driveAtAngle) {
             driveAtAngle = false;
-            rotationAngle = 0;
+            rotationAngle = 0.5;
         } else {
             driveAtAngle = true;
         }
+    }
+
+    public void setAngleToZero() {
+        driveAtAngle = true;
+        rotationAngle = 0.5;
     }
 
     /**
@@ -166,7 +185,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //field.setRobotPose(this.getState().Pose); 
         PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
         //field.getObject("target pose").setPose(pose);
-        field.setRobotPose(pose);
+        //TODO: If auto doesn't work, uncomment
+        //field.setRobotPose(pose);
       });
       
       log();
@@ -176,10 +196,47 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (Constants.DashboardLogging.SWERVE) {
             SmartDashboard.putBoolean("Drive At Angle", driveAtAngle);
             SmartDashboard.putNumber("Rotation Angle", rotationAngle);
-            SmartDashboard.putData("Field", field);
         }
         SmartDashboard.putBoolean("Lockdown Enabled", lockdownEnabled);
         SmartDashboard.putBoolean("End Game", endGame);
+    }
+
+    public void setupShuffleboard() {
+      ShuffleboardTab systemsCheck = Constants.SYSTEMS_CHECK_TAB;
+      
+      systemsCheck.addDouble("Pose Rotation", () -> this.getState().Pose.getRotation().getDegrees())
+        .withPosition(SystemsCheckPositions.POSE_ROTATION.x, SystemsCheckPositions.POSE_ROTATION.y)
+        .withSize(2, 1);
+    }
+
+    public Command followPathCommand(PathPlannerPath path) {
+        //PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
+
+        return new FollowPathHolonomic(
+                path,
+                ()-> this.getState().Pose, // Robot pose supplier
+                this::getCurrentRobotChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+                (speeds)->this.setControl(autoRequest.withSpeeds(speeds)), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+                new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                        new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
+                        4.5, // Max module speed, in m/s
+                        0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                        new ReplanningConfig() // Default path replanning config. See the API for the options here
+                ),
+                () -> {
+                    // Boolean supplier that controls when the path will be mirrored for the red alliance
+                    // This will flip the path being followed to the red side of the field.
+                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+                    var alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent()) {
+                        return alliance.get() == DriverStation.Alliance.Red;
+                    }
+                    return false;
+                },
+                this // Reference to this subsystem to set requirements
+        );
     }
 
    
