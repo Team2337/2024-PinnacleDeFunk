@@ -253,12 +253,12 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setAllPercentVelocityAmp() {
-        double maxVelocity = Constants.Shooter.SHOOTER_MAX_VELOCITY;
+        double maxVelocity = Constants.Shooter.SHOOTER_MAX_VELOCITY_AMP;
 
         topLeftVelo = maxVelocity;
-        bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
-        topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF;
-        bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_BOTTOM_DIFF;
+        bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_BOTTOM_DIFF_AMP;
+        topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF_AMP;
+        bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF_AMP + Constants.Shooter.SHOOTER_BOTTOM_DIFF_AMP;
 
         setTopLeftShooterVelocity(topLeftVelo);
         setTopRightShooterVelocity(topRightVelo);

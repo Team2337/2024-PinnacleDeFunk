@@ -216,6 +216,7 @@ public final class Constants {
     public static final double SHOOTERPOT_MIN_SETPOINT = 2.06;
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
     public static final double SHOOTERPOT_MAX_PID_SPEED = 0.7;
+    public static final double SHOOTERPOT_AT_AMP = 5.4;
 
     public static final double SHOOTER_AT_PICKUP = 10.3;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;
