@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.LED.LEDRunnable;
@@ -137,7 +138,10 @@ public class RobotContainer {
     operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
 
 
-    operatorJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE)));
+    operatorJoystick.povLeft().onTrue(new ConditionalCommand(
+      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
+      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
+      () -> isAllianceColorBlue()));
 
     
     //*************Operator Station *****************/
@@ -234,6 +238,14 @@ public class RobotContainer {
       return 90;
     } else {
       return -90;
+    }
+  }
+
+  public boolean isAllianceColorBlue() {
+    if (allianceColor == "blue") {
+      return true;
+    } else {
+      return false;
     }
   }
 
