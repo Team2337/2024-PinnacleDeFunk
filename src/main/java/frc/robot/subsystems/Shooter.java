@@ -252,6 +252,20 @@ public class Shooter extends SubsystemBase {
         setBottomRightShooterVelocity(bottomRightVelo);
     }
 
+    public void poopShoot() {
+        setTopLeftShooterVelocity(Constants.Shooter.SHOOTER_POOP_VELOCITY);
+        setTopRightShooterVelocity(Constants.Shooter.SHOOTER_POOP_VELOCITY);
+        setBottomLeftShooterVelocity(Constants.Shooter.SHOOTER_POOP_VELOCITY);
+        setBottomRightShooterVelocity(Constants.Shooter.SHOOTER_POOP_VELOCITY);
+    }
+
+    public void halfCourt() {
+        setTopLeftShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
+        setTopRightShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
+        setBottomLeftShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
+        setBottomRightShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
+    }
+
     public void setAllPercentVelocityAmp() {
         double maxVelocity = Constants.Shooter.SHOOTER_MAX_VELOCITY_AMP;
 

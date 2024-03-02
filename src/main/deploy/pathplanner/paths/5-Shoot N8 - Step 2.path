@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7693261898151704,
-        "y": 6.568323745728334
+        "x": 8.15,
+        "y": 7.67
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5386523796303408,
-        "y": 6.7240207127147364
+        "x": 2.098645680886225,
+        "y": 7.3426945142050055
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.910741464893783,
-        "y": 7.08120787227178
+        "x": 8.15,
+        "y": 5.796864090161846
       },
       "prevControl": {
-        "x": 3.1780498555460017,
-        "y": 7.191111613673947
-      },
-      "nextControl": {
-        "x": 4.643433074241564,
-        "y": 6.971304130869614
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 8.07,
-        "y": 7.670597937486888
-      },
-      "prevControl": {
-        "x": 8.4348038643796,
-        "y": 7.62543278436857
+        "x": 5.645053298437552,
+        "y": 6.499514282908736
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.4,
       "rotationDegrees": 18.0,
       "rotateFast": false
     }
@@ -55,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
         "data": {
@@ -80,7 +64,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "ShooterPositionFaryFar"
               }
             }
           ]
@@ -89,9 +73,9 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.3,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -106,7 +90,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.55,
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "parallel",
         "data": {
@@ -123,24 +107,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.75,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPositionClose"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.85,
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "parallel",
         "data": {
@@ -164,13 +131,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 20.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "5-Blue-SpeakerRight-C0-C3",
   "previewStartingState": {
-    "rotation": 59.04,
+    "rotation": 20.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

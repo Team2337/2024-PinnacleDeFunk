@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.LED.LEDRunnable;
@@ -23,10 +24,13 @@ import frc.robot.commands.auto.AutoStartDeliveryTemp;
 import frc.robot.commands.auto.AutoStartDeliveryToSensor;
 import frc.robot.commands.auto.AutoStartIntake;
 import frc.robot.commands.climber.SetClimbSpeed;
+import frc.robot.commands.delivery.DelayedDelivery;
 import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.SetIntakeVelocity;
 import frc.robot.commands.intake.SetMotorSpeed;
+import frc.robot.commands.shooter.HalfCourt;
+import frc.robot.commands.shooter.PoopShoot;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.shooterPosition.SetShooterPosByDistance;
 import frc.robot.commands.shooterPosition.SetShooterPosPot;
@@ -89,16 +93,22 @@ public class RobotContainer {
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(1)));
     driverJoystick.povDown().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(179)));
 
-    driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
-      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX())));
+    driverJoystick.a().whileTrue((new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
+      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX()))));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
     //driverJoystick.x().toggleOnFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
-    driverJoystick.leftBumper().toggleOnTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+    driverJoystick.leftBumper().onTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+    driverJoystick.leftBumper().onFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.rightBumper().toggleOnTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
+    driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter),
+      new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
+      new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed())));
     driverJoystick.rightBumper().toggleOnFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
+    driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
+    driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     //driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
     
     // reset the field-centric heading on left bumper press
@@ -114,18 +124,23 @@ public class RobotContainer {
 
     // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
     //   .andThen(new SetMotorVelocityBySide(shooter)));
-    operatorJoystick.y().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true).withTimeout(0.05));
-    operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorStation.blackButton.getAsBoolean()));
+    //operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorStation.blackButton.getAsBoolean()));
+    operatorJoystick.leftTrigger().whileTrue(new PoopShoot(shooter));
+    operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorJoystick.x().getAsBoolean()));
     operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
-
+    
     operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(-20)));
     operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberPosition(0)));
+    operatorJoystick.x().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
+      .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP))));
+    operatorJoystick.y().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true).withTimeout(0.05));
     operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
+
+
+    operatorJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE)));
 
     
     //*************Operator Station *****************/
-    operatorStation.blackSwitch.onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
-    operatorStation.blackSwitch.onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     operatorStation.whiteButton.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
     operatorStation.blackButton.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
       .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP))));
@@ -160,14 +175,17 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 40));
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
     NamedCommands.registerCommand("ShooterPositionPickup", new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //5.15, 8.1, 9.95
-    NamedCommands.registerCommand("ShooterPositionClose", new InstantCommand(() -> shooterPot.setShooterPositionPoint(6)));
-    NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.95)));
+    NamedCommands.registerCommand("ShooterPositionClose", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.95)).withTimeout(2));
+    NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(11.4)).withTimeout(2));
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX()).withTimeout(2));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(0.5));
     //NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter, () -> false));
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
+    NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
+    NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));
+
     autonChooser = AutoBuilder.buildAutoChooser();
     configureBindings();
     autoTab.add("Auton Chooser", autonChooser)
@@ -225,6 +243,14 @@ public class RobotContainer {
 
   public double getEndgameRotationAngleRight() {
     return 30;
+  }
+
+  public void useLimelight() {
+    drivetrain.useLimelight = true;
+  }
+
+  public void dontUseLimelight() {
+    drivetrain.useLimelight = false;
   }
 
   public boolean doWeHaveNote() {

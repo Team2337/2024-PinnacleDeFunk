@@ -38,6 +38,24 @@
                       }
                     },
                     {
+                      "type": "path",
+                      "data": {
+                        "pathName": "5-Shoot N8 - Step 2"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "5-Shoot N7 - Step3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryToSensor"
+                      }
+                    },
+                    {
                       "type": "named",
                       "data": {
                         "name": "ShooterPositionByDistance"

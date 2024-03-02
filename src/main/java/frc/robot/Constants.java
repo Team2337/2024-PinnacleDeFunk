@@ -151,6 +151,8 @@ public final class Constants {
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
     public static double driveScale = 5;
+
+    public static final double ROBOT_AT_INTAKE = -58.93;
   }
 
   public static final class Pixy {
@@ -208,6 +210,11 @@ public final class Constants {
     public static final double SHOOTER_MAX_VELOCITY_AMP = 20; 
     public static final double SHOOTER_BOTTOM_DIFF_AMP = -3; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = -2; 
+
+    
+    public static final double SHOOTER_POOP_VELOCITY = 5; 
+    
+    public static final double SHOOTER_SENDIT_VELOCITY = 50; 
   }
 
   public static class ShooterPosPot {
@@ -217,8 +224,9 @@ public final class Constants {
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
     public static final double SHOOTERPOT_MAX_PID_SPEED = 0.7;
     public static final double SHOOTERPOT_AT_AMP = 5.4;
+    public static final double SHOOTERPOT_HALF_COURT = 7;
 
-    public static final double SHOOTER_AT_PICKUP = 10.3;//MIN = 9.8 MAX = 10.8      //5.7
+    public static final double SHOOTER_AT_PICKUP = 10.5;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;
 
   }
