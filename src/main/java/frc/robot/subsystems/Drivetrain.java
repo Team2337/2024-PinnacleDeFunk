@@ -43,6 +43,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     //private Field2d field = new Field2d();
     public double rotationAngle = 0;
     public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker = false;
+    
+    public boolean useLimelight = true;
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -152,6 +154,10 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         }
     }
 
+    public void setDriveAtAngleFalse() {
+        driveAtAngle = false;
+    }
+
     public void setAngleToZero() {
         driveAtAngle = true;
         rotationAngle = 0.5;
@@ -188,7 +194,13 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //TODO: If auto doesn't work, uncomment
         //field.setRobotPose(pose);
       });
-      
+      //if (DriverStation.isAutonomous()) {
+        if (this.getState().Pose.getX() >= Constants.Swerve.DISABLE_LIMELIGHT_DISTANCE) {
+            useLimelight = false;
+        } else {
+            useLimelight = true;
+        }
+      //} 
       log();
     }
 

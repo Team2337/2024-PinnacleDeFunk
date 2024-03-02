@@ -32,7 +32,7 @@ public class Robot extends TimedRobot {
   
   private final Pigeon2 pigeon = new Pigeon2(0);
 
-  private final boolean UseLimelight = true;
+  //private final boolean UseLimelight = true;
   private double visionCounter = 0;
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
   private Pose2d llPose;
@@ -65,7 +65,7 @@ public class Robot extends TimedRobot {
     
     pigeon.getYaw();
     SmartDashboard.putNumber("Yaw", pigeon.getYaw().getValueAsDouble());
-    if (UseLimelight) {    
+    if (m_robotContainer.drivetrain.useLimelight) {    
       var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
 
       if (m_robotContainer.getAllianceColor() == "blue") {
