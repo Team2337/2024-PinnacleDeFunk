@@ -195,7 +195,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //field.setRobotPose(pose);
       });
       //if (DriverStation.isAutonomous()) {
-        if (this.getState().Pose.getX() >= 4.365) {
+        if (this.getState().Pose.getX() >= Constants.Swerve.DISABLE_LIMELIGHT_DISTANCE) {
             useLimelight = false;
         } else {
             useLimelight = true;
