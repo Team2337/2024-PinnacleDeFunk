@@ -20,7 +20,7 @@ public class LED extends SubsystemBase {
 
 	private static AddressableLED led;
 	private static AddressableLEDBuffer ledBuffer;
-	private static int LED_LENGTH = 45;
+	private static int LED_LENGTH = 273;
 
 	/**
 	 * Controls the LEDs on the Robot 
@@ -66,6 +66,8 @@ public class LED extends SubsystemBase {
 			}
 		}
 	}
+
+	
 		led.setData(ledBuffer);
 		led.start();
 		System.out.println();

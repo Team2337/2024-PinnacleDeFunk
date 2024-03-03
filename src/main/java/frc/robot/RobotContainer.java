@@ -100,13 +100,29 @@ public class RobotContainer {
     //driverJoystick.x().toggleOnFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
-    driverJoystick.leftBumper().onTrue(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
-    driverJoystick.leftBumper().onFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
-    driverJoystick.rightBumper().toggleOnTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
+    driverJoystick.leftBumper().onTrue(new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()));
+    driverJoystick.leftBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
+    driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
+    driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
+
     driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter),
+      new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
       new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
-      new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed())));
-    driverJoystick.rightBumper().toggleOnFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
+      new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
+      new ConditionalCommand(
+      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_BLUE)), 
+      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_RED)),
+      () -> isAllianceColorBlue()),
+      new InstantCommand(() -> drivetrain.setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(true))
+    ));
+    driverJoystick.leftTrigger().onFalse(Commands.sequence(
+      new ConditionalCommand(
+        new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
+        new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
+        () -> isAllianceColorBlue()),
+      new InstantCommand(() -> drivetrain.setCartesianVectorFalse()),
+      new InstantCommand(() -> drivetrain.setDriveAtAngleTrue())
+    ));
     driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
     driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
@@ -190,11 +206,13 @@ public class RobotContainer {
     NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
     NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));
 
-    autonChooser = AutoBuilder.buildAutoChooser();
+    //TODO: Bring back autos
+    //autonChooser = AutoBuilder.buildAutoChooser();
+    autonChooser = null;
     configureBindings();
-    autoTab.add("Auton Chooser", autonChooser)
-    .withSize(3,1)
-    .withPosition(3, 0);
+    // autoTab.add("Auton Chooser", autonChooser)
+    // .withSize(3,1)
+    // .withPosition(3, 0);
     // SmartDashboard.putData("Auto Chooser", autonChooser);
 
   }
@@ -206,7 +224,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     /* First put the drivetrain into auto run mode, then run the auto */
-    return autonChooser.getSelected();
+    //return autonChooser.getSelected();
+    return new InstantCommand();
   }
 
   public double getDrivetrainVelocityX() {

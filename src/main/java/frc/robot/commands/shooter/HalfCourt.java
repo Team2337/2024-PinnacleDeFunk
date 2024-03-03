@@ -18,7 +18,7 @@ public class HalfCourt extends Command {
     
     @Override
     public void execute() {
-            shooter.halfCourt();
+        shooter.halfCourt();
     }
 
     @Override

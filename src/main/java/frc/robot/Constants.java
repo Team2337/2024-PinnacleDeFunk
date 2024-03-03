@@ -130,6 +130,8 @@ public final class Constants {
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
+    public static Translation2d randomPointBlue = new Translation2d(1.35, 6.35);
+    public static Translation2d randomPointRed = new Translation2d(1.35, 1.8542);
     public static double midFieldInMeters = 8.28; 
   }
 
@@ -145,7 +147,7 @@ public final class Constants {
   // Robot-specific configuration for our swerve drive algorithm
   public static final class Swerve {
 
-    public static double MaxSpeed = 6; // 6 meters per second desired top speed
+    public static double MaxSpeed = 6.21792; // 6.21792 meters per second desired top speed
     public static double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity @ 1.5
     public static double driveAdjustment = 1;
     public static double driveDeadband = 0.1;
@@ -155,6 +157,8 @@ public final class Constants {
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
     public static final double ROBOT_AT_INTAKE_RED = 58.93;
+    public static final double HALF_COURT_RED = 30;
+    public static final double HALF_COURT_BLUE = -30;
   }
 
   public static final class Pixy {
@@ -206,17 +210,19 @@ public final class Constants {
 
   public static class Shooter {
     public static final double SHOOTER_MAX_VELOCITY = 75; 
-    public static final double SHOOTER_BOTTOM_DIFF = -5; 
-    public static final double SHOOTER_LEFTRIGHT_DIFF = -2; 
+    public static final double SHOOTER_BOTTOM_DIFF = -10;//30 
+    public static final double SHOOTER_LEFTRIGHT_DIFF = -20;//30 
 
     public static final double SHOOTER_MAX_VELOCITY_AMP = 20; 
     public static final double SHOOTER_BOTTOM_DIFF_AMP = -3; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = -2; 
 
     
-    public static final double SHOOTER_POOP_VELOCITY = 5; 
+    public static final double SHOOTER_POOP_VELOCITY = 15; 
     
-    public static final double SHOOTER_SENDIT_VELOCITY = 50; 
+    public static final double SHOOTER_SENDIT_VELOCITY = 65; 
+    public static final double SHOOTER_SENDIT_LEFTRIGHT_DIFF = -30;
+    public static final double SHOOTER_SENDIT_BOTTOM_DIFF = 0; 
   }
 
   public static class ShooterPosPot {

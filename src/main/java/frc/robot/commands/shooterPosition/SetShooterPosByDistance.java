@@ -46,7 +46,8 @@ public class SetShooterPosByDistance extends Command {
         currentX = currentPose.get().getX();
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        newSetpoint = (-0.28906779 * Math.pow(distanceInMeters, 2)) + (3.3739266 * distanceInMeters) + 1.6819181;
+        //newSetpoint = (-0.30994385 * Math.pow(distanceInMeters, 2)) + (3.3927429 * distanceInMeters) + 1.6447882;
+        newSetpoint = (-0.27598560 * Math.pow(distanceInMeters, 2)) + (3.1446318 * distanceInMeters) + 1.9769996;
 
         modNewSetpoint = newSetpoint + (xVelocity.get() / 2);
 

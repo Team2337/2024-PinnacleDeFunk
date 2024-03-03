@@ -42,7 +42,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private double m_lastSimTime;
     //private Field2d field = new Field2d();
     public double rotationAngle = 0;
-    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker = false;
+    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp = false;
     
     public boolean useLimelight = true;
 
@@ -145,13 +145,17 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     /**
      * Sets drive at angle to true or false based on a button press to turn on or off field centric facing angle
      */
-    public void setToDriveAtAngle() {
-        if (driveAtAngle) {
-            driveAtAngle = false;
-            rotationAngle = 0.5;
-        } else {
-            driveAtAngle = true;
-        }
+    // public void setToDriveAtAngle() {
+    //     if (driveAtAngle) {
+    //         driveAtAngle = false;
+    //         rotationAngle = 0.5;
+    //     } else {
+    //         driveAtAngle = true;
+    //     }
+    // }
+
+    public void setDriveAtAngleTrue() {
+        driveAtAngle = true;
     }
 
     public void setDriveAtAngleFalse() {
@@ -159,8 +163,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     }
 
     public void setAngleToZero() {
-        driveAtAngle = true;
         rotationAngle = 0.5;
+        driveAtAngle = true;
     }
 
     /**
@@ -184,6 +188,14 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
 
     public void setPointAtSpeaker(boolean pointSpeaker) {
         pointAtSpeaker = pointSpeaker;
+    }
+
+    public void setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(boolean pointRandom) {
+        pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp = pointRandom;
+    }
+
+    public void setCartesianVectorFalse() {
+        pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp = false;
     }
     
     @Override
