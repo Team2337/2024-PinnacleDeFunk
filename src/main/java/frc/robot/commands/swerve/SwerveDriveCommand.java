@@ -33,7 +33,7 @@ public class SwerveDriveCommand extends Command{
         private final SwerveRequest.SwerveDriveBrake lockdown = new SwerveRequest.SwerveDriveBrake();
         
         private PhoenixPIDController turnPID = new PhoenixPIDController(5, 0, 0);
-        private double forward, rotation, strafe, speakerY, speakerX = 0;
+        private double forward, rotation, strafe, speakerY, speakerX, randomX, randomY = 0;
         private Supplier<Double> yVelocity;
         private Supplier<String> allianceColor;
 
@@ -87,6 +87,30 @@ public class SwerveDriveCommand extends Command{
 
          swerveRequest = driveFacingAngle
                 .withTargetDirection(Rotation2d.fromDegrees(modAngleToSpeaker))
+                .withVelocityX(forward)
+                .withVelocityY(strafe);
+
+        } else if (drivetrain.pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp) {
+            
+            if (allianceColor.get() == "blue") {
+                randomX = Constants.FieldElements.randomPointBlue.getX();
+                randomY = Constants.FieldElements.randomPointBlue.getY();
+            } else {
+                randomX = Constants.FieldElements.randomPointRed.getX();
+                randomY = Constants.FieldElements.randomPointRed.getY();
+            }
+            Pose2d currentPose = drivetrain.getPose();
+            double currentPoseX = currentPose.getX();
+            double currentPoseY = currentPose.getY();
+
+            double angleToRandomRad = Math.atan2(currentPoseY - randomY, currentPoseX - randomX);
+            double angleToRandom = Math.toDegrees(angleToRandomRad);
+            // SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
+            // SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
+            // SmartDashboard.putNumber("Y Velocity", yVelocity.get());
+
+         swerveRequest = driveFacingAngle
+                .withTargetDirection(Rotation2d.fromDegrees(angleToRandom))
                 .withVelocityX(forward)
                 .withVelocityY(strafe);
         

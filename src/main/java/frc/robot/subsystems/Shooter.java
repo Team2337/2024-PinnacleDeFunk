@@ -65,7 +65,7 @@ public class Shooter extends SubsystemBase {
     private GenericEntry bottomRightTemp = shooterTab.add("Bottom Right Temp", 0).getEntry();
 
 
-    private double leftVelocityFromDash, rightVelocityFromDash, globalVelocity = 0;
+    private double leftVelocityFromDash, rightVelocityFromDash, globalLeftVelocity, globalRightVelocity = 0;
     private double shooterKP = 0.8;
     private double shooterKI = 0;
     private double shooterKD = 0;
@@ -176,22 +176,20 @@ public class Shooter extends SubsystemBase {
     //Individual
     public void setTopLeftShooterVelocity(double velocity) {
         shooterMotorTopLeft.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
+        globalLeftVelocity = velocity;
     }
 
     public void setTopRightShooterVelocity(double velocity) {
         shooterMotorTopRight.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
+        globalRightVelocity = velocity;
     }
 
     public void setBottomLeftShooterVelocity(double velocity) {
         shooterMotorBottomLeft.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
     }
 
     public void setBottomRightShooterVelocity(double velocity) {
         shooterMotorBottomRight.setControl(velocityVoltage.withVelocity(velocity));
-        globalVelocity = velocity;
     }
 
     //Get temps
@@ -216,11 +214,18 @@ public class Shooter extends SubsystemBase {
     }
 
     public void checkShooterUpToSpeed() {
-        
-        if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalVelocity * 0.97)) && (globalVelocity > 5) ) {
-            shooterUpToSpeed = true;
+        if (globalLeftVelocity >= globalRightVelocity) {
+            if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalLeftVelocity * 0.97)) && (globalLeftVelocity > 2) ) {
+                shooterUpToSpeed = true;
+            } else {
+                shooterUpToSpeed = false;
+            }
         } else {
-            shooterUpToSpeed = false;
+            if ((shooterMotorTopRight.getVelocity().getValueAsDouble() >= (globalRightVelocity * 0.97)) && (globalRightVelocity > 2) ) {
+                shooterUpToSpeed = true;
+            } else {
+                shooterUpToSpeed = false;
+            }
         }
     }
 
@@ -260,10 +265,17 @@ public class Shooter extends SubsystemBase {
     }
 
     public void halfCourt() {
-        setTopLeftShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
-        setTopRightShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
-        setBottomLeftShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
-        setBottomRightShooterVelocity(Constants.Shooter.SHOOTER_SENDIT_VELOCITY);
+        double maxVelocity = Constants.Shooter.SHOOTER_SENDIT_VELOCITY;
+
+            topLeftVelo = maxVelocity;
+            bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_SENDIT_BOTTOM_DIFF;
+            topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_SENDIT_LEFTRIGHT_DIFF;
+            bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_SENDIT_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_SENDIT_BOTTOM_DIFF;
+
+        setTopLeftShooterVelocity(topLeftVelo);
+        setTopRightShooterVelocity(topRightVelo);
+        setBottomLeftShooterVelocity(bottomLeftVelo);
+        setBottomRightShooterVelocity(bottomRightVelo);
     }
 
     public void setAllPercentVelocityAmp() {

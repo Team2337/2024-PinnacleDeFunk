@@ -25,7 +25,7 @@ public class DelayedDelivery extends Command {
     
     @Override
     public void execute() {
-        if (wait >= 25) {
+        if (wait >= 100) {
             if (upToSpeed.get()) {
                 delivery.setDeliverySpeed(speed);
             } else {
@@ -39,6 +39,7 @@ public class DelayedDelivery extends Command {
     @Override
     public void end(boolean interrupted) {
         delivery.stopMotors();
+        wait = 0;
     }
 
     @Override
