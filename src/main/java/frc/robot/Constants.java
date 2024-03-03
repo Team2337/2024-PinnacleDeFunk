@@ -132,6 +132,8 @@ public final class Constants {
     public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
     public static Translation2d randomPointBlue = new Translation2d(1.35, 6.35);
     public static Translation2d randomPointRed = new Translation2d(1.35, 1.8542);
+    public static Translation2d blueAmpRobotLocation = new Translation2d(1.355852, 7.8486);
+    public static Translation2d redAmpRobotLocation = new Translation2d(1.355852, 0.3556);
     public static double midFieldInMeters = 8.28; 
   }
 

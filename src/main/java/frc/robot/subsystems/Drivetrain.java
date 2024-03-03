@@ -42,7 +42,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private double m_lastSimTime;
     //private Field2d field = new Field2d();
     public double rotationAngle = 0;
-    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp = false;
+    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp, noteDetection = false;
     
     public boolean useLimelight = true;
 
@@ -173,6 +173,10 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
      */
     public void setEndGame(boolean end) {
         endGame = end;
+    }
+
+    public void setNoteDetection(boolean note) {
+        noteDetection = note;
     }
 
     /**
