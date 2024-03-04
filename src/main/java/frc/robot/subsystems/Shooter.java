@@ -215,13 +215,13 @@ public class Shooter extends SubsystemBase {
 
     public void checkShooterUpToSpeed() {
         if (globalLeftVelocity >= globalRightVelocity) {
-            if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalLeftVelocity * 0.97)) && (globalLeftVelocity > 2) ) {
+            if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalLeftVelocity * 0.97)) && (globalLeftVelocity > 1) ) {
                 shooterUpToSpeed = true;
             } else {
                 shooterUpToSpeed = false;
             }
         } else {
-            if ((shooterMotorTopRight.getVelocity().getValueAsDouble() >= (globalRightVelocity * 0.97)) && (globalRightVelocity > 2) ) {
+            if ((shooterMotorTopRight.getVelocity().getValueAsDouble() >= (globalRightVelocity * 0.97)) && (globalRightVelocity > 1) ) {
                 shooterUpToSpeed = true;
             } else {
                 shooterUpToSpeed = false;

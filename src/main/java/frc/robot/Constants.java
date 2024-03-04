@@ -132,8 +132,8 @@ public final class Constants {
     public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
     public static Translation2d randomPointBlue = new Translation2d(1.35, 6.35);
     public static Translation2d randomPointRed = new Translation2d(1.35, 1.8542);
-    public static Translation2d blueAmpRobotLocation = new Translation2d(1.355852, 7.8486);
-    public static Translation2d redAmpRobotLocation = new Translation2d(1.355852, 0.3556);
+    public static Translation2d blueAmpRobotLocation = new Translation2d(1.8415, 7.74);//7.7216
+    public static Translation2d redAmpRobotLocation = new Translation2d(1.8415, 0.3556);
     public static double midFieldInMeters = 8.28; 
   }
 
@@ -215,9 +215,9 @@ public final class Constants {
     public static final double SHOOTER_BOTTOM_DIFF = -10;//30 
     public static final double SHOOTER_LEFTRIGHT_DIFF = -20;//30 
 
-    public static final double SHOOTER_MAX_VELOCITY_AMP = 20; 
-    public static final double SHOOTER_BOTTOM_DIFF_AMP = -3; 
-    public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = -2; 
+    public static final double SHOOTER_MAX_VELOCITY_AMP = 5; 
+    public static final double SHOOTER_BOTTOM_DIFF_AMP = 3; 
+    public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = 0; 
 
     
     public static final double SHOOTER_POOP_VELOCITY = 15; 
@@ -233,10 +233,10 @@ public final class Constants {
     public static final double SHOOTERPOT_MIN_SETPOINT = 2.06;
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
     public static final double SHOOTERPOT_MAX_PID_SPEED = 0.7;
-    public static final double SHOOTERPOT_AT_AMP = 5.4;
-    public static final double SHOOTERPOT_HALF_COURT = 7;
+    public static final double SHOOTERPOT_AT_AMP = 7;
+    public static final double SHOOTERPOT_HALF_COURT = 10.3;
 
-    public static final double SHOOTER_AT_PICKUP = 10.5;//MIN = 9.8 MAX = 10.8      //5.7
+    public static final double SHOOTER_AT_PICKUP = 13.8;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;
 
   }

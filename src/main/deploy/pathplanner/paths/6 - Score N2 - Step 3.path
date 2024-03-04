@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.056598699212937,
+        "y": 5.55
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.570621303284782,
+        "y": 5.848653473111607
+      },
+      "isLocked": false,
+      "linkedName": "6-EndS2"
+    },
+    {
+      "anchor": {
+        "x": 1.9551216904875544,
+        "y": 6.3902130024015875
+      },
+      "prevControl": {
+        "x": 3.1759253751581866,
+        "y": 6.2617073513836266
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "6-EndS3"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 7.018956601125651,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 1.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 25.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "6-Partner Showcase",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0.5
+  },
+  "useDefaultConstraints": false
+}

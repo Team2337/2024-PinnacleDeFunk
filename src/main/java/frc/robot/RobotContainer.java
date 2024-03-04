@@ -101,6 +101,16 @@ public class RobotContainer {
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setNoteDetection(true)));
     driverJoystick.povUp().onFalse(new InstantCommand(() -> drivetrain.setNoteDetection(false)));
 
+    driverJoystick.povRight().whileTrue(Commands.sequence(
+        new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle())),
+        new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()),
+        Commands.parallel(
+          drivetrain.followPathCommand(goToAmp()),
+          new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)),
+          new SetMotorVelocityBySide(shooter, () -> true)
+        )
+      ));
+
     driverJoystick.a().whileTrue((new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
       .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX()))));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
@@ -227,7 +237,7 @@ public class RobotContainer {
 
   public void instantiateSubsystemsTeleop() {
     delivery.setDefaultCommand(new DeliveryDefault(delivery, () -> intake.getIntakeSensor()));
-    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor())); 
+    intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor())); 
   }
 
   public Command getAutonomousCommand() {
@@ -302,13 +312,14 @@ public class RobotContainer {
       ampLocation = Constants.FieldElements.blueAmpRobotLocation;
     }
     List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(
+            new Pose2d(drivetrain.getState().Pose.getX(),drivetrain.getState().Pose.getY(),drivetrain.getState().Pose.getRotation()),
             new Pose2d(ampLocation.getX(), ampLocation.getY(), Rotation2d.fromDegrees(getAmpRotationAngle()))
     );
 
     // Create the path using the bezier points created above
     PathPlannerPath path = new PathPlannerPath(
             bezierPoints,
-            new PathConstraints(3.0, 3.0, 2 * Math.PI, 4 * Math.PI), // The constraints for this path. If using a differential drivetrain, the angular constraints have no effect.
+            new PathConstraints(3.0, 1.5, 10 * Math.PI, 16 * Math.PI), // The constraints for this path. If using a differential drivetrain, the angular constraints have no effect.
             new GoalEndState(0.0, Rotation2d.fromDegrees(getAmpRotationAngle())) // Goal end state. You can set a holonomic rotation here. If using a differential drivetrain, the rotation will have no effect.
     );
 

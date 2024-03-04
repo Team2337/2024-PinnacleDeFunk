@@ -15,8 +15,8 @@ public class SetShooterPosByDistance extends Command {
     private Supplier<Pose2d> currentPose;
     private Translation2d speakerPose;
     private double speakerX, speakerY, currentX, currentY, distanceInMeters, newSetpoint, modNewSetpoint;
-    private double minStringPotValue = 5;//5.3;
-    private double maxStringPotValue = 12;//10.1;
+    private double minStringPotValue = 7.5;//5.3;
+    private double maxStringPotValue = 15;//10.1;
     private Supplier<String> allianceColor;
     private Supplier<Double> xVelocity;
 
@@ -46,8 +46,9 @@ public class SetShooterPosByDistance extends Command {
         currentX = currentPose.get().getX();
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        //newSetpoint = (-0.30994385 * Math.pow(distanceInMeters, 2)) + (3.3927429 * distanceInMeters) + 1.6447882;
-        newSetpoint = (-0.27598560 * Math.pow(distanceInMeters, 2)) + (3.1446318 * distanceInMeters) + 1.9769996;
+        newSetpoint = (-0.44429609 * Math.pow(distanceInMeters, 2)) + (4.3429355 * distanceInMeters) + 3.3590452; //FUDGE
+        //newSetpoint = (-0.42026111 * Math.pow(distanceInMeters, 2)) + (4.2693814 * distanceInMeters) + 3.2881356; //RAW
+        //newSetpoint = (-0.42233788 * Math.pow(distanceInMeters, 2)) + (4.2114015 * distanceInMeters) + 3.5361784; //REMOVE POINTS
 
         modNewSetpoint = newSetpoint + (xVelocity.get() / 2);
 
