@@ -195,7 +195,7 @@ public final class Constants {
 
   public static class Delivery {
     public static final double DELIVERY_FORWARD_SPEED = 1;
-    public static final double DELIVERY_SLOW_SPEED = 0.5;
+    public static final double DELIVERY_SLOW_SPEED = 0.4; //TODO: Put back to 0.5
     public static final double DELIVERY_REVERSE_SPEED = -0.5;
   }
 

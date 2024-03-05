@@ -19,13 +19,15 @@ public class SetShooterPosByDistance extends Command {
     private double maxStringPotValue = 15;//10.1;
     private Supplier<String> allianceColor;
     private Supplier<Double> xVelocity;
+    private Supplier<Boolean> topSensor;
 
 
-    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity) {
+    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity, Supplier<Boolean> topSensor) {
         this.shooterPosPot = shooterPosPot;
         this.currentPose = currentPose;
         this.allianceColor = allianceColor;
         this.xVelocity = xVelocity;
+        this.topSensor = topSensor;
         addRequirements(shooterPosPot);
     }
 
@@ -63,7 +65,7 @@ public class SetShooterPosByDistance extends Command {
         // SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
         // SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
         // SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
-        if (currentY <= Constants.FieldElements.midFieldInMeters) { 
+        if (currentY <= Constants.FieldElements.midFieldInMeters && topSensor.get()) { //TODO  
             shooterPosPot.setSetpoint(modNewSetpoint);
         } else {
             shooterPosPot.setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);

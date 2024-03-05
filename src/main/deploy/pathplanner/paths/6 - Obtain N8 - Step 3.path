@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.570621303284782,
-        "y": 5.848653473111607
+        "x": 3.480524393288442,
+        "y": 5.960815801802787
       },
       "isLocked": false,
       "linkedName": "6-EndS2"
     },
     {
       "anchor": {
-        "x": 1.9551216904875544,
-        "y": 6.3902130024015875
+        "x": 4.487656336225653,
+        "y": 7.307562004567661
       },
       "prevControl": {
-        "x": 3.1759253751581866,
-        "y": 6.2617073513836266
+        "x": 3.948957855119704,
+        "y": 6.663465994549677
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,30 +31,12 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": 7.018956601125651,
+      "rotationDegrees": 45.0,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoStartDeliveryTemp"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 1.0,
@@ -63,7 +45,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0,
+    "rotation": 45.0,
     "rotateFast": false
   },
   "reversed": false,

@@ -91,7 +91,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
             this::seedFieldRelative,  // Consumer for seeding pose against auto
             this::getCurrentRobotChassisSpeeds,
             (speeds)->this.setControl(autoRequest.withSpeeds(speeds)), // Consumer of ChassisSpeeds to drive the robot
-            new HolonomicPathFollowerConfig(new PIDConstants(5, 0, 0), //Drive
+            new HolonomicPathFollowerConfig(new PIDConstants(3.5, 0, 0), //Drive was 5
                                             new PIDConstants(2.5, 0, 0), //Turn
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
@@ -211,11 +211,11 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //field.setRobotPose(pose);
       });
       //if (DriverStation.isAutonomous()) {
-        if (this.getState().Pose.getX() >= Constants.Swerve.DISABLE_LIMELIGHT_DISTANCE) {
-            useLimelight = false;
-        } else {
+        // if (this.getState().Pose.getX() >= Constants.Swerve.DISABLE_LIMELIGHT_DISTANCE) {
+        //     useLimelight = false;
+        // } else {
             useLimelight = true;
-        }
+        //}
       //} 
       log();
     }

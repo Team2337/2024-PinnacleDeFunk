@@ -112,7 +112,7 @@ public class RobotContainer {
       ));
 
     driverJoystick.a().whileTrue((new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
-      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX()))));
+      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> doWeHaveNote()))));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
     //driverJoystick.x().toggleOnFalse(new InstantCommand(() -> drivetrain.setToDriveAtAngle()));
     driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
@@ -152,8 +152,8 @@ public class RobotContainer {
     operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
 
-    // operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6))); 
-    // operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); 
+    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.97))); //For Partner Showcase
+    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); 
     // operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.3))); 
 
     // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
@@ -163,8 +163,8 @@ public class RobotContainer {
     operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorJoystick.x().getAsBoolean()));
     operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
     
-    operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(-20)));
-    operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberPosition(0)));
+    //operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(-20)));
+    //operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberPosition(0)));
     operatorJoystick.x().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
       .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP))));
     operatorJoystick.y().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true).withTimeout(0.05));
@@ -210,28 +210,29 @@ public class RobotContainer {
     }
     
 
-    NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 40));
+    NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 70));
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
     NamedCommands.registerCommand("ShooterPositionPickup", new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //5.15, 8.1, 9.95
     NamedCommands.registerCommand("ShooterPositionClose", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.95)).withTimeout(2));
-    NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(11.4)).withTimeout(2));
-    NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX()).withTimeout(2));
-    NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery));
-    NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(0.5));
+    NamedCommands.registerCommand("ShooterPositionFaryFar", new InstantCommand(() -> shooterPot.setShooterPositionPoint(11.4)).withTimeout(0.25));
+    NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> doWeHaveNote()).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPositionByDistanceDrive", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
+    NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery).withTimeout(4));
+    NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(0.2));
     //NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));
     NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter, () -> false));
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
     NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));
+    NamedCommands.registerCommand("SNARK", new InstantCommand(() -> SmartDashboard.putString("I hate this", "I hate this")).withTimeout(0.5));
 
     //TODO: Bring back autos
-    //autonChooser = AutoBuilder.buildAutoChooser();
-    autonChooser = null;
+    autonChooser = AutoBuilder.buildAutoChooser();
+    //autonChooser = null;
     configureBindings();
-    // autoTab.add("Auton Chooser", autonChooser)
-    // .withSize(3,1)
-    // .withPosition(3, 0);
-    // SmartDashboard.putData("Auto Chooser", autonChooser);
+    autoTab.add("Auton Chooser", autonChooser)
+    .withSize(3,1)
+    .withPosition(3, 0);
 
   }
 
@@ -242,8 +243,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     /* First put the drivetrain into auto run mode, then run the auto */
-    //return autonChooser.getSelected();
-    return new InstantCommand();
+    return autonChooser.getSelected();
+    //return new InstantCommand();
   }
 
   public double getDrivetrainVelocityX() {

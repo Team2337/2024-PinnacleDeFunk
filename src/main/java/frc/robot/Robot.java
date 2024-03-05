@@ -37,6 +37,7 @@ public class Robot extends TimedRobot {
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
   private Pose2d llPose;
   private boolean didAutoRun = false;
+  private Timer gcTimer = new Timer();
 
 
   @Override
@@ -57,6 +58,8 @@ public class Robot extends TimedRobot {
     visionStdDevs.set(1,0,2);
     visionStdDevs.set(2,0,Math.toRadians(90));
     m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
+
+    gcTimer.start();
 
   }
   @Override
@@ -81,6 +84,10 @@ public class Robot extends TimedRobot {
       } else {
         visionCounter++;
       }
+    }
+
+    if (gcTimer.advanceIfElapsed(5)) {
+      System.gc();
     }
   }
 
