@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.List;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.PathConstraints;
@@ -311,10 +312,9 @@ public class RobotContainer {
 
     // Prevent the path from being flipped if the coordinates are already correct
     path.preventFlipping = true;
-
     return path;
   }
-
+  
   public boolean doWeHaveNote() {
     return(intake.getIntakeSensor() || delivery.getDeliveryBottomSensor() || delivery.getDeliveryTopSensor());
   }
