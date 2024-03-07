@@ -131,37 +131,6 @@
                           }
                         ]
                       }
-                    },
-                    {
-                      "type": "sequential",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "AutoStartDeliveryToSensor"
-                            }
-                          },
-                          {
-                            "type": "wait",
-                            "data": {
-                              "waitTime": 1.5
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "ShooterPositionByDistance"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "AutoStartDeliveryTempLong"
-                            }
-                          }
-                        ]
-                      }
                     }
                   ]
                 }

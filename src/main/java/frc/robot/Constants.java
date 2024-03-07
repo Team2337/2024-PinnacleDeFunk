@@ -130,7 +130,7 @@ public final class Constants {
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
-    public static Translation2d randomPointBlue = new Translation2d(1.35, 6.35);
+    public static Translation2d randomPointBlue = new Translation2d(0, 5.75);
     public static Translation2d randomPointRed = new Translation2d(1.35, 1.8542);
     public static Translation2d blueAmpRobotLocation = new Translation2d(1.8415, 7.74);//7.7216
     public static Translation2d redAmpRobotLocation = new Translation2d(1.8415, 0.3556);
@@ -195,7 +195,7 @@ public final class Constants {
 
   public static class Delivery {
     public static final double DELIVERY_FORWARD_SPEED = 1;
-    public static final double DELIVERY_SLOW_SPEED = 0.4; //TODO: Put back to 0.5
+    public static final double DELIVERY_SLOW_SPEED = 0.425; //TODO: Put back to 0.5
     public static final double DELIVERY_REVERSE_SPEED = -0.5;
   }
 
@@ -222,7 +222,7 @@ public final class Constants {
     
     public static final double SHOOTER_POOP_VELOCITY = 15; 
     
-    public static final double SHOOTER_SENDIT_VELOCITY = 65; 
+    public static final double SHOOTER_SENDIT_VELOCITY = 60; 
     public static final double SHOOTER_SENDIT_LEFTRIGHT_DIFF = -30;
     public static final double SHOOTER_SENDIT_BOTTOM_DIFF = 0; 
   }
@@ -236,7 +236,7 @@ public final class Constants {
     public static final double SHOOTERPOT_AT_AMP = 7;
     public static final double SHOOTERPOT_HALF_COURT = 10.3;
 
-    public static final double SHOOTER_AT_PICKUP = 13.8;//MIN = 9.8 MAX = 10.8      //5.7
+    public static final double SHOOTER_AT_PICKUP = 13.7;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;
 
   }

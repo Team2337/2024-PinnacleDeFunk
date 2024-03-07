@@ -20,9 +20,15 @@
                 "data": {
                   "commands": [
                     {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPosSpeakerSide"
+                      }
+                    },
+                    {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.5
                       }
                     },
                     {
@@ -58,7 +64,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPositionByDistance"
+                        "name": "ShooterPos5-N3"
                       }
                     },
                     {

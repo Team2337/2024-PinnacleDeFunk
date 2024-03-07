@@ -52,6 +52,12 @@ public class SetShooterPosByDistance extends Command {
         //newSetpoint = (-0.42026111 * Math.pow(distanceInMeters, 2)) + (4.2693814 * distanceInMeters) + 3.2881356; //RAW
         //newSetpoint = (-0.42233788 * Math.pow(distanceInMeters, 2)) + (4.2114015 * distanceInMeters) + 3.5361784; //REMOVE POINTS
 
+        // if (xVelocity.get() > 0) {
+        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 2.1); // TODO: Was 2
+        // } else if (xVelocity.get() < 0) {
+        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 1.5); // TODO: Was 2
+        // }
+
         modNewSetpoint = newSetpoint + (xVelocity.get() / 2);
 
         if (modNewSetpoint < minStringPotValue) {
