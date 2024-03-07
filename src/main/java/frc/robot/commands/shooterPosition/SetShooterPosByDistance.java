@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
@@ -20,6 +21,8 @@ public class SetShooterPosByDistance extends Command {
     private Supplier<String> allianceColor;
     private Supplier<Double> xVelocity;
     private Supplier<Boolean> topSensor;
+    private double distanceToFloor = 1.4478; //TODO:  Validate to center of tags 4 + 7
+    private double cameraHeight = 0.2667;
 
 
     public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity, Supplier<Boolean> topSensor) {
@@ -34,10 +37,22 @@ public class SetShooterPosByDistance extends Command {
     @Override
     public void initialize() {
 
+        if (allianceColor.get() == "blue") {
+             NetworkTableInstance.getDefault().getTable("limelight-blue").getEntry("priorityid").setNumber(7);
+        } else {
+             NetworkTableInstance.getDefault().getTable("limelight-blue").getEntry("priorityid").setNumber(4);
+        }
+
     }
     
     @Override
     public void execute() {
+        double visionDistance = NetworkTableInstance.getDefault().getTable("limelight-blue").getEntry("avgdist").getDouble(0);
+        double visionDistanceInMeters = Math.sqrt(Math.pow(visionDistance, 2) + Math.pow((distanceToFloor-cameraHeight), 2));
+        SmartDashboard.putNumber("Shooter/vision Distance in meters", visionDistanceInMeters);
+
+
+
         if (allianceColor.get() == "blue") {
             speakerPose = Constants.FieldElements.blueSpeakerCenter;
         } else {
