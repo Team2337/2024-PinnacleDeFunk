@@ -223,6 +223,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPos5-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos5-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos5-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.31)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos3-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.31)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos3-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.31)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos3-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.31)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> doWeHaveNote()).withTimeout(1));
     NamedCommands.registerCommand("ShooterPositionByDistanceDrive", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery).withTimeout(4));
