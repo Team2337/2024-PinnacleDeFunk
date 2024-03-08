@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9815373154284097,
-        "y": 5.55
+        "x": 2.18,
+        "y": 6.720656105019202
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0815373154284096,
-        "y": 5.55
+        "x": 4.552771636064916,
+        "y": 7.298931534600029
       },
       "isLocked": false,
-      "linkedName": "6-EndS1"
+      "linkedName": "3-EndS4"
     },
     {
       "anchor": {
-        "x": 3.056598699212937,
-        "y": 5.55
+        "x": 8.224361665149523,
+        "y": 5.6467160215119545
       },
       "prevControl": {
-        "x": 2.956598699212937,
-        "y": 5.55
+        "x": 6.9576631051153335,
+        "y": 5.683431921802803
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "6-EndS2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 1.0,
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
+    "velocity": 0,
     "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "6-Partner Showcase",
+  "folder": "3-Blue-Spike",
   "previewStartingState": {
-    "rotation": 0,
-    "velocity": 1.0
+    "rotation": 24.0,
+    "velocity": 0
   },
   "useDefaultConstraints": false
 }

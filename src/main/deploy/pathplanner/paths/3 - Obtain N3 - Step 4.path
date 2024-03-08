@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 3.699126954302743,
-        "y": 7.335647434890875
+        "y": 7.1337099832912205
       },
       "prevControl": null,
       "nextControl": {
         "x": 3.065777674285649,
-        "y": 7.142888958363933
+        "y": 6.940951506764279
       },
       "isLocked": false,
       "linkedName": "3-EndS3"
     },
     {
       "anchor": {
-        "x": 2.267206842959746,
+        "x": 2.18,
         "y": 6.720656105019202
       },
       "prevControl": {
-        "x": 2.6619027710863414,
+        "x": 2.5746959281265958,
         "y": 6.895056631400722
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "3-EndS4"
     }
   ],
   "rotationTargets": [],
@@ -69,7 +69,7 @@
   "reversed": false,
   "folder": "3-Blue-Spike",
   "previewStartingState": {
-    "rotation": 24.0,
+    "rotation": 20.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

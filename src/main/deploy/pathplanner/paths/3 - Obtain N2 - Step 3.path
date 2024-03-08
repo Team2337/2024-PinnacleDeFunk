@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.212132992523477,
-        "y": 5.5182103704939935
+        "x": 2.1845960673053426,
+        "y": 5.444778569912301
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.51605573577407,
-        "y": 5.490673445275858
+        "x": 4.488518810555935,
+        "y": 5.417241644694165
       },
       "isLocked": false,
       "linkedName": "3-EndS2"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 3.699126954302743,
-        "y": 7.335647434890875
+        "y": 7.1337099832912205
       },
       "prevControl": {
         "x": 4.020391081847647,
-        "y": 6.628866354292088
+        "y": 6.426928902692433
       },
       "nextControl": null,
       "isLocked": false,
@@ -80,7 +80,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 24.0,
+    "rotation": 20.0,
     "rotateFast": false
   },
   "reversed": false,

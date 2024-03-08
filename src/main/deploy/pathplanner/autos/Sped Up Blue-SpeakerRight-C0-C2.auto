@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.26,
-      "y": 4.172
+      "x": 0.7693261898151704,
+      "y": 6.568323745728334
     },
-    "rotation": -43.0
+    "rotation": 59.38139459109058
   },
   "command": {
     "type": "sequential",
@@ -22,13 +22,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos3-N0"
+                        "name": "ShooterPosSpeakerSide"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.5
                       }
                     },
                     {
@@ -40,61 +40,37 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "3 - Obtain N1 - Step 1"
+                        "pathName": "Sped Up 5-Obtain N3 - Step 1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "3 - Score N1 - Step 2"
+                        "pathName": "Sped Up 5-Shoot N8 - Step 2"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Sped Up 5-Shoot N7 - Step3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryToSensor"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPos5-N3"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "3 - Obtain N2 - Step 3"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "3 - Obtain N3 - Step 4"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos3-N3"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "3 - Send it"
                       }
                     }
                   ]

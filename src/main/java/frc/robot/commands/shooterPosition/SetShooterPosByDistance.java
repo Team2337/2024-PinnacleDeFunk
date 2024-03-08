@@ -71,7 +71,7 @@ public class SetShooterPosByDistance extends Command {
         // SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
         // SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
         // SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
-        if (currentY <= Constants.FieldElements.midFieldInMeters && topSensor.get()) { //TODO  
+        if (currentX <= Constants.FieldElements.midFieldInMeters && topSensor.get()) { //TODO  
             shooterPosPot.setSetpoint(modNewSetpoint);
         } else {
             shooterPosPot.setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);
