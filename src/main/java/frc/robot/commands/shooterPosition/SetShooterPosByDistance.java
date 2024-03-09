@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.nerdyfiles.vision.LimelightHelpers;
 import frc.robot.subsystems.ShooterPosPot;
 
 
@@ -47,7 +48,8 @@ public class SetShooterPosByDistance extends Command {
     
     @Override
     public void execute() {
-        double visionDistance = NetworkTableInstance.getDefault().getTable("limelight-blue").getEntry("avgdist").getDouble(0);
+        double visionDistance = NetworkTableInstance.getDefault().getTable("limelight-blue").getEntry("botpose_avgdist,");
+        LimelightHelpers.getBotPose(getName());
         double visionDistanceInMeters = Math.sqrt(Math.pow(visionDistance, 2) + Math.pow((distanceToFloor-cameraHeight), 2));
         SmartDashboard.putNumber("Shooter/vision Distance in meters", visionDistanceInMeters);
 
