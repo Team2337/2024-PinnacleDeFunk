@@ -23,13 +23,13 @@ public class LEDRunnable extends Command {
   @Override
   public void execute() {
     if (DriverStation.isTeleopEnabled() && upToSpeed.get()) {
-        led.setColor(Color.kGreen);
+        led.setUprightColors(Color.kGreen);
     } else if (DriverStation.isTeleopEnabled() && deliveryTopSensor.get()) {
-        led.setColor(Color.kBlue);
+        led.setUprightColors(Color.kBlue);
     }  else if (DriverStation.isTeleopEnabled() && intakeSensor.get()) {
-        led.setColor(Color.kRed);
+        led.setShooterColors(Color.kRed);
     } else if (DriverStation.isTeleopEnabled()) {
-        led.setColor(Color.kBlack);
+        led.setUprightColors(Color.kBlack);
     }
     
     if (DriverStation.isDisabled()) {
