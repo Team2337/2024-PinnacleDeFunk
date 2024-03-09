@@ -159,6 +159,8 @@ public final class Constants {
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
     public static final double ROBOT_AT_INTAKE_RED = 58.93;
+    public static final double ROBOT_AT_SNIPE_BLUE = -120;
+    public static final double ROBOT_AT_SNIPE_RED = 120;
     public static final double HALF_COURT_RED = 30;
     public static final double HALF_COURT_BLUE = -30;
   }

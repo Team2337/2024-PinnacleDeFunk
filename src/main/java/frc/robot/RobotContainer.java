@@ -43,6 +43,7 @@ import frc.robot.commands.shooter.PoopShoot;
 import frc.robot.commands.shooter.SetMotorVelocityBySide;
 import frc.robot.commands.shooterPosition.SetShooterPosByDistance;
 import frc.robot.commands.shooterPosition.SetShooterPosPot;
+import frc.robot.commands.swerve.OpPOVLeftDriveAtAngle;
 import frc.robot.commands.swerve.SwerveDriveCommand;
 import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
@@ -175,11 +176,13 @@ public class RobotContainer {
 
 
     //operatorJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleRight())));
-    operatorJoystick.povLeft().onTrue(new ConditionalCommand(
-      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
-      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
-      () -> isAllianceColorBlue()));
+    // operatorJoystick.povLeft().onTrue(new ConditionalCommand(
+    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
+    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
+    //   () -> isAllianceColorBlue()));
 
+    operatorJoystick.povLeft().onTrue(new OpPOVLeftDriveAtAngle(drivetrain, () -> isAllianceColorBlue()));
+ 
 
     
     //*************Operator Station *****************/
