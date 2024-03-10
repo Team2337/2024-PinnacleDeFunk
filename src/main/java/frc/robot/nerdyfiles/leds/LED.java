@@ -20,7 +20,11 @@ public class LED extends SubsystemBase {
 
 	private static AddressableLED led;
 	private static AddressableLEDBuffer ledBuffer;
-	private static int LED_LENGTH = 63;//273;
+	private static int LED_LENGTH = 273;
+	private static int LED_RIGHT_LENGTH = 63;
+	private static int LED_SHOOTER_START = 64;
+	private static int LED_SHOOTER_END = 209;
+	private static int LED_LEFT_START = 210;
 
 	/**
 	 * Controls the LEDs on the Robot 
@@ -42,6 +46,26 @@ public class LED extends SubsystemBase {
 		for (int i = 0; i < LED_LENGTH; i++) {
 			ledBuffer.setLED(i, color);
 		}
+			led.setData(ledBuffer);
+			led.start();
+	}
+
+	public void setUprightColors(Color color) {
+		for (int i = 0; i < LED_RIGHT_LENGTH; i++) {
+			ledBuffer.setLED(i, color);
+		}
+		for (int i = LED_LEFT_START; i < LED_LENGTH; i++) {
+			ledBuffer.setLED(i, color);
+		}
+			led.setData(ledBuffer);
+			led.start();
+	}
+
+	public void setShooterColors(Color color) {
+		for (int i = LED_SHOOTER_START; i < LED_SHOOTER_END; i++) {
+			ledBuffer.setLED(i, color);
+		}
+
 			led.setData(ledBuffer);
 			led.start();
 	}

@@ -159,6 +159,8 @@ public final class Constants {
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
     public static final double ROBOT_AT_INTAKE_RED = 58.93;
+    public static final double ROBOT_AT_SNIPE_BLUE = -120;
+    public static final double ROBOT_AT_SNIPE_RED = 120;
     public static final double HALF_COURT_RED = 30;
     public static final double HALF_COURT_BLUE = -30;
   }
@@ -195,7 +197,7 @@ public final class Constants {
 
   public static class Delivery {
     public static final double DELIVERY_FORWARD_SPEED = 1;
-    public static final double DELIVERY_SLOW_SPEED = 0.4; //TODO: Put back to 0.5
+    public static final double DELIVERY_SLOW_SPEED = 0.375; //TODO: Put back to 0.5
     public static final double DELIVERY_REVERSE_SPEED = -0.5;
   }
 
@@ -219,8 +221,12 @@ public final class Constants {
     public static final double SHOOTER_BOTTOM_DIFF_AMP = 3; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = 0; 
 
+    public static final double SHOOTER_MAX_VELOCITY_TRAP = 16.5; 
+    public static final double SHOOTER_BOTTOM_DIFF_TRAP = 8; 
+    public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 0; 
     
     public static final double SHOOTER_POOP_VELOCITY = 15; 
+    public static final double SHOOTER_INTAKE_VELOCITY = -5;
     
     public static final double SHOOTER_SENDIT_VELOCITY = 60; 
     public static final double SHOOTER_SENDIT_LEFTRIGHT_DIFF = -30;

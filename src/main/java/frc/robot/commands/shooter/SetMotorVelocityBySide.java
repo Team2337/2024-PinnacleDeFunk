@@ -26,7 +26,7 @@ public class SetMotorVelocityBySide extends Command {
         if (!ampMode.get()) {
             shooter.setAllPercentVelocity();
         } else {
-            shooter.setAllPercentVelocityAmp();
+            shooter.setAllPercentVelocityTrap();
         }
     }
 

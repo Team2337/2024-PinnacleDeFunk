@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.095856014131563,
+        "y": 2.4432537211356324
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.351850750316373,
+        "y": 4.196437960023534
+      },
+      "isLocked": false,
+      "linkedName": "8-EndS3"
+    },
+    {
+      "anchor": {
+        "x": 4.51605573577407,
+        "y": 4.875682115404187
+      },
+      "prevControl": {
+        "x": 5.709322495226567,
+        "y": 3.719131256242535
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "8-EndS4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos8-N5"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -8.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "8-Blue-Outside",
+  "previewStartingState": {
+    "rotation": 20.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

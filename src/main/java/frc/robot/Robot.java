@@ -74,7 +74,8 @@ public class Robot extends TimedRobot {
       if (m_robotContainer.getAllianceColor() == "blue") {
         llPose = lastResult.getBotPose2d_wpiBlue();
       } else {
-        llPose = lastResult.getBotPose2d_wpiRed();
+        //TODO: llPose = lastResult.getBotPose2d_wpiRed();
+        llPose = lastResult.getBotPose2d_wpiBlue();
       }
       
       double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
