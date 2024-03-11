@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,6 +16,7 @@ public class Delivery extends SubsystemBase {
     private VictorSPX deliveryMotor = new VictorSPX(30);
     private DigitalInput deliveryTopSensor = new DigitalInput(1);
     private DigitalInput deliveryBottomSensor = new DigitalInput(2);
+    private Servo noteStopperServo = new Servo(1);
 
     public Delivery() { 
         deliveryMotor.setInverted(true);
@@ -36,6 +38,34 @@ public class Delivery extends SubsystemBase {
 
     public boolean getDeliveryBottomSensor() {
         return !deliveryBottomSensor.get();
+    }
+
+    public void servoSet(double pos) {
+        noteStopperServo.set(pos);
+    }
+
+    public void servoSetPosition(double pos) {
+        noteStopperServo.setPosition(pos);
+    }
+
+    /**
+     * Sets the angle of the servo
+     * @param pos - 0-360 degrees
+     */
+    public void servoSetAngle(double pos) {
+        noteStopperServo.setAngle(pos);
+    }
+
+    public double getServo() {
+        return noteStopperServo.get();
+    }
+
+    public void engageNoteStop() {
+        servoSet(0);
+    }
+
+    public void disengageNoteStop() {
+        servoSet(120);
     }
 
     public void log() {
