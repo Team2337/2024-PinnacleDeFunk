@@ -43,8 +43,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     //private Field2d field = new Field2d();
     public double rotationAngle = 0;
     public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp, noteDetection = false;
-    
     public boolean useLimelight = true;
+    public String allianceColor = "Undefined";
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -210,14 +210,30 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //TODO: If auto doesn't work, uncomment
         //field.setRobotPose(pose);
       });
-      if (DriverStation.isAutonomous()) {
-            if (this.getState().Pose.getX() >= 12) {//Constants.Swerve.DISABLE_LIMELIGHT_DISTANCE) {
+      if (DriverStation.isAutonomous()) {//TODO: Alliance flip
+        if (allianceColor == "Undefined") {
+            if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+                allianceColor = "red";
+            } else {
+                allianceColor = "blue";
+            }
+        }  
+        if (allianceColor == "red") {
+            if (this.getState().Pose.getX() >= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
                 useLimelight = false;
             } else {
                 useLimelight = true;
             }
-
+        } else if (allianceColor == "blue") {
+            if (this.getState().Pose.getX() <= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+            } else {
+                useLimelight = true;
+            }
+        } else {
+            useLimelight = true;
         }
+
+    }
        
       log();
     }

@@ -127,7 +127,7 @@ public class SwerveDriveCommand extends Command{
             var lastResult = LimelightHelpers.getLatestResults("limelight-coral").targetingResults;
             if ((lastResult.valid)) {
                 double tx = LimelightHelpers.getTX("limelight-coral");
-                strafe = (Utilities.scaleVisionToOne(tx) / 3);
+                strafe = (Utilities.scaleVisionToOne(-tx) / 0.5);
             }
 
             SmartDashboard.putNumber("Strafe", strafe);

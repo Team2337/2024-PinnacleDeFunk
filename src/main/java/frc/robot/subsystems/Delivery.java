@@ -6,19 +6,32 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.SystemsCheckPositions;
+import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.ConfigurationFailedException;
 
 public class Delivery extends SubsystemBase {
     
     private VictorSPX deliveryMotor = new VictorSPX(30);
     private DigitalInput deliveryTopSensor = new DigitalInput(1);
     private DigitalInput deliveryBottomSensor = new DigitalInput(2);
+    private LaserCan laserCan = new LaserCan(0);
 
     public Delivery() { 
         deliveryMotor.setInverted(true);
         deliveryMotor.setNeutralMode(NeutralMode.Brake);
+    // Optionally initialise the settings of the LaserCAN, if you haven't already done so in GrappleHook
+        try {
+            laserCan.setRangingMode(LaserCan.RangingMode.SHORT);
+            //laserCan.setRegionOfInterest(new LaserCan.RegionOfInterest(4, 4, 8, 8));
+            laserCan.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+            laserCan.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+        } catch (ConfigurationFailedException e) {
+            System.out.println("Configuration failed! " + e);
+        }
         setupShuffleboard();
     }
 
@@ -38,10 +51,19 @@ public class Delivery extends SubsystemBase {
         return !deliveryBottomSensor.get();
     }
 
+    public double getLaserCan() {
+        LaserCan.Measurement measurement = laserCan.getMeasurement();
+        if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
+            return measurement.distance_mm; 
+        } else {
+            return 0;
+        }
+    }
+
     public void log() {
         if (Constants.DashboardLogging.DELIVERY) {
         }
-        
+        SmartDashboard.putNumber("LaserCAN", getLaserCan());
     }
 
     public void setupShuffleboard() {

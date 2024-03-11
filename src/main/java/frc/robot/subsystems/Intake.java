@@ -32,7 +32,7 @@ public class Intake extends SubsystemBase {
         intakeMotorRight.getConfigurator().apply(setIntakeMotorRightToDefault);
 
         TalonFXConfiguration leftMotorConfig = new TalonFXConfiguration();
-        leftMotorConfig.withCurrentLimits(CTREUtils.setLowCurrentLimit());
+        leftMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         leftMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         leftMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
         leftMotorConfig.Slot0.kP = 0.21;
@@ -44,7 +44,7 @@ public class Intake extends SubsystemBase {
         intakeMotorLeft.getConfigurator().apply(leftMotorConfig);
 
         TalonFXConfiguration rightMotorConfig = new TalonFXConfiguration();
-        rightMotorConfig.withCurrentLimits(CTREUtils.setLowCurrentLimit());
+        rightMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
         rightMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         rightMotorConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         rightMotorConfig.Slot0.kP = 0.21;

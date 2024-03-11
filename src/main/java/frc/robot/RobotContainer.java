@@ -105,7 +105,7 @@ public class RobotContainer {
         Commands.parallel(
           drivetrain.followPathCommand(goToAmp()),
           new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)),
-          new SetMotorVelocityBySide(shooter, () -> true)
+          new SetMotorVelocityBySide(shooter, () -> true, () -> false)
         )
       ));
 
@@ -146,51 +146,50 @@ public class RobotContainer {
     // driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
     
     //*************Operator Control ******************/
-    //operatorJoystick.rightBumper().whileTrue(new SetMotorSpeed(intake, 40, () -> doWeHaveNote()));
     operatorJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
-
-    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6.1))); //8.3
-    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); 
-    // operatorJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(5.3))); 
-
-    // operatorJoystick.b().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.2)
-    //   .andThen(new SetMotorVelocityBySide(shooter)));
-    //operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorStation.blackButton.getAsBoolean()));
+    
     operatorJoystick.leftTrigger().whileTrue(new PoopShoot(shooter));
-    operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorJoystick.x().getAsBoolean()));
+    operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorJoystick.x().getAsBoolean(), () -> operatorStation.isYellowSwitchOn()));
+    
+    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.3))); //Subwoofer Shot
+    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //Also Chain Shot
+    
+    operatorJoystick.x().whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
+    .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
+    .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
+    
+    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.6))); //Manual Amp Zone Shot
+    
+    //TODO: operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true).withTimeout(0.05));
+    operatorJoystick.back().whileTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6.1))
+      .andThen(new SetMotorVelocityBySide(shooter, () -> false, () -> true)));//Yellow Switch = Trap Mode Shooter
     operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
     
-    //operatorJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberPosition(-20)));
-    //operatorJoystick.b().onTrue(new InstantCommand(() -> climb.setClimberPosition(0)));
-
-    // operatorJoystick.x().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
-    //   .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP))));
-
-    // operatorJoystick.y().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true).withTimeout(0.05));
-    //operatorJoystick.y().whileTrue(new SetDeliverySpeed(delivery, -1, () -> true));
-    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.6))); //Manual Amp Zone Shot
-    operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
-    operatorJoystick.povRight().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
-
-    //operatorJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleRight())));
     // operatorJoystick.povLeft().onTrue(new ConditionalCommand(
-    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
-    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
-    //   () -> isAllianceColorBlue()));
-
-    operatorJoystick.povLeft().onTrue(new OpPOVLeftDriveAtAngle(drivetrain, () -> isAllianceColorBlue()));
-
- 
-
-    
+      //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
+      //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
+      //   () -> isAllianceColorBlue()));
+      
+      operatorJoystick.povLeft().onTrue(new OpPOVLeftDriveAtAngle(drivetrain, () -> isAllianceColorBlue()));
+      operatorJoystick.povRight().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
+      
+      
+      
+      
+      //operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
     //*************Operator Station *****************/
-    operatorStation.whiteButton.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
-    operatorStation.blackButton.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
-      .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP))));
+    operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> -0.1));
+    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> 0.1));
+    operatorStation.blackButton.whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
+    .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
+    .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
+    //Operator Station Black Switch = Intake Override
+    operatorStation.yellowSwitch.whileTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6.1))
+      .andThen(new SetMotorVelocityBySide(shooter, () -> false, () -> true)));//Yellow Switch = Trap Mode Shooter
+    operatorStation.blueSwitch.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));//Shooter Pos Kill Switch
     operatorStation.redLeftSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleLeft())));
     operatorStation.redRightSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleRight())));
-    operatorStation.redButton.whileTrue(drivetrain.followPathCommand(goToAmp()));
     
      //************* Test Joystick *****************/
      // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
@@ -278,7 +277,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(0.2));
     NamedCommands.registerCommand("AutoStartDeliveryTempLong", new AutoStartDeliveryTemp(delivery).withTimeout(2));
     //NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));
-    NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter, () -> false));
+    NamedCommands.registerCommand("StartShooter", new SetMotorVelocityBySide(shooter, () -> false, () -> false));
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
     NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));

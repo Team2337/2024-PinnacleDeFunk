@@ -155,7 +155,8 @@ public final class Constants {
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
     public static double driveScale = 5;
-    public static final double DISABLE_LIMELIGHT_DISTANCE = 4.365;
+    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.365;
+    public static final double RED_DISABLE_LIMELIGHT_DISTANCE = 12;
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
     public static final double ROBOT_AT_INTAKE_RED = 58.93;
@@ -221,9 +222,12 @@ public final class Constants {
     public static final double SHOOTER_BOTTOM_DIFF_AMP = 3; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = 0; 
 
-    public static final double SHOOTER_MAX_VELOCITY_TRAP = 16.5; 
-    public static final double SHOOTER_BOTTOM_DIFF_TRAP = 8; 
+    public static final double SHOOTER_MAX_VELOCITY_TRAP = 15; 
+    public static final double SHOOTER_BOTTOM_DIFF_TRAP = 12; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 0; 
+    // public static final double SHOOTER_MAX_VELOCITY_TRAP = 16.5; 
+    // public static final double SHOOTER_BOTTOM_DIFF_TRAP = 8; 
+    // public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 10; 
     
     public static final double SHOOTER_POOP_VELOCITY = 15; 
     public static final double SHOOTER_INTAKE_VELOCITY = -5;
