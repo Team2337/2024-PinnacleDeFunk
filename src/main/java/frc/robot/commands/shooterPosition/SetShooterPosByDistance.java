@@ -7,6 +7,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.nerdyfiles.vision.LimelightHelpers;
 import frc.robot.subsystems.ShooterPosPot;
 
 
@@ -15,27 +16,43 @@ public class SetShooterPosByDistance extends Command {
     private Supplier<Pose2d> currentPose;
     private Translation2d speakerPose;
     private double speakerX, speakerY, currentX, currentY, distanceInMeters, newSetpoint, modNewSetpoint;
-    private double minStringPotValue = 5;//5.3;
-    private double maxStringPotValue = 12;//10.1;
+    private double minStringPotValue = 7.5;//5.3;
+    private double maxStringPotValue = 15;//10.1;
     private Supplier<String> allianceColor;
     private Supplier<Double> xVelocity;
+    private Supplier<Boolean> topSensor;
+    private double distanceToFloor = 1.4478; //TODO:  Validate to center of tags 4 + 7
+    private double cameraHeight = 0.2667;
 
 
-    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity) {
+
+    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity, Supplier<Boolean> topSensor) {
         this.shooterPosPot = shooterPosPot;
         this.currentPose = currentPose;
         this.allianceColor = allianceColor;
         this.xVelocity = xVelocity;
+        this.topSensor = topSensor;
         addRequirements(shooterPosPot);
     }
 
     @Override
     public void initialize() {
-
+        if (allianceColor.get() == "blue") {
+            LimelightHelpers.setPriorityTagID("limelight-blue", 7);
+       } else {
+            LimelightHelpers.setPriorityTagID("limelight-blue", 4);
+       }
     }
     
     @Override
     public void execute() {
+        LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-blue");
+        double visionDistance = limelightMeasurement.avgTagDist;
+
+        double visionDistanceInMeters = Math.sqrt(Math.pow(visionDistance, 2) + Math.pow((distanceToFloor-cameraHeight), 2));
+        visionDistanceInMeters = Math.sqrt(Math.pow(visionDistanceInMeters, 2) - Math.pow(distanceToFloor, 2));
+        SmartDashboard.putNumber("Shooter/Vision Distance in meters", visionDistanceInMeters);
+
         if (allianceColor.get() == "blue") {
             speakerPose = Constants.FieldElements.blueSpeakerCenter;
         } else {
@@ -46,8 +63,15 @@ public class SetShooterPosByDistance extends Command {
         currentX = currentPose.get().getX();
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        //newSetpoint = (-0.30994385 * Math.pow(distanceInMeters, 2)) + (3.3927429 * distanceInMeters) + 1.6447882;
-        newSetpoint = (-0.27598560 * Math.pow(distanceInMeters, 2)) + (3.1446318 * distanceInMeters) + 1.9769996;
+        newSetpoint = (-0.44429609 * Math.pow(distanceInMeters, 2)) + (4.3429355 * distanceInMeters) + 3.3590452; //FUDGE
+        //newSetpoint = (-0.42026111 * Math.pow(distanceInMeters, 2)) + (4.2693814 * distanceInMeters) + 3.2881356; //RAW
+        //newSetpoint = (-0.42233788 * Math.pow(distanceInMeters, 2)) + (4.2114015 * distanceInMeters) + 3.5361784; //REMOVE POINTS
+
+        // if (xVelocity.get() > 0) {
+        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 2.1); // TODO: Was 2
+        // } else if (xVelocity.get() < 0) {
+        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 1.5); // TODO: Was 2
+        // }
 
         modNewSetpoint = newSetpoint + (xVelocity.get() / 2);
 
@@ -62,7 +86,7 @@ public class SetShooterPosByDistance extends Command {
         // SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
         // SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
         // SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
-        if (currentY <= Constants.FieldElements.midFieldInMeters) { 
+        if (currentX <= Constants.FieldElements.midFieldInMeters && topSensor.get()) { //TODO  
             shooterPosPot.setSetpoint(modNewSetpoint);
         } else {
             shooterPosPot.setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);

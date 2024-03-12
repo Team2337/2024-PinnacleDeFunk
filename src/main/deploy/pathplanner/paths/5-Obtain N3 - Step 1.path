@@ -3,50 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7693261898151704,
-        "y": 6.568323745728334
+        "x": 0.9454344324892869,
+        "y": 6.454465827910569
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5386523796303408,
-        "y": 6.7240207127147364
+        "x": 1.7243446059086105,
+        "y": 6.854089826922232
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "SpeakerRightStartBlue"
     },
     {
       "anchor": {
-        "x": 3.910741464893783,
-        "y": 7.08120787227178
+        "x": 8.363943232879333,
+        "y": 7.448092043117039
       },
       "prevControl": {
-        "x": 3.1780498555460017,
-        "y": 7.191111613673947
-      },
-      "nextControl": {
-        "x": 4.643433074241564,
-        "y": 6.971304130869614
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 8.07,
+        "x": 8.071172319234796,
         "y": 7.670597937486888
-      },
-      "prevControl": {
-        "x": 8.4348038643796,
-        "y": 7.62543278436857
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "5-EndS1"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.2,
+      "rotationDegrees": 18.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.4,
       "rotationDegrees": 18.0,
       "rotateFast": false
     }
@@ -55,7 +44,41 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.6,
+      "waypointRelativePos": 0.3,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.95,
       "command": {
         "type": "parallel",
         "data": {
@@ -89,24 +112,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoStartDeliveryTemp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.55,
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "parallel",
         "data": {
@@ -114,7 +120,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "ShooterPos5-N3"
               }
             }
           ]
@@ -125,30 +131,13 @@
       "name": "New Event Marker",
       "waypointRelativePos": 0.75,
       "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPositionClose"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.85,
-      "command": {
         "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "ShooterPositionPickup"
               }
             }
           ]

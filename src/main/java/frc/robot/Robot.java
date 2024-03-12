@@ -12,6 +12,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
   private Pose2d llPose;
   private boolean didAutoRun = false;
+  private Timer gcTimer = new Timer();
 
 
   @Override
@@ -58,6 +60,8 @@ public class Robot extends TimedRobot {
     visionStdDevs.set(2,0,Math.toRadians(90));
     m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
 
+    gcTimer.start();
+
   }
   @Override
   public void robotPeriodic() {
@@ -71,7 +75,11 @@ public class Robot extends TimedRobot {
       if (m_robotContainer.getAllianceColor() == "blue") {
         llPose = lastResult.getBotPose2d_wpiBlue();
       } else {
-        llPose = lastResult.getBotPose2d_wpiRed();
+        if (DriverStation.isAutonomous()) {
+          llPose = lastResult.getBotPose2d_wpiBlue();
+        } else {
+          llPose = lastResult.getBotPose2d_wpiRed();
+        }
       }
       
       double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
@@ -82,10 +90,17 @@ public class Robot extends TimedRobot {
         visionCounter++;
       }
     }
+
+    if (gcTimer.advanceIfElapsed(5)) {
+      System.gc();
+    }
   }
 
   @Override
   public void disabledInit() {
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
+    }
   }
   
   @Override
@@ -131,10 +146,11 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    if (!didAutoRun) {
+    if (didAutoRun) {
       //m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
-    }
-    pigeon.setYaw(0);
+      m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(m_robotContainer.drivetrain.getState().Pose.getX(), m_robotContainer.drivetrain.getState().Pose.getY()), m_robotContainer.drivetrain.getState().Pose.getRotation()));
+    } 
+    //pigeon.setYaw(0);
   }
 
   @Override

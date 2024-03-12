@@ -22,20 +22,20 @@ public class NerdyOperatorStation extends Joystick {
     * driver's station is redesigned.
     *
     */
-  public JoystickButton  greenButton  = new JoystickButton(this, 1);
-  public JoystickButton  redButton    = new JoystickButton(this, 2);
-  public JoystickButton  whiteButton  = new JoystickButton(this, 4);
-  public JoystickButton  yellowButton = new JoystickButton(this, 6);
-  public JoystickButton  blueButton   = new JoystickButton(this, 5);
-  public JoystickButton  blackButton  = new JoystickButton(this, 3);
+  public JoystickButton  greenButton  = new JoystickButton(this, 6);
+  public JoystickButton  redButton    = new JoystickButton(this, 1);
+  public JoystickButton  whiteButton  = new JoystickButton(this, 9);
+  public JoystickButton  yellowButton = new JoystickButton(this, 12);
+  public JoystickButton  blueButton   = new JoystickButton(this, 11);
+  public JoystickButton  blackButton  = new JoystickButton(this, 10);
 
-  public JoystickButton  clearSwitch  = new JoystickButton(this, 12);
-  public JoystickButton  yellowSwitch = new JoystickButton(this, 8);
-  public JoystickButton  blueSwitch   = new JoystickButton(this, 11);
-  public JoystickButton  blackSwitch  = new JoystickButton(this, 9);
+  public JoystickButton  clearSwitch  = new JoystickButton(this, 2);
+  public JoystickButton  yellowSwitch = new JoystickButton(this, 5);
+  public JoystickButton  blueSwitch   = new JoystickButton(this, 3);
+  public JoystickButton  blackSwitch  = new JoystickButton(this, 4);
 
   public JoystickButton redLeftSwitch = new JoystickButton(this, 7);
-  public JoystickButton redRightSwitch = new JoystickButton(this, 10);
+  public JoystickButton redRightSwitch = new JoystickButton(this, 8);
 
   public boolean isClearSwitchOn() {
     return this.clearSwitch.getAsBoolean();

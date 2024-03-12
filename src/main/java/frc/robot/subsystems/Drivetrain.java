@@ -42,9 +42,9 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private double m_lastSimTime;
     //private Field2d field = new Field2d();
     public double rotationAngle = 0;
-    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp = false;
-    
+    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp, noteDetection = false;
     public boolean useLimelight = true;
+    public String allianceColor = "Undefined";
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
@@ -91,7 +91,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
             this::seedFieldRelative,  // Consumer for seeding pose against auto
             this::getCurrentRobotChassisSpeeds,
             (speeds)->this.setControl(autoRequest.withSpeeds(speeds)), // Consumer of ChassisSpeeds to drive the robot
-            new HolonomicPathFollowerConfig(new PIDConstants(5, 0, 0), //Drive
+            new HolonomicPathFollowerConfig(new PIDConstants(3.5, 0, 0), //Drive was 5
                                             new PIDConstants(2.5, 0, 0), //Turn
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
@@ -175,6 +175,10 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         endGame = end;
     }
 
+    public void setNoteDetection(boolean note) {
+        noteDetection = note;
+    }
+
     /**
      * Sets a boolean to indicate whether lockdown is enabled for use with swerve drive command
      */
@@ -206,13 +210,31 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //TODO: If auto doesn't work, uncomment
         //field.setRobotPose(pose);
       });
-      //if (DriverStation.isAutonomous()) {
-        if (this.getState().Pose.getX() >= Constants.Swerve.DISABLE_LIMELIGHT_DISTANCE) {
-            useLimelight = false;
+      if (DriverStation.isAutonomous()) {//TODO: Alliance flip
+        if (allianceColor == "Undefined") {
+            if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+                allianceColor = "red";
+            } else {
+                allianceColor = "blue";
+            }
+        }  
+        if (allianceColor == "red") {
+            if (this.getState().Pose.getX() >= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
+                useLimelight = false;
+            } else {
+                useLimelight = true;
+            }
+        } else if (allianceColor == "blue") {
+            if (this.getState().Pose.getX() <= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+            } else {
+                useLimelight = true;
+            }
         } else {
             useLimelight = true;
         }
-      //} 
+
+    }
+       
       log();
     }
 
@@ -245,7 +267,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                         new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
                         new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
                         4.5, // Max module speed, in m/s
-                        0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                        0,//0.44958, // Drive base radius in meters. Distance from robot center to furthest module. Was 0.4
                         new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
                 () -> {

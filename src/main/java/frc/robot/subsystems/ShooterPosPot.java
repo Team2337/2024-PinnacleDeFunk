@@ -31,17 +31,17 @@ public class ShooterPosPot extends PIDSubsystem {
     double offset = 1.6;
 
     // Radial Pot Values
-    double shooterPotMaxSetPoint = 49 + offset;
-    double shooterPotMinSetPoint = 2.34 + offset;
+    double shooterPotMaxSetPoint = 15.5;
+    double shooterPotMinSetPoint = 5.9;
 
     // String Pot Values
     // double shooterPotMinSetPoint = 3;
 
     public ShooterPosPot(CommandXboxController operatorJoystick, Supplier<Boolean> haveNote) {
-        super(new PIDController(0.3, 0.0, 0.0001));//0.71 = P
+        super(new PIDController(0.5, 0.0, 0.0001));//0.71 = P
         this.operatorJoystick = operatorJoystick;
         this.haveNote = haveNote;
-        getController().setTolerance(2.0);
+        getController().setTolerance(0.1);
         setSetpoint(pot.get());
         enable();
 

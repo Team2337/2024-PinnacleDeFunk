@@ -8,10 +8,12 @@ import frc.robot.subsystems.Shooter;
 public class SetMotorVelocityBySide extends Command {
     private Shooter shooter;
     private Supplier<Boolean> ampMode;
+    private Supplier<Boolean> trapMode;
 
-    public SetMotorVelocityBySide(Shooter shooter, Supplier<Boolean> ampMode) {
+    public SetMotorVelocityBySide(Shooter shooter, Supplier<Boolean> ampMode, Supplier<Boolean> trapMode) {
         this.shooter = shooter;
         this.ampMode = ampMode;
+        this.trapMode = trapMode;
         addRequirements(shooter);
     }
 
@@ -23,10 +25,12 @@ public class SetMotorVelocityBySide extends Command {
     @Override
     public void execute() {
         //shooter.setAllPercentVelocityByPercent(2, 2, 75);
-        if (!ampMode.get()) {
-            shooter.setAllPercentVelocity();
-        } else {
+        if (ampMode.get()) {
             shooter.setAllPercentVelocityAmp();
+        } else if (trapMode.get()) {
+            shooter.setAllPercentVelocityTrap();
+        } else {
+            shooter.setAllPercentVelocity();
         }
     }
 

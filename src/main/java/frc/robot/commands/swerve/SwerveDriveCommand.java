@@ -8,10 +8,13 @@ import com.ctre.phoenix6.mechanisms.swerve.utility.PhoenixPIDController;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.Utilities;
+import frc.robot.nerdyfiles.vision.LimelightHelpers;
 import frc.robot.subsystems.Drivetrain;
 
 public class SwerveDriveCommand extends Command{
@@ -57,7 +60,7 @@ public class SwerveDriveCommand extends Command{
         //Read Inputs From Joysticks
         forward = Utilities.deadband(-driverJoystick.getLeftY(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         strafe = Utilities.deadband(-driverJoystick.getLeftX(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
-        rotation = -driverJoystick.getRightX() * Constants.Swerve.MaxAngularRate;
+        rotation = Utilities.deadband(-driverJoystick.getRightX(), Constants.Swerve.driveDeadband) * Constants.Swerve.MaxAngularRate;
         //If we have set an angle to drive at and driver has hit drive at angle button, drive at that angle
         if ((drivetrain.rotationAngle != 0) && (drivetrain.driveAtAngle)) {
             swerveRequest = driveFacingAngle
@@ -116,6 +119,19 @@ public class SwerveDriveCommand extends Command{
         
         } else if (drivetrain.endGame) {
             swerveRequest = robotCentric
+                .withVelocityX(forward)
+                .withVelocityY(strafe)
+                .withRotationalRate(rotation);
+
+        } else if (drivetrain.noteDetection) {
+            var lastResult = LimelightHelpers.getLatestResults("limelight-coral").targetingResults;
+            if ((lastResult.valid)) {
+                double tx = LimelightHelpers.getTX("limelight-coral");
+                strafe = (Utilities.scaleVisionToOne(-tx) / 0.5);
+            }
+
+            SmartDashboard.putNumber("Strafe", strafe);
+            swerveRequest = drive
                 .withVelocityX(forward)
                 .withVelocityY(strafe)
                 .withRotationalRate(rotation);

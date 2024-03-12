@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.2024457345252095,
+        "y": 4.159722059732688
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.6063206377245165,
+        "y": 3.0031712005710363
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.178466789785967,
+        "y": 0.7818592329748474
+      },
+      "prevControl": {
+        "x": 7.178466789785967,
+        "y": 0.7818592329748474
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "8-EndS1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "8-Blue-Outside",
+  "previewStartingState": {
+    "rotation": -53.67317404787968,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

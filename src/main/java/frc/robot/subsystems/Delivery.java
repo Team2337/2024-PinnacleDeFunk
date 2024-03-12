@@ -1,15 +1,11 @@
 package frc.robot.subsystems;
 
-import java.util.Map;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.SystemsCheckPositions;
@@ -19,12 +15,32 @@ public class Delivery extends SubsystemBase {
     private VictorSPX deliveryMotor = new VictorSPX(30);
     private DigitalInput deliveryTopSensor = new DigitalInput(1);
     private DigitalInput deliveryBottomSensor = new DigitalInput(2);
+    // private Servo noteStopperServo = new Servo(2);
+    // private LaserCan laserCan = new LaserCan(0);
 
     public Delivery() { 
         deliveryMotor.setInverted(true);
         deliveryMotor.setNeutralMode(NeutralMode.Brake);
+            // // Optionally initialise the settings of the LaserCAN, if you haven't already done so in GrappleHook
+            // try {
+            //     laserCan.setRangingMode(LaserCan.RangingMode.SHORT);
+            //     //laserCan.setRegionOfInterest(new LaserCan.RegionOfInterest(4, 4, 8, 8));
+            //     laserCan.setRegionOfInterest(new LaserCan.RegionOfInterest(8, 8, 16, 16));
+            //     laserCan.setTimingBudget(LaserCan.TimingBudget.TIMING_BUDGET_33MS);
+            // } catch (ConfigurationFailedException e) {
+            //     System.out.println("Configuration failed! " + e);
+            // }
         setupShuffleboard();
     }
+
+    // public double getLaserCan() {
+    //     LaserCan.Measurement measurement = laserCan.getMeasurement();
+    //     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
+    //         return measurement.distance_mm; 
+    //     } else {
+    //         return 0;
+    //     }
+    // }
 
     public void setDeliverySpeed(double speed) {
         deliveryMotor.set(VictorSPXControlMode.PercentOutput, speed);
@@ -41,11 +57,36 @@ public class Delivery extends SubsystemBase {
     public boolean getDeliveryBottomSensor() {
         return !deliveryBottomSensor.get();
     }
+/*
+    public void servoSet(double pos) {
+        noteStopperServo.set(pos);
+    }
 
+    public void servoSetPosition(double pos) {
+        noteStopperServo.setPosition(pos);
+    }
+
+    public void servoSetAngle(double pos) {
+        noteStopperServo.setAngle(pos);
+    }
+
+    public double getServo() {
+        return noteStopperServo.get();
+    }
+
+    public void engageNoteStop() {
+        servoSet(0.7);
+    }
+
+    public void disengageNoteStop() {
+        servoSet(0.1);
+    }
+*/
     public void log() {
         if (Constants.DashboardLogging.DELIVERY) {
         }
-        
+    //    SmartDashboard.putNumber("Servo Pos", getServo());
+      //  SmartDashboard.putNumber("LaserCAN", getLaserCan());
     }
 
     public void setupShuffleboard() {
@@ -66,4 +107,3 @@ public class Delivery extends SubsystemBase {
         log();
     }
 }
-

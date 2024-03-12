@@ -215,13 +215,13 @@ public class Shooter extends SubsystemBase {
 
     public void checkShooterUpToSpeed() {
         if (globalLeftVelocity >= globalRightVelocity) {
-            if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalLeftVelocity * 0.97)) && (globalLeftVelocity > 2) ) {
+            if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalLeftVelocity * 0.97)) && (globalLeftVelocity > 1) ) {
                 shooterUpToSpeed = true;
             } else {
                 shooterUpToSpeed = false;
             }
         } else {
-            if ((shooterMotorTopRight.getVelocity().getValueAsDouble() >= (globalRightVelocity * 0.97)) && (globalRightVelocity > 2) ) {
+            if ((shooterMotorTopRight.getVelocity().getValueAsDouble() >= (globalRightVelocity * 0.97)) && (globalRightVelocity > 1) ) {
                 shooterUpToSpeed = true;
             } else {
                 shooterUpToSpeed = false;
@@ -264,6 +264,13 @@ public class Shooter extends SubsystemBase {
         setBottomRightShooterVelocity(Constants.Shooter.SHOOTER_POOP_VELOCITY);
     }
 
+    public void intakeShoot() {
+        setTopLeftShooterVelocity(Constants.Shooter.SHOOTER_INTAKE_VELOCITY);
+        setTopRightShooterVelocity(Constants.Shooter.SHOOTER_INTAKE_VELOCITY);
+        setBottomLeftShooterVelocity(Constants.Shooter.SHOOTER_INTAKE_VELOCITY);
+        setBottomRightShooterVelocity(Constants.Shooter.SHOOTER_INTAKE_VELOCITY);
+    }
+
     public void halfCourt() {
         double maxVelocity = Constants.Shooter.SHOOTER_SENDIT_VELOCITY;
 
@@ -290,6 +297,28 @@ public class Shooter extends SubsystemBase {
         setTopRightShooterVelocity(topRightVelo);
         setBottomLeftShooterVelocity(bottomLeftVelo);
         setBottomRightShooterVelocity(bottomRightVelo);
+    }
+
+    public void setAllPercentVelocityTrap() {
+        double maxVelocity = Constants.Shooter.SHOOTER_MAX_VELOCITY_TRAP;
+
+        topLeftVelo = maxVelocity;
+        bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_BOTTOM_DIFF_TRAP;
+        topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF_TRAP;
+        bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_LEFTRIGHT_DIFF_TRAP + Constants.Shooter.SHOOTER_BOTTOM_DIFF_TRAP;
+
+        setTopLeftShooterVelocity(topLeftVelo);
+        setTopRightShooterVelocity(topRightVelo);
+        setBottomLeftShooterVelocity(bottomLeftVelo);
+        setBottomRightShooterVelocity(bottomRightVelo);
+    }
+
+    public double getShooterVelocity () {
+        if (globalLeftVelocity >= globalRightVelocity) {
+            return globalLeftVelocity;
+        } else {
+            return globalRightVelocity;
+        }
     }
 
     private boolean isOverheated() {

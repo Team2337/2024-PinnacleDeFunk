@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.699126954302743,
+        "y": 7.1337099832912205
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.065777674285649,
+        "y": 6.940951506764279
+      },
+      "isLocked": false,
+      "linkedName": "3-EndS3"
+    },
+    {
+      "anchor": {
+        "x": 2.18,
+        "y": 6.720656105019202
+      },
+      "prevControl": {
+        "x": 2.5746959281265958,
+        "y": 6.895056631400722
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "3-EndS4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 1.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 24.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "3-Blue-Spike",
+  "previewStartingState": {
+    "rotation": 20.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

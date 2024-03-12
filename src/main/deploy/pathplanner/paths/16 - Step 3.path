@@ -1,0 +1,93 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.9734796406329773,
+        "y": 5.55492627078484
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.304431026176148,
+        "y": 5.564105245857552
+      },
+      "isLocked": false,
+      "linkedName": "16-EndS2"
+    },
+    {
+      "anchor": {
+        "x": 4.057106982138493,
+        "y": 7.41825821054528
+      },
+      "prevControl": {
+        "x": 3.9102433809751087,
+        "y": 5.55492627078484
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "16-EndS3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos16-N2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 25.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "16 - Red - Spikes",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
