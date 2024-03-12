@@ -31,6 +31,7 @@ import frc.robot.commands.auto.AutoStartDeliveryToSensor;
 import frc.robot.commands.auto.AutoStartIntake;
 import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
+import frc.robot.commands.delivery.DeliveryServoDefault;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.IntakeTripped;
 import frc.robot.commands.intake.SetIntakeVelocity;
@@ -51,6 +52,7 @@ import frc.robot.nerdyfiles.oi.NerdyOperatorStation;
 import frc.robot.nerdyfiles.utilities.Utilities;
 import frc.robot.subsystems.ClimberPosition;
 import frc.robot.subsystems.Delivery;
+import frc.robot.subsystems.DeliveryServo;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -74,6 +76,7 @@ public class RobotContainer {
 
   private final ClimberPosition climb = new ClimberPosition(operatorJoystick);
   private final Delivery delivery = new Delivery();
+  private final DeliveryServo servo = new DeliveryServo();
   //private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
   private final LED led = new LED();
@@ -93,7 +96,7 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
     led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> shooter.getShooterUpToSpeed()).ignoringDisable(true));
-
+    servo.setDefaultCommand(new DeliveryServoDefault(servo, ()-> delivery.getDeliveryTopSensor()));
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setNoteDetection(true)));

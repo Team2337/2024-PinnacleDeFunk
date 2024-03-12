@@ -36,15 +36,15 @@ public class DeliveryDefault extends Command {
             delivery.stopMotors();
         }
 
-        if (!delivery.getDeliveryTopSensor()) {
-            delivery.engageNoteStop();
+        // if (!delivery.getDeliveryTopSensor()) {
+        //     delivery.engageNoteStop();
            
-        } else if (delivery.getDeliveryTopSensor() && waitTime > 50) {
-            delivery.disengageNoteStop();
-            waitTime = 0;
-        } else {
-             waitTime++;
-        }
+        // } else if (delivery.getDeliveryTopSensor() && waitTime > 50) {
+        //     delivery.disengageNoteStop();
+        //     waitTime = 0;
+        // } else {
+        //      waitTime++;
+        // }
     }
 
     @Override
