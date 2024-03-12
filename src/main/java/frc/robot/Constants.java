@@ -192,8 +192,8 @@ public final class Constants {
   public static class Climber {
     public static final double CLIMBER_MAX_SETPOINT = 10;
     public static final double CLIMBER_MIN_SETPOINT = 2.06;
-    public static final double CLIMBER_MAX_JOYSTICK_SPEED = 0.2;
-    public static final double CLIMBER_MAX_PID_SPEED = 0.2;
+    public static final double CLIMBER_MAX_JOYSTICK_SPEED = 0.6;
+    public static final double CLIMBER_MAX_PID_SPEED = 0.6;
   }
 
   public static class Delivery {

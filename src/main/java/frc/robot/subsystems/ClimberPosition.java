@@ -17,8 +17,8 @@ public class ClimberPosition extends SubsystemBase {
     private final PositionVoltage voltagePosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
     CommandXboxController operatorJoystick;
 
-    double climberMaxSetPoint = 30;
-    double climberMinSetPoint = -30;
+    double climberMaxSetPoint = -70;
+    double climberMinSetPoint = 0;
 
     public ClimberPosition(CommandXboxController operatorJoystick) {
         this.operatorJoystick = operatorJoystick;
@@ -34,6 +34,7 @@ public class ClimberPosition extends SubsystemBase {
         climbMotorConfig.Slot0.kD = 0;
         climbMotorConfig.Voltage.PeakForwardVoltage = 12;
         climbMotorConfig.Voltage.PeakReverseVoltage = -12;
+        
 
         climbMotor.setSafetyEnabled(false);
         climbMotor.getConfigurator().apply(climbMotorConfig);
@@ -41,9 +42,9 @@ public class ClimberPosition extends SubsystemBase {
     }
 
     public void setClimberSetpoint(double setPoint) {
-            if (setPoint < climberMinSetPoint) {
+            if (setPoint > climberMinSetPoint) {
                 setPoint = climberMinSetPoint;
-            } else if (setPoint > climberMaxSetPoint) {
+            } else if (setPoint < climberMaxSetPoint) {
                 setPoint = climberMaxSetPoint;
             }
             //this.setSetpoint(setPoint);

@@ -112,6 +112,8 @@ public class RobotContainer {
     driverJoystick.a().whileTrue((new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
       .alongWith(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()))));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
+    // driverJoystick.b().onTrue(new InstantCommand(() -> delivery.engageNoteStop()));
+    // driverJoystick.b().onFalse(new InstantCommand(() -> delivery.disengageNoteStop()));
     driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
     driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
     driverJoystick.leftBumper().onTrue(new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()));
@@ -154,12 +156,12 @@ public class RobotContainer {
     
     operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.3))); //Subwoofer Shot
     operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //Also Chain Shot
+    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.6))); //Manual Amp Zone Shot
     
     operatorJoystick.x().whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
     .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
     .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
     
-    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.6))); //Manual Amp Zone Shot
     
     //TODO: operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true).withTimeout(0.05));
     operatorJoystick.back().whileTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6.1))
@@ -179,8 +181,9 @@ public class RobotContainer {
       
       //operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
     //*************Operator Station *****************/
-    operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> -0.1));
-    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> 0.1));
+    operatorStation.whiteButton.onTrue(new InstantCommand(() -> climb.setClimberPosition(-65)));
+    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
     operatorStation.blackButton.whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
     .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
     .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
@@ -294,7 +297,7 @@ public class RobotContainer {
   }
 
   public void instantiateSubsystemsTeleop() {
-    delivery.setDefaultCommand(new DeliveryDefault(delivery, () -> intake.getIntakeSensor()));
+    delivery.setDefaultCommand(new DeliveryDefault(delivery, () -> intake.getIntakeSensor(), () -> shooter.getShooterVelocity()));
     //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor())); 
   }
 

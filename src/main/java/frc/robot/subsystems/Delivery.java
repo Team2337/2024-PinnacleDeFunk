@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.SystemsCheckPositions;
@@ -16,7 +17,7 @@ public class Delivery extends SubsystemBase {
     private VictorSPX deliveryMotor = new VictorSPX(30);
     private DigitalInput deliveryTopSensor = new DigitalInput(1);
     private DigitalInput deliveryBottomSensor = new DigitalInput(2);
-    private Servo noteStopperServo = new Servo(1);
+    private Servo noteStopperServo = new Servo(2);
 
     public Delivery() { 
         deliveryMotor.setInverted(true);
@@ -61,17 +62,17 @@ public class Delivery extends SubsystemBase {
     }
 
     public void engageNoteStop() {
-        servoSet(0);
+        servoSet(0.3);
     }
 
     public void disengageNoteStop() {
-        servoSet(120);
+        servoSet(0.7);
     }
 
     public void log() {
         if (Constants.DashboardLogging.DELIVERY) {
         }
-        
+        SmartDashboard.putNumber("Servo Pos", getServo());
     }
 
     public void setupShuffleboard() {

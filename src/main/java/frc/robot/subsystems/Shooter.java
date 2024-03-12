@@ -313,6 +313,14 @@ public class Shooter extends SubsystemBase {
         setBottomRightShooterVelocity(bottomRightVelo);
     }
 
+    public double getShooterVelocity () {
+        if (globalLeftVelocity >= globalRightVelocity) {
+            return globalLeftVelocity;
+        } else {
+            return globalRightVelocity;
+        }
+    }
+
     private boolean isOverheated() {
         return isMotorOverheated(shooterMotorTopRight) || isMotorOverheated(shooterMotorTopLeft) || isMotorOverheated(shooterMotorBottomLeft) || isMotorOverheated(shooterMotorBottomRight);
     }

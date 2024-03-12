@@ -21,10 +21,10 @@ public class LED extends SubsystemBase {
 	private static AddressableLED led;
 	private static AddressableLEDBuffer ledBuffer;
 	private static int LED_LENGTH = 273;
-	private static int LED_RIGHT_LENGTH = 63;
-	private static int LED_SHOOTER_START = 64;
-	private static int LED_SHOOTER_END = 209;
-	private static int LED_LEFT_START = 210;
+	private static int LED_RIGHT_LENGTH = 70;
+	private static int LED_SHOOTER_START = 71;
+	private static int LED_SHOOTER_END = 202;
+	private static int LED_LEFT_START = 203;
 
 	/**
 	 * Controls the LEDs on the Robot 

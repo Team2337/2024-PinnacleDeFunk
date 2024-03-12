@@ -29,11 +29,12 @@ public class LEDRunnable extends Command {
     }  else if (DriverStation.isTeleopEnabled() && intakeSensor.get()) {
         led.setShooterColors(Color.kRed);
     } else if (DriverStation.isTeleopEnabled()) {
-        led.setUprightColors(Color.kBlack);
+        led.setColor(Color.kBlack);
     }
     
     if (DriverStation.isDisabled()) {
         led.setUprightColors(Color.kRed);
+       // led.setShooterColors(Color.kBlack);
     } 
 
     // if (DriverStation.isTeleop() && hasGamepiece.get() == true) {
