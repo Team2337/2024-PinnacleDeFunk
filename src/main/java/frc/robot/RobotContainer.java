@@ -288,6 +288,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
     NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));
     NamedCommands.registerCommand("DoWeHaveNote", new IntakeTripped(() -> doWeHaveNote()));
+    NamedCommands.registerCommand("EngageDeliverServo", new InstantCommand(() -> servo.engageNoteStop()));
+    NamedCommands.registerCommand("DisengageDeliverServo", new InstantCommand(() -> servo.disengageNoteStop()));
 
     //TODO: Bring back autos
     autonChooser = AutoBuilder.buildAutoChooser();
