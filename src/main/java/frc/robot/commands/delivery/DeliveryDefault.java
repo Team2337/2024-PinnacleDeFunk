@@ -10,6 +10,7 @@ public class DeliveryDefault extends Command {
     private Delivery delivery;
     private Supplier<Boolean> intakeSensor;
     private Supplier<Double> shooterSpeed;
+    private double waitTime = 0;
 
     public DeliveryDefault(Delivery delivery, Supplier<Boolean> intakeSensor, Supplier<Double> shooterSpeed) {
         this.delivery = delivery;
@@ -35,10 +36,14 @@ public class DeliveryDefault extends Command {
             delivery.stopMotors();
         }
 
-        if (intakeSensor.get() && !delivery.getDeliveryTopSensor()) {
+        if (!delivery.getDeliveryTopSensor()) {
             delivery.engageNoteStop();
-        } else if (delivery.getDeliveryTopSensor() && (shooterSpeed.get() <= 2)) {
+           
+        } else if (delivery.getDeliveryTopSensor() && waitTime > 50) {
             delivery.disengageNoteStop();
+            waitTime = 0;
+        } else {
+             waitTime++;
         }
     }
 

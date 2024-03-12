@@ -198,7 +198,7 @@ public final class Constants {
 
   public static class Delivery {
     public static final double DELIVERY_FORWARD_SPEED = 1;
-    public static final double DELIVERY_SLOW_SPEED = 0.375; //TODO: Put back to 0.5
+    public static final double DELIVERY_SLOW_SPEED = 0.6; //TODO: Put back to 0.5
     public static final double DELIVERY_REVERSE_SPEED = -0.5;
   }
 
@@ -216,6 +216,7 @@ public final class Constants {
   public static class Shooter {
     public static final double SHOOTER_MAX_VELOCITY = 75; 
     public static final double SHOOTER_BOTTOM_DIFF = -10;//30 
+  
     public static final double SHOOTER_LEFTRIGHT_DIFF = -20;//30 
 
     public static final double SHOOTER_MAX_VELOCITY_AMP = 5; 
