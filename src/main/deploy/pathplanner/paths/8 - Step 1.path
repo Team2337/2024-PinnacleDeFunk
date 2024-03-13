@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2024457345252095,
-        "y": 4.159722059732688
+        "x": 0.8352867316167485,
+        "y": 4.5360600377138605
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6063206377245165,
-        "y": 3.0031712005710363
+        "x": 1.239161634816056,
+        "y": 3.379509178552209
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.178466789785967,
-        "y": 0.7818592329748474
+        "x": 8.463015017040023,
+        "y": 1.1673761860287324
       },
       "prevControl": {
-        "x": 7.178466789785967,
-        "y": 0.7818592329748474
+        "x": 7.463015017040023,
+        "y": 1.1673761860287324
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "8-EndS1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -30.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -57,7 +63,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -72,5 +78,5 @@
     "rotation": -53.67317404787968,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

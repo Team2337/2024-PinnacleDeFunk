@@ -55,6 +55,12 @@
               "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
             }
           ]
         }

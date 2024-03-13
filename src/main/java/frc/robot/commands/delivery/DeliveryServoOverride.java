@@ -1,18 +1,13 @@
 package frc.robot.commands.delivery;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DeliveryServo;
 
-public class DeliveryServoDefault extends Command {
+public class DeliveryServoOverride extends Command {
     private DeliveryServo deliveryServo;
-    private Supplier<Boolean> deliveryTopSensor;
-    private double waitTime = 0;
-
-    public DeliveryServoDefault(DeliveryServo deliveryServo, Supplier<Boolean> deliveryTopSensor) {
+    
+    public DeliveryServoOverride(DeliveryServo deliveryServo) {
         this.deliveryServo = deliveryServo;
-        this.deliveryTopSensor = deliveryTopSensor;
         addRequirements(deliveryServo);
     }
 
@@ -23,17 +18,7 @@ public class DeliveryServoDefault extends Command {
     
     @Override
     public void execute() {
-
-
-        if (!deliveryTopSensor.get()) {
-            deliveryServo.engageNoteStop();
-           
-        } else if (deliveryTopSensor.get() && waitTime > 13.5) {
             deliveryServo.disengageNoteStop();
-            waitTime = 0;
-        } else {
-             waitTime++;
-        }
     }
 
     @Override

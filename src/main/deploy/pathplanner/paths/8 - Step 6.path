@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.25189859036766,
-        "y": 4.077111284078285
+        "x": 8.31615141587664,
+        "y": 4.737997489313514
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.205495432078545,
-        "y": 3.9302476829149002
+        "x": 7.269748257587525,
+        "y": 4.59113388815013
       },
       "isLocked": false,
       "linkedName": "8-EndS5"
@@ -51,7 +51,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -66,5 +66,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

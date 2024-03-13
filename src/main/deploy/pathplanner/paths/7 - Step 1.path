@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.855860680980325,
-        "y": 6.643514087492284
+        "x": 1.670573463233497,
+        "y": 6.628866354292088
       },
       "isLocked": false,
       "linkedName": "SpeakerRightStartBlue"
@@ -20,8 +20,8 @@
         "y": 7.142888958363933
       },
       "prevControl": {
-        "x": 2.817945347322438,
-        "y": 6.904235606473433
+        "x": 3.047419724140226,
+        "y": 6.950130481836991
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 25.0,
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": 35.0,
       "rotateFast": false
     }
   ],
@@ -59,6 +59,23 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -69,7 +86,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0,
+    "rotation": 27.0,
     "rotateFast": false
   },
   "reversed": false,

@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.304431026176148,
-        "y": 5.564105245857552
+        "x": 2.4599653194866877,
+        "y": 5.527389345566705
       },
       "isLocked": false,
       "linkedName": "6-EndS2"
     },
     {
       "anchor": {
-        "x": 4.057106982138493,
-        "y": 7.41825821054528
+        "x": 3.7817377299571477,
+        "y": 5.55492627078484
       },
       "prevControl": {
-        "x": 3.9102433809751087,
-        "y": 5.55492627078484
+        "x": 3.1667464000854753,
+        "y": 5.564105245857552
       },
       "nextControl": null,
       "isLocked": false,
@@ -70,6 +70,40 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -80,7 +114,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,

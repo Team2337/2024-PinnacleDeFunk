@@ -32,6 +32,7 @@ import frc.robot.commands.auto.AutoStartIntake;
 import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
 import frc.robot.commands.delivery.DeliveryServoDefault;
+import frc.robot.commands.delivery.DeliveryServoOverride;
 import frc.robot.commands.delivery.SetDeliverySpeed;
 import frc.robot.commands.intake.IntakeTripped;
 import frc.robot.commands.intake.SetIntakeVelocity;
@@ -96,7 +97,7 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
     led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> shooter.getShooterUpToSpeed()).ignoringDisable(true));
-    servo.setDefaultCommand(new DeliveryServoDefault(servo, ()-> delivery.getDeliveryTopSensor()));
+    
     driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
     driverJoystick.povUp().onTrue(new InstantCommand(() -> drivetrain.setNoteDetection(true)));
@@ -154,7 +155,7 @@ public class RobotContainer {
     operatorJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
     
-    operatorJoystick.leftTrigger().whileTrue(new PoopShoot(shooter));
+    operatorJoystick.leftTrigger().whileTrue(new InstantCommand(() ->servo.disengageNoteStop()).andThen(new PoopShoot(shooter)));
     operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorJoystick.x().getAsBoolean(), () -> operatorStation.isYellowSwitchOn()));
     
     operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(8.3))); //Subwoofer Shot
@@ -194,6 +195,7 @@ public class RobotContainer {
     operatorStation.yellowSwitch.whileTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(6.1))
       .andThen(new SetMotorVelocityBySide(shooter, () -> false, () -> true)));//Yellow Switch = Trap Mode Shooter
     operatorStation.blueSwitch.whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));//Shooter Pos Kill Switch
+    operatorStation.clearSwitch.whileTrue(new DeliveryServoOverride(servo));
     operatorStation.redLeftSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleLeft())));
     operatorStation.redRightSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleRight())));
     
@@ -241,7 +243,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPos7-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.3)).withTimeout(1));
 
     NamedCommands.registerCommand("ShooterPos7-N7-2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos7-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos7-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
 
     //Manual Shooter Pos for Red-SpeakerRight-C0-C3-C8-C7-C2 Updated
     NamedCommands.registerCommand("ShooterPos17-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));
@@ -251,18 +253,18 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPos17-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.3)).withTimeout(1));
 
     NamedCommands.registerCommand("ShooterPos17-N7-2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos17-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos17-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
 
     //Manual Shooter Pos for Blue-SpeakerLeft-C0-C1-C2-C3
     NamedCommands.registerCommand("ShooterPos3-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.5)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos3-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos3-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.5)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos3-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(11.5)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos3-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
 
     //Manual Shooter Pos for Blue-SpeakerCenter-C0-C1-C2-C3
     NamedCommands.registerCommand("ShooterPos6-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos6-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos6-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos6-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.5)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos6-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
 
     NamedCommands.registerCommand("ShooterPos16-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(1));
@@ -272,14 +274,15 @@ public class RobotContainer {
 
     //Manual Shooter Pos for Blue-SpeakerCenter-C0-C1-C2-C3
     NamedCommands.registerCommand("ShooterPos8-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos8-N4", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos8-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos8-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos8-N4", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos8-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(15)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos8-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13)).withTimeout(1));
 
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> doWeHaveNote()).withTimeout(1));
     NamedCommands.registerCommand("ShooterPositionByDistanceDrive", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery).withTimeout(6));
     NamedCommands.registerCommand("AutoStartDeliveryToSensorNoTimeout", new AutoStartDeliveryToSensor(delivery));
+    NamedCommands.registerCommand("AutoStartDeliveryToSensorTinyTimeout", new AutoStartDeliveryToSensor(delivery).withTimeout(0.2));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(0.2));
     NamedCommands.registerCommand("AutoStartDeliveryTempLong", new AutoStartDeliveryTemp(delivery).withTimeout(2));
     //NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));
@@ -287,6 +290,19 @@ public class RobotContainer {
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
     NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));
+
+    
+    /* 
+     * Run at the beginning of auto to enable the ability to change using vision for localization during auto. If not used, the default vision is to turn it on and off based on odometry.
+     * The default value after running this command is for vision to be on through all of auto.
+     * Normal usage would be to run at the beginning of the auto to enable vision for the entirety of auto, or use with AutoDontUseLimeLight to turn it off. 
+     */
+    NamedCommands.registerCommand("AutoModLimelight", new InstantCommand(() -> autoModLimelight()));
+    // Used with autoModLimelight.  Can be modified at any time during auto.
+    NamedCommands.registerCommand("AutoUseLimelight", new InstantCommand(() -> autoUseLimelight()));
+    NamedCommands.registerCommand("AutoDontUseLimelight", new InstantCommand(() -> autoDontUseLimelight()));
+
+    
     NamedCommands.registerCommand("DoWeHaveNote", new IntakeTripped(() -> doWeHaveNote()));
     NamedCommands.registerCommand("EngageDeliverServo", new InstantCommand(() -> servo.engageNoteStop()));
     NamedCommands.registerCommand("DisengageDeliverServo", new InstantCommand(() -> servo.disengageNoteStop()));
@@ -303,6 +319,7 @@ public class RobotContainer {
 
   public void instantiateSubsystemsTeleop() {
     delivery.setDefaultCommand(new DeliveryDefault(delivery, () -> intake.getIntakeSensor(), () -> shooter.getShooterVelocity()));
+    servo.setDefaultCommand(new DeliveryServoDefault(servo, ()-> delivery.getDeliveryTopSensor()));
     //intake.setDefaultCommand(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor())); 
   }
 
@@ -366,6 +383,22 @@ public class RobotContainer {
 
   public void dontUseLimelight() {
     drivetrain.useLimelight = false;
+  }
+
+  public void autoUseLimelight() {
+    drivetrain.autoUseLimelight = true;
+  }
+
+  public void autoDontUseLimelight() {
+    drivetrain.autoUseLimelight = false;
+  }
+  /**
+     * Run at the beginning of auto to enable the ability to change using vision for localization during auto. If not used, the default vision is to turn it on and off based on odometry.
+     * The default value after running this command is for vision to be on through all of auto.
+     * Normal usage would be to run at the beginning of the auto to enable vision for the entirety of auto, or use with AutoDontUseLimeLight to turn it off. 
+   */
+  public void autoModLimelight() {
+    drivetrain.autoModLimelight = true;
   }
 
   public PathPlannerPath goToAmp() {
