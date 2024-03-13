@@ -290,6 +290,19 @@ public class RobotContainer {
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
     NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));
+
+    
+    /* 
+     * Run at the beginning of auto to enable the ability to change using vision for localization during auto. If not used, the default vision is to turn it on and off based on odometry.
+     * The default value after running this command is for vision to be on through all of auto.
+     * Normal usage would be to run at the beginning of the auto to enable vision for the entirety of auto, or use with AutoDontUseLimeLight to turn it off. 
+     */
+    NamedCommands.registerCommand("AutoModLimelight", new InstantCommand(() -> autoModLimelight()));
+    // Used with autoModLimelight.  Can be modified at any time during auto.
+    NamedCommands.registerCommand("AutoUseLimelight", new InstantCommand(() -> autoUseLimelight()));
+    NamedCommands.registerCommand("AutoDontUseLimelight", new InstantCommand(() -> autoDontUseLimelight()));
+
+    
     NamedCommands.registerCommand("DoWeHaveNote", new IntakeTripped(() -> doWeHaveNote()));
     NamedCommands.registerCommand("EngageDeliverServo", new InstantCommand(() -> servo.engageNoteStop()));
     NamedCommands.registerCommand("DisengageDeliverServo", new InstantCommand(() -> servo.disengageNoteStop()));
@@ -370,6 +383,22 @@ public class RobotContainer {
 
   public void dontUseLimelight() {
     drivetrain.useLimelight = false;
+  }
+
+  public void autoUseLimelight() {
+    drivetrain.autoUseLimelight = true;
+  }
+
+  public void autoDontUseLimelight() {
+    drivetrain.autoUseLimelight = false;
+  }
+  /**
+     * Run at the beginning of auto to enable the ability to change using vision for localization during auto. If not used, the default vision is to turn it on and off based on odometry.
+     * The default value after running this command is for vision to be on through all of auto.
+     * Normal usage would be to run at the beginning of the auto to enable vision for the entirety of auto, or use with AutoDontUseLimeLight to turn it off. 
+   */
+  public void autoModLimelight() {
+    drivetrain.autoModLimelight = true;
   }
 
   public PathPlannerPath goToAmp() {

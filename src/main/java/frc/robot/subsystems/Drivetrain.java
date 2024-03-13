@@ -22,9 +22,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -44,6 +42,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     public double rotationAngle = 0;
     public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp, noteDetection = false;
     public boolean useLimelight = true;
+    public boolean autoUseLimelight = true;
+    public boolean autoModLimelight = false;
     public String allianceColor = "Undefined";
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
@@ -218,8 +218,11 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 allianceColor = "blue";
             }
         }  
-        //if (DriverStation.isAutonomous()) {
-        if (allianceColor == "red") {
+
+
+        if (DriverStation.isAutonomous() && autoModLimelight) {
+            useLimelight = autoUseLimelight;
+        } else if (allianceColor == "red") {
             if (this.getState().Pose.getX() >= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
                 useLimelight = false;
             } else {
@@ -233,8 +236,6 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         } else {
             useLimelight = true;
         }
-        //useLimelight = false;
-        //}
     }
        
       log();
