@@ -3,16 +3,11 @@
   "robotLength": 0.74,
   "holonomicMode": true,
   "pathFolders": [
-    "1-Blue-SpeakerRight-C0-C3-C8-C2",
     "16 - Red - Spikes",
-    "2-Blue-SpeakerCenter-C0-C2-C8-C7-C6",
-    "3-Blue-Spike",
-    "4-Blue-SpeakerCenterAndYeet",
-    "5-Blue-SpeakerRight-C0-C3",
     "6-Blue-Spike-Center",
     "7 - Blue - C0-C3-C8-C7-(C2 or C6)",
     "8-Blue-Outside",
-    "17 - Red - C0-C3-C8-(C2 or C6)",
+    "17 - Red - C0-C3-C8-C7-(C2 or C6)",
     "Tests"
   ],
   "autoFolders": [

@@ -12,20 +12,20 @@
         "y": 7.354005385036298
       },
       "isLocked": false,
-      "linkedName": "17-EndS2"
+      "linkedName": "7-EndS2"
     },
     {
       "anchor": {
-        "x": 4.81896191317355,
+        "x": 4.82,
         "y": 6.500360703274127
       },
       "prevControl": {
-        "x": 5.261585848365927,
+        "x": 5.262623935192377,
         "y": 6.954826531184696
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "17-EndS3"
+      "linkedName": "7-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -58,7 +58,24 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
+                "name": "AutoStartDeliveryToSensorTinyTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -78,7 +95,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-(C2 or C6)",
+  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

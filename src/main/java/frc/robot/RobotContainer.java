@@ -229,12 +229,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPositionPickup", new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //5.15, 8.1, 9.95
     NamedCommands.registerCommand("ShooterPosSpeakerSide", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));
 
-    //Manual Shooter Pos for Blue-SpeakerRight-C0-C3-C8-C7-C2
-    NamedCommands.registerCommand("ShooterPos5-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.5)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos5-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos5-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos5-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.31)).withTimeout(1));
-
     //Manual Shooter Pos for Blue-SpeakerRight-C0-C3-C8-C7-C2 Updated
     NamedCommands.registerCommand("ShooterPos7-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos7-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(1));
@@ -255,12 +249,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPos17-N7-2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos17-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
 
-    //Manual Shooter Pos for Blue-SpeakerLeft-C0-C1-C2-C3
-    NamedCommands.registerCommand("ShooterPos3-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.5)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos3-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos3-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(11.5)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos3-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
-
     //Manual Shooter Pos for Blue-SpeakerCenter-C0-C1-C2-C3
     NamedCommands.registerCommand("ShooterPos6-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos6-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
@@ -269,7 +257,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ShooterPos16-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos16-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos16-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos16-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.5)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos16-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
 
     //Manual Shooter Pos for Blue-SpeakerCenter-C0-C1-C2-C3

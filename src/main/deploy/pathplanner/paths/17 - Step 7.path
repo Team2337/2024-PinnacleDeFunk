@@ -33,6 +33,23 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos17-N6"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
       "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
@@ -41,7 +58,24 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos7-N6"
+                "name": "AutoStartDeliveryToSensorTinyTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -61,7 +95,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-(C2 or C6)",
+  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

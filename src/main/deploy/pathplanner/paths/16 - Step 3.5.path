@@ -3,56 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.89,
-        "y": 6.99
+        "x": 3.83,
+        "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.960668691658646,
-        "y": 7.085056110191484
+        "x": 4.288948753635577,
+        "y": 6.09155952928998
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "16-EndS3"
     },
     {
       "anchor": {
-        "x": 5.27,
-        "y": 7.09
+        "x": 3.5889792534302054,
+        "y": 7.234678709091049
       },
       "prevControl": {
-        "x": 4.61647553822925,
-        "y": 7.108477783289376
+        "x": 4.323297259247127,
+        "y": 6.876698681255299
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "16-EndS3.5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.3,
-      "rotationDegrees": 30.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 0.5,
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 23.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1-Blue-SpeakerRight-C0-C3-C8-C2",
+  "folder": "16 - Red - Spikes",
   "previewStartingState": {
-    "rotation": 30.0,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
