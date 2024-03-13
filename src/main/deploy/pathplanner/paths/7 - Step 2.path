@@ -49,6 +49,12 @@
               "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
             }
           ]
         }
@@ -69,7 +75,7 @@
   "reversed": false,
   "folder": "7 - Blue - C0-C3-C8-C7-(C2 or C6)",
   "previewStartingState": {
-    "rotation": 25.0,
+    "rotation": 27.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

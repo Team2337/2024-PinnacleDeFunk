@@ -219,7 +219,7 @@ public final class Constants {
   
     public static final double SHOOTER_LEFTRIGHT_DIFF = -20;//30 
 
-    public static final double SHOOTER_MAX_VELOCITY_AMP = 5; 
+    public static final double SHOOTER_MAX_VELOCITY_AMP = 6.25; 
     public static final double SHOOTER_BOTTOM_DIFF_AMP = 3; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = 0; 
 

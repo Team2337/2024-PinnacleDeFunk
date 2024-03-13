@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.360521442463529,
-        "y": 0.9379018092109445
+        "x": 5.874544046538693,
+        "y": 0.8828279587798903
       },
       "isLocked": false,
       "linkedName": "8-EndS2"
     },
     {
       "anchor": {
-        "x": 8.095856014131563,
-        "y": 2.4432537211356324
+        "x": 8.31615141587664,
+        "y": 2.856307599407651
       },
       "prevControl": {
-        "x": 7.5634754599142955,
-        "y": 1.809904441118539
+        "x": 7.297285182808978,
+        "y": 2.2321372944684845
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,7 +30,7 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.4,
       "rotationDegrees": 20.0,
       "rotateFast": false
     }
@@ -63,7 +63,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -78,5 +78,5 @@
     "rotation": -40.0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

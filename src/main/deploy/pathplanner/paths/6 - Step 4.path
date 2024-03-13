@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.057106982138493,
-        "y": 7.41825821054528
+        "x": 3.5889792534302054,
+        "y": 7.234678709091049
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6899479792300327,
-        "y": 7.24385768416376
+        "x": 3.1667464000854757,
+        "y": 7.1245310082185105
       },
       "isLocked": false,
-      "linkedName": "6-EndS3"
+      "linkedName": "6-EndS3.5"
     },
     {
       "anchor": {
@@ -48,6 +48,23 @@
               "type": "named",
               "data": {
                 "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
               }
             }
           ]

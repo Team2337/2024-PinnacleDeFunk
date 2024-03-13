@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270256540513081,
-        "y": 4.077111284078285
+        "x": 8.38040424138562,
+        "y": 4.242332835387091
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.177958506860411,
-        "y": 3.5355517547883046
+        "x": 7.288106207732949,
+        "y": 3.700773306097111
       },
       "isLocked": false,
       "linkedName": "7-EndS6"
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "parallel",
         "data": {
@@ -42,6 +42,40 @@
               "type": "named",
               "data": {
                 "name": "ShooterPos7-N6"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensorTinyTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             }
           ]

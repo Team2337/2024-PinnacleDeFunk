@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2024457345252095,
-      "y": 4.159722059732688
+      "x": 0.8352867316167485,
+      "y": 4.5360600377138605
     },
     "rotation": -40.0
   },
@@ -19,6 +19,12 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DontUseLimelight"
+                      }
+                    },
                     {
                       "type": "named",
                       "data": {

@@ -28,7 +28,7 @@ public class DeliveryServoDefault extends Command {
         if (!deliveryTopSensor.get()) {
             deliveryServo.engageNoteStop();
            
-        } else if (deliveryTopSensor.get() && waitTime > 50) {
+        } else if (deliveryTopSensor.get() && waitTime > 13.5) {
             deliveryServo.disengageNoteStop();
             waitTime = 0;
         } else {

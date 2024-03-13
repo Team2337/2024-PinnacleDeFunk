@@ -218,6 +218,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 allianceColor = "blue";
             }
         }  
+        //if (DriverStation.isAutonomous()) {
         if (allianceColor == "red") {
             if (this.getState().Pose.getX() >= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
                 useLimelight = false;
@@ -232,7 +233,8 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         } else {
             useLimelight = true;
         }
-
+        //useLimelight = false;
+        //}
     }
        
       log();
