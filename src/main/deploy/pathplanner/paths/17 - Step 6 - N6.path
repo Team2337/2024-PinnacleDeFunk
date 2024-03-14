@@ -12,20 +12,20 @@
         "y": 3.884352807551342
       },
       "isLocked": false,
-      "linkedName": "7-EndS5N6"
+      "linkedName": "17-EndS5N6"
     },
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 4.242332835387091
+        "x": 8.288614490658505,
+        "y": 3.8384579321877847
       },
       "prevControl": {
-        "x": 5.461490168263356,
-        "y": 3.618162530442708
+        "x": 5.369700417536241,
+        "y": 3.2142876272434013
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS6"
+      "linkedName": "17-EndS6N6"
     }
   ],
   "rotationTargets": [],

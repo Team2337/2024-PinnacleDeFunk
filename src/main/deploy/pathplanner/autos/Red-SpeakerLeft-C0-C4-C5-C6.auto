@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.93,
-      "y": 6.46
+      "x": 0.8352867316167485,
+      "y": 4.5360600377138605
     },
-    "rotation": 47.0
+    "rotation": -40.0
   },
   "command": {
     "type": "sequential",
@@ -34,7 +34,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos17-N0"
+                        "name": "ShooterPos8-N0"
                       }
                     },
                     {
@@ -52,81 +52,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "17 - Step 1"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos17-N3"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.3
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "deadline",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "17 - Step 2"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "DoWeHaveNote"
-                            }
-                          }
-                        ]
+                        "pathName": "8 - Step 1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "17 - Step 3"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "deadline",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "17 - Step 4"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "DoWeHaveNote"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "17 - Step 5 - N2"
+                        "pathName": "8 - Step 2"
                       }
                     },
                     {
@@ -138,19 +70,31 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "17 - Step 6 - N2"
+                        "pathName": "8 - Step 3"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8 - Step 4"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos17-N2"
+                        "name": "AutoStartDeliveryTemp"
                       }
                     },
                     {
-                      "type": "wait",
+                      "type": "path",
                       "data": {
-                        "waitTime": 0.2
+                        "pathName": "8 - Step 5"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8 - Step 6"
                       }
                     },
                     {

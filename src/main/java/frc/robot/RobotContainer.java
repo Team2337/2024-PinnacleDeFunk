@@ -185,8 +185,8 @@ public class RobotContainer {
       
       //operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
     //*************Operator Station *****************/
-    operatorStation.whiteButton.onTrue(new InstantCommand(() -> climb.setClimberPosition(-65)));
-    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    operatorStation.blueButton.onTrue(new InstantCommand(() -> climb.setClimberPosition(-65)));
+    operatorStation.whiteButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
     operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
     operatorStation.blackButton.whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
     .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
@@ -231,10 +231,10 @@ public class RobotContainer {
 
     //Manual Shooter Pos for Blue-SpeakerRight-C0-C3-C8-C7-C2 Updated
     NamedCommands.registerCommand("ShooterPos7-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos7-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos7-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos7-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos7-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.3)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos7-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos7-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.9)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos7-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.7)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos7-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.4)).withTimeout(1));
 
     NamedCommands.registerCommand("ShooterPos7-N7-2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos7-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));

@@ -210,7 +210,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         //TODO: If auto doesn't work, uncomment
         //field.setRobotPose(pose);
       });
-      if (DriverStation.isAutonomous()) {//TODO: Alliance flip
+      if (DriverStation.isAutonomous() && !DriverStation.isDisabled()) {//TODO: Alliance flip
         if (allianceColor == "Undefined") {
             if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
                 allianceColor = "red";
@@ -223,19 +223,22 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         if (DriverStation.isAutonomous() && autoModLimelight) {
             useLimelight = autoUseLimelight;
         } else if (allianceColor == "red") {
-            if (this.getState().Pose.getX() >= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
+            if (this.getState().Pose.getX() <= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
                 useLimelight = false;
             } else {
                 useLimelight = true;
             }
         } else if (allianceColor == "blue") {
-            if (this.getState().Pose.getX() <= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+            if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+                useLimelight = false;
             } else {
                 useLimelight = true;
             }
         } else {
             useLimelight = true;
         }
+    } else {
+        useLimelight = true;
     }
        
       log();
