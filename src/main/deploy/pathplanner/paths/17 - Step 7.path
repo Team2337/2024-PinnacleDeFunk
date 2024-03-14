@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 4.242332835387091
+        "x": 8.288614490658505,
+        "y": 3.8384579321877847
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.288106207732949,
-        "y": 3.700773306097111
+        "x": 7.196316457005834,
+        "y": 3.2968984028978046
       },
       "isLocked": false,
-      "linkedName": "7-EndS6"
+      "linkedName": "17-EndS6N6"
     },
     {
       "anchor": {
@@ -33,6 +33,23 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos17-N6"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
       "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
@@ -41,7 +58,24 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos7-N6"
+                "name": "AutoStartDeliveryToSensorTinyTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -61,7 +95,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-(C2 or C6)",
+  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

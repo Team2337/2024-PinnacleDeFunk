@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.683840222685997,
-        "y": 6.454465827910569
+        "x": 3.717484904448167,
+        "y": 3.884352807551342
       },
       "isLocked": false,
-      "linkedName": "7-EndS5N6"
+      "linkedName": "17-EndS5N6"
     },
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 4.242332835387091
+        "x": 8.288614490658505,
+        "y": 3.8384579321877847
       },
       "prevControl": {
-        "x": 6.20498714915299,
-        "y": 4.866503140331474
+        "x": 5.369700417536241,
+        "y": 3.2142876272434013
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS6"
+      "linkedName": "17-EndS6N6"
     }
   ],
   "rotationTargets": [],
@@ -53,6 +53,23 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.05,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -67,7 +84,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-(C2 or C6)",
+  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
   "previewStartingState": {
     "rotation": 8.0,
     "velocity": 0

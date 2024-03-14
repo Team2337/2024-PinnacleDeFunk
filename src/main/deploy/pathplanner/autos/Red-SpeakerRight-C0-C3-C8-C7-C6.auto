@@ -46,13 +46,19 @@
                     {
                       "type": "named",
                       "data": {
+                        "name": "DisengageDeliverServo"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
                         "name": "ShooterPos17-N3"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 0.55
                       }
                     },
                     {
@@ -62,9 +68,28 @@
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "deadline",
                       "data": {
-                        "pathName": "17 - Step 2"
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "17 - Step 2"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "DoWeHaveNote"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "EngageDeliverServo"
                       }
                     },
                     {
@@ -80,9 +105,22 @@
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "deadline",
                       "data": {
-                        "pathName": "17 - Step 4"
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "17 - Step 4"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "DoWeHaveNote"
+                            }
+                          }
+                        ]
                       }
                     },
                     {
@@ -118,7 +156,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 0.75
                       }
                     },
                     {

@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.81896191317355,
+        "x": 4.82,
         "y": 6.500360703274127
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.195808174080278,
+        "x": 6.196846260906728,
         "y": 6.82162483081903
       },
       "isLocked": false,
@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 8.15,
-        "y": 5.6
+        "x": 8.573162717912563,
+        "y": 5.665073971657378
       },
       "prevControl": {
-        "x": 6.88330143996581,
-        "y": 5.526568199418309
+        "x": 7.306464157878373,
+        "y": 5.591642171075687
       },
       "nextControl": null,
       "isLocked": false,
@@ -53,6 +53,23 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -67,7 +84,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-(C2 or C6)",
+  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
   "previewStartingState": {
     "rotation": 8.0,
     "velocity": 0

@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
+        "x": 8.573162717912563,
         "y": 5.665073971657378
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.912276512677332,
+        "x": 8.105034989204276,
         "y": 6.234170426165493
       },
       "isLocked": false,
-      "linkedName": "7-EndS4"
+      "linkedName": "17-EndS4"
     },
     {
       "anchor": {
@@ -25,12 +25,29 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS5N6"
+      "linkedName": "17-EndS5N6"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos17-N7"
+              }
+            }
+          ]
+        }
+      }
+    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -41,7 +58,24 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos7-N7"
+                "name": "AutoStartDeliveryToSensorTinyTimeout"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -61,7 +95,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-(C2 or C6)",
+  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

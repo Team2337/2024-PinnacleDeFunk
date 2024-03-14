@@ -12,7 +12,7 @@
         "y": 6.628866354292088
       },
       "isLocked": false,
-      "linkedName": "SpeakerRightStartBlue"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -86,7 +86,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 27.0,
+    "rotation": 25.0,
     "rotateFast": false
   },
   "reversed": false,
