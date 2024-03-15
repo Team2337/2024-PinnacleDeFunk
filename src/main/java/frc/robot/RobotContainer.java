@@ -31,6 +31,7 @@ import frc.robot.commands.auto.AutoStartDeliveryToSensor;
 import frc.robot.commands.auto.AutoStartIntake;
 import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
+import frc.robot.commands.delivery.DeliveryDefaultNowWithLasers;
 import frc.robot.commands.delivery.DeliveryServoDefault;
 import frc.robot.commands.delivery.DeliveryServoOverride;
 import frc.robot.commands.delivery.SetDeliverySpeed;
@@ -78,7 +79,6 @@ public class RobotContainer {
   private final ClimberPosition climb = new ClimberPosition(operatorJoystick);
   private final Delivery delivery = new Delivery();
   private final DeliveryServo servo = new DeliveryServo();
-  //private final Elevator elevator = new Elevator(operatorJoystick);
   private final Intake intake = new Intake();
   private final LED led = new LED();
   private final Shooter shooter = new Shooter(() -> getAllianceColor(), () -> getPoseY());
@@ -125,9 +125,13 @@ public class RobotContainer {
     driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
     driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
 
-    driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter),
+    driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> drivetrain.getState().Pose.getY()),
       new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
-      new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
+      new ConditionalCommand(
+        new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
+        new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_CHAIN_COURT)),
+        () -> (drivetrain.getState().Pose.getY() >= Constants.FieldElements.cartman && drivetrain.getState().Pose.getY() <= Constants.FieldElements.longwood)
+      ),
       // new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
       new ConditionalCommand(
       new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_BLUE)), 

@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
@@ -13,7 +14,8 @@ import frc.robot.Constants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class ClimberPosition extends SubsystemBase {
-    private TalonFX climbMotor = new TalonFX(54, "Upper"); 
+    private TalonFX climbMotorLeft = new TalonFX(54, "Upper"); 
+    private TalonFX climbMotorRight = new TalonFX(44, "Upper"); 
     private final PositionVoltage voltagePosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
     CommandXboxController operatorJoystick;
 
@@ -24,21 +26,37 @@ public class ClimberPosition extends SubsystemBase {
         this.operatorJoystick = operatorJoystick;
         
         var setClimbMotorToDefault = new TalonFXConfiguration();
-        climbMotor.getConfigurator().apply(setClimbMotorToDefault);
+        climbMotorLeft.getConfigurator().apply(setClimbMotorToDefault);
+        climbMotorRight.getConfigurator().apply(setClimbMotorToDefault);
         
-        TalonFXConfiguration climbMotorConfig = new TalonFXConfiguration();
-        climbMotorConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        climbMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        climbMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
-        climbMotorConfig.Slot0.kP = 1;
-        climbMotorConfig.Slot0.kD = 0;
-        climbMotorConfig.Voltage.PeakForwardVoltage = 12;
-        climbMotorConfig.Voltage.PeakReverseVoltage = -12;
+        TalonFXConfiguration climbMotorLeftConfig = new TalonFXConfiguration();
+        climbMotorLeftConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
+        climbMotorLeftConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        climbMotorLeftConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        climbMotorLeftConfig.Slot0.kP = 1;
+        climbMotorLeftConfig.Slot0.kD = 0;
+        climbMotorLeftConfig.Voltage.PeakForwardVoltage = 12;
+        climbMotorLeftConfig.Voltage.PeakReverseVoltage = -12;
         
 
-        climbMotor.setSafetyEnabled(false);
-        climbMotor.getConfigurator().apply(climbMotorConfig);
-        climbMotor.setPosition(0);
+        climbMotorLeft.setSafetyEnabled(false);
+        climbMotorLeft.getConfigurator().apply(climbMotorLeftConfig);
+        climbMotorLeft.setPosition(0);
+
+        TalonFXConfiguration climbMotorRightConfig = new TalonFXConfiguration();
+        climbMotorRightConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
+        climbMotorRightConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        climbMotorRightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        climbMotorRightConfig.Slot0.kP = 1;
+        climbMotorRightConfig.Slot0.kD = 0;
+        climbMotorRightConfig.Voltage.PeakForwardVoltage = 12;
+        climbMotorRightConfig.Voltage.PeakReverseVoltage = -12;
+
+        
+        climbMotorRight.getConfigurator().apply(climbMotorRightConfig);
+        
+        climbMotorLeft.setPosition(0);
+        //climbMotorRight.setControl(new Follower(climbMotorLeft.getDeviceID(), true));
     }
 
     public void setClimberSetpoint(double setPoint) {
@@ -51,23 +69,26 @@ public class ClimberPosition extends SubsystemBase {
     }
     
     public void setClimbSpeed(double speed) {
-        climbMotor.set(speed);
+        climbMotorLeft.set(speed);
+        climbMotorRight.set(speed);
     }
 
     public void stopMotors() {
-        climbMotor.stopMotor();
+        climbMotorLeft.stopMotor();
+        climbMotorRight.stopMotor();
     }
 
     public double getClimbTemp() {
-        return climbMotor.getDeviceTemp().getValueAsDouble();
+        return climbMotorLeft.getDeviceTemp().getValueAsDouble();
     }
 
     public double getClimberPosition() {
-        return climbMotor.getPosition().getValueAsDouble();
+        return climbMotorLeft.getPosition().getValueAsDouble();
     }
 
     public void setClimberPosition(double rotations) {
-        climbMotor.setControl(voltagePosition.withPosition(rotations));
+        climbMotorLeft.setControl(voltagePosition.withPosition(rotations));
+        climbMotorRight.setControl(voltagePosition.withPosition(rotations));
     }
 
     public void log() {

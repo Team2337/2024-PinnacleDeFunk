@@ -130,6 +130,9 @@ public class SwerveDriveCommand extends Command{
                 strafe = (Utilities.scaleVisionToOne(-tx) / 0.5);
             }
 
+            if (strafe <= 0.2 && strafe >= -0.2) {
+                strafe = 0;
+            } 
             SmartDashboard.putNumber("Strafe", strafe);
             swerveRequest = drive
                 .withVelocityX(forward)
