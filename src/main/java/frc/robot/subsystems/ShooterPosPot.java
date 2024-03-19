@@ -152,6 +152,9 @@ public class ShooterPosPot extends PIDSubsystem {
             output = -Constants.ShooterPosPot.SHOOTERPOT_MAX_PID_SPEED;
         }
         setShooterPosPotSpeed(output);
+        // if (getSetpoint() > 30) {
+        //     stopMotor();
+        // }
         //SmartDashboard.putNumber("ShooterPosPot/Output", output);
     }
 

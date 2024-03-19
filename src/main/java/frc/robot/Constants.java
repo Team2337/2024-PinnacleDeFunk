@@ -223,7 +223,7 @@ public final class Constants {
     public static final double SHOOTER_LEFTRIGHT_DIFF = -20;//30 
 
     public static final double SHOOTER_MAX_VELOCITY_AMP = 6.25; 
-    public static final double SHOOTER_BOTTOM_DIFF_AMP = 3; 
+    public static final double SHOOTER_BOTTOM_DIFF_AMP = 7; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = 0; 
 
     public static final double SHOOTER_MAX_VELOCITY_TRAP = 15; 
@@ -248,7 +248,7 @@ public final class Constants {
     public static final double SHOOTERPOT_MIN_SETPOINT = 2.06;
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
     public static final double SHOOTERPOT_MAX_PID_SPEED = 0.7;
-    public static final double SHOOTERPOT_AT_AMP = 7;
+    public static final double SHOOTERPOT_AT_AMP = 6.8;
     public static final double SHOOTERPOT_HALF_COURT = 13.0;
     public static final double SHOOTERPOT_HALF_CHAIN_COURT = 12.6;
 

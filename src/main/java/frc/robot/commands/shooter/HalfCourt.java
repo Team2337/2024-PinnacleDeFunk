@@ -22,11 +22,11 @@ public class HalfCourt extends Command {
     
     @Override
     public void execute() {
-        if (robotY.get() >= Constants.FieldElements.cartman && robotY.get() <= Constants.FieldElements.longwood) {
-            shooter.halfCourtChain();
-        } else {
+        // if (robotY.get() >= Constants.FieldElements.cartman && robotY.get() <= Constants.FieldElements.longwood) {
+        //     shooter.halfCourtChain();
+        // } else {
             shooter.halfCourt();
-        }
+        // }
     }
 
     @Override

@@ -1,0 +1,70 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.481372967185449,
+        "y": 1.4519244132827887
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.563475459914296,
+        "y": 1.424387488064655
+      },
+      "isLocked": false,
+      "linkedName": "18-EndS1"
+    },
+    {
+      "anchor": {
+        "x": 3.4421156522668213,
+        "y": 2.9848132504256135
+      },
+      "prevControl": {
+        "x": 3.644053103866474,
+        "y": 2.1311685686634423
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "18-EndS2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.3,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos18-N4"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -40.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "18-Red-Outside",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8352867316167485,
-      "y": 4.5360600377138605
+      "x": 0.7693261898151704,
+      "y": 6.568323745728334
     },
-    "rotation": -40.0
+    "rotation": 59.0
   },
   "command": {
     "type": "sequential",
@@ -22,19 +22,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoModLimelight"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoDontUseLimelight"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos18-N0"
+                        "name": "ShooterPos7-N0"
                       }
                     },
                     {
@@ -52,13 +40,56 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 1"
+                        "pathName": "7 - Step 1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DisengageDeliverServo"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPos7-N3"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.55
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "deadline",
+                      "data": {
+                        "commands": [
+                          {
+                            "type": "path",
+                            "data": {
+                              "pathName": "7 - Step 2.5"
+                            }
+                          },
+                          {
+                            "type": "named",
+                            "data": {
+                              "name": "DoWeHaveNote"
+                            }
+                          }
+                        ]
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 2"
+                        "pathName": "7 - Step 5 - N6"
                       }
                     },
                     {
@@ -70,31 +101,25 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 3"
+                        "pathName": "7 - Step 6 - N6"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 4"
+                        "pathName": "7 - Step 7"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoStartDeliveryTemp"
+                        "name": "ShooterPos7-N6"
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "8 - Step 5"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 6"
+                        "waitTime": 0.75
                       }
                     },
                     {
@@ -124,6 +149,6 @@
       ]
     }
   },
-  "folder": "Red Autos",
+  "folder": "Blue Autos",
   "choreoAuto": false
 }
