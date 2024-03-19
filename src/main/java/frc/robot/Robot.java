@@ -146,7 +146,9 @@ public class Robot extends TimedRobot {
     }
     if (didAutoRun) {
       //m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(1.335, 5.55), Rotation2d.fromDegrees(0)));
-      m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(m_robotContainer.drivetrain.getState().Pose.getX(), m_robotContainer.drivetrain.getState().Pose.getY()), m_robotContainer.drivetrain.getState().Pose.getRotation()));
+      //if (m_robotContainer.allianceColor == "red") {
+        m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(m_robotContainer.drivetrain.getState().Pose.getX(), m_robotContainer.drivetrain.getState().Pose.getY()), m_robotContainer.drivetrain.getState().Pose.getRotation()));
+      //}
     } 
     //pigeon.setYaw(0);
   }

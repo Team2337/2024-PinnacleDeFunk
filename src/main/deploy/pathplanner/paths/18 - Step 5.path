@@ -3,43 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.82,
-        "y": 6.381034027328877
+        "x": 4.51605573577407,
+        "y": 4.875682115404187
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.6914728280067015,
-        "y": 6.426928902692434
+        "x": 4.7271721624464345,
+        "y": 3.884352807551342
       },
       "isLocked": false,
-      "linkedName": "7-EndS5N6"
+      "linkedName": "18-EndS4"
     },
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 4.242332835387091
+        "x": 8.31615141587664,
+        "y": 4.737997489313514
       },
       "prevControl": {
-        "x": 7.691981110932256,
-        "y": 5.095977517149263
+        "x": 7.058631830915162,
+        "y": 4.765534414531648
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS6"
+      "linkedName": "18-EndS5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": -30.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
         "data": {
@@ -59,41 +53,24 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "EngageDeliverServo"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -50.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "18-Red-Outside",
   "previewStartingState": {
-    "rotation": 8.0,
+    "rotation": -8.0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

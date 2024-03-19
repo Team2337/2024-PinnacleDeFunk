@@ -6,16 +6,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Delivery;
 
-public class DeliveryDefault extends Command {
+public class DeliveryDefaultNowWithLasers extends Command {
     private Delivery delivery;
     private Supplier<Boolean> intakeSensor;
-    private Supplier<Double> shooterSpeed;
-    private double waitTime, waitTime2 = 0;
+    private Supplier<Double> shooterSpeed, laserCan;
+    private double waitTime = 0;
 
-    public DeliveryDefault(Delivery delivery, Supplier<Boolean> intakeSensor, Supplier<Double> shooterSpeed) {
+    public DeliveryDefaultNowWithLasers(Delivery delivery, Supplier<Boolean> intakeSensor, Supplier<Double> shooterSpeed, Supplier<Double> laserCan) {
         this.delivery = delivery;
         this.intakeSensor = intakeSensor;
         this.shooterSpeed = shooterSpeed;
+        this.laserCan = laserCan;
         addRequirements(delivery);
     }
 
@@ -26,23 +27,16 @@ public class DeliveryDefault extends Command {
     
     @Override
     public void execute() {
-        if(delivery.getDeliveryTopSensor() && waitTime < 7) {
-            delivery.setDeliverySpeed(-0.2);
-            waitTime++;
-        } else if (delivery.getDeliveryTopSensor() && intakeSensor.get()) {
-            delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SUPER_SLOW_SPEED);
-            waitTime2++;
-        } else if (delivery.getDeliveryTopSensor()) {
+        if(delivery.getDeliveryTopSensor()) {
             delivery.stopMotors();
+        } else if (laserCan.get() <= 140) {
+            delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SUPER_SLOW_SPEED);
         } else if (delivery.getDeliveryBottomSensor()) {
             delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SLOW_SPEED);
-            waitTime = 0; waitTime2 = 0;
         } else if (intakeSensor.get()) {
             delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
-            waitTime = 0; waitTime2 = 0;
         } else {
             delivery.stopMotors();
-            waitTime = 0; waitTime2 = 0;
         }
 
         // if (!delivery.getDeliveryTopSensor()) {

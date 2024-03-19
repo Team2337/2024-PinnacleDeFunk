@@ -3,51 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.790408422104303,
-        "y": 4.1046482092964185
+        "x": 8.38040424138562,
+        "y": 4.242332835387091
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8449739896150164,
-        "y": 4.581954913077419
+        "x": 7.278927232660237,
+        "y": 3.8292789571150734
       },
       "isLocked": false,
-      "linkedName": "16-EndS1"
+      "linkedName": "5-EndS4"
     },
     {
       "anchor": {
-        "x": 1.9734796406329773,
-        "y": 5.55492627078484
+        "x": 4.497697785628646,
+        "y": 4.793071339749783
       },
       "prevControl": {
-        "x": 1.9551216904875544,
-        "y": 5.444778569912301
+        "x": 5.791933270880971,
+        "y": 3.783384081751516
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "16-EndS2"
+      "linkedName": "7-EndS7"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos16-N1"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -58,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -67,11 +50,17 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "parallel",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos5-N6"
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -91,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -10.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "16 - Red - Spikes",
+  "folder": "5-Blue-WithHot",
   "previewStartingState": {
-    "rotation": 15.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

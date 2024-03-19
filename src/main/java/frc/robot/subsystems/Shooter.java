@@ -215,13 +215,13 @@ public class Shooter extends SubsystemBase {
 
     public void checkShooterUpToSpeed() {
         if (globalLeftVelocity >= globalRightVelocity) {
-            if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalLeftVelocity * 0.97)) && (globalLeftVelocity > 1) ) {
+            if ((shooterMotorTopLeft.getVelocity().getValueAsDouble() >= (globalLeftVelocity * 0.9)) && (globalLeftVelocity > 1) ) {
                 shooterUpToSpeed = true;
             } else {
                 shooterUpToSpeed = false;
             }
         } else {
-            if ((shooterMotorTopRight.getVelocity().getValueAsDouble() >= (globalRightVelocity * 0.97)) && (globalRightVelocity > 1) ) {
+            if ((shooterMotorTopRight.getVelocity().getValueAsDouble() >= (globalRightVelocity * 0.9)) && (globalRightVelocity > 1) ) {
                 shooterUpToSpeed = true;
             } else {
                 shooterUpToSpeed = false;
@@ -273,6 +273,20 @@ public class Shooter extends SubsystemBase {
 
     public void halfCourt() {
         double maxVelocity = Constants.Shooter.SHOOTER_SENDIT_VELOCITY;
+
+            topLeftVelo = maxVelocity;
+            bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_SENDIT_BOTTOM_DIFF;
+            topRightVelo = maxVelocity + Constants.Shooter.SHOOTER_SENDIT_LEFTRIGHT_DIFF;
+            bottomRightVelo = maxVelocity + Constants.Shooter.SHOOTER_SENDIT_LEFTRIGHT_DIFF + Constants.Shooter.SHOOTER_SENDIT_BOTTOM_DIFF;
+
+        setTopLeftShooterVelocity(topLeftVelo);
+        setTopRightShooterVelocity(topRightVelo);
+        setBottomLeftShooterVelocity(bottomLeftVelo);
+        setBottomRightShooterVelocity(bottomRightVelo);
+    }
+
+     public void halfCourtChain() {
+        double maxVelocity = Constants.Shooter.SHOOTER_SENDIT_CHAIN_VELOCITY;
 
             topLeftVelo = maxVelocity;
             bottomLeftVelo = maxVelocity + Constants.Shooter.SHOOTER_SENDIT_BOTTOM_DIFF;
