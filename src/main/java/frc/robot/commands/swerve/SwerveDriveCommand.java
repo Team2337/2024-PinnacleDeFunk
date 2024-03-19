@@ -62,7 +62,7 @@ public class SwerveDriveCommand extends Command{
         forward = Utilities.deadband(-driverJoystick.getLeftY(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         strafe = Utilities.deadband(-driverJoystick.getLeftX(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         rotation = Utilities.deadband(-driverJoystick.getRightX(), Constants.Swerve.driveDeadband) * Constants.Swerve.MaxAngularRate;
-        if (driverJoystick.back().getAsBoolean()) {
+        if (allianceColor.get() == "red") {
             forward = -forward;
             strafe = -strafe;
         }
@@ -98,6 +98,15 @@ public class SwerveDriveCommand extends Command{
                 .withVelocityX(forward)
                 .withVelocityY(strafe);
 
+        } else if(drivetrain.visionRotate) {
+            double visionKP = 0.7;
+            if(Math.abs(rotation) > 0) {
+                rotation = Utilities.scaleVisionToOne(rotation);
+                rotation = rotation * Constants.Swerve.MaxAngularRate;
+                rotation = -rotation * visionKP; //Needs to be greater than 0.48 to turn
+             } else {
+                 rotation = 0;
+             }
         } else if (drivetrain.pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp) {
             
             if (allianceColor.get() == "blue") {

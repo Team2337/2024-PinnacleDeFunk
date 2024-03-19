@@ -46,6 +46,7 @@ import frc.robot.commands.shooterPosition.SetShooterPosByVision;
 import frc.robot.commands.shooterPosition.SetShooterPosPot;
 import frc.robot.commands.swerve.OpPOVLeftDriveAtAngle;
 import frc.robot.commands.swerve.SwerveDriveCommand;
+import frc.robot.commands.swerve.VisionRotate;
 import frc.robot.generated.TunerConstants;
 import frc.robot.generated.TunerConstantsComp;
 import frc.robot.generated.TunerConstantsPracticeWithKraken;
@@ -113,10 +114,10 @@ public class RobotContainer {
         )
       ));
 
-    // driverJoystick.a().whileTrue((new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
-    //   .alongWith(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()))));
-    // driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
-    driverJoystick.leftStick().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
+    driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setVisionRotate(true))
+      .alongWith(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())));
+    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setVisionRotate(false)));
+    //driverJoystick.leftStick().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
     // driverJoystick.b().onTrue(new InstantCommand(() -> delivery.engageNoteStop()));
     // driverJoystick.b().onFalse(new InstantCommand(() -> delivery.disengageNoteStop()));
     //driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
