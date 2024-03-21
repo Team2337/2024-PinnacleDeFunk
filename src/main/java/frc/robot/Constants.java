@@ -252,7 +252,7 @@ public final class Constants {
     public static final double SHOOTERPOT_HALF_COURT = 13.0;
     public static final double SHOOTERPOT_HALF_CHAIN_COURT = 12.6;
 
-    public static final double SHOOTER_AT_PICKUP = 13.7;//MIN = 9.8 MAX = 10.8      //5.7
+    public static final double SHOOTER_AT_PICKUP = 13.2;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;
 
   }

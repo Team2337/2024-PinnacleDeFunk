@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.LED.LEDRunnable;
+import frc.robot.commands.auto.AutoLimelight;
 import frc.robot.commands.auto.AutoStartDelivery;
 import frc.robot.commands.auto.AutoStartDeliveryTemp;
 import frc.robot.commands.auto.AutoStartDeliveryToSensor;
@@ -97,7 +98,7 @@ public class RobotContainer {
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
-    led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> shooter.getShooterUpToSpeed()).ignoringDisable(true));
+    led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> delivery.getDeliveryBottomSensor(), () -> shooter.getShooterUpToSpeed()).ignoringDisable(true));
     
     //driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -114,9 +115,9 @@ public class RobotContainer {
         )
       ));
 
-    driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setVisionRotate(true))
+    driverJoystick.a().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-blue", () -> allianceColor)
       .alongWith(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())));
-    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setVisionRotate(false)));
+    //driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setVisionRotate(false)));
     //driverJoystick.leftStick().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
     // driverJoystick.b().onTrue(new InstantCommand(() -> delivery.engageNoteStop()));
     // driverJoystick.b().onFalse(new InstantCommand(() -> delivery.disengageNoteStop()));
@@ -127,12 +128,12 @@ public class RobotContainer {
     driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
     driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
 
-    driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> drivetrain.getState().Pose.getY()),
+    driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> isChainShot()),
       new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
       new ConditionalCommand(
         new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
         new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_CHAIN_COURT)),
-        () -> (drivetrain.getState().Pose.getY() >= Constants.FieldElements.cartman && drivetrain.getState().Pose.getY() <= Constants.FieldElements.longwood)
+        () -> (isChainShot())
       ),
       // new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
       new ConditionalCommand(
@@ -192,7 +193,7 @@ public class RobotContainer {
       //operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
     //*************Operator Station *****************/
     //operatorStation.blueButton.onTrue(new InstantCommand(() -> climb.setClimberPosition(-65)));
-    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    //operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
     operatorStation.whiteButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
     operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
     operatorStation.blackButton.whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
@@ -205,6 +206,7 @@ public class RobotContainer {
     operatorStation.clearSwitch.whileTrue(new DeliveryServoOverride(servo));
     operatorStation.redLeftSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleLeft())));
     operatorStation.redRightSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleRight())));
+    operatorStation.blueButton.whileTrue(new AutoLimelight(() -> startNoteDetecton()));
     
      //************* Test Joystick *****************/
      // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
@@ -297,6 +299,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("StopShooter", new InstantCommand(() -> shooter.setShooterDutyCycleZero()));
     NamedCommands.registerCommand("UseLimelight", new InstantCommand(() -> useLimelight()));
     NamedCommands.registerCommand("DontUseLimelight", new InstantCommand(() -> dontUseLimelight()));
+    NamedCommands.registerCommand("AutoDetect", new AutoLimelight(() -> startNoteDetecton()));
+    
 
     
     /* 
@@ -433,6 +437,26 @@ public class RobotContainer {
     path.preventFlipping = true;
 
     return path;
+  }
+
+  public boolean isChainShot() {
+    return drivetrain.getState().Pose.getY() >= Constants.FieldElements.cartman && drivetrain.getState().Pose.getY() <= Constants.FieldElements.longwood;
+  }
+
+  public boolean startNoteDetecton() {
+    if (allianceColor == "blue") {
+      if (drivetrain.getState().Pose.getX() >= 5) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      if (drivetrain.getState().Pose.getX() <= 12) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
   public boolean doWeHaveNote() {

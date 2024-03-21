@@ -3,15 +3,15 @@ package frc.robot.commands.shooter;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class HalfCourt extends Command {
     private Shooter shooter;
-    private Supplier<Double> robotY;
+    private Supplier<Boolean> chainShot;
 
-    public HalfCourt(Shooter shooter, Supplier<Double> robotY) {
+    public HalfCourt(Shooter shooter, Supplier<Boolean> chainShot) {
         this.shooter = shooter;
+        this.chainShot = chainShot;
         addRequirements(shooter);
     }
 
@@ -22,11 +22,11 @@ public class HalfCourt extends Command {
     
     @Override
     public void execute() {
-        // if (robotY.get() >= Constants.FieldElements.cartman && robotY.get() <= Constants.FieldElements.longwood) {
-        //     shooter.halfCourtChain();
-        // } else {
+        if (chainShot.get()) {
             shooter.halfCourt();
-        // }
+        } else {
+            shooter.halfCourtChain();
+        }
     }
 
     @Override

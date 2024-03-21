@@ -9,13 +9,14 @@ import frc.robot.nerdyfiles.leds.LED;
 
 public class LEDRunnable extends Command {
   private final LED led;
-  private Supplier<Boolean> intakeSensor, deliveryTopSensor, upToSpeed;
+  private Supplier<Boolean> intakeSensor, deliveryTopSensor, deliveryBottomSensor, upToSpeed;
   
 
-  public LEDRunnable(LED led, Supplier<Boolean> intakeSensor, Supplier<Boolean> deliveryTopSensor, Supplier<Boolean> upToSpeed) {
+  public LEDRunnable(LED led, Supplier<Boolean> intakeSensor, Supplier<Boolean> deliveryTopSensor, Supplier<Boolean> deliveryBottomSensor, Supplier<Boolean> upToSpeed) {
     this.led = led;
     this.intakeSensor = intakeSensor;
     this.deliveryTopSensor = deliveryTopSensor;
+    this.deliveryBottomSensor = deliveryBottomSensor;
     this.upToSpeed = upToSpeed;
 
     addRequirements(led);
@@ -26,7 +27,7 @@ public class LEDRunnable extends Command {
         led.setColor(Color.kGreen);
     } else if (DriverStation.isTeleopEnabled() && deliveryTopSensor.get()) {
         led.setColor(Color.kBlue);
-    }  else if (DriverStation.isTeleopEnabled() && intakeSensor.get()) {
+    }  else if (DriverStation.isTeleopEnabled() && (intakeSensor.get() || deliveryBottomSensor.get())) {
         led.setColor(Color.kRed);
     } else if (DriverStation.isTeleopEnabled()) {
         led.setColor(Color.kBlack);
