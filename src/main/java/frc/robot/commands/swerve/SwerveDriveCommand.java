@@ -99,14 +99,21 @@ public class SwerveDriveCommand extends Command{
                 .withVelocityY(strafe);
 
         } else if(drivetrain.visionRotate) {
+            
             double visionKP = 0.7;
+            rotation = LimelightHelpers.getTX("limelight-blue");
+            SmartDashboard.putNumber("Vision Rotation", rotation);
             if(Math.abs(rotation) > 0) {
                 rotation = Utilities.scaleVisionToOne(rotation);
                 rotation = rotation * Constants.Swerve.MaxAngularRate;
                 rotation = -rotation * visionKP; //Needs to be greater than 0.48 to turn
-             } else {
-                 rotation = 0;
-             }
+            } else {
+                rotation = 0;
+            }
+            swerveRequest = drive
+                .withVelocityX(forward)
+                .withVelocityY(strafe)
+                .withRotationalRate(rotation);
         } else if (drivetrain.pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp) {
             
             if (allianceColor.get() == "blue") {
@@ -141,13 +148,13 @@ public class SwerveDriveCommand extends Command{
             var lastResult = LimelightHelpers.getLatestResults("limelight-coral").targetingResults;
             if ((lastResult.valid)) {
                 double tx = LimelightHelpers.getTX("limelight-coral");
-                strafe = (Utilities.scaleVisionToOne(-tx) / 0.5);
+                rotation = (Utilities.scaleVisionToOne(-tx) / 0.5);
             }
 
-            if (strafe <= 0.2 && strafe >= -0.2) {
-                strafe = 0;
+            if (rotation <= 0.2 && rotation >= -0.2) {
+                rotation = 0;
             } 
-            SmartDashboard.putNumber("Strafe", strafe);
+            SmartDashboard.putNumber("Note Detection", rotation);
             swerveRequest = drive
                 .withVelocityX(forward)
                 .withVelocityY(strafe)

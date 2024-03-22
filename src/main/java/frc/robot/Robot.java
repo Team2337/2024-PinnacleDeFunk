@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
   //private final boolean UseLimelight = true;
   private double visionCounter = 0;
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
+  private final Matrix<N3, N1> visionStdDevsMultiTags = new Matrix<>(Nat.N3(), Nat.N1());
   private Pose2d llPose;
   private boolean didAutoRun = false;
   private Timer gcTimer = new Timer();
@@ -56,6 +57,11 @@ public class Robot extends TimedRobot {
     visionStdDevs.set(0,0,2); 
     visionStdDevs.set(1,0,2);
     visionStdDevs.set(2,0,Math.toRadians(90));
+
+    
+    visionStdDevsMultiTags.set(0,0,0.5); 
+    visionStdDevsMultiTags.set(1,0,0.5);
+    visionStdDevsMultiTags.set(2,0,Math.toRadians(20));
     m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
 
     gcTimer.start();
@@ -74,6 +80,11 @@ public class Robot extends TimedRobot {
       
       double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
       if ((lastResult.valid) && (visionCounter > 0)) {
+        if (lastResult.targets_Fiducials.length > 1) {
+          m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevsMultiTags);
+        } else {
+          m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
+        }
         m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
         visionCounter = 0;
       } else {

@@ -115,9 +115,13 @@ public class RobotContainer {
         )
       ));
 
-    driverJoystick.a().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-blue", () -> allianceColor)
+    driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
       .alongWith(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())));
-    //driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setVisionRotate(false)));
+    driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
+
+      
+    // driverJoystick.a().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())
+    //   .alongWith(new VisionRotate(drivetrain, driverJoystick, "limelight-blue", () -> allianceColor)));
     //driverJoystick.leftStick().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
     // driverJoystick.b().onTrue(new InstantCommand(() -> delivery.engageNoteStop()));
     // driverJoystick.b().onFalse(new InstantCommand(() -> delivery.disengageNoteStop()));
@@ -274,6 +278,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPos16-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos16-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.5)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos16-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(1));
+
+    
+    NamedCommands.registerCommand("ShooterPos4-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos4-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos4-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos4-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));
 
     //Manual Shooter Pos for Blue-SpeakerCenter-C0-C1-C2-C3
     NamedCommands.registerCommand("ShooterPos8-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));

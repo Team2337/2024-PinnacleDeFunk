@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 4.242332835387091
+        "x": 8.5,
+        "y": 4.563596962931995
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.278927232660237,
-        "y": 3.8292789571150734
+        "x": 7.783770861659371,
+        "y": 4.23315386031438
       },
       "isLocked": false,
-      "linkedName": "5-EndS4"
+      "linkedName": "4-EndS5"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 4.79
       },
       "prevControl": {
-        "x": 5.794235485252325,
-        "y": 3.780312742001733
+        "x": 5.332984517245394,
+        "y": 4.324943611041495
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS7"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "AutoStartDeliveryToSensorTinyTimeout"
               }
             }
           ]
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
@@ -58,7 +58,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos5-N6"
+                "name": "ShooterPos4-N6"
               }
             },
             {
@@ -84,7 +84,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "5-Blue-WithHot",
+  "folder": "4-Blue-SpedUpSpikes",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

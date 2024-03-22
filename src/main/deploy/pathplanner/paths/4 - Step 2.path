@@ -3,34 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 4.242332835387091
+        "x": 2.790408422104303,
+        "y": 4.1046482092964185
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.278927232660237,
-        "y": 3.8292789571150734
+        "x": 1.8449739896150164,
+        "y": 4.581954913077419
       },
       "isLocked": false,
-      "linkedName": "5-EndS4"
+      "linkedName": "6-EndS1"
     },
     {
       "anchor": {
-        "x": 4.5,
-        "y": 4.79
+        "x": 1.9734796406329773,
+        "y": 5.55492627078484
       },
       "prevControl": {
-        "x": 5.794235485252325,
-        "y": 3.780312742001733
+        "x": 1.9551216904875544,
+        "y": 5.444778569912301
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS7"
+      "linkedName": "6-EndS2"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos6-N1"
+              }
+            }
+          ]
+        }
+      }
+    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -41,7 +58,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "AutoStartDeliveryToSensorNoTimeout"
               }
             }
           ]
@@ -50,17 +67,11 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "parallel",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos5-N6"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -80,13 +91,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "5-Blue-WithHot",
+  "folder": "4-Blue-SpedUpSpikes",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
