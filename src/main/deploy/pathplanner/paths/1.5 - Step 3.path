@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.51605573577407,
-        "y": 4.875682115404187
+        "x": 8.325330390949352,
+        "y": 5.775221672529917
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.7271721624464345,
-        "y": 3.884352807551342
+        "x": 7.499222634405315,
+        "y": 6.647224304437511
       },
       "isLocked": false,
-      "linkedName": "8-EndS4"
+      "linkedName": "1-EndS2"
     },
     {
       "anchor": {
-        "x": 8.31615141587664,
-        "y": 4.737997489313514
+        "x": 3.7542008047390127,
+        "y": 7.36318436010901
       },
       "prevControl": {
-        "x": 7.058631830915162,
-        "y": 4.765534414531648
+        "x": 5.5808168442086075,
+        "y": 7.629374637217643
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "8-EndS5"
+      "linkedName": "1.5-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -41,13 +41,30 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.3,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos1.5-N7"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -57,20 +74,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 25.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "8-Blue-Outside",
+  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
   "previewStartingState": {
-    "rotation": -8.0,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

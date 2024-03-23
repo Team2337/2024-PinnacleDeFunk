@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.31615141587664,
-        "y": 4.737997489313514
+        "x": 8.463015017040023,
+        "y": 4.123006159441842
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.269748257587525,
-        "y": 4.59113388815013
+        "x": 7.416611858750909,
+        "y": 3.9761425582784575
       },
       "isLocked": false,
       "linkedName": "8-EndS5"
     },
     {
       "anchor": {
-        "x": 4.51605573577407,
-        "y": 4.875682115404187
+        "x": 4.5,
+        "y": 4.79
       },
       "prevControl": {
-        "x": 4.828140888246261,
-        "y": 3.737489206387959
+        "x": 5.782754295808259,
+        "y": 3.884352807551342
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "8-EndS4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "parallel",
         "data": {
@@ -43,6 +43,29 @@
               "data": {
                 "name": "ShooterPos8-N6"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
             }
           ]
         }
@@ -51,20 +74,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -8.0,
+    "rotation": -10.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "8-Blue-Outside",
   "previewStartingState": {
     "rotation": 0,
-    "velocity": 0
+    "velocity": 0.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

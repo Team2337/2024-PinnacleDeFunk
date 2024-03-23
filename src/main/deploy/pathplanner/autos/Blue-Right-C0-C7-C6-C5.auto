@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8352867316167485,
-      "y": 4.5360600377138605
+      "x": 1.523709862070113,
+      "y": 6.34431812703803
     },
-    "rotation": -40.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -20,39 +20,21 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "DontUseLimelight"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos8-N0"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
+                        "pathName": "2 - Step 1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 1"
+                        "pathName": "2 - Step 2"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 2"
+                        "pathName": "2 - Step 3"
                       }
                     },
                     {
@@ -64,31 +46,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 3"
+                        "pathName": "2 - Step 4"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "8 - Step 4"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 5"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 6"
+                        "pathName": "2 - Step 5"
                       }
                     },
                     {
@@ -103,13 +67,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               }
             ]

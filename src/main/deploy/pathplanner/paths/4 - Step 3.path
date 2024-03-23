@@ -12,20 +12,20 @@
         "y": 5.527389345566705
       },
       "isLocked": false,
-      "linkedName": "6-EndS2"
+      "linkedName": "4-EndS2"
     },
     {
       "anchor": {
-        "x": 3.7817377299571477,
+        "x": 3.78,
         "y": 5.55492627078484
       },
       "prevControl": {
-        "x": 3.1667464000854753,
+        "x": 3.1650086701283273,
         "y": 5.564105245857552
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "6-EndS3"
+      "linkedName": "4-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -70,7 +70,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos6-N2"
+                "name": "ShooterPos4-N2"
               }
             }
           ]

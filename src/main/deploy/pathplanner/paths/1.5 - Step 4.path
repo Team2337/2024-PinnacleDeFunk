@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.78,
-        "y": 5.55492627078484
+        "x": 3.7542008047390127,
+        "y": 7.36318436010901
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.126433658083743,
-        "y": 6.872445976967428
+        "x": 3.341146926466994,
+        "y": 7.216320758945625
       },
       "isLocked": false,
-      "linkedName": "4-EndS3"
+      "linkedName": "1.5-EndS3"
     },
     {
       "anchor": {
-        "x": 2.303922743250592,
-        "y": 6.70229815487378
+        "x": 2.212132992523477,
+        "y": 6.665582254582933
       },
       "prevControl": {
-        "x": 3.818453630247994,
-        "y": 7.638553612290355
+        "x": 2.6802607212317646,
+        "y": 6.968488431982414
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "4-EndS4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
         "data": {
@@ -69,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 23.0,
+    "rotation": 30.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4-Blue-SpedUpSpikes",
+  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 25.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

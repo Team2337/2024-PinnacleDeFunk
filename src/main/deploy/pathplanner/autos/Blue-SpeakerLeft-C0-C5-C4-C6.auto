@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8352867316167485,
-      "y": 4.5360600377138605
+      "x": 1.3584883107613055,
+      "y": 3.462119954206613
     },
     "rotation": -40.0
   },
@@ -19,36 +19,6 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoModLimelight"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoDontUseLimelight"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos18-N0"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
                     {
                       "type": "path",
                       "data": {
@@ -124,6 +94,6 @@
       ]
     }
   },
-  "folder": "Red Autos",
+  "folder": "Blue Autos",
   "choreoAuto": false
 }

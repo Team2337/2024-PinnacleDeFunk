@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.78,
-        "y": 5.55492627078484
+        "x": 8.481372967185449,
+        "y": 4.067932309005573
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.126433658083743,
-        "y": 6.872445976967428
+        "x": 6.920947204824489,
+        "y": 3.765026131606093
       },
       "isLocked": false,
-      "linkedName": "4-EndS3"
+      "linkedName": "3-EndS2"
     },
     {
       "anchor": {
-        "x": 2.303922743250592,
-        "y": 6.70229815487378
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": {
-        "x": 3.818453630247994,
-        "y": 7.638553612290355
+        "x": 5.149405015791165,
+        "y": 3.8384579321877847
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "4-EndS4"
+      "linkedName": "3-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.15,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,15 +41,26 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "DisengageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "ShooterPos3-N6"
               }
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
             {
               "type": "named",
               "data": {
@@ -69,11 +80,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 23.0,
+    "rotation": -10.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4-Blue-SpedUpSpikes",
+  "folder": "3 - Blue - C0-C2-C6-Yeet",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

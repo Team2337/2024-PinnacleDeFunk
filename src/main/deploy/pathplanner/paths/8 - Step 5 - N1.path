@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.78,
-        "y": 5.55492627078484
+        "x": 3.44,
+        "y": 2.98
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.126433658083743,
-        "y": 6.872445976967428
+        "x": 1.5145308869974015,
+        "y": 3.6456994556608433
       },
       "isLocked": false,
-      "linkedName": "4-EndS3"
+      "linkedName": "8-EndS4"
     },
     {
       "anchor": {
-        "x": 2.303922743250592,
-        "y": 6.70229815487378
+        "x": 2.845482272540572,
+        "y": 4.123006159441842
       },
       "prevControl": {
-        "x": 3.818453630247994,
-        "y": 7.638553612290355
+        "x": 2.120343241796362,
+        "y": 4.462628237132168
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "4-EndS4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -41,13 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "EngageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "ShooterPositionPickup"
               }
             },
             {
@@ -69,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 23.0,
+    "rotation": -10.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "4-Blue-SpedUpSpikes",
+  "folder": "8-Blue-Outside",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -37.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
