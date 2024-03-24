@@ -116,7 +116,7 @@ public class RobotContainer {
       ));
 
     driverJoystick.a().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
-      .alongWith(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())));
+      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())));
     driverJoystick.a().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
 
       

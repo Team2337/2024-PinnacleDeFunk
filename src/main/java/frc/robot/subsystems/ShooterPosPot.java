@@ -10,6 +10,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
@@ -25,6 +26,7 @@ public class ShooterPosPot extends PIDSubsystem {
     private double logDelayCounter = 0;
    
     AnalogInput input = new AnalogInput(2);
+    private DigitalInput shooterPosSensor = new DigitalInput(3);
     AnalogPotentiometer pot = new AnalogPotentiometer(input, 51.6, 1.6);
 
     CommandXboxController operatorJoystick;
@@ -108,6 +110,16 @@ public class ShooterPosPot extends PIDSubsystem {
         }
     }
 
+    public boolean isShooterOutOfRange() {
+        return !shooterPosSensor.get();
+    }
+
+    public void shooterPIDDisable() {
+        if (isShooterOutOfRange()) {
+            disable();
+        }
+    }
+
     public void log() {
         if (Constants.DashboardLogging.SHOOTERPOT) {
             SmartDashboard.putNumber("ShooterPosPot/ Set Point", getSetpoint());
@@ -120,6 +132,7 @@ public class ShooterPosPot extends PIDSubsystem {
                 logDelayCounter = 0;
             }
         }
+        SmartDashboard.putBoolean("Shooter Pos Sensor", isShooterOutOfRange());
         logDelayCounter++;
     }
 
@@ -141,6 +154,7 @@ public class ShooterPosPot extends PIDSubsystem {
         super.periodic();
         isShooterAtIntake();
         checkForNote();
+        shooterPIDDisable();
         log();
     }
 
