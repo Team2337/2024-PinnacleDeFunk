@@ -17,6 +17,7 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,6 +49,8 @@ public class Robot extends TimedRobot {
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
 
     m_robotContainer.drivetrain.configNeutralMode(NeutralModeValue.Coast);
+
+    RobotController.setBrownoutVoltage(6.3);
 
     /**
    * Sets the value at the given indices.

@@ -3,6 +3,7 @@ package frc.robot.commands.LED;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.nerdyfiles.leds.LED;
@@ -26,11 +27,23 @@ public class LEDRunnable extends Command {
     if (DriverStation.isTeleopEnabled() && upToSpeed.get()) {
         led.setColor(Color.kGreen);
     } else if (DriverStation.isTeleopEnabled() && deliveryTopSensor.get()) {
-        led.setColor(Color.kBlue);
-    }  else if (DriverStation.isTeleopEnabled() && (intakeSensor.get() || deliveryBottomSensor.get())) {
         led.setColor(Color.kRed);
+    }  else if (DriverStation.isTeleopEnabled() && deliveryBottomSensor.get()) {
+        led.setColor(Color.kBlue);
+    }  else if (DriverStation.isTeleopEnabled() && intakeSensor.get()) {
+        led.setLowerUprightColors(Color.kBlue);
     } else if (DriverStation.isTeleopEnabled()) {
         led.setColor(Color.kBlack);
+    }
+    
+    if (DriverStation.isAutonomous()) {
+      double time = DriverStation.getMatchTime();
+      SmartDashboard.putNumber("Match Time", time);
+    }
+
+    if (DriverStation.isAutonomousEnabled()) {
+      double time = DriverStation.getMatchTime();
+      led.setAutoColor(Color.kRed, time);
     }
     
     if (DriverStation.isDisabled()) {

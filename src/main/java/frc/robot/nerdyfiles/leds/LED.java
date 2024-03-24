@@ -26,11 +26,12 @@ public class LED extends SubsystemBase {
 	// private static int LED_SHOOTER_END = 202;
 	// private static int LED_LEFT_START = 203;
 	
-	private static int LED_LENGTH = 140;
+	private static int LED_LENGTH = 186;//186
 	private static int LED_RIGHT_LENGTH = 70;
 	private static int LED_SHOOTER_START = 71;
-	private static int LED_SHOOTER_END = 70;
-	private static int LED_LEFT_START = 71;
+	private static int LED_SHOOTER_END = 117;
+	private static int LED_LEFT_START = 150;
+	private static int LED_LEFT_END = 186;
 
 	/**
 	 * Controls the LEDs on the Robot 
@@ -48,8 +49,16 @@ public class LED extends SubsystemBase {
 	 * 
 	 * @param color A Color object reflecting the color you want to use on the LEDs.  i.e.  kRed, kBlue, kSeashell
 	 */
-  public void setColor(Color color) {
+  	public void setColor(Color color) {
 		for (int i = 0; i < LED_LENGTH; i++) {
+			ledBuffer.setLED(i, color);
+		}
+			led.setData(ledBuffer);
+			led.start();
+	}
+
+	public void setAutoColor(Color color, double time) {
+		for (int i = 0; i < (12 * time); i++) {
 			ledBuffer.setLED(i, color);
 		}
 			led.setData(ledBuffer);
@@ -69,6 +78,27 @@ public class LED extends SubsystemBase {
 
 	public void setShooterColors(Color color) {
 		for (int i = LED_SHOOTER_START; i < LED_SHOOTER_END; i++) {
+			ledBuffer.setLED(i, color);
+		}
+
+			led.setData(ledBuffer);
+			led.start();
+	}
+
+	public void setLowerUprightColors(Color color) {
+		for (int i = 0; i < 36; i++) {
+			ledBuffer.setLED(i, color);
+		}
+
+		for (int i = LED_LEFT_START; i < LED_LEFT_END; i++) {
+			ledBuffer.setLED(i, color);
+		}
+
+		for (int i = LED_SHOOTER_START; i < (LED_SHOOTER_START + 11); i++) {
+			ledBuffer.setLED(i, color);
+		}
+
+		for (int i = (LED_SHOOTER_END - 11); i < LED_SHOOTER_END; i++) {
 			ledBuffer.setLED(i, color);
 		}
 
