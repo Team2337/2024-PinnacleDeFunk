@@ -54,11 +54,11 @@ public class DeliveryServo extends SubsystemBase {
     }
 
     public void engageNoteStop() {
-        servoSet(0.7);
+        servoSet(1); //0.7
     }
 
     public void disengageNoteStop() {
-        servoSet(0.3);
+        servoSet(0.5); //0.3
     }
 
     public void log() {
