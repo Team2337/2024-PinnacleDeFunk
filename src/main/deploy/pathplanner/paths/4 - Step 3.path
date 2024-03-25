@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9734796406329773,
-        "y": 5.55492627078484
+        "x": 1.9643006655602657,
+        "y": 5.389704719476032
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4599653194866877,
-        "y": 5.527389345566705
+        "x": 2.450786344413976,
+        "y": 5.362167794257897
       },
       "isLocked": false,
       "linkedName": "4-EndS2"
     },
     {
       "anchor": {
-        "x": 3.78,
-        "y": 5.55492627078484
+        "x": 3.7817377299571477,
+        "y": 5.389704719476032
       },
       "prevControl": {
-        "x": 3.1650086701283273,
-        "y": 5.564105245857552
+        "x": 3.1667464000854753,
+        "y": 5.3988836945487435
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,7 +62,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.75,
+      "waypointRelativePos": 0.9,
       "command": {
         "type": "parallel",
         "data": {
@@ -72,18 +72,7 @@
               "data": {
                 "name": "ShooterPos4-N2"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.85,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {

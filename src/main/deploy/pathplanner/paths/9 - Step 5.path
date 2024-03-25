@@ -3,43 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.3,
-        "y": 2.7
+        "x": 4.323297259247127,
+        "y": 4.838966215113341
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.20254141462778,
-        "y": 1.5731885408276927
+        "x": 6.422980336526713,
+        "y": 4.465699576881951
       },
       "isLocked": false,
-      "linkedName": "8-EndS2"
+      "linkedName": "9-EndS4"
     },
     {
       "anchor": {
-        "x": 8.362046291240198,
-        "y": 1.112302335592462
+        "x": 8.306972440803928,
+        "y": 0.7635012828294246
       },
       "prevControl": {
-        "x": 7.479331474045859,
-        "y": 1.4060295379192311
+        "x": 7.866381637313775,
+        "y": 1.800725466045828
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "8-EndS3"
+      "linkedName": "9-EndS5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.6,
-      "rotationDegrees": -25.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
@@ -53,13 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "EngageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -74,14 +68,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -20.0,
+    "velocity": 0,
+    "rotation": -80.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "8-Blue-Outside",
+  "folder": "9-Blue-C0-C5-C6-C4",
   "previewStartingState": {
-    "rotation": -32.0,
+    "rotation": -10.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

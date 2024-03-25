@@ -3,35 +3,40 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.3,
-        "y": 2.7
+        "x": 1.3584883107613055,
+        "y": 3.462119954206613
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.20254141462778,
-        "y": 1.5731885408276927
+        "x": 3.6348741287937627,
+        "y": 2.0026629176454804
       },
       "isLocked": false,
-      "linkedName": "8-EndS2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.362046291240198,
-        "y": 1.112302335592462
+        "x": 8.490551942258158,
+        "y": 3.1041399263708627
       },
       "prevControl": {
-        "x": 7.479331474045859,
-        "y": 1.4060295379192311
+        "x": 6.452819476116199,
+        "y": 0.9287228341382323
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "8-EndS3"
+      "linkedName": "9-EndS1"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.6,
-      "rotationDegrees": -25.0,
+      "waypointRelativePos": 0.15,
+      "rotationDegrees": -42.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 15.0,
       "rotateFast": false
     }
   ],
@@ -39,7 +44,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -65,6 +70,40 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos9-N0"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -75,13 +114,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -20.0,
+    "rotation": 25.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "8-Blue-Outside",
+  "folder": "9-Blue-C0-C5-C6-C4",
   "previewStartingState": {
-    "rotation": -32.0,
+    "rotation": -50.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

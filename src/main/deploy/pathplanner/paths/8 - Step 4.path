@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.178466789785967,
-        "y": 0.7726802579021355
+        "x": 8.362046291240198,
+        "y": 1.112302335592462
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.104018423353163,
-        "y": 1.185734136174154
+        "x": 6.232524074371123,
+        "y": 1.4611033883554994
       },
       "isLocked": false,
       "linkedName": "8-EndS3"
     },
     {
       "anchor": {
-        "x": 3.44,
-        "y": 2.98
+        "x": 4.3,
+        "y": 2.7
       },
       "prevControl": {
-        "x": 4.745530112591858,
-        "y": 1.9108731669183645
+        "x": 5.523805542172683,
+        "y": 1.5915464909731154
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
@@ -80,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -37.0,
+    "rotation": -32.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "8-Blue-Outside",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -20.0,
     "velocity": 0.0
   },
   "useDefaultConstraints": true

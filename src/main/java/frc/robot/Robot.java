@@ -64,9 +64,9 @@ public class Robot extends TimedRobot {
     visionStdDevs.set(2,0,Math.toRadians(90));
 
     
-    visionStdDevsMultiTags.set(0,0,0.5); 
-    visionStdDevsMultiTags.set(1,0,0.5);
-    visionStdDevsMultiTags.set(2,0,Math.toRadians(20));
+    visionStdDevsMultiTags.set(0,0,0.75); //0.5
+    visionStdDevsMultiTags.set(1,0,0.75); //0.5
+    visionStdDevsMultiTags.set(2,0,Math.toRadians(30));//20
     m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
 
     gcTimer.start();

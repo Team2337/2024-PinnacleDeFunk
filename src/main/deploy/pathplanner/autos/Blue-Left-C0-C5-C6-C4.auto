@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2483406098887673,
-      "y": 5.527389345566705
+      "x": 1.3584883107613055,
+      "y": 3.462119954206613
     },
-    "rotation": 0.0
+    "rotation": -50.0
   },
   "command": {
     "type": "sequential",
@@ -20,27 +20,15 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "ShooterPos4-N0"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
+                        "pathName": "9 - Step 1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "4 - Step 1"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "4 - Step 2"
+                        "pathName": "9 - Step 2"
                       }
                     },
                     {
@@ -52,13 +40,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "4 - Step 3"
+                        "pathName": "9 - Step 3"
                       }
                     },
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "AutoStartDeliveryToSensorTinyTimeout"
+                        "pathName": "9 - Step 4"
                       }
                     },
                     {
@@ -70,49 +58,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "4 - Step 4"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryToSensorTinyTimeout"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "DisengageDeliverServo"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos4-N3"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.15
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
+                        "pathName": "9 - Step 5"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "4 - Step 5"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "4 - Step 6"
+                        "pathName": "9 - Step 6"
                       }
                     },
                     {

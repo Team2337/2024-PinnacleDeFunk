@@ -64,7 +64,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoStartDeliveryToSensorTinyTimeout"
+                        "name": "AutoStartDeliveryToSensor"
                       }
                     },
                     {
@@ -76,7 +76,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos8-N0"
+                        "name": "ShooterPos8-N1"
                       }
                     },
                     {

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.523709862070113,
-        "y": 6.34431812703803
+        "x": 1.29,
+        "y": 6.68
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.6624110540118973,
-        "y": 6.289244276601762
+        "x": 3.3686838516851294,
+        "y": 5.5182103704939935
       },
       "isLocked": false,
       "linkedName": "Start-Right"
     },
     {
       "anchor": {
-        "x": 8.288614490658505,
+        "x": 8.123392939349698,
         "y": 5.775221672529917
       },
       "prevControl": {
-        "x": 6.939305154969911,
-        "y": 6.2617073513836266
+        "x": 7.196316457005834,
+        "y": 6.665582254582933
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,8 +30,18 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.4,
       "rotationDegrees": 10.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.15,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
@@ -56,7 +66,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
@@ -73,7 +83,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.75,
       "command": {
         "type": "parallel",
         "data": {
@@ -109,13 +119,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": -20.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "2-Blue-YeetOut-C0-C7-C6-C5",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

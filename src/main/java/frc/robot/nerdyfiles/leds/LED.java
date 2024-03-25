@@ -61,6 +61,7 @@ public class LED extends SubsystemBase {
 		for (int i = 0; i < (12 * time); i++) {
 			ledBuffer.setLED(i, color);
 		}
+
 			led.setData(ledBuffer);
 			led.start();
 	}

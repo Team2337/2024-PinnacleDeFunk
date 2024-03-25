@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.5,
-        "y": 4.563596962931995
+        "x": 7.976529338186315,
+        "y": 4.949113915985879
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.783770861659371,
-        "y": 4.23315386031438
+        "x": 7.260300199845686,
+        "y": 4.618670813368264
       },
       "isLocked": false,
       "linkedName": "4-EndS5"
     },
     {
       "anchor": {
-        "x": 4.5,
-        "y": 4.79
+        "x": 4.084643907356628,
+        "y": 4.949113915985879
       },
       "prevControl": {
-        "x": 5.332984517245394,
-        "y": 4.324943611041495
+        "x": 4.917628424602021,
+        "y": 4.484057527027374
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorTinyTimeout"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -80,7 +80,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": -11.0,
     "rotateFast": false
   },
   "reversed": false,

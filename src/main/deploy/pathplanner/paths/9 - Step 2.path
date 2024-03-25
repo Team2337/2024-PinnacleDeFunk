@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.3,
-        "y": 2.7
+        "x": 8.490551942258158,
+        "y": 3.1041399263708627
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.20254141462778,
-        "y": 1.5731885408276927
+        "x": 6.498714351479756,
+        "y": 3.820099982042362
       },
       "isLocked": false,
-      "linkedName": "8-EndS2"
+      "linkedName": "9-EndS1"
     },
     {
       "anchor": {
-        "x": 8.362046291240198,
-        "y": 1.112302335592462
+        "x": 4.240686483592724,
+        "y": 4.921576990767744
       },
       "prevControl": {
-        "x": 7.479331474045859,
-        "y": 1.4060295379192311
+        "x": 5.314626567099973,
+        "y": 4.480986187277591
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "8-EndS3"
+      "linkedName": "9-EndS2"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.6,
-      "rotationDegrees": -25.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -47,19 +41,30 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
+              }
             },
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "ShooterPos9-N5"
               }
             }
           ]
@@ -74,14 +79,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -20.0,
+    "velocity": 0,
+    "rotation": -7.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "8-Blue-Outside",
+  "folder": "9-Blue-C0-C5-C6-C4",
   "previewStartingState": {
-    "rotation": -32.0,
+    "rotation": 25.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

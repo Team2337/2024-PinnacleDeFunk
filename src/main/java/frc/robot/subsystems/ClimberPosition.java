@@ -45,7 +45,7 @@ public class ClimberPosition extends SubsystemBase {
 
         TalonFXConfiguration climbMotorRightConfig = new TalonFXConfiguration();
         climbMotorRightConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        climbMotorRightConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        climbMotorRightConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         climbMotorRightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
         climbMotorRightConfig.Slot0.kP = 1;
         climbMotorRightConfig.Slot0.kD = 0;
@@ -70,7 +70,7 @@ public class ClimberPosition extends SubsystemBase {
     
     public void setClimbSpeed(double speed) {
         climbMotorLeft.set(speed);
-        climbMotorRight.set(speed);
+        //climbMotorRight.set(speed);
     }
 
     public void stopMotors() {

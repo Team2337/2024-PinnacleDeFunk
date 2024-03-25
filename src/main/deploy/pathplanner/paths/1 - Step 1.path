@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.523709862070113,
-        "y": 6.34431812703803
+        "x": 1.29,
+        "y": 6.68
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.9836751815568006,
-        "y": 6.179096575729224
+        "x": 4.06350366355386,
+        "y": 5.186622141501584
       },
       "isLocked": false,
       "linkedName": "Start-Right"
     },
     {
       "anchor": {
-        "x": 8.325330390949352,
-        "y": 7.4457951357634125
+        "x": 8.31615141587664,
+        "y": 7.537584886490529
       },
       "prevControl": {
-        "x": 7.003557980478892,
-        "y": 6.996025357200549
+        "x": 6.994379005406179,
+        "y": 7.087815107927665
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,12 +30,39 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.4,
+      "rotationDegrees": 10.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.1,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.6,
       "rotationDegrees": 15.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.3,
+      "maxWaypointRelativePos": 0.4,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 1.25,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "New Event Marker",
@@ -56,7 +83,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
@@ -73,7 +100,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -115,7 +142,7 @@
   "reversed": false,
   "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

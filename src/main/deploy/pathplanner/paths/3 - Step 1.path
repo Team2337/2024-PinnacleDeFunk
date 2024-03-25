@@ -76,29 +76,6 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.95,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "DisengageDeliverServo"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos3-N2"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -109,7 +86,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -2.0,
     "rotateFast": false
   },
   "reversed": false,

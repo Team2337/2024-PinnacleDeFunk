@@ -244,23 +244,23 @@ public class RobotContainer {
 
     
     //Manual Shooter Pos for Yeet Blue-SpeakerCenter-C0-C8-C7-C6
-    NamedCommands.registerCommand("ShooterPos1-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos1-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos1-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos1-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos1-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14.0)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos1-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14.0)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos1-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos1-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
 
-    NamedCommands.registerCommand("ShooterPos1.5-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.7)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos1.5-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(11.5)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos1.5-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.8)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos1.5-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.7)).withTimeout(0.3));
     
     //Manual Shooter Pos for Yeet Blue-SpeakerCenter-C0-C7-C6-C5
-    NamedCommands.registerCommand("ShooterPos2-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos2-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.5)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos2-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(1));
-    NamedCommands.registerCommand("ShooterPos2-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos2-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14.1)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos2-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos2-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPos2-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
 
     //Manual Shooter Pos for Yeet Blue-SpeakerCenter-C0-C2-C6
-    NamedCommands.registerCommand("ShooterPos3-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(0.1));
-    NamedCommands.registerCommand("ShooterPos3-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.5)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos3-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.8)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos3-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));
     NamedCommands.registerCommand("ShooterPos3-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
 
     //The HOT Team ally auto
@@ -308,12 +308,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPos17-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
 
 
-    //Manual Shooter Pos for Blue-SpeakerCenter-C0-C1-C2-C3
-    NamedCommands.registerCommand("ShooterPos8-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(0.1));
-    NamedCommands.registerCommand("ShooterPos8-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(15)).withTimeout(0.1));
-    NamedCommands.registerCommand("ShooterPos8-N4", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13)).withTimeout(0.1));
-    NamedCommands.registerCommand("ShooterPos8-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13)).withTimeout(0.1));
-    NamedCommands.registerCommand("ShooterPos8-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13)).withTimeout(0.1));
+    //Manual Shooter Pos for Blue-SpeakerCenter-C0-C5-C4-C6
+    NamedCommands.registerCommand("ShooterPos8-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos8-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.7)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos8-N4", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos8-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos8-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(11.5)).withTimeout(0.1));
 
     
     NamedCommands.registerCommand("ShooterPos18-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));
@@ -321,11 +321,17 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShooterPos18-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(15)).withTimeout(1));
     NamedCommands.registerCommand("ShooterPos18-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13)).withTimeout(1));
 
+    //Manual Shooter Pos for Blue-SpeakerCenter-C0-C5-C6-C4
+    NamedCommands.registerCommand("ShooterPos9-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos9-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos9-N4", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
+    NamedCommands.registerCommand("ShooterPos9-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(0.1));
+
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> doWeHaveNote()).withTimeout(1));
     NamedCommands.registerCommand("ShooterPositionByDistanceDrive", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery).withTimeout(6));
     NamedCommands.registerCommand("AutoStartDeliveryToSensorNoTimeout", new AutoStartDeliveryToSensor(delivery));
-    NamedCommands.registerCommand("AutoStartDeliveryToSensorTinyTimeout", new AutoStartDeliveryToSensor(delivery).withTimeout(0.2));
+    NamedCommands.registerCommand("AutoStartDeliveryToSensorTinyTimeout", new AutoStartDeliveryToSensor(delivery).withTimeout(0.4));
     NamedCommands.registerCommand("AutoStartDeliveryTemp", new AutoStartDeliveryTemp(delivery).withTimeout(0.2));
     NamedCommands.registerCommand("AutoStartDeliveryTempLong", new AutoStartDeliveryTemp(delivery).withTimeout(2));
     //NamedCommands.registerCommand("AutoStartDeliveryBackTemp", new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED).withTimeout(0.1));

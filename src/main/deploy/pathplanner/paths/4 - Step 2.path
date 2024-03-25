@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.790408422104303,
-        "y": 4.1046482092964185
+        "x": 2.716976621522611,
+        "y": 4.214795910168958
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8449739896150164,
-        "y": 4.581954913077419
+        "x": 1.7715421890333245,
+        "y": 4.692102613949958
       },
       "isLocked": false,
       "linkedName": "4-EndS1"
     },
     {
       "anchor": {
-        "x": 1.9734796406329773,
-        "y": 5.55492627078484
+        "x": 1.9643006655602657,
+        "y": 5.389704719476032
       },
       "prevControl": {
-        "x": 1.9551216904875544,
-        "y": 5.444778569912301
+        "x": 1.918405790196708,
+        "y": 5.1510513675855325
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.75,
       "command": {
         "type": "parallel",
         "data": {
@@ -42,6 +42,12 @@
               "type": "named",
               "data": {
                 "name": "ShooterPos4-N1"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -58,24 +64,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "DisengageDeliverServo"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -97,7 +86,7 @@
   "reversed": false,
   "folder": "4-Blue-SpedUpSpikes",
   "previewStartingState": {
-    "rotation": 15.0,
+    "rotation": -15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

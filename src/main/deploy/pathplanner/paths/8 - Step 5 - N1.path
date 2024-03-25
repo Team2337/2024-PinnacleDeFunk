@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.44,
-        "y": 2.98
+        "x": 4.3,
+        "y": 2.7
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5145308869974015,
-        "y": 3.6456994556608433
+        "x": 1.3401303606158823,
+        "y": 3.232645577388825
       },
       "isLocked": false,
       "linkedName": "8-EndS4"
     },
     {
       "anchor": {
-        "x": 2.845482272540572,
-        "y": 4.123006159441842
+        "x": 2.7,
+        "y": 4.26
       },
       "prevControl": {
-        "x": 2.120343241796362,
-        "y": 4.462628237132168
+        "x": 1.7912814678015594,
+        "y": 4.56290617739948
       },
       "nextControl": null,
       "isLocked": false,
@@ -69,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": -25.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "8-Blue-Outside",
   "previewStartingState": {
-    "rotation": -37.0,
+    "rotation": -32.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

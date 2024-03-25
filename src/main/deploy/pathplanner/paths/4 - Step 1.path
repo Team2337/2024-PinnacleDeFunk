@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.790408422104303,
-        "y": 4.1046482092964185
+        "x": 2.716976621522611,
+        "y": 4.214795910168958
       },
       "prevControl": {
-        "x": 2.157059142087208,
-        "y": 4.71046056409538
+        "x": 2.083627341505516,
+        "y": 4.820608264967919
       },
       "nextControl": null,
       "isLocked": false,
@@ -68,7 +68,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "parallel",
         "data": {
@@ -77,23 +77,6 @@
               "type": "named",
               "data": {
                 "name": "AutoStartDeliveryTemp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos4-N0"
               }
             }
           ]

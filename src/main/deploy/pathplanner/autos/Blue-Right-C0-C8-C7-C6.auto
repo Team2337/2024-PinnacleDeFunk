@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.523709862070113,
-      "y": 6.34431812703803
+      "x": 1.29,
+      "y": 6.68
     },
-    "rotation": 0
+    "rotation": 15.0
   },
   "command": {
     "type": "sequential",
@@ -47,6 +47,12 @@
                       "type": "named",
                       "data": {
                         "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
                       }
                     }
                   ]
