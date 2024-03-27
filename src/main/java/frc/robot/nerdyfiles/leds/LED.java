@@ -29,6 +29,7 @@ public class LED extends SubsystemBase {
 	private static int LED_LENGTH = 186;//186
 	private static int LED_RIGHT_LENGTH = 70;
 	private static int LED_SHOOTER_START = 71;
+	private static int LED_SHOOTER_MIDDLE = 94;
 	private static int LED_SHOOTER_END = 117;
 	private static int LED_LEFT_START = 150;
 	private static int LED_LEFT_END = 186;
@@ -58,12 +59,35 @@ public class LED extends SubsystemBase {
 	}
 
 	public void setAutoColor(Color color, double time) {
-		for (int i = 0; i < (12 * time); i++) {
-			ledBuffer.setLED(i, color);
+		for (int i = 0; i < 186; i++) {
+			if (i < (12 * time)) {
+				ledBuffer.setLED(i, color);
+			} else {
+				ledBuffer.setLED(i, Color.kBlack);
+			}
 		}
 
+		// for (int i = ((int)(12 * time)); i < 186; i++) {
+		// 	ledBuffer.setLED(i, Color.kBlack);
+		// }
 			led.setData(ledBuffer);
 			led.start();
+	}
+
+	public void setShooterLeft(Color color) {
+		for (int i = LED_SHOOTER_START; i <  LED_SHOOTER_MIDDLE; i++) {
+			ledBuffer.setLED(i, color);
+		}
+		led.setData(ledBuffer);
+		led.start();
+	}
+
+	public void setShooterRight(Color color) {
+		for (int i = (LED_SHOOTER_START + 1); i <  LED_SHOOTER_END; i++) {
+			ledBuffer.setLED(i, color);
+		}
+		led.setData(ledBuffer);
+		led.start();
 	}
 
 	public void setUprightColors(Color color) {

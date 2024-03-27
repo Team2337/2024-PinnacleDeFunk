@@ -129,11 +129,11 @@ public final class Constants {
 
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
-    public static Translation2d redSpeakerCenter = new Translation2d(0, 2.658);
+    public static Translation2d redSpeakerCenter = new Translation2d(16.541, 5.55); // 0,2.658
     public static Translation2d randomPointBlue = new Translation2d(0, 5.75);
-    public static Translation2d randomPointRed = new Translation2d(1.35, 1.8542);
+    public static Translation2d randomPointRed = new Translation2d(16.541, 5.75); //  1.35, 1.8542
     public static Translation2d blueAmpRobotLocation = new Translation2d(1.8415, 7.74);//7.7216
-    public static Translation2d redAmpRobotLocation = new Translation2d(1.8415, 0.3556);
+    public static Translation2d redAmpRobotLocation = new Translation2d(14.6995, 7.74); // 1.8415, 0.3556
     public static double midFieldInMeters = 8.28; 
     public static double cartman = 2.84;
     public static double longwood = 5.34;
@@ -152,7 +152,7 @@ public final class Constants {
   public static final class Swerve {
 
     public static double MaxSpeed = 6.21792; // 6.21792 meters per second desired top speed
-    public static double MaxAngularRate = 1.5 * Math.PI; // 3/4 of a rotation per second max angular velocity @ 1.5
+    public static double MaxAngularRate = 3 * Math.PI; // 3/4 of a rotation per second max angular velocity @ 1.5 //1.5
     public static double driveAdjustment = 1;
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
@@ -238,7 +238,8 @@ public final class Constants {
     public static final double SHOOTER_INTAKE_VELOCITY = -5;
     
     public static final double SHOOTER_SENDIT_VELOCITY = 60; 
-    public static final double SHOOTER_SENDIT_CHAIN_VELOCITY = 50; 
+    public static final double SHOOTER_SENDIT_CHAIN_VELOCITY = 55; 
+
     public static final double SHOOTER_SENDIT_LEFTRIGHT_DIFF = -30;
     public static final double SHOOTER_SENDIT_BOTTOM_DIFF = 0; 
   }
@@ -250,8 +251,8 @@ public final class Constants {
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
     public static final double SHOOTERPOT_MAX_PID_SPEED = 0.7;
     public static final double SHOOTERPOT_AT_AMP = 6.62;
-    public static final double SHOOTERPOT_HALF_COURT = 13.0;
-    public static final double SHOOTERPOT_HALF_CHAIN_COURT = 12.6;
+    public static final double SHOOTERPOT_HALF_COURT = 10;
+    public static final double SHOOTERPOT_HALF_CHAIN_COURT = 9.5;
 
     public static final double SHOOTER_AT_PICKUP = 13.7;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;

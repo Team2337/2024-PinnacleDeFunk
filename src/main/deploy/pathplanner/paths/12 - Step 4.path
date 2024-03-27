@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.334509366022063,
-        "y": 4.205616935096246
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.948484130042622,
-        "y": 3.838457932187785
+        "x": 5.489027093481491,
+        "y": 4.1689010348054
       },
       "isLocked": false,
-      "linkedName": "1-EndS3"
+      "linkedName": "12-EndS3"
     },
     {
       "anchor": {
-        "x": 4.314118284174416,
-        "y": 4.802250314822494
+        "x": 8.18764576485868,
+        "y": 2.5717593721535947
       },
       "prevControl": {
-        "x": 5.137923826347099,
-        "y": 3.9424979977373944
+        "x": 7.46250673411447,
+        "y": 3.113318901443575
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "12-EndS4"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.1,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,30 +41,19 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "DisengageDeliverServo"
+                "name": "EngageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos1-N6"
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -80,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": -20.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "12-Red-YeetOut-Skip",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -10.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -3,43 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2483406098887673,
-        "y": 5.527389345566705
+        "x": 3.653232078939186,
+        "y": 5.573284220930263
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3222806933960154,
-        "y": 5.545747295712128
+        "x": 4.607845486501184,
+        "y": 3.902710757696766
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "13-EndS1"
     },
     {
       "anchor": {
-        "x": 2.790408422104303,
-        "y": 4.1046482092964185
+        "x": 8.224361665149523,
+        "y": 4.499344137423015
       },
       "prevControl": {
-        "x": 1.5512467872882474,
-        "y": 3.9118897327694766
+        "x": 7.113705681351426,
+        "y": 4.113827184369131
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "16-EndS1"
+      "linkedName": "13-EndS2"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "parallel",
         "data": {
@@ -53,13 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "EngageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -69,20 +63,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 2.5,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "16 - Red - Spikes",
+  "folder": "13-Red-Middle",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

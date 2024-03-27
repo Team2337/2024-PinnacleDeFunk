@@ -230,7 +230,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 hasAppliedOperatorPerspective = true;
             });
         }
-      if (DriverStation.isAutonomous() && !DriverStation.isDisabled()) {//TODO: Alliance flip
+      if (DriverStation.isAutonomous() && !DriverStation.isDisabled()) {
         if (allianceColor == "Undefined") {
             if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
                 allianceColor = "red";

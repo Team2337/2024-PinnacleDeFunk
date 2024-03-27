@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2483406098887673,
-      "y": 5.527389345566705
+      "x": 1.3584883107613055,
+      "y": 3.462119954206613
     },
-    "rotation": 0.0
+    "rotation": -40.0
   },
   "command": {
     "type": "sequential",
@@ -20,33 +20,15 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "ShooterPos16-N0"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
+                        "pathName": "18 - Step 1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "16 - Step 1"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "16 - Step 2"
+                        "pathName": "18 - Step 2"
                       }
                     },
                     {
@@ -58,13 +40,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "16 - Step 3"
+                        "pathName": "18 - Step 3"
                       }
                     },
                     {
-                      "type": "wait",
+                      "type": "path",
                       "data": {
-                        "waitTime": 0.5
+                        "pathName": "18 - Step 4"
                       }
                     },
                     {
@@ -76,19 +58,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "16 - Step 3.5"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "16 - Step 4"
+                        "pathName": "18 - Step 5 - N1"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoStartDeliveryToSensorTinyTimeout"
+                        "name": "AutoStartDeliveryToSensor"
                       }
                     },
                     {
@@ -100,25 +76,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos16-N3"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
+                        "name": "ShooterPos18-N1"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "16 - Step 5"
                       }
                     }
                   ]
@@ -127,13 +91,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               }
             ]

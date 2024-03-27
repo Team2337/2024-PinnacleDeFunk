@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.31615141587664,
-        "y": 4.737997489313514
+        "x": 2.3589965936868613,
+        "y": 6.5646135287831076
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.269748257587525,
-        "y": 4.59113388815013
+        "x": 3.359504876612417,
+        "y": 4.563596962931995
       },
       "isLocked": false,
-      "linkedName": "18-EndS5"
+      "linkedName": "14-EndS4"
     },
     {
       "anchor": {
-        "x": 4.51605573577407,
-        "y": 4.875682115404187
+        "x": 7.976529338186315,
+        "y": 4.949113915985879
       },
       "prevControl": {
-        "x": 4.828140888246261,
-        "y": 3.737489206387959
+        "x": 5.8559170137208225,
+        "y": 4.168901034805399
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "18-EndS6"
+      "linkedName": "14-EndS5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos18-N6"
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensorNoTimeout"
               }
             }
           ]
@@ -51,20 +63,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -8.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "18-Red-Outside",
+  "folder": "14-Red-Spikes",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 30.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

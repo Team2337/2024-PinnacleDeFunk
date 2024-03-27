@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.185612633156454,
-        "y": 5.435599594839589
+        "x": 8.334509366022063,
+        "y": 4.205616935096246
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.985612633156454,
-        "y": 5.435599594839589
+        "x": 6.948484130042622,
+        "y": 3.838457932187785
       },
       "isLocked": false,
-      "linkedName": "7-EndS5N2"
+      "linkedName": "11-EndS3"
     },
     {
       "anchor": {
-        "x": 2.3589965936868613,
-        "y": 5.435599594839589
+        "x": 4.314118284174416,
+        "y": 4.802250314822494
       },
       "prevControl": {
-        "x": 2.7813292067148128,
-        "y": 5.435599594839589
+        "x": 5.137923826347099,
+        "y": 3.9424979977373944
       },
       "nextControl": null,
       "isLocked": false,
@@ -41,13 +41,30 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.6,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "ShooterPos11-N6"
               }
             }
           ]
@@ -63,11 +80,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -10.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "11 - Red - YeetOut",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

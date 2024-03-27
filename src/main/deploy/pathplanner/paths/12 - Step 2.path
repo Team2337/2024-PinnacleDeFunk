@@ -3,57 +3,40 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 4.242332835387091
+        "x": 8.123392939349698,
+        "y": 5.775221672529917
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.214674407151256,
-        "y": 3.9853215333511693
+        "x": 2.441607369341265,
+        "y": 7.950638764762547
       },
       "isLocked": false,
-      "linkedName": "7-EndS6"
+      "linkedName": "12-EndS1"
     },
     {
       "anchor": {
-        "x": 4.497697785628646,
-        "y": 4.793071339749783
+        "x": 8.334509366022063,
+        "y": 4.205616935096246
       },
       "prevControl": {
-        "x": 5.066794240136761,
-        "y": 4.334122586114207
+        "x": 3.9469592812659555,
+        "y": 3.26936147767967
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS7"
+      "linkedName": "12-EndS2"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": -10.0,
+      "rotationDegrees": -3.0,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos7-N6"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -64,7 +47,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorTinyTimeout"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -73,7 +56,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "parallel",
         "data": {
@@ -82,6 +65,58 @@
               "type": "named",
               "data": {
                 "name": "DisengageDeliverServo"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos12-N7"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -97,13 +132,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -5.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "12-Red-YeetOut-Skip",
   "previewStartingState": {
-    "rotation": -50.0,
+    "rotation": -20.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -89,6 +89,9 @@ public class SwerveDriveCommand extends Command{
             double angleToSpeakerRad = Math.atan2(currentPoseY - speakerY, currentPoseX - speakerX);
             double angleToSpeaker = Math.toDegrees(angleToSpeakerRad);
             double modAngleToSpeaker = angleToSpeaker + (yVelocity.get() * 8);
+            if (allianceColor.get() == "red") {
+                modAngleToSpeaker = modAngleToSpeaker - 180;
+            }
             // SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
             // SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
             // SmartDashboard.putNumber("Y Velocity", yVelocity.get());
@@ -129,6 +132,9 @@ public class SwerveDriveCommand extends Command{
 
             double angleToRandomRad = Math.atan2(currentPoseY - randomY, currentPoseX - randomX);
             double angleToRandom = Math.toDegrees(angleToRandomRad);
+            if (allianceColor.get() == "red") {
+                angleToRandom = angleToRandom - 180;
+            }
             // SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
             // SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
             // SmartDashboard.putNumber("Y Velocity", yVelocity.get());
@@ -151,7 +157,7 @@ public class SwerveDriveCommand extends Command{
                 rotation = (Utilities.scaleVisionToOne(-tx) / 0.5);
             }
 
-            if (rotation <= 0.2 && rotation >= -0.2) {
+            if (rotation <= 0.1 && rotation >= -0.1) {
                 rotation = 0;
             } 
             SmartDashboard.putNumber("Note Detection", rotation);

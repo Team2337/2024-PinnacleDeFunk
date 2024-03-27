@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8352867316167485,
-      "y": 4.5360600377138605
+      "x": 1.29,
+      "y": 6.68
     },
-    "rotation": -40.0
+    "rotation": 15.0
   },
   "command": {
     "type": "sequential",
@@ -20,81 +20,63 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "AutoModLimelight"
+                        "pathName": "11 - Step 1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "11 - Step 2"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "11.5 - Step 3"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoDontUseLimelight"
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "11.5 - Step 4"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos18-N0"
+                        "name": "AutoStartDeliveryToSensor"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 0.2
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 1"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 2"
+                        "name": "ShooterPos11.5-N3"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoStartDeliveryTemp"
+                        "name": "DisengageDeliverServo"
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "wait",
                       "data": {
-                        "pathName": "8 - Step 3"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 4"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 5 - N6"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "8 - Step 6"
+                        "waitTime": 0.2
                       }
                     },
                     {
@@ -109,13 +91,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               }
             ]

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7266638795208786,
-        "y": 7.142888958363933
+        "x": 4.240686483592724,
+        "y": 4.921576990767744
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.846498838391684,
-        "y": 7.216320758945625
+        "x": 5.036955100547273,
+        "y": 4.144435449337047
       },
       "isLocked": false,
-      "linkedName": "17-EndS1"
+      "linkedName": "19-EndS2"
     },
     {
       "anchor": {
-        "x": 8.233540640222236,
-        "y": 7.42743718561799
+        "x": 8.297793465731218,
+        "y": 4.178080009878111
       },
       "prevControl": {
-        "x": 7.23303235729668,
-        "y": 7.41825821054528
+        "x": 7.288106207732949,
+        "y": 4.187258984950823
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "17-EndS2"
+      "linkedName": "19-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -33,17 +33,11 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
           "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPositionPickup"
-              }
-            },
             {
               "type": "named",
               "data": {
@@ -54,6 +48,12 @@
               "type": "named",
               "data": {
                 "name": "EngageDeliverServo"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionPickup"
               }
             }
           ]
@@ -73,9 +73,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "19-Red-Outside",
   "previewStartingState": {
-    "rotation": 27.0,
+    "rotation": -10.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.nerdyfiles.leds.LED;
+import frc.robot.nerdyfiles.vision.LimelightHelpers;
 
 public class LEDRunnable extends Command {
   private final LED led;
@@ -48,7 +49,6 @@ public class LEDRunnable extends Command {
     
     if (DriverStation.isDisabled()) {
         led.setColor(Color.kRed);
-       // led.setShooterColors(Color.kBlack);
     } 
 
     // if (DriverStation.isTeleop() && hasGamepiece.get() == true) {

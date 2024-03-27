@@ -3,51 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.233540640222236,
-        "y": 7.42743718561799
+        "x": 8.18764576485868,
+        "y": 2.5717593721535947
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.352359033241929,
-        "y": 7.354005385036298
+        "x": 7.655265210641412,
+        "y": 2.874665549553075
       },
       "isLocked": false,
-      "linkedName": "17-EndS2"
+      "linkedName": "12-EndS4"
     },
     {
       "anchor": {
-        "x": 4.82,
-        "y": 6.500360703274127
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": {
-        "x": 5.262623935192377,
-        "y": 6.954826531184696
+        "x": 5.085152190282184,
+        "y": 4.35248053625963
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "17-EndS3"
+      "linkedName": "12-EndS5"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos17-N8"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -58,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorTinyTimeout"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -67,11 +50,17 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos12-N5"
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -91,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 12.0,
+    "rotation": -10.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "12-Red-YeetOut-Skip",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -20.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

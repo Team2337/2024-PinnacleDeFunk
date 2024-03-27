@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7693261898151704,
-      "y": 6.568323745728334
+      "x": 1.2483406098887673,
+      "y": 5.527389345566705
     },
-    "rotation": 59.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -22,13 +22,25 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos17-N0"
+                        "name": "ShooterPos14-N0"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
                         "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "14 - Step 1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "14 - Step 2"
                       }
                     },
                     {
@@ -40,7 +52,31 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "17 - Step 1"
+                        "pathName": "14 - Step 3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryToSensorTinyTimeout"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "14 - Step 4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryToSensorTinyTimeout"
                       }
                     },
                     {
@@ -52,81 +88,13 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos17-N3"
+                        "name": "ShooterPos14-N3"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.55
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "deadline",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "17 - Step 2"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "DoWeHaveNote"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "EngageDeliverServo"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "17 - Step 3"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "deadline",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "17 - Step 4"
-                            }
-                          },
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "DoWeHaveNote"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "17 - Step 5 - N6"
+                        "waitTime": 0.15
                       }
                     },
                     {
@@ -138,25 +106,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "17 - Step 6 - N6"
+                        "pathName": "14 - Step 5"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "17 - Step 7"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos17-N6"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.75
+                        "pathName": "14 - Step 6"
                       }
                     },
                     {
@@ -171,13 +127,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               }
             ]

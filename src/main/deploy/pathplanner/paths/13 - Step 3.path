@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.334509366022063,
-        "y": 4.205616935096246
+        "x": 8.224361665149523,
+        "y": 4.499344137423015
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.948484130042622,
-        "y": 3.838457932187785
+        "x": 6.663935902788563,
+        "y": 4.196437960023535
       },
       "isLocked": false,
-      "linkedName": "1-EndS3"
+      "linkedName": "13-EndS2"
     },
     {
       "anchor": {
-        "x": 4.314118284174416,
-        "y": 4.802250314822494
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": {
-        "x": 5.137923826347099,
-        "y": 3.9424979977373944
+        "x": 5.149405015791165,
+        "y": 3.8384579321877847
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "13-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -33,24 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoStartDeliveryToSensor"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "parallel",
         "data": {
@@ -64,7 +47,24 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos1-N6"
+                "name": "ShooterPos13-N6"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -84,7 +84,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "13-Red-Middle",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

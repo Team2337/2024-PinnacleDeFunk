@@ -2,6 +2,7 @@ package frc.robot.commands.shooter;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
 
@@ -22,11 +23,12 @@ public class HalfCourt extends Command {
     
     @Override
     public void execute() {
-        if (chainShot.get()) {
+        if (!chainShot.get()) {
             shooter.halfCourt();
         } else {
             shooter.halfCourtChain();
         }
+        SmartDashboard.putBoolean("Chain Shot", chainShot.get());
     }
 
     @Override

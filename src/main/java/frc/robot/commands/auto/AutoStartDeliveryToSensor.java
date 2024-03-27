@@ -23,7 +23,6 @@ public class AutoStartDeliveryToSensor extends Command{
             delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
         } else if (delivery.getDeliveryBottomSensor() && !delivery.getDeliveryTopSensor()) {
             delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_SLOW_SPEED);
-            //TODO: delivery.setDeliverySpeed(0.45);
         } else {
             delivery.stopMotors();
         }

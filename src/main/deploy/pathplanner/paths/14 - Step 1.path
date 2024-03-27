@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5889792534302054,
-        "y": 7.234678709091049
+        "x": 1.2483406098887673,
+        "y": 5.527389345566705
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1667464000854757,
-        "y": 7.1245310082185105
+        "x": 1.8357950145423048,
+        "y": 5.0317246916402825
       },
       "isLocked": false,
-      "linkedName": "16-EndS3.5"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.9459427154148428,
-        "y": 6.711477129946491
+        "x": 2.716976621522611,
+        "y": 4.214795910168958
       },
       "prevControl": {
-        "x": 2.6343658458682073,
-        "y": 6.986846382127837
+        "x": 2.083627341505516,
+        "y": 4.820608264967919
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "16-EndS4"
+      "linkedName": "14-EndS1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -21.90495596310316,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,7 +47,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos16-N3"
+                "name": "ShooterPositionPickup"
               }
             },
             {
@@ -49,18 +55,7 @@
               "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
@@ -70,24 +65,41 @@
           ]
         }
       }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 30.0,
+    "rotation": -15.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "16 - Red - Spikes",
+  "folder": "14-Red-Spikes",
   "previewStartingState": {
-    "rotation": 25.0,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

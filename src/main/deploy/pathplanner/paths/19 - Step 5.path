@@ -3,43 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.9454344324892869,
-        "y": 6.454465827910569
+        "x": 4.323297259247127,
+        "y": 4.838966215113341
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.670573463233497,
-        "y": 6.628866354292088
+        "x": 6.422980336526713,
+        "y": 4.465699576881951
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "19-EndS4"
     },
     {
       "anchor": {
-        "x": 3.7266638795208786,
-        "y": 7.142888958363933
+        "x": 8.306972440803928,
+        "y": 0.7635012828294246
       },
       "prevControl": {
-        "x": 3.047419724140226,
-        "y": 6.950130481836991
+        "x": 7.866381637313775,
+        "y": 1.800725466045828
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "17-EndS1"
+      "linkedName": "19-EndS5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": 35.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
@@ -53,24 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "EngageDeliverServo"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -86,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 27.0,
+    "rotation": -80.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "19-Red-Outside",
   "previewStartingState": {
-    "rotation": 46.0,
+    "rotation": -10.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

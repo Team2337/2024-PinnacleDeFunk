@@ -3,34 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.334509366022063,
-        "y": 4.205616935096246
+        "x": 2.716976621522611,
+        "y": 4.214795910168958
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.948484130042622,
-        "y": 3.838457932187785
+        "x": 1.7715421890333245,
+        "y": 4.692102613949958
       },
       "isLocked": false,
-      "linkedName": "1-EndS3"
+      "linkedName": "14-EndS1"
     },
     {
       "anchor": {
-        "x": 4.314118284174416,
-        "y": 4.802250314822494
+        "x": 1.9643006655602657,
+        "y": 5.389704719476032
       },
       "prevControl": {
-        "x": 5.137923826347099,
-        "y": 3.9424979977373944
+        "x": 1.918405790196708,
+        "y": 5.1510513675855325
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "14-EndS2"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos14-N1"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -47,29 +70,6 @@
           ]
         }
       }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "DisengageDeliverServo"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos1-N6"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -80,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "14-Red-Spikes",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

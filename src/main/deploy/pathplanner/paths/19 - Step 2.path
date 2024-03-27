@@ -3,38 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9459427154148428,
-        "y": 6.711477129946491
+        "x": 8.490551942258158,
+        "y": 3.1041399263708627
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.084135624431072,
-        "y": 5.628358071366532
+        "x": 6.498714351479756,
+        "y": 3.820099982042362
       },
       "isLocked": false,
-      "linkedName": "16-EndS4"
+      "linkedName": "19-EndS1"
     },
     {
       "anchor": {
-        "x": 6.911768229751776,
-        "y": 4.563596962931995
+        "x": 4.240686483592724,
+        "y": 4.921576990767744
       },
       "prevControl": {
-        "x": 4.855677813464395,
-        "y": 3.902710757696766
+        "x": 5.314626567099973,
+        "y": 4.480986187277591
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "19-EndS2"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -47,13 +41,30 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
+                "name": "ShooterPos19-N5"
               }
             }
           ]
@@ -69,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -7.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "16 - Red - Spikes",
+  "folder": "19-Red-Outside",
   "previewStartingState": {
-    "rotation": 30.0,
+    "rotation": 25.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

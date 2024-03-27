@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.82,
-        "y": 6.381034027328877
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.717484904448167,
-        "y": 3.884352807551342
+        "x": 6.480356401334335,
+        "y": 3.902710757696766
       },
       "isLocked": false,
-      "linkedName": "17-EndS5N6"
+      "linkedName": "13-EndS3"
     },
     {
       "anchor": {
-        "x": 8.288614490658505,
-        "y": 3.8384579321877847
+        "x": 8.637415543421543,
+        "y": 2.388179870699364
       },
       "prevControl": {
-        "x": 5.369700417536241,
-        "y": 3.2142876272434013
+        "x": 7.462506734114468,
+        "y": 2.2872111448995365
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "17-EndS6N6"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "parallel",
         "data": {
@@ -49,18 +49,7 @@
               "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.05,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
@@ -84,9 +73,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "13-Red-Middle",
   "previewStartingState": {
-    "rotation": 8.0,
+    "rotation": -10.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

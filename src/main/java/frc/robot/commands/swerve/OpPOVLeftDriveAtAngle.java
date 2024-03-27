@@ -18,18 +18,35 @@ public class OpPOVLeftDriveAtAngle extends InstantCommand {
 
     @Override
     public void initialize() {
-        if (drivetrain.getState().Pose.getX() > Constants.FieldElements.midFieldInMeters) {
-            if (isAllianceColorBlue.get()) {
+        // if (drivetrain.getState().Pose.getX() > Constants.FieldElements.midFieldInMeters) {
+        //     if (isAllianceColorBlue.get()) {
+        //         drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE);
+        //     } else {
+        //         drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED);
+        //     }
+        // } else {
+        //     if (isAllianceColorBlue.get()) {
+        //         drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_SNIPE_BLUE);
+        //     } else {
+        //         drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_SNIPE_RED);
+        //     }
+        // }
+
+
+        if (isAllianceColorBlue.get()) {
+            if (drivetrain.getState().Pose.getX() > Constants.FieldElements.midFieldInMeters) {
                 drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE);
             } else {
-                drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED);
+                drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_SNIPE_BLUE);
             }
         } else {
-            if (isAllianceColorBlue.get()) {
-                drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_SNIPE_BLUE);
+            if (drivetrain.getState().Pose.getX() < Constants.FieldElements.midFieldInMeters) {
+                drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED);
             } else {
                 drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_SNIPE_RED);
             }
         }
+
     }
 }
+

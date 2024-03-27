@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.334509366022063,
-        "y": 4.205616935096246
+        "x": 8.297793465731218,
+        "y": 4.178080009878111
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.948484130042622,
-        "y": 3.838457932187785
+        "x": 7.636907260495988,
+        "y": 4.1046482092964185
       },
       "isLocked": false,
-      "linkedName": "1-EndS3"
+      "linkedName": "19-EndS3"
     },
     {
       "anchor": {
-        "x": 4.314118284174416,
-        "y": 4.802250314822494
+        "x": 4.323297259247127,
+        "y": 4.838966215113341
       },
       "prevControl": {
-        "x": 5.137923826347099,
-        "y": 3.9424979977373944
+        "x": 5.176941941009299,
+        "y": 4.0403953837874385
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "19-EndS4"
     }
   ],
   "rotationTargets": [],
@@ -64,7 +64,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos1-N6"
+                "name": "ShooterPos19-N6"
               }
             }
           ]
@@ -80,11 +80,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": -7.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "19-Red-Outside",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

@@ -3,51 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 5.665073971657378
+        "x": 3.7542008047390127,
+        "y": 7.36318436010901
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.5084016094780255,
-        "y": 6.582971478928531
+        "x": 3.341146926466994,
+        "y": 7.216320758945625
       },
       "isLocked": false,
-      "linkedName": "7-EndS4"
+      "linkedName": "11.5-EndS3"
     },
     {
       "anchor": {
-        "x": 4.185612633156454,
-        "y": 5.435599594839589
+        "x": 2.212132992523477,
+        "y": 6.665582254582933
       },
       "prevControl": {
-        "x": 4.864856788537108,
-        "y": 6.454465827910568
+        "x": 2.6802607212317646,
+        "y": 6.968488431982414
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS5N2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos17-N7"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -58,7 +41,19 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -74,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 30.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "17 - Red - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "11 - Red - YeetOut",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 25.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

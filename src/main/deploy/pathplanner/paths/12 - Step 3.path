@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.948484130042622,
-        "y": 3.838457932187785
+        "x": 7.3156431329510845,
+        "y": 4.205616935096246
       },
       "isLocked": false,
-      "linkedName": "1-EndS3"
+      "linkedName": "12-EndS2"
     },
     {
       "anchor": {
-        "x": 4.314118284174416,
-        "y": 4.802250314822494
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": {
-        "x": 5.137923826347099,
-        "y": 3.9424979977373944
+        "x": 5.08030856128305,
+        "y": 3.8467985420765514
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "12-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "parallel",
         "data": {
@@ -58,13 +58,13 @@
             {
               "type": "named",
               "data": {
-                "name": "DisengageDeliverServo"
+                "name": "ShooterPos12-N6"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos1-N6"
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -84,7 +84,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "12-Red-YeetOut-Skip",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
