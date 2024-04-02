@@ -62,10 +62,10 @@ public class SwerveDriveCommand extends Command{
         forward = Utilities.deadband(-driverJoystick.getLeftY(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         strafe = Utilities.deadband(-driverJoystick.getLeftX(), Constants.Swerve.driveDeadband) * (Constants.Swerve.MaxSpeed/Constants.Swerve.driveAdjustment);
         rotation = Utilities.deadband(-driverJoystick.getRightX(), Constants.Swerve.driveDeadband) * Constants.Swerve.MaxAngularRate;
-        if (driverJoystick.back().getAsBoolean()) {
-            forward = -forward;
-            strafe = -strafe;
-        }
+        // if (allianceColor.get() == "red") {
+        //     forward = -forward;
+        //     strafe = -strafe;
+        // }
         //If we have set an angle to drive at and driver has hit drive at angle button, drive at that angle
         if ((drivetrain.rotationAngle != 0) && (drivetrain.driveAtAngle)) {
             swerveRequest = driveFacingAngle
@@ -89,6 +89,9 @@ public class SwerveDriveCommand extends Command{
             double angleToSpeakerRad = Math.atan2(currentPoseY - speakerY, currentPoseX - speakerX);
             double angleToSpeaker = Math.toDegrees(angleToSpeakerRad);
             double modAngleToSpeaker = angleToSpeaker + (yVelocity.get() * 8);
+            if (allianceColor.get() == "red") {
+                modAngleToSpeaker = modAngleToSpeaker - 180;
+            }
             // SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
             // SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
             // SmartDashboard.putNumber("Y Velocity", yVelocity.get());
@@ -98,6 +101,22 @@ public class SwerveDriveCommand extends Command{
                 .withVelocityX(forward)
                 .withVelocityY(strafe);
 
+        } else if(drivetrain.visionRotate) {
+            
+            double visionKP = 0.7;
+            rotation = LimelightHelpers.getTX("limelight-blue");
+            SmartDashboard.putNumber("Vision Rotation", rotation);
+            if(Math.abs(rotation) > 0) {
+                rotation = Utilities.scaleVisionToOne(rotation);
+                rotation = rotation * Constants.Swerve.MaxAngularRate;
+                rotation = -rotation * visionKP; //Needs to be greater than 0.48 to turn
+            } else {
+                rotation = 0;
+            }
+            swerveRequest = drive
+                .withVelocityX(forward)
+                .withVelocityY(strafe)
+                .withRotationalRate(rotation);
         } else if (drivetrain.pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp) {
             
             if (allianceColor.get() == "blue") {
@@ -113,6 +132,9 @@ public class SwerveDriveCommand extends Command{
 
             double angleToRandomRad = Math.atan2(currentPoseY - randomY, currentPoseX - randomX);
             double angleToRandom = Math.toDegrees(angleToRandomRad);
+            if (allianceColor.get() == "red") {
+                angleToRandom = angleToRandom - 180;
+            }
             // SmartDashboard.putNumber("Angle to Speaker", angleToSpeaker);
             // SmartDashboard.putNumber("Mod Angle to Speaker", modAngleToSpeaker);
             // SmartDashboard.putNumber("Y Velocity", yVelocity.get());
@@ -132,13 +154,13 @@ public class SwerveDriveCommand extends Command{
             var lastResult = LimelightHelpers.getLatestResults("limelight-coral").targetingResults;
             if ((lastResult.valid)) {
                 double tx = LimelightHelpers.getTX("limelight-coral");
-                strafe = (Utilities.scaleVisionToOne(-tx) / 0.5);
+                rotation = (Utilities.scaleVisionToOne(-tx) / 0.5);
             }
 
-            if (strafe <= 0.2 && strafe >= -0.2) {
-                strafe = 0;
+            if (rotation <= 0.1 && rotation >= -0.1) {
+                rotation = 0;
             } 
-            SmartDashboard.putNumber("Strafe", strafe);
+            SmartDashboard.putNumber("Note Detection", rotation);
             swerveRequest = drive
                 .withVelocityX(forward)
                 .withVelocityY(strafe)

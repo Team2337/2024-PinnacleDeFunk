@@ -15,7 +15,7 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class ClimberPosition extends SubsystemBase {
     private TalonFX climbMotorLeft = new TalonFX(54, "Upper"); 
-    private TalonFX climbMotorRight = new TalonFX(44, "Upper"); 
+    //private TalonFX climbMotorRight = new TalonFX(44, "Upper"); 
     private final PositionVoltage voltagePosition = new PositionVoltage(0, 0, true, 0, 0, false, false, false);
     CommandXboxController operatorJoystick;
 
@@ -27,7 +27,7 @@ public class ClimberPosition extends SubsystemBase {
         
         var setClimbMotorToDefault = new TalonFXConfiguration();
         climbMotorLeft.getConfigurator().apply(setClimbMotorToDefault);
-        climbMotorRight.getConfigurator().apply(setClimbMotorToDefault);
+        //climbMotorRight.getConfigurator().apply(setClimbMotorToDefault);
         
         TalonFXConfiguration climbMotorLeftConfig = new TalonFXConfiguration();
         climbMotorLeftConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
@@ -43,17 +43,17 @@ public class ClimberPosition extends SubsystemBase {
         climbMotorLeft.getConfigurator().apply(climbMotorLeftConfig);
         climbMotorLeft.setPosition(0);
 
-        TalonFXConfiguration climbMotorRightConfig = new TalonFXConfiguration();
-        climbMotorRightConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
-        climbMotorRightConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        climbMotorRightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
-        climbMotorRightConfig.Slot0.kP = 1;
-        climbMotorRightConfig.Slot0.kD = 0;
-        climbMotorRightConfig.Voltage.PeakForwardVoltage = 12;
-        climbMotorRightConfig.Voltage.PeakReverseVoltage = -12;
+        // TalonFXConfiguration climbMotorRightConfig = new TalonFXConfiguration();
+        // climbMotorRightConfig.withCurrentLimits(CTREUtils.setDefaultCurrentLimit());
+        // climbMotorRightConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+        // climbMotorRightConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+        // climbMotorRightConfig.Slot0.kP = 1;
+        // climbMotorRightConfig.Slot0.kD = 0;
+        // climbMotorRightConfig.Voltage.PeakForwardVoltage = 12;
+        // climbMotorRightConfig.Voltage.PeakReverseVoltage = -12;
 
         
-        climbMotorRight.getConfigurator().apply(climbMotorRightConfig);
+        // climbMotorRight.getConfigurator().apply(climbMotorRightConfig);
         
         climbMotorLeft.setPosition(0);
         //climbMotorRight.setControl(new Follower(climbMotorLeft.getDeviceID(), true));
@@ -70,12 +70,12 @@ public class ClimberPosition extends SubsystemBase {
     
     public void setClimbSpeed(double speed) {
         climbMotorLeft.set(speed);
-        climbMotorRight.set(speed);
+        //climbMotorRight.set(speed);
     }
 
     public void stopMotors() {
         climbMotorLeft.stopMotor();
-        climbMotorRight.stopMotor();
+        //climbMotorRight.stopMotor();
     }
 
     public double getClimbTemp() {
@@ -88,7 +88,7 @@ public class ClimberPosition extends SubsystemBase {
 
     public void setClimberPosition(double rotations) {
         climbMotorLeft.setControl(voltagePosition.withPosition(rotations));
-        climbMotorRight.setControl(voltagePosition.withPosition(rotations));
+        //climbMotorRight.setControl(voltagePosition.withPosition(rotations));
     }
 
     public void log() {

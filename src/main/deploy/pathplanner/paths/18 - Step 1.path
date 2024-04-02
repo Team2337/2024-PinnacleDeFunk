@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.8352867316167485,
-        "y": 4.5360600377138605
+        "x": 1.3584883107613055,
+        "y": 3.462119954206613
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.239161634816056,
-        "y": 3.379509178552209
+        "x": 3.772558754884436,
+        "y": 1.8649782915548072
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.481372967185449,
-        "y": 1.4519244132827887
+        "x": 8.08667703905885,
+        "y": 3.1133189014435736
       },
       "prevControl": {
-        "x": 6.994379005406182,
-        "y": 1.3968505628465204
+        "x": 6.204987149152988,
+        "y": 0.5891007564479054
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,13 +30,13 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 50.0,
+      "waypointRelativePos": 0.15,
+      "rotationDegrees": -48.0,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 0.75,
-      "rotationDegrees": 5.0,
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 15.0,
       "rotateFast": false
     }
   ],
@@ -44,7 +44,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -60,6 +60,46 @@
               "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos18-N0"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.1,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
             }
           ]
         }
@@ -68,20 +108,20 @@
   ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0,
+    "velocity": 0.0,
+    "rotation": 25.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "18-Red-Outside",
+  "folder": "18-Red-Outside-N1",
   "previewStartingState": {
-    "rotation": -53.67317404787968,
+    "rotation": -50.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

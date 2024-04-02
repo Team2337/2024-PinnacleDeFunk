@@ -1,0 +1,32 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.2575195849614786,
+      "y": 5.55492627078484
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Limelight Path"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Testing Autos",
+  "choreoAuto": false
+}

@@ -5,17 +5,17 @@ import java.util.function.Supplier;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class IntakeTripped extends Command {
-    private Supplier<Boolean> intakeSensor;
+    private Supplier<Boolean> doWeHaveNote;
     private Boolean haveNote = false;
 
 
-    public IntakeTripped(Supplier<Boolean> intakeSensor) {
-        this.intakeSensor = intakeSensor;
+    public IntakeTripped(Supplier<Boolean> doWeHaveNote) {
+        this.doWeHaveNote = doWeHaveNote;
     }
 
     @Override
     public void initialize() {
-        haveNote = intakeSensor.get();
+        haveNote = doWeHaveNote.get();
     }
     
     @Override

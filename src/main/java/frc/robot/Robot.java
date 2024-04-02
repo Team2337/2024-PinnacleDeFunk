@@ -17,12 +17,14 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.nerdyfiles.vision.LimelightHelpers;
+import frc.robot.nerdyfiles.vision.LimelightHelpers.RawFiducial;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -34,9 +36,11 @@ public class Robot extends TimedRobot {
   //private final boolean UseLimelight = true;
   private double visionCounter = 0;
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
-  private Pose2d llPose;
-  private boolean didAutoRun = false;
+  private final Matrix<N3, N1> visionStdDevsMultiTags = new Matrix<>(Nat.N3(), Nat.N1());
+  private Pose2d llPose, llPoseBattery;
+  private boolean didAutoRun, multiBlueTargets, multiBatteryTargets = false;
   private Timer gcTimer = new Timer();
+  
 
 
   @Override
@@ -45,6 +49,8 @@ public class Robot extends TimedRobot {
     m_robotContainer.drivetrain.getDaqThread().setThreadPriority(99);
 
     m_robotContainer.drivetrain.configNeutralMode(NeutralModeValue.Coast);
+
+    RobotController.setBrownoutVoltage(6.3);
 
     /**
    * Sets the value at the given indices.
@@ -56,6 +62,11 @@ public class Robot extends TimedRobot {
     visionStdDevs.set(0,0,2); 
     visionStdDevs.set(1,0,2);
     visionStdDevs.set(2,0,Math.toRadians(90));
+
+    
+    visionStdDevsMultiTags.set(0,0,0.75); //0.5
+    visionStdDevsMultiTags.set(1,0,0.75); //0.5
+    visionStdDevsMultiTags.set(2,0,Math.toRadians(30));//20
     m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
 
     gcTimer.start();
@@ -69,24 +80,59 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Yaw", pigeon.getYaw().getValueAsDouble());
     if (m_robotContainer.drivetrain.useLimelight) {    
       var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
-
-      if (m_robotContainer.getAllianceColor() == "blue") {
-        llPose = lastResult.getBotPose2d_wpiBlue();
+      var lastResultBattery = LimelightHelpers.getLatestResults("limelight-battery").targetingResults;
+      
+      if (lastResultBattery.valid ) {
+        multiBatteryTargets = true;
+        if (lastResultBattery.targets_Fiducials.length > 1) {
+          multiBlueTargets = false;
+        }
       } else {
-        if (DriverStation.isAutonomous()) {
-          llPose = lastResult.getBotPose2d_wpiBlue();
+        multiBatteryTargets = false;
+      }
+
+      
+      if (lastResult.valid) {
+        multiBlueTargets = true;
+        if (lastResult.targets_Fiducials.length > 1) {
+          multiBatteryTargets = false;
+        }
+      } else {
+        multiBlueTargets = false;
+      }
+      llPose = lastResult.getBotPose2d_wpiBlue();
+      llPoseBattery = lastResultBattery.getBotPose2d_wpiBlue();
+      double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
+      //SmartDashboard.putNumber("LL X", llPose.getX());
+      double latencyBattery = LimelightHelpers.getLatency_Pipeline("limelight-battery");
+
+      //LimelightHelpers.PoseEstimate poseEstimate_FrontLL = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-blue");
+      //double ambiguity = poseEstimate_FrontLL.rawFiducials[0].ambiguity;
+      //TODO Check this
+      //SmartDashboard.putNumber("Ambigutiy", ambiguity);
+
+      if ((lastResult.valid)) {
+        if (lastResult.targets_Fiducials.length > 1) {
+          m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevsMultiTags);
         } else {
-          llPose = lastResult.getBotPose2d_wpiRed();
+          m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
+        }
+        if (multiBlueTargets) {
+          m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
         }
       }
-      
-      double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
-      if ((lastResult.valid) && (visionCounter > 0)) {
-        m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
+        if ((lastResultBattery.valid)) {
+          if (lastResultBattery.targets_Fiducials.length > 1) {
+            m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevsMultiTags);
+          } else {
+            m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
+          }
+        // m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
+        if (multiBatteryTargets) {
+          m_robotContainer.drivetrain.addVisionMeasurement(llPoseBattery, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latencyBattery + 2) / 1000));
+        }
+        }
         visionCounter = 0;
-      } else {
-        visionCounter++;
-      }
     }
 
     if (gcTimer.advanceIfElapsed(5)) {

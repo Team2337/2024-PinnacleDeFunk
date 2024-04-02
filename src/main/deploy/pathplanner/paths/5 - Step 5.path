@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 4.497697785628646,
-        "y": 4.793071339749783
+        "x": 4.5,
+        "y": 4.79
       },
       "prevControl": {
-        "x": 5.791933270880971,
-        "y": 3.783384081751516
+        "x": 5.794235485252325,
+        "y": 3.780312742001733
       },
       "nextControl": null,
       "isLocked": false,
@@ -84,7 +84,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "5-Blue-WithHot",
+  "folder": "Z-5-Blue-WithHot",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
