@@ -11,16 +11,16 @@ import frc.robot.nerdyfiles.vision.LimelightHelpers;
 
 public class LEDRunnable extends Command {
   private final LED led;
-  private Supplier<Boolean> intakeSensor, deliveryTopSensor, deliveryBottomSensor, upToSpeed;
+  private Supplier<Boolean> intakeSensor, deliveryTopSensor, deliveryBottomSensor, upToSpeed, intakeSpinning;
   
 
-  public LEDRunnable(LED led, Supplier<Boolean> intakeSensor, Supplier<Boolean> deliveryTopSensor, Supplier<Boolean> deliveryBottomSensor, Supplier<Boolean> upToSpeed) {
+  public LEDRunnable(LED led, Supplier<Boolean> intakeSensor, Supplier<Boolean> deliveryTopSensor, Supplier<Boolean> deliveryBottomSensor, Supplier<Boolean> upToSpeed, Supplier<Boolean> intakeSpinning) {
     this.led = led;
     this.intakeSensor = intakeSensor;
     this.deliveryTopSensor = deliveryTopSensor;
     this.deliveryBottomSensor = deliveryBottomSensor;
     this.upToSpeed = upToSpeed;
-
+    this.intakeSpinning = intakeSpinning;
     addRequirements(led);
   }
   @Override
@@ -33,6 +33,8 @@ public class LEDRunnable extends Command {
         led.setColor(Color.kBlue);
     }  else if (DriverStation.isTeleopEnabled() && intakeSensor.get()) {
         led.setLowerUprightColors(Color.kBlue);
+    } else if (DriverStation.isTeleopEnabled() && intakeSpinning.get()) {
+        led.setIntakeColor(Color.kRed);
     } else if (DriverStation.isTeleopEnabled()) {
         led.setColor(Color.kBlack);
     }
@@ -44,7 +46,8 @@ public class LEDRunnable extends Command {
 
     if (DriverStation.isAutonomousEnabled()) {
       double time = DriverStation.getMatchTime();
-      led.setAutoColor(Color.kRed, time);
+      //led.setAutoColor(Color.kRed, time);
+        led.setColor(Color.kBlack); 
     }
     
     if (DriverStation.isDisabled()) {

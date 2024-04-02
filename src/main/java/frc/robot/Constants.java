@@ -131,7 +131,7 @@ public final class Constants {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(16.541, 5.55); // 0,2.658
     public static Translation2d randomPointBlue = new Translation2d(0, 5.75);
-    public static Translation2d randomPointRed = new Translation2d(16.541, 5.75); //  1.35, 1.8542
+    public static Translation2d randomPointRed = new Translation2d(16.541, 6.25); //  1.35, 1.8542
     public static Translation2d blueAmpRobotLocation = new Translation2d(1.8415, 7.74);//7.7216
     public static Translation2d redAmpRobotLocation = new Translation2d(14.6995, 7.74); // 1.8415, 0.3556
     public static double midFieldInMeters = 8.28; 
@@ -164,7 +164,7 @@ public final class Constants {
     public static final double ROBOT_AT_INTAKE_RED = 58.93;
     public static final double ROBOT_AT_SNIPE_BLUE = -120;
     public static final double ROBOT_AT_SNIPE_RED = 120;
-    public static final double HALF_COURT_RED = 30;
+    public static final double HALF_COURT_RED = -150;
     public static final double HALF_COURT_BLUE = -30;
   }
 

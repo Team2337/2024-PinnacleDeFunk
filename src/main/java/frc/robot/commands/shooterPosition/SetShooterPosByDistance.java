@@ -64,7 +64,7 @@ public class SetShooterPosByDistance extends Command {
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
         //newSetpoint = (-0.34540235 * Math.pow(distanceInMeters, 2)) + (3.7274448 * distanceInMeters) + 4.1656188; //FUDGE
-        newSetpoint = (0.114 * Math.pow(distanceInMeters, 3)) + (-1.64 * Math.pow(distanceInMeters, 2)) + (8.34 * distanceInMeters) + -0.927;
+        newSetpoint = (0.114 * Math.pow(distanceInMeters, 3)) + (-1.64 * Math.pow(distanceInMeters, 2)) + (8.34 * distanceInMeters) + -1.127;//-0.927 shot low 
         //newSetpoint = (-0.42026111 * Math.pow(distanceInMeters, 2)) + (4.2693814 * distanceInMeters) + 3.2881356; //RAW
         //newSetpoint = (-0.42233788 * Math.pow(distanceInMeters, 2)) + (4.2114015 * distanceInMeters) + 3.5361784; //REMOVE POINTS
 

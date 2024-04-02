@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.976529338186315,
-        "y": 4.949113915985879
+        "x": 8.3,
+        "y": 4.627
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.260300199845686,
-        "y": 4.618670813368264
+        "x": 7.583770861659372,
+        "y": 4.296556897382385
       },
       "isLocked": false,
       "linkedName": "14-EndS5"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 4.084643907356628,
-        "y": 4.949113915985879
+        "y": 4.95
       },
       "prevControl": {
         "x": 4.917628424602021,
-        "y": 4.484057527027374
+        "y": 4.484943611041495
       },
       "nextControl": null,
       "isLocked": false,
@@ -80,7 +80,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -11.0,
+    "rotation": -8.0,
     "rotateFast": false
   },
   "reversed": false,

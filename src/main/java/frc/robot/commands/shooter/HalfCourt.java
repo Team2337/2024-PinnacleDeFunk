@@ -26,7 +26,8 @@ public class HalfCourt extends Command {
         if (!chainShot.get()) {
             shooter.halfCourt();
         } else {
-            shooter.halfCourtChain();
+            //shooter.halfCourtChain();
+            shooter.halfCourt();
         }
         SmartDashboard.putBoolean("Chain Shot", chainShot.get());
     }

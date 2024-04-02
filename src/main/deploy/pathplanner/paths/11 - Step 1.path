@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.29,
-        "y": 6.68
+        "x": 1.51,
+        "y": 6.454465827910569
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.06350366355386,
-        "y": 5.186622141501584
+        "x": 4.199439696304476,
+        "y": 5.73850577223907
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.31615141587664,
-        "y": 7.537584886490529
+        "x": 8.288614490658505,
+        "y": 7.271394609381894
       },
       "prevControl": {
-        "x": 6.994379005406179,
-        "y": 7.087815107927665
+        "x": 6.966842080188044,
+        "y": 6.82162483081903
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.4,
-      "rotationDegrees": 10.0,
+      "rotationDegrees": 15.0,
       "rotateFast": false
     },
     {
@@ -142,7 +142,7 @@
   "reversed": false,
   "folder": "11 - Red - YeetOut",
   "previewStartingState": {
-    "rotation": 15.0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

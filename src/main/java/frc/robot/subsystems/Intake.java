@@ -113,6 +113,14 @@ public class Intake extends SubsystemBase {
         return motor.getDeviceTemp().getValueAsDouble() >= Constants.Global.motorShutDownTempCelcius;
     }
 
+    public boolean isIntakeSpinning() {
+        if (((intakeMotorLeft.getVelocity().getValueAsDouble() >= 10) || (intakeMotorLeft.getVelocity().getValueAsDouble() <= -10)) && ((intakeMotorRight.getVelocity().getValueAsDouble() >= 10) || (intakeMotorRight.getVelocity().getValueAsDouble() <= -10))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void log() {
         if (Constants.DashboardLogging.INTAKE) {
             SmartDashboard.putNumber("Intake/Intake Left Velo", intakeMotorLeft.getVelocity().getValueAsDouble());

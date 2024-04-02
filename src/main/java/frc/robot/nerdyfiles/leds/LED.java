@@ -101,6 +101,17 @@ public class LED extends SubsystemBase {
 			led.start();
 	}
 
+	public void setIntakeColor(Color color) {
+		for (int i = 65; i < LED_RIGHT_LENGTH; i++) {
+			ledBuffer.setLED(i, color);
+		}
+		for (int i = 117; i < 122; i++) {
+			ledBuffer.setLED(i, color);
+		}
+			led.setData(ledBuffer);
+			led.start();
+	}
+
 	public void setShooterColors(Color color) {
 		for (int i = LED_SHOOTER_START; i < LED_SHOOTER_END; i++) {
 			ledBuffer.setLED(i, color);

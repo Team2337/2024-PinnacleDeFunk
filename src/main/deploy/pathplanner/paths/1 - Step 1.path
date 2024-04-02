@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.29,
-        "y": 6.68
+        "x": 1.51,
+        "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.06350366355386,
-        "y": 5.186622141501584
+        "x": 4.213149558374589,
+        "y": 5.784400647602627
       },
       "isLocked": false,
       "linkedName": "Start-Right"
     },
     {
       "anchor": {
-        "x": 8.31615141587664,
-        "y": 7.537584886490529
+        "x": 8.270256540513081,
+        "y": 7.4457951357634125
       },
       "prevControl": {
-        "x": 6.994379005406179,
-        "y": 7.087815107927665
+        "x": 6.948484130042621,
+        "y": 6.996025357200549
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.4,
-      "rotationDegrees": 10.0,
+      "rotationDegrees": 15.0,
       "rotateFast": false
     },
     {
@@ -142,7 +142,7 @@
   "reversed": false,
   "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
   "previewStartingState": {
-    "rotation": 15.0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

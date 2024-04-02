@@ -24,6 +24,7 @@ public class ShooterPosPot extends PIDSubsystem {
     public boolean shooterAtIntake, shooterAtTrap = false;
     private Supplier<Boolean> haveNote;
     private double logDelayCounter = 0;
+    public boolean isAtAmp, isShotoerDisabled = false;
    
     AnalogInput input = new AnalogInput(2);
     private DigitalInput shooterPosSensor = new DigitalInput(3);
@@ -46,6 +47,7 @@ public class ShooterPosPot extends PIDSubsystem {
         getController().setTolerance(0.1);
         setSetpoint(pot.get());
         enable();
+
 
         var setShootPosPotMotorToDefault = new TalonFXConfiguration();
         shootPosPotMotor.getConfigurator().apply(setShootPosPotMotorToDefault);
@@ -117,6 +119,20 @@ public class ShooterPosPot extends PIDSubsystem {
     public void shooterPIDDisable() {
         if (isShooterOutOfRange()) {
             disable();
+            isShotoerDisabled = true;
+        }
+    }
+
+    public void shooterPidEnable() {
+        isShotoerDisabled = false;
+        enable();
+    }
+
+    public void checkAmpPos () {
+        if (pot.get() <= (Constants.ShooterPosPot.SHOOTERPOT_AT_AMP + 0.1)) {
+            isAtAmp = true;
+        } else {
+            isAtAmp = false;
         }
     }
 
@@ -132,7 +148,8 @@ public class ShooterPosPot extends PIDSubsystem {
                 logDelayCounter = 0;
             }
         }
-        SmartDashboard.putBoolean("Shooter Pos Sensor", isShooterOutOfRange());
+        SmartDashboard.putBoolean("Shooter Pos Sensor", isShotoerDisabled);
+        SmartDashboard.putNumber("Shooter Motor Pos", shootPosPotMotor.getPosition().getValueAsDouble());
         logDelayCounter++;
     }
 
@@ -155,6 +172,7 @@ public class ShooterPosPot extends PIDSubsystem {
         isShooterAtIntake();
         checkForNote();
         shooterPIDDisable();
+        checkAmpPos();
         log();
     }
 

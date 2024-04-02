@@ -98,7 +98,7 @@ public class RobotContainer {
   private void configureBindings() {
     drivetrain.registerTelemetry(logger::telemeterize);
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
-    led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> delivery.getDeliveryBottomSensor(), () -> shooter.getShooterUpToSpeed()).ignoringDisable(true));
+    led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> delivery.getDeliveryBottomSensor(), () -> shooter.getShooterUpToSpeed(), () -> operatorJoystick.rightBumper().getAsBoolean()).ignoringDisable(true));
     
     //driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
     driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
@@ -132,20 +132,21 @@ public class RobotContainer {
     driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
     driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
 
-    driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> isChainShot()),
-      new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
-      new ConditionalCommand(
-        new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
-        new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_CHAIN_COURT)),
-        () -> (isChainShot())
-      ),
-      // new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
-      new ConditionalCommand(
-      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_BLUE)), 
-      new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_RED)),
-      () -> isAllianceColorBlue()),
-      new InstantCommand(() -> drivetrain.setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(true))
-    ));
+    // driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> isChainShot()),
+    //   new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
+    //   new ConditionalCommand(
+    //     new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
+    //     new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_CHAIN_COURT)),
+    //     () -> (isChainShot())
+    //   ),
+    //   // new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
+    //   new ConditionalCommand(
+    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_BLUE)), 
+    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_RED)),
+    //   () -> isAllianceColorBlue()),
+    //   new InstantCommand(() -> drivetrain.setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(true))
+    // ));
+    driverJoystick.leftTrigger().onTrue( new InstantCommand(() -> drivetrain.setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(true)));
     driverJoystick.leftTrigger().onFalse( new InstantCommand(() -> drivetrain.setCartesianVectorFalse()));
     // driverJoystick.leftTrigger().onFalse(Commands.sequence(
     //   new ConditionalCommand(
@@ -164,7 +165,7 @@ public class RobotContainer {
     // driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
     
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
+    operatorJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> false, () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -75, () -> doWeHaveNote()));
     
     operatorJoystick.leftTrigger().whileTrue(new InstantCommand(() ->servo.disengageNoteStop()).andThen(new PoopShoot(shooter)));
@@ -189,7 +190,20 @@ public class RobotContainer {
       //   () -> isAllianceColorBlue()));
       
       operatorJoystick.povLeft().onTrue(new OpPOVLeftDriveAtAngle(drivetrain, () -> isAllianceColorBlue()));
-      operatorJoystick.povRight().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
+      //operatorJoystick.povRight().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
+      operatorJoystick.povRight().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> isChainShot()),
+        new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
+        new ConditionalCommand(
+          new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
+          new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_CHAIN_COURT)),
+          () -> (isChainShot())
+        ),
+        // new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
+        new ConditionalCommand(
+        new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_BLUE)), 
+        new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_RED)),
+        () -> isAllianceColorBlue())
+      ));
       
       
       
@@ -197,7 +211,7 @@ public class RobotContainer {
       //operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
     //*************Operator Station *****************/
     //operatorStation.blueButton.onTrue(new InstantCommand(() -> climb.setClimberPosition(-65)));
-    //operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
     operatorStation.whiteButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
     operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
     operatorStation.blackButton.whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
@@ -210,7 +224,8 @@ public class RobotContainer {
     operatorStation.clearSwitch.whileTrue(new DeliveryServoOverride(servo));
     operatorStation.redLeftSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleLeft())));
     operatorStation.redRightSwitch.onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getEndgameRotationAngleRight())));
-    operatorStation.blueButton.whileTrue(new AutoLimelight(() -> startNoteDetecton()));
+    operatorStation.blackSwitch.whileTrue(new InstantCommand(() -> shooterPot.shooterPidEnable()));
+    //operatorStation.blueButton.whileTrue(new AutoLimelight(() -> startNoteDetecton()));
     
      //************* Test Joystick *****************/
      // testJoystick.a().onTrue(new InstantCommand(() -> climb.setClimberSetpoint(10)));
@@ -253,10 +268,10 @@ public class RobotContainer {
       NamedCommands.registerCommand("ShooterPos1.5-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.7)).withTimeout(0.3));
 
       //Red
-      NamedCommands.registerCommand("ShooterPos11-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14.0)).withTimeout(1));
-      NamedCommands.registerCommand("ShooterPos11-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14.0)).withTimeout(1));
-      NamedCommands.registerCommand("ShooterPos11-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(1));
-      NamedCommands.registerCommand("ShooterPos11-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));
+      NamedCommands.registerCommand("ShooterPos11-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(14.2)).withTimeout(1));//14.0
+      NamedCommands.registerCommand("ShooterPos11-N8", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.8)).withTimeout(1));//14.0
+      NamedCommands.registerCommand("ShooterPos11-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(1));//13.4
+      NamedCommands.registerCommand("ShooterPos11-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(1));//13.6
 
       NamedCommands.registerCommand("ShooterPos11.5-N7", new InstantCommand(() -> shooterPot.setShooterPositionPoint(12.8)).withTimeout(1));
       NamedCommands.registerCommand("ShooterPos11.5-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10.7)).withTimeout(0.3));
@@ -285,15 +300,15 @@ public class RobotContainer {
 
     //Sped Up Spikes
       NamedCommands.registerCommand("ShooterPos4-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos4-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos4-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(0.1));
+      NamedCommands.registerCommand("ShooterPos4-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.4)).withTimeout(0.1));//10
+      NamedCommands.registerCommand("ShooterPos4-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));//13.3
       NamedCommands.registerCommand("ShooterPos4-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos4-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
+      NamedCommands.registerCommand("ShooterPos4-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(0.1));//13.6
 
       //Red
       NamedCommands.registerCommand("ShooterPos14-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos14-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos14-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(0.1));
+      NamedCommands.registerCommand("ShooterPos14-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.8)).withTimeout(0.1));//10
+      NamedCommands.registerCommand("ShooterPos14-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(0.1));//13.3
       NamedCommands.registerCommand("ShooterPos14-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));
       NamedCommands.registerCommand("ShooterPos14-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
 
@@ -318,10 +333,10 @@ public class RobotContainer {
       NamedCommands.registerCommand("ShooterPos9-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(0.1));
 
       //Red
-      NamedCommands.registerCommand("ShooterPos19-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos19-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos19-N4", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(0.1));
-      NamedCommands.registerCommand("ShooterPos19-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(0.1));
+      NamedCommands.registerCommand("ShooterPos19-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));//13.2
+      NamedCommands.registerCommand("ShooterPos19-N5", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(0.1));//13.6
+      NamedCommands.registerCommand("ShooterPos19-N4", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.4)).withTimeout(0.1));//13.6
+      NamedCommands.registerCommand("ShooterPos19-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));//13.4
 
 
     // Not Used
