@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
       var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
       var lastResultBattery = LimelightHelpers.getLatestResults("limelight-battery").targetingResults;
       
-      if (lastResultBattery.valid ) {
+      if (lastResultBattery.valid && !DriverStation.isAutonomous()) {
         multiBatteryTargets = true;
         if (lastResultBattery.targets_Fiducials.length > 1) {
           multiBlueTargets = false;
@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
           m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
         }
       }
-        if ((lastResultBattery.valid)) {
+        if ((lastResultBattery.valid && !DriverStation.isAutonomous())) {
           if (lastResultBattery.targets_Fiducials.length > 1) {
             m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevsMultiTags);
           } else {

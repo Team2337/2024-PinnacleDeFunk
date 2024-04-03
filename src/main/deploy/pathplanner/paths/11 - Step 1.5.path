@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.185612633156454,
-        "y": 5.435599594839589
+        "x": 4.259044433738146,
+        "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.985612633156454,
-        "y": 5.435599594839589
+        "x": 5.4706691433360675,
+        "y": 6.895056631400722
       },
       "isLocked": false,
-      "linkedName": "7-EndS5N2"
+      "linkedName": "11-EndS1.0"
     },
     {
       "anchor": {
-        "x": 2.3589965936868613,
-        "y": 5.435599594839589
+        "x": 8.288614490658505,
+        "y": 7.271394609381894
       },
       "prevControl": {
-        "x": 2.7813292067148128,
-        "y": 5.435599594839589
+        "x": 8.095856014131563,
+        "y": 7.262215634309183
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "11-EndS1.5"
     }
   ],
   "rotationTargets": [],
@@ -33,11 +33,17 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "parallel",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -62,15 +68,15 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0,
+    "velocity": 0.0,
+    "rotation": 20.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "11 - Red - YeetOut",
   "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
+    "rotation": 15.0,
+    "velocity": 3.5
   },
   "useDefaultConstraints": true
 }

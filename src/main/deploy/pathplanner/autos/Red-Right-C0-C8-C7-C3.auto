@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.29,
-      "y": 6.68
+      "x": 1.51,
+      "y": 6.45
     },
-    "rotation": 15.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -23,6 +23,12 @@
                       "type": "path",
                       "data": {
                         "pathName": "11 - Step 1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "11 - Step 1.5"
                       }
                     },
                     {

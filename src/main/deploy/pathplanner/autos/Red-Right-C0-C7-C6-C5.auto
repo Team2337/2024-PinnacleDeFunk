@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4961729368519783,
-      "y": 6.482002753128704
+      "x": 1.51,
+      "y": 6.45
     },
     "rotation": 0.0
   },
@@ -19,6 +19,12 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "11 - Step 1"
+                      }
+                    },
                     {
                       "type": "path",
                       "data": {

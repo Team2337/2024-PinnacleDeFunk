@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.232524074371123,
-        "y": 1.4611033883554994
+        "x": 2.817945347322438,
+        "y": 1.9292311170637895
       },
       "isLocked": false,
       "linkedName": "8-EndS3"
     },
     {
       "anchor": {
-        "x": 4.3,
-        "y": 2.7
+        "x": 1.80825808932417,
+        "y": 4.5268810626411495
       },
       "prevControl": {
-        "x": 5.523805542172683,
-        "y": 1.5915464909731154
+        "x": 1.2666985600341902,
+        "y": 3.5447307298610173
       },
       "nextControl": null,
       "isLocked": false,
@@ -80,11 +80,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -32.0,
+    "rotation": -25.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "8-Blue-Outside",
+  "folder": "08-Blue-Outside",
   "previewStartingState": {
     "rotation": -20.0,
     "velocity": 0.0

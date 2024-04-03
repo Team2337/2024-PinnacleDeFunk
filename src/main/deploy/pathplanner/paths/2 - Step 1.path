@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.51,
+        "x": 4.259044433738146,
         "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.588683851685129,
-        "y": 5.288210370493994
+        "x": 5.874544046535375,
+        "y": 6.876698681255299
       },
       "isLocked": false,
-      "linkedName": "Start-Right"
+      "linkedName": "1-EndS1"
     },
     {
       "anchor": {
@@ -28,62 +28,12 @@
       "linkedName": "2-EndS1"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": 10.0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.15,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.25,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos2-N0"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.35,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoStartDeliveryTemp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.75,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
         "data": {
@@ -123,10 +73,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2-Blue-YeetOut-C0-C7-C6-C5",
+  "folder": "02-Blue-YeetOut-C0-C7-C6-C5",
   "previewStartingState": {
     "rotation": 15.0,
-    "velocity": 0
+    "velocity": 3.5
   },
   "useDefaultConstraints": true
 }

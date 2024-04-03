@@ -28,6 +28,12 @@
                     {
                       "type": "path",
                       "data": {
+                        "pathName": "11 - Step 1.5"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
                         "pathName": "11 - Step 2"
                       }
                     },

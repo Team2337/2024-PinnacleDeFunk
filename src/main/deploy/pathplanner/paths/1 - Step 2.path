@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270256540513081,
-        "y": 7.4457951357634125
+        "x": 8.288614490658505,
+        "y": 7.454974110836125
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7812294470315924,
-        "y": 7.3172894847454515
+        "x": 2.799587397177016,
+        "y": 7.326468459818164
       },
       "isLocked": false,
-      "linkedName": "1-EndS1"
+      "linkedName": "1-EndS1.5"
     },
     {
       "anchor": {
@@ -136,9 +136,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
   "previewStartingState": {
-    "rotation": 20.0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
