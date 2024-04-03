@@ -31,7 +31,6 @@ import frc.robot.commands.auto.AutoStartDeliveryToSensor;
 import frc.robot.commands.auto.AutoStartIntake;
 import frc.robot.commands.climber.SetClimbSpeed;
 import frc.robot.commands.delivery.DeliveryDefault;
-import frc.robot.commands.delivery.DeliveryDefaultNowWithLasers;
 import frc.robot.commands.delivery.DeliveryServoDefault;
 import frc.robot.commands.delivery.DeliveryServoOverride;
 import frc.robot.commands.delivery.SetDeliverySpeed;
@@ -148,7 +147,7 @@ public class RobotContainer {
       new InstantCommand(() -> drivetrain.setCartesianVectorFalse()),
       new InstantCommand(() -> drivetrain.setDriveAtAngleTrue())
     ));
-    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
+    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed(), () -> operatorStation.isBlackSwitchOn()));
     driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     //driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
@@ -157,7 +156,7 @@ public class RobotContainer {
     // driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
     
     //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> operatorStation.isBlackSwitchOn(), () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
+    operatorJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> false , () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
     operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -40, () -> doWeHaveNote()));
     
     operatorJoystick.leftTrigger().whileTrue(new InstantCommand(() ->servo.disengageNoteStop()).andThen(new PoopShoot(shooter)));
@@ -183,7 +182,7 @@ public class RobotContainer {
       //   () -> isAllianceColorBlue()));
       
       operatorJoystick.povLeft().onTrue(new OpPOVLeftDriveAtAngle(drivetrain, () -> isAllianceColorBlue()));
-      operatorJoystick.povRight().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
+      operatorJoystick.povRight().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed(), () -> operatorStation.isBlackSwitchOn()));
       
       
       

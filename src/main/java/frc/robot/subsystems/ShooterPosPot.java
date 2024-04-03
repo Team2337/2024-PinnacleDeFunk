@@ -20,7 +20,7 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class ShooterPosPot extends PIDSubsystem {
     private TalonFX shootPosPotMotor = new TalonFX(50, "Upper");
-    public boolean shooterAtIntake, shooterAtTrap = false;
+    public boolean shooterAtIntake, shooterAtTrap, shooterAtPosition = false;
     private Supplier<Boolean> haveNote;
     private double logDelayCounter = 0;
    
@@ -99,6 +99,14 @@ public class ShooterPosPot extends PIDSubsystem {
             shooterAtIntake = true;
         } else {
             shooterAtIntake = false;
+        }
+    }
+
+    public void isShooterAtPosition() {
+        if ((pot.get() >= (getSetpoint() - Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE)) && (pot.get() <= (getSetpoint() + Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE))) {
+            shooterAtPosition = true;
+        } else {
+            shooterAtPosition = false;
         }
     }
 
