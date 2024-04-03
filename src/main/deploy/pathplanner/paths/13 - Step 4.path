@@ -1,0 +1,82 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.5,
+        "y": 4.76
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.480356401334335,
+        "y": 3.902710757696766
+      },
+      "isLocked": false,
+      "linkedName": "13-EndS3"
+    },
+    {
+      "anchor": {
+        "x": 8.637415543421543,
+        "y": 2.388179870699364
+      },
+      "prevControl": {
+        "x": 7.462506734114468,
+        "y": 2.2872111448995365
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.15,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "13-Red-Middle",
+  "previewStartingState": {
+    "rotation": -10.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -39,6 +39,7 @@ public class DeliveryDefaultNowWithLasers extends Command {
             delivery.stopMotors();
         }
 
+        
         // if (!delivery.getDeliveryTopSensor()) {
         //     delivery.engageNoteStop();
            

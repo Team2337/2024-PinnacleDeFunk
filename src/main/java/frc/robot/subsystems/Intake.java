@@ -69,8 +69,8 @@ public class Intake extends SubsystemBase {
     }
 
     public void setDriveOver(double velocity) {
-        intakeMotorLeft.setControl(velocityVoltage.withVelocity(velocity));
-        intakeMotorRight.setControl(velocityVoltage.withVelocity(-velocity));
+        intakeMotorLeft.setControl(velocityVoltage.withVelocity(-velocity));
+        intakeMotorRight.setControl(velocityVoltage.withVelocity(velocity));
         // intakeMotorLeft.setControl(velocityVoltage.withVelocity(100));
         // intakeMotorRight.setControl(velocityVoltage.withVelocity(-100));
     }
@@ -111,6 +111,14 @@ public class Intake extends SubsystemBase {
 
     private boolean isMotorOverheated(TalonFX motor) {
         return motor.getDeviceTemp().getValueAsDouble() >= Constants.Global.motorShutDownTempCelcius;
+    }
+
+    public boolean isIntakeSpinning() {
+        if (((intakeMotorLeft.getVelocity().getValueAsDouble() >= 10) || (intakeMotorLeft.getVelocity().getValueAsDouble() <= -10)) && ((intakeMotorRight.getVelocity().getValueAsDouble() >= 10) || (intakeMotorRight.getVelocity().getValueAsDouble() <= -10))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void log() {

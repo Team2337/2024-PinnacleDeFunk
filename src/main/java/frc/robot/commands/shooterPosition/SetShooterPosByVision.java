@@ -42,6 +42,7 @@ public class SetShooterPosByVision extends Command {
        } else {
             LimelightHelpers.setPriorityTagID("limelight-blue", 4);
        }
+
     }
     
     @Override
@@ -83,10 +84,18 @@ public class SetShooterPosByVision extends Command {
         // SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
         // SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
         // SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
-        if (currentY <= Constants.FieldElements.midFieldInMeters && topSensor.get()) { //TODO  
+        if (midfield() && topSensor.get()) {   
             shooterPosPot.setSetpoint(modNewSetpoint);
         } else {
             shooterPosPot.setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);
+        }
+    }
+
+    public boolean midfield() {
+        if (allianceColor.get() == "blue") {
+            return currentY <= Constants.FieldElements.midFieldInMeters;
+        } else {
+            return currentY >= Constants.FieldElements.midFieldInMeters;
         }
     }
 

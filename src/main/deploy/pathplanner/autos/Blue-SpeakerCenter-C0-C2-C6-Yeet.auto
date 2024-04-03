@@ -1,0 +1,117 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.2483406098887673,
+      "y": 5.573284220930263
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPos3-N0"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "3 - Step 1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryToSensor"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPos3-N2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DisengageDeliverServo"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.15
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "3 - Step 2"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "3 - Step 3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "3 - Step 4"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooter"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoStartIntake"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Blue Autos",
+  "choreoAuto": false
+}

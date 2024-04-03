@@ -16,7 +16,7 @@ public class SetShooterPosByDistance extends Command {
     private Supplier<Pose2d> currentPose;
     private Translation2d speakerPose;
     private double speakerX, speakerY, currentX, currentY, distanceInMeters, newSetpoint, modNewSetpoint;
-    private double minStringPotValue = 7.5;//5.3;
+    private double minStringPotValue = 7;//5.3;
     private double maxStringPotValue = 15;//10.1;
     private Supplier<String> allianceColor;
     private Supplier<Double> xVelocity;
@@ -63,14 +63,15 @@ public class SetShooterPosByDistance extends Command {
         currentX = currentPose.get().getX();
         currentY = currentPose.get().getY();
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        newSetpoint = (-0.44429609 * Math.pow(distanceInMeters, 2)) + (4.3429355 * distanceInMeters) + 3.3590452; //FUDGE
+        //newSetpoint = (-0.34540235 * Math.pow(distanceInMeters, 2)) + (3.7274448 * distanceInMeters) + 4.1656188; //FUDGE
+        newSetpoint = (0.114 * Math.pow(distanceInMeters, 3)) + (-1.64 * Math.pow(distanceInMeters, 2)) + (8.34 * distanceInMeters) + -1.127;//-0.927 shot low 
         //newSetpoint = (-0.42026111 * Math.pow(distanceInMeters, 2)) + (4.2693814 * distanceInMeters) + 3.2881356; //RAW
         //newSetpoint = (-0.42233788 * Math.pow(distanceInMeters, 2)) + (4.2114015 * distanceInMeters) + 3.5361784; //REMOVE POINTS
 
         // if (xVelocity.get() > 0) {
-        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 2.1); // TODO: Was 2
+        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 2.1); //  Was 2
         // } else if (xVelocity.get() < 0) {
-        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 1.5); // TODO: Was 2
+        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 1.5); //  Was 2
         // }
 
         modNewSetpoint = newSetpoint + (xVelocity.get() / 2);
@@ -86,7 +87,7 @@ public class SetShooterPosByDistance extends Command {
         // SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
         // SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
         // SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
-        if (currentX <= Constants.FieldElements.midFieldInMeters && topSensor.get()) { //TODO  
+        if (topSensor.get()) { //  currentX <= Constants.FieldElements.midFieldInMeters && 
             shooterPosPot.setSetpoint(modNewSetpoint);
         } else {
             shooterPosPot.setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);

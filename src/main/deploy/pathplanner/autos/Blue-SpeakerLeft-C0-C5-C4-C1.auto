@@ -1,0 +1,111 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.3584883107613055,
+      "y": 3.462119954206613
+    },
+    "rotation": -40.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8 - Step 1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8 - Step 2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8 - Step 3"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8 - Step 4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "8 - Step 5 - N1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryToSensor"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DisengageDeliverServo"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPos8-N1"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutoStartIntake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "StartShooter"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Blue Autos",
+  "choreoAuto": false
+}

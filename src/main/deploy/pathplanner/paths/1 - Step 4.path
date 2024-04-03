@@ -1,0 +1,93 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.334509366022063,
+        "y": 4.205616935096246
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.948484130042622,
+        "y": 3.838457932187785
+      },
+      "isLocked": false,
+      "linkedName": "1-EndS3"
+    },
+    {
+      "anchor": {
+        "x": 4.314118284174416,
+        "y": 4.802250314822494
+      },
+      "prevControl": {
+        "x": 5.137923826347099,
+        "y": 3.9424979977373944
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.65,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos1-N6"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -10.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
