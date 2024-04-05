@@ -1,7 +1,10 @@
 package frc.robot.commands.shooter;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShooterPosPot;
 
 public class PoopShoot extends Command {
     private Shooter shooter;
@@ -18,7 +21,7 @@ public class PoopShoot extends Command {
     
     @Override
     public void execute() {
-            shooter.poopShoot();
+            shooter.halfHalfCourt();
     }
 
     @Override

@@ -3,18 +3,19 @@
   "robotLength": 0.74,
   "holonomicMode": true,
   "pathFolders": [
+    "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
     "02-Blue-YeetOut-C0-C7-C6-C5",
     "03 - Blue - C0-C2-C6-Yeet",
     "04-Blue-SpedUpSpikes",
     "08-Blue-Outside",
     "09-Blue-C0-C5-C6-C4",
-    "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
     "11 - Red - YeetOut",
     "12-Red-YeetOut-Skip",
     "13-Red-Middle",
     "14-Red-Spikes",
     "18-Red-Outside-N1",
     "19-Red-Outside",
+    "06-Blue-WithGemBees",
     "Z-Tests"
   ],
   "autoFolders": [

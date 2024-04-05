@@ -34,7 +34,7 @@ public class ShooterPosPot extends PIDSubsystem {
     double offset = 1.6;
 
     // Radial Pot Values
-    double shooterPotMaxSetPoint = 15.5;
+    double shooterPotMaxSetPoint = 17.3;
     double shooterPotMinSetPoint = 5.9;
 
     // String Pot Values
@@ -158,6 +158,7 @@ public class ShooterPosPot extends PIDSubsystem {
         }
         SmartDashboard.putBoolean("Shooter Pos Sensor", isShotoerDisabled);
         SmartDashboard.putNumber("Shooter Motor Pos", shootPosPotMotor.getPosition().getValueAsDouble());
+        SmartDashboard.putBoolean("Shooter In Position", shooterAtPosition);
         logDelayCounter++;
     }
 
@@ -181,6 +182,7 @@ public class ShooterPosPot extends PIDSubsystem {
         checkForNote();
         shooterPIDDisable();
         checkAmpPos();
+        isShooterAtPosition();
         log();
     }
 

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2483406098887673,
-      "y": 5.573284220930263
+      "x": 0.8536446817621717,
+      "y": 6.592150454001242
     },
-    "rotation": 0
+    "rotation": 50.0
   },
   "command": {
     "type": "sequential",
@@ -22,37 +22,7 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "ShooterPos13-N0"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "13 - Step 1"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryToSensor"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.2
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "ShooterPos13-N2"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "DisengageDeliverServo"
+                        "name": "ShooterPos6-N0"
                       }
                     },
                     {
@@ -70,13 +40,31 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "13 - Step 2"
+                        "pathName": "6 - Step 1"
                       }
                     },
                     {
-                      "type": "path",
+                      "type": "named",
                       "data": {
-                        "pathName": "13 - Step 3"
+                        "name": "AutoStartDeliveryToSensor"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "DisengageDeliverServo"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "ShooterPos6-N3"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.15
                       }
                     },
                     {
@@ -88,13 +76,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "13 - Step 4"
+                        "pathName": "6 - Step 2"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "13 - Step 5"
+                        "pathName": "6 - Step 3"
                       }
                     },
                     {
@@ -109,13 +97,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               }
             ]
@@ -124,6 +112,6 @@
       ]
     }
   },
-  "folder": "Red Autos",
+  "folder": "Blue Autos",
   "choreoAuto": false
 }
