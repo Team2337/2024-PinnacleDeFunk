@@ -21,7 +21,7 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 public class ShooterPosPot extends PIDSubsystem {
     private TalonFX shootPosPotMotor = new TalonFX(50, "Upper");
-    public boolean shooterAtIntake, shooterAtTrap = false;
+    public boolean shooterAtIntake, shooterAtTrap, shooterAtPosition = false;
     private Supplier<Boolean> haveNote;
     private double logDelayCounter = 0;
     public boolean isAtAmp, isShotoerDisabled = false;
@@ -34,7 +34,7 @@ public class ShooterPosPot extends PIDSubsystem {
     double offset = 1.6;
 
     // Radial Pot Values
-    double shooterPotMaxSetPoint = 15.5;
+    double shooterPotMaxSetPoint = 17.3;
     double shooterPotMinSetPoint = 5.9;
 
     // String Pot Values
@@ -106,6 +106,14 @@ public class ShooterPosPot extends PIDSubsystem {
         }
     }
 
+    public void isShooterAtPosition() {
+        if ((pot.get() >= (getSetpoint() - Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE)) && (pot.get() <= (getSetpoint() + Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE))) {
+            shooterAtPosition = true;
+        } else {
+            shooterAtPosition = false;
+        }
+    }
+
     public void checkForNote() {
         if (!haveNote.get()) {
             setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);
@@ -150,6 +158,7 @@ public class ShooterPosPot extends PIDSubsystem {
         }
         SmartDashboard.putBoolean("Shooter Pos Sensor", isShotoerDisabled);
         SmartDashboard.putNumber("Shooter Motor Pos", shootPosPotMotor.getPosition().getValueAsDouble());
+        SmartDashboard.putBoolean("Shooter In Position", shooterAtPosition);
         logDelayCounter++;
     }
 
@@ -173,6 +182,7 @@ public class ShooterPosPot extends PIDSubsystem {
         checkForNote();
         shooterPIDDisable();
         checkAmpPos();
+        isShooterAtPosition();
         log();
     }
 

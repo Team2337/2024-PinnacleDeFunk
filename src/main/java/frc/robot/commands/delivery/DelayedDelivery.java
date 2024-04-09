@@ -8,13 +8,14 @@ import frc.robot.subsystems.Delivery;
 public class DelayedDelivery extends Command {
     private Delivery delivery;
     private double speed;
-    private Supplier<Boolean> upToSpeed;
+    private Supplier<Boolean> upToSpeed, shooterInPos;
     private double wait = 0;
 
-    public DelayedDelivery(Delivery delivery, double speed, Supplier<Boolean> upToSpeed) {
+    public DelayedDelivery(Delivery delivery, double speed, Supplier<Boolean> upToSpeed, Supplier<Boolean> shooterInPos) {
         this.delivery = delivery;
         this.speed = speed;
         this.upToSpeed = upToSpeed;
+        this.shooterInPos = shooterInPos;
         addRequirements(delivery);
     }
 
@@ -25,15 +26,15 @@ public class DelayedDelivery extends Command {
     
     @Override
     public void execute() {
-        if (wait >= 100) {
-            if (upToSpeed.get()) {
+        //if (wait >= 100) {
+            if (upToSpeed.get() && shooterInPos.get()) {
                 delivery.setDeliverySpeed(speed);
             } else {
                 delivery.stopMotors();
             }
-        } else {
-            wait++;
-        }
+        // } else {
+        //     wait++;
+        // }
     }
 
     @Override

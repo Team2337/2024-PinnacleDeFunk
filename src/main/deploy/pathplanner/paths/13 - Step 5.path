@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5889792534302054,
-        "y": 7.234678709091049
+        "x": 8.637415543421543,
+        "y": 2.388179870699364
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1667464000854757,
-        "y": 7.1245310082185105
+        "x": 7.756233936441237,
+        "y": 3.3427932782613623
       },
       "isLocked": false,
-      "linkedName": "6-EndS3.5"
+      "linkedName": "13-EndS4"
     },
     {
       "anchor": {
-        "x": 1.9000478400512852,
-        "y": 6.491181728201414
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": {
-        "x": 2.5884709705046496,
-        "y": 6.7665509803827595
+        "x": 5.571637869135895,
+        "y": 3.8751738324786307
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "6-EndS4"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -41,12 +41,6 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos6-N3"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
             }
@@ -56,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.6,
       "command": {
         "type": "parallel",
         "data": {
@@ -64,7 +58,13 @@
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "ShooterPos13-N5"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -80,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 30.0,
+    "rotation": -8.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-6-Blue-Spike-Center",
+  "folder": "13-Red-Middle",
   "previewStartingState": {
-    "rotation": 25.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

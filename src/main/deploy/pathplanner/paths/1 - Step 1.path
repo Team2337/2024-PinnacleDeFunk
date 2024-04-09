@@ -8,20 +8,36 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.213149558374589,
-        "y": 5.784400647602627
+        "x": 1.7990791142514586,
+        "y": 6.362676077183453
       },
       "isLocked": false,
       "linkedName": "Start-Right"
     },
     {
       "anchor": {
-        "x": 8.270256540513081,
-        "y": 7.4457951357634125
+        "x": 2.88,
+        "y": 6.19
       },
       "prevControl": {
-        "x": 6.948484130042621,
-        "y": 6.996025357200549
+        "x": 2.5058601948502455,
+        "y": 6.215812476020069
+      },
+      "nextControl": {
+        "x": 3.184575111833139,
+        "y": 6.168986898313705
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.259044433738146,
+        "y": 6.45
+      },
+      "prevControl": {
+        "x": 3.579800278357494,
+        "y": 6.252528376310915
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,39 +46,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": 15.0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.1,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.6,
-      "rotationDegrees": 15.0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.9,
       "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
-  "constraintZones": [
-    {
-      "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.3,
-      "maxWaypointRelativePos": 0.4,
-      "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 1.25,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0
-      }
-    }
-  ],
+  "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
@@ -83,7 +72,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.35,
+      "waypointRelativePos": 1.75,
       "command": {
         "type": "parallel",
         "data": {
@@ -92,35 +81,6 @@
               "type": "named",
               "data": {
                 "name": "AutoStartDeliveryTemp"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.65,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "EngageDeliverServo"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPositionPickup"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -135,12 +95,12 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 20.0,
+    "velocity": 3.5,
+    "rotation": 15.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
   "previewStartingState": {
     "rotation": 0.0,
     "velocity": 0

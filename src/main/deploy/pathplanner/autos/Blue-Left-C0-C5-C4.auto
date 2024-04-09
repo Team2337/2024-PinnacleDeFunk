@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2483406098887673,
-      "y": 5.527389345566705
+      "x": 1.3584883107613055,
+      "y": 3.462119954206613
     },
-    "rotation": 0.0
+    "rotation": -40.0
   },
   "command": {
     "type": "sequential",
@@ -20,33 +20,15 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "named",
+                      "type": "path",
                       "data": {
-                        "name": "ShooterPos5-N0"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.6
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
+                        "pathName": "8 - Step 1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "5 - Step 1"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "5 - Step 2"
+                        "pathName": "8 - Step 2"
                       }
                     },
                     {
@@ -58,31 +40,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "5 - Step 3"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
+                        "pathName": "8 - Step 3"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "5 - Step 4"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "5 - Step 5"
+                        "pathName": "8 - Step 4"
                       }
                     },
                     {
@@ -97,13 +61,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               }
             ]

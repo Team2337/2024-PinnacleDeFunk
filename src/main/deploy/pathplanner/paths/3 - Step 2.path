@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 8.224361665149523,
-        "y": 4.499344137423015
+        "y": 4.3
       },
       "prevControl": {
         "x": 7.113705681351426,
-        "y": 4.113827184369131
+        "y": 3.914483046946116
       },
       "nextControl": null,
       "isLocked": false,
@@ -73,7 +73,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "3 - Blue - C0-C2-C6-Yeet",
+  "folder": "03 - Blue - C0-C2-C6-Yeet",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

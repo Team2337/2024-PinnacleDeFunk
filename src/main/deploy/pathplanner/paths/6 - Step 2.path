@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.790408422104303,
-        "y": 4.1046482092964185
+        "x": 3.7542008047390127,
+        "y": 7.36318436010901
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8449739896150164,
-        "y": 4.581954913077419
+        "x": 4.754200804739012,
+        "y": 7.36318436010901
       },
       "isLocked": false,
-      "linkedName": "6-EndS1"
+      "linkedName": "6.0-EndS1"
     },
     {
       "anchor": {
-        "x": 1.9734796406329773,
-        "y": 5.55492627078484
+        "x": 8.29,
+        "y": 7.45
       },
       "prevControl": {
-        "x": 1.9551216904875544,
-        "y": 5.444778569912301
+        "x": 7.289999999999999,
+        "y": 7.45
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "6-EndS2"
+      "linkedName": "6.0-EndS2"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,41 +41,19 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos6-N1"
+                "name": "ShooterPositionPickup"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
+                "name": "AutoStartDeliveryToSensor"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.35,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "DisengageDeliverServo"
+                "name": "EngageDeliverServo"
               }
             }
           ]
@@ -95,9 +73,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-6-Blue-Spike-Center",
+  "folder": "06-Blue-WithGemBees",
   "previewStartingState": {
-    "rotation": 15.0,
+    "rotation": 25.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

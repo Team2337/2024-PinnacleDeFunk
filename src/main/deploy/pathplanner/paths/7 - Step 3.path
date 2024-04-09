@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.233540640222236,
-        "y": 7.42743718561799
+        "x": 3.7542008047390127,
+        "y": 7.36318436010901
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.352359033241929,
-        "y": 7.354005385036298
+        "x": 3.31361000124886,
+        "y": 7.142888958363933
       },
       "isLocked": false,
-      "linkedName": "7-EndS2"
+      "linkedName": "7.0-EndS2"
     },
     {
       "anchor": {
-        "x": 4.82,
-        "y": 6.500360703274127
+        "x": 2.212132992523477,
+        "y": 6.5
       },
       "prevControl": {
-        "x": 5.262623935192377,
-        "y": 6.954826531184696
+        "x": 2.579291995431938,
+        "y": 6.665221551308808
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS3"
+      "linkedName": "7.0-EndS3"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,41 +41,19 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos7-N8"
+                "name": "ShooterPositionPickup"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorTinyTimeout"
+                "name": "AutoStartDeliveryToSensor"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.45,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "DisengageDeliverServo"
+                "name": "EngageDeliverServo"
               }
             }
           ]
@@ -91,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 8.0,
+    "rotation": 30.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "07-Blue-C7-C3-C8",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 25.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

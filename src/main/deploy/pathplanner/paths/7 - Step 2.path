@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7266638795208786,
-        "y": 7.142888958363933
+        "x": 8.4,
+        "y": 5.472315495130435
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.846498838391684,
-        "y": 7.216320758945625
+        "x": 7.664444185714121,
+        "y": 6.151559650511089
       },
       "isLocked": false,
-      "linkedName": "7-EndS1"
+      "linkedName": "7.0-EndS1"
     },
     {
       "anchor": {
-        "x": 8.233540640222236,
-        "y": 7.42743718561799
+        "x": 3.7542008047390127,
+        "y": 7.36318436010901
       },
       "prevControl": {
-        "x": 7.23303235729668,
-        "y": 7.41825821054528
+        "x": 4.653740361864743,
+        "y": 7.096994083000375
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS2"
+      "linkedName": "7.0-EndS2"
     }
   ],
   "rotationTargets": [],
@@ -41,19 +41,30 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos7-N7"
+              }
             },
             {
               "type": "named",
               "data": {
-                "name": "EngageDeliverServo"
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -69,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 30.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "07-Blue-C7-C3-C8",
   "previewStartingState": {
-    "rotation": 27.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

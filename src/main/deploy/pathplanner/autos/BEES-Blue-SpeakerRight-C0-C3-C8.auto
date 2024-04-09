@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2483406098887673,
-      "y": 5.527389345566705
+      "x": 0.8536446817621717,
+      "y": 6.592150454001242
     },
-    "rotation": 0.0
+    "rotation": 50.0
   },
   "command": {
     "type": "sequential",
@@ -28,7 +28,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.15
                       }
                     },
                     {
@@ -44,63 +44,15 @@
                       }
                     },
                     {
-                      "type": "path",
-                      "data": {
-                        "pathName": "6 - Step 2"
-                      }
-                    },
-                    {
                       "type": "named",
                       "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "6 - Step 3"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryTemp"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "6 - Step 3.5"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "6 - Step 4"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "AutoStartDeliveryToSensorTinyTimeout"
+                        "name": "AutoStartDeliveryToSensor"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
                         "name": "DisengageDeliverServo"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
                       }
                     },
                     {
@@ -112,7 +64,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.15
                       }
                     },
                     {
@@ -124,7 +76,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "6 - Step 5"
+                        "pathName": "6 - Step 2"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "6 - Step 3"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
                       }
                     }
                   ]
@@ -133,13 +97,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "StartShooter"
+                  "name": "AutoStartIntake"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "AutoStartIntake"
+                  "name": "StartShooter"
                 }
               }
             ]

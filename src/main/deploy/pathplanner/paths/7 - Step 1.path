@@ -3,43 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.9454344324892869,
-        "y": 6.454465827910569
+        "x": 4.259044433738146,
+        "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.670573463233497,
-        "y": 6.628866354292088
+        "x": 6.03058662277147,
+        "y": 6.959309456909702
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "1-EndS1"
     },
     {
       "anchor": {
-        "x": 3.7266638795208786,
-        "y": 7.142888958363933
+        "x": 8.4,
+        "y": 5.472315495130435
       },
       "prevControl": {
-        "x": 3.047419724140226,
-        "y": 6.950130481836991
+        "x": 6.783262578733816,
+        "y": 5.747684747311781
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS1"
+      "linkedName": "7.0-EndS1"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4,
-      "rotationDegrees": 35.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.15,
       "command": {
         "type": "parallel",
         "data": {
@@ -55,18 +49,7 @@
               "data": {
                 "name": "AutoStartDeliveryToSensor"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
@@ -86,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "07-Blue-C7-C3-C8",
   "previewStartingState": {
-    "rotation": 46.0,
+    "rotation": 15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -3,51 +3,34 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 5.665073971657378
+        "x": 8.4,
+        "y": 7.2
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.912276512677332,
-        "y": 6.234170426165493
+        "x": 7.728697011223103,
+        "y": 7.222363335181721
       },
       "isLocked": false,
-      "linkedName": "7-EndS4"
+      "linkedName": "7.0-EndS4"
     },
     {
       "anchor": {
-        "x": 4.82,
-        "y": 6.381034027328877
+        "x": 3.7542008047390127,
+        "y": 7.2
       },
       "prevControl": {
-        "x": 5.719539557125731,
-        "y": 6.408570952547011
+        "x": 4.561950611137627,
+        "y": 7.1816420498545765
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS5N6"
+      "linkedName": "7.0-EndS5"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos7-N7"
-              }
-            }
-          ]
-        }
-      }
-    },
     {
       "name": "New Event Marker",
       "waypointRelativePos": 0,
@@ -58,7 +41,7 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorTinyTimeout"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -72,6 +55,18 @@
         "type": "parallel",
         "data": {
           "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
+              }
+            },
             {
               "type": "named",
               "data": {
@@ -91,11 +86,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 8.0,
+    "rotation": 30.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "07-Blue-C7-C3-C8",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

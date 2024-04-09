@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.790408422104303,
-        "y": 4.1046482092964185
+        "x": 4.259044433738146,
+        "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8449739896150164,
-        "y": 4.581954913077419
+        "x": 5.2228368163728565,
+        "y": 6.950130481836991
       },
       "isLocked": false,
-      "linkedName": "5-EndS1"
+      "linkedName": "1-EndS1"
     },
     {
       "anchor": {
-        "x": 1.9734796406329773,
-        "y": 5.55492627078484
+        "x": 8.4,
+        "y": 7.2
       },
       "prevControl": {
-        "x": 1.9551216904875544,
-        "y": 5.444778569912301
+        "x": 7.242211332369392,
+        "y": 7.194826409963587
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "5-EndS2"
+      "linkedName": "7.0-EndS4"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.1,
+      "waypointRelativePos": 0.35,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,41 +41,19 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos5-N1"
+                "name": "ShooterPositionPickup"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
+                "name": "EngageDeliverServo"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.25,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "DisengageDeliverServo"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -95,9 +73,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-5-Blue-WithHot",
+  "folder": "07-Blue-C7-C3-C8",
   "previewStartingState": {
-    "rotation": 15.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

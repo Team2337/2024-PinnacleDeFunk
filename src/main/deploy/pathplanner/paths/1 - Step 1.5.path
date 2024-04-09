@@ -3,37 +3,43 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.38040424138562,
-        "y": 5.665073971657378
+        "x": 4.259044433738146,
+        "y": 6.45
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.5084016094780255,
-        "y": 6.582971478928531
+        "x": 5.507385043626914,
+        "y": 7.308110509672741
       },
       "isLocked": false,
-      "linkedName": "7-EndS4"
+      "linkedName": "1-EndS1"
     },
     {
       "anchor": {
-        "x": 4.185612633156454,
-        "y": 5.435599594839589
+        "x": 8.4,
+        "y": 7.35
       },
       "prevControl": {
-        "x": 4.864856788537108,
-        "y": 6.454465827910568
+        "x": 6.94972193851158,
+        "y": 7.3041051246364415
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "7-EndS5N2"
+      "linkedName": "1-EndS1.5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.6,
+      "rotationDegrees": 0.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,24 +47,19 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos7-N7"
+                "name": "EngageDeliverServo"
               }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
+            },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensorNoTimeout"
+                "name": "ShooterPositionPickup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -74,14 +75,14 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
   "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
+    "rotation": 15.0,
+    "velocity": 3.5
   },
   "useDefaultConstraints": true
 }

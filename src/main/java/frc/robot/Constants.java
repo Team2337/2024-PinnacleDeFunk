@@ -130,8 +130,8 @@ public final class Constants {
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(16.541, 5.55); // 0,2.658
-    public static Translation2d randomPointBlue = new Translation2d(0, 5.75);
-    public static Translation2d randomPointRed = new Translation2d(16.541, 6.25); //  1.35, 1.8542
+    public static Translation2d randomPointBlue = new Translation2d(0, 6.75);
+    public static Translation2d randomPointRed = new Translation2d(16.541, 6.75); //  1.35, 1.8542
     public static Translation2d blueAmpRobotLocation = new Translation2d(1.8415, 7.74);//7.7216
     public static Translation2d redAmpRobotLocation = new Translation2d(14.6995, 7.74); // 1.8415, 0.3556
     public static double midFieldInMeters = 8.28; 
@@ -157,7 +157,7 @@ public final class Constants {
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
     public static double driveScale = 5;
-    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.9; //4.365;
+    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.9; 
     public static final double RED_DISABLE_LIMELIGHT_DISTANCE = 12;
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
@@ -230,6 +230,10 @@ public final class Constants {
     public static final double SHOOTER_BOTTOM_DIFF_TRAP = 15; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 0; 
 
+    public static final double SHOOTER_MAX_VELOCITY_CENTER = 75; 
+    public static final double SHOOTER_BOTTOM_DIFF_CENTER = 0; 
+    public static final double SHOOTER_LEFTRIGHT_DIFF_CENTER = -20; 
+
     // public static final double SHOOTER_MAX_VELOCITY_TRAP = 16.5; 
     // public static final double SHOOTER_BOTTOM_DIFF_TRAP = 8; 
     // public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 10; 
@@ -256,6 +260,7 @@ public final class Constants {
 
     public static final double SHOOTER_AT_PICKUP = 13.7;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;
+    public static final double SHOOTERPOS_SMALL_RANGE = 0.2;
 
   }
 

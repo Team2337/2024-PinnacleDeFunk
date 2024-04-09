@@ -90,6 +90,18 @@
                       "data": {
                         "pathName": "3 - Step 4"
                       }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "3 - Step 5"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "AutoStartDeliveryTemp"
+                      }
                     }
                   ]
                 }

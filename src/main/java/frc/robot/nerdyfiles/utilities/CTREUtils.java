@@ -22,6 +22,19 @@ public class CTREUtils {
     return defaultCurrentLimit;
   }
 
+  public static CurrentLimitsConfigs setSwerveCurrentLimit() {
+    //TODO: Valdiate with documentation
+    CurrentLimitsConfigs defaultCurrentLimit = new CurrentLimitsConfigs();
+    defaultCurrentLimit.SupplyCurrentLimit = 35.0;
+    defaultCurrentLimit.SupplyCurrentThreshold = 50.0;
+    defaultCurrentLimit.SupplyTimeThreshold = 1.0;
+    defaultCurrentLimit.SupplyCurrentLimitEnable = true;
+
+    defaultCurrentLimit.StatorCurrentLimit = 50.0;
+    defaultCurrentLimit.StatorCurrentLimitEnable = true;
+    return defaultCurrentLimit;
+  }
+
   public static CurrentLimitsConfigs setShooterCurrentLimit() {
     CurrentLimitsConfigs defaultCurrentLimit = new CurrentLimitsConfigs();
     defaultCurrentLimit.SupplyCurrentLimit = 40.0;

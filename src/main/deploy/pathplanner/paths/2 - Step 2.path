@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270256540513081,
+        "x": 8.4,
         "y": 5.472315495130435
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5884709705046487,
+        "x": 2.718214429991568,
         "y": 7.647732587363065
       },
       "isLocked": false,
@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 8.334509366022063,
-        "y": 4.205616935096246
+        "x": 8.270256540513081,
+        "y": 4.1046482092964185
       },
       "prevControl": {
-        "x": 3.9469592812659555,
-        "y": 3.26936147767967
+        "x": 3.8827064557569737,
+        "y": 3.1683927518798427
       },
       "nextControl": null,
       "isLocked": false,
@@ -136,7 +136,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "2-Blue-YeetOut-C0-C7-C6-C5",
+  "folder": "02-Blue-YeetOut-C0-C7-C6-C5",
   "previewStartingState": {
     "rotation": -20.0,
     "velocity": 0

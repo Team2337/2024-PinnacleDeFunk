@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.185612633156454,
-        "y": 5.435599594839589
+        "x": 8.4,
+        "y": 5.472315495130435
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.985612633156454,
-        "y": 5.435599594839589
+        "x": 7.490043659332603,
+        "y": 6.169917600656512
       },
       "isLocked": false,
-      "linkedName": "7-EndS5N2"
+      "linkedName": "7.0-EndS1"
     },
     {
       "anchor": {
-        "x": 2.3589965936868613,
-        "y": 5.435599594839589
+        "x": 3.7542008047390127,
+        "y": 7.36318436010901
       },
       "prevControl": {
-        "x": 2.7813292067148128,
-        "y": 5.435599594839589
+        "x": 4.800603963028126,
+        "y": 7.197962808800202
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "7.0-EndS2"
     }
   ],
   "rotationTargets": [],
@@ -41,13 +41,30 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPositionPickup"
+                "name": "AutoStartDeliveryToSensor"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.45,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPos7-N7"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
+                "name": "DisengageDeliverServo"
               }
             }
           ]
@@ -63,13 +80,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 25.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-7 - Blue - C0-C3-C8-C7-(C2 or C6)",
+  "folder": "07-Blue-C7-C3-C8",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
