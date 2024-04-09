@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.279435515585794,
-        "y": 5.343809844112474
+        "y": 5.1
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.453327759041756,
-        "y": 6.215812476020068
+        "y": 5.972002631907594
       },
       "isLocked": false,
       "linkedName": "11-EndS2"
@@ -80,7 +80,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0,
+    "rotation": 28.0,
     "rotateFast": false
   },
   "reversed": false,

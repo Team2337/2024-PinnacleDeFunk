@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.573892243455963,
-        "y": 6.344318127038029
+        "x": 7.490043659332603,
+        "y": 6.169917600656512
       },
       "isLocked": false,
-      "linkedName": "1-EndS2"
+      "linkedName": "7.0-EndS1"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 7.36318436010901
       },
       "prevControl": {
-        "x": 5.5808168442086075,
-        "y": 7.629374637217643
+        "x": 4.800603963028126,
+        "y": 7.197962808800202
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "1.5-EndS3"
+      "linkedName": "7.0-EndS2"
     }
   ],
   "rotationTargets": [],
@@ -50,7 +50,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "parallel",
         "data": {
@@ -58,7 +58,7 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos1.5-N7"
+                "name": "ShooterPos7-N7"
               }
             },
             {
@@ -84,9 +84,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "07-Blue-C7-C3-C8",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -15.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

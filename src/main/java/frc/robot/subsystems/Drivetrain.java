@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.Constants.SystemsCheckPositions;
 import frc.robot.generated.TunerConstants;
+import frc.robot.nerdyfiles.utilities.CTREUtils;
 
 /**
  * Class that extends the Phoenix SwerveDrivetrain class and implements subsystem
@@ -64,6 +65,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         }
 
         setupShuffleboard();
+        teleOpLimits();
     }
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
@@ -73,6 +75,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         }
 
         setupShuffleboard();
+        teleOpLimits();
     }
 
     public Pose2d modifyPose() {
@@ -113,6 +116,13 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 return false;
             },
             this); // Subsystem for requirements
+    }
+
+    public void teleOpLimits() {
+        for(int i = 0; i < 3; i++) {
+            Modules[i].getDriveMotor().getConfigurator().apply(CTREUtils.setSwerveCurrentLimit());
+            Modules[i].getSteerMotor().getConfigurator().apply(CTREUtils.setSwerveCurrentLimit());
+        }
     }
 
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
@@ -249,11 +259,11 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 useLimelight = true;
             }
         } else if (allianceColor == "blue") {
-            if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+            // if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
                 useLimelight = false;
-            } else {
-                useLimelight = true;
-            }
+            // } else {
+            //     useLimelight = true;
+            // }
         } else {
             useLimelight = true;
         }

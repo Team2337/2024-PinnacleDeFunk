@@ -157,7 +157,7 @@ public final class Constants {
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
     public static double driveScale = 5;
-    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.9; //4.365;
+    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.9; 
     public static final double RED_DISABLE_LIMELIGHT_DISTANCE = 12;
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
