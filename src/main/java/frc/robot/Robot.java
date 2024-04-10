@@ -11,6 +11,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
@@ -74,6 +75,23 @@ public class Robot extends TimedRobot {
   }
   @Override
   public void robotPeriodic() {
+      boolean doRejectUpdate = false;
+      //LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight-blue", pigeon.getYaw().getValueAsDouble(), 0, 0, 0, 0, 0);
+
+      LimelightHelpers.PoseEstimate mt2_blue = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
+      if(Math.abs(pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+      {
+        doRejectUpdate = true;
+      }
+      if(!doRejectUpdate)
+      {
+         m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.6,.6,9999999));
+         m_robotContainer.drivetrain.addVisionMeasurement(
+            mt2_blue.pose,
+            mt2_blue.timestampSeconds);
+      }
+
     CommandScheduler.getInstance().run(); 
     
     pigeon.getYaw();
