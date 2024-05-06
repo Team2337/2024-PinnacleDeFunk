@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.nerdyfiles.vision.LimelightHelpers;
-import frc.robot.nerdyfiles.vision.LimelightHelpers.RawFiducial;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
@@ -35,7 +34,6 @@ public class Robot extends TimedRobot {
   private final Pigeon2 pigeon = new Pigeon2(0);
 
   //private final boolean UseLimelight = true;
-  private double visionCounter = 0;
   private final Matrix<N3, N1> visionStdDevs = new Matrix<>(Nat.N3(), Nat.N1());
   private final Matrix<N3, N1> visionStdDevsMultiTags = new Matrix<>(Nat.N3(), Nat.N1());
   private Pose2d llPose, llPoseBattery;
@@ -100,7 +98,6 @@ public class Robot extends TimedRobot {
 
     if (DriverStation.isDisabled()) {
       mt1_blue();
-      //TODO:Take out before matches
       //mt1_bat();
     }
 

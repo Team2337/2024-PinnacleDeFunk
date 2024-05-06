@@ -1,9 +1,7 @@
 package frc.robot.commands.auto;
 
 import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.nerdyfiles.vision.LimelightHelpers;
 
 public class AutoGetSkipPath extends Command{
     

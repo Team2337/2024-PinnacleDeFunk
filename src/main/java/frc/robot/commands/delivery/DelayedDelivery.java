@@ -9,7 +9,6 @@ public class DelayedDelivery extends Command {
     private Delivery delivery;
     private double speed;
     private Supplier<Boolean> upToSpeed, shooterInPos;
-    private double wait = 0;
 
     public DelayedDelivery(Delivery delivery, double speed, Supplier<Boolean> upToSpeed, Supplier<Boolean> shooterInPos) {
         this.delivery = delivery;
@@ -26,21 +25,16 @@ public class DelayedDelivery extends Command {
     
     @Override
     public void execute() {
-        //if (wait >= 100) {
             if (upToSpeed.get() && shooterInPos.get()) {
                 delivery.setDeliverySpeed(speed);
             } else {
                 delivery.stopMotors();
             }
-        // } else {
-        //     wait++;
-        // }
     }
 
     @Override
     public void end(boolean interrupted) {
         delivery.stopMotors();
-        wait = 0;
     }
 
     @Override

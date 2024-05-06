@@ -10,7 +10,6 @@ public class CTREUtils {
    * in catastrophic scenerios.
    */
   public static CurrentLimitsConfigs setDefaultCurrentLimit() {
-    //TODO: Valdiate with documentation
     CurrentLimitsConfigs defaultCurrentLimit = new CurrentLimitsConfigs();
     defaultCurrentLimit.SupplyCurrentLimit = 40.0;
     defaultCurrentLimit.SupplyCurrentThreshold = 50.0;
@@ -23,7 +22,6 @@ public class CTREUtils {
   }
 
   public static CurrentLimitsConfigs setClimbCurrentLimit() {
-    //TODO: Valdiate with documentation
     CurrentLimitsConfigs defaultCurrentLimit = new CurrentLimitsConfigs();
     defaultCurrentLimit.SupplyCurrentLimit = 50.0;
     defaultCurrentLimit.SupplyCurrentThreshold = 50.0;
@@ -36,7 +34,6 @@ public class CTREUtils {
   }
 
   public static CurrentLimitsConfigs setSwerveCurrentLimit() {
-    //TODO: Valdiate with documentation
     CurrentLimitsConfigs defaultCurrentLimit = new CurrentLimitsConfigs();
     defaultCurrentLimit.SupplyCurrentLimit = 45.0;
     defaultCurrentLimit.SupplyCurrentThreshold = 50.0;
