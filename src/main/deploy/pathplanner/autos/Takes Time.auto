@@ -14,7 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "14 - Step 1"
+            "pathName": "Test 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Test 2"
           }
         }
       ]

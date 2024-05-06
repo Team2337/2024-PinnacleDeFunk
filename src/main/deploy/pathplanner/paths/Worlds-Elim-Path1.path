@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.334509366022063,
-        "y": 4.27
+        "x": 4.5,
+        "y": 4.76
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.948484130042622,
-        "y": 3.902840997091539
+        "x": 4.5435926609922035,
+        "y": 5.61917909629382
       },
       "isLocked": false,
-      "linkedName": "11-EndS3"
+      "linkedName": "2-EndS3"
     },
     {
       "anchor": {
-        "x": 4.314118284174416,
-        "y": 4.802250314822494
+        "x": 8.4,
+        "y": 7.2
       },
       "prevControl": {
-        "x": 5.137923826347099,
-        "y": 3.9424979977373944
+        "x": 4.240686483592724,
+        "y": 6.729835080091914
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "11-EndS4"
+      "linkedName": "1-EndS1.5"
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,30 +41,19 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.6,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "DisengageDeliverServo"
+                "name": "ShooterPositionPickup"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos11-N6"
+                "name": "EngageDeliverServo"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -80,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -10.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "11 - Red - YeetOut",
+  "folder": "02-Blue-YeetOut-C0-C7-C6-C5",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -10.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -130,8 +130,8 @@ public final class Constants {
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(16.541, 5.55); // 0,2.658
-    public static Translation2d randomPointBlue = new Translation2d(0, 6.75);
-    public static Translation2d randomPointRed = new Translation2d(16.541, 6.75); //  1.35, 1.8542
+    public static Translation2d randomPointBlue = new Translation2d(0, 7.2);
+    public static Translation2d randomPointRed = new Translation2d(16.541, 6.5); //  1.35, 1.8542
     public static Translation2d blueAmpRobotLocation = new Translation2d(1.8415, 7.74);//7.7216
     public static Translation2d redAmpRobotLocation = new Translation2d(14.6995, 7.74); // 1.8415, 0.3556
     public static double midFieldInMeters = 8.28; 
@@ -157,15 +157,15 @@ public final class Constants {
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
     public static double driveScale = 5;
-    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.9; 
-    public static final double RED_DISABLE_LIMELIGHT_DISTANCE = 12;
+    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.4; 
+    public static final double RED_DISABLE_LIMELIGHT_DISTANCE = 12.2;
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
     public static final double ROBOT_AT_INTAKE_RED = 58.93;
     public static final double ROBOT_AT_SNIPE_BLUE = -120;
     public static final double ROBOT_AT_SNIPE_RED = 120;
     public static final double HALF_COURT_RED = -150;
-    public static final double HALF_COURT_BLUE = -30;
+    public static final double HALF_COURT_BLUE = 30;
   }
 
   public static final class Pixy {
@@ -241,11 +241,11 @@ public final class Constants {
     public static final double SHOOTER_POOP_VELOCITY = 15; 
     public static final double SHOOTER_INTAKE_VELOCITY = -5;
     
-    public static final double SHOOTER_SENDIT_VELOCITY = 60; 
+    public static final double SHOOTER_SENDIT_VELOCITY = 68; 
     public static final double SHOOTER_SENDIT_CHAIN_VELOCITY = 55; 
 
     public static final double SHOOTER_SENDIT_LEFTRIGHT_DIFF = -30;
-    public static final double SHOOTER_SENDIT_BOTTOM_DIFF = 0; 
+    public static final double SHOOTER_SENDIT_BOTTOM_DIFF = -10; 
   }
 
   public static class ShooterPosPot {
@@ -255,10 +255,10 @@ public final class Constants {
     public static final double SHOOTERPOT_MAX_JOYSTICK_SPEED = 0.2;
     public static final double SHOOTERPOT_MAX_PID_SPEED = 0.7;
     public static final double SHOOTERPOT_AT_AMP = 6.62;
-    public static final double SHOOTERPOT_HALF_COURT = 10;
-    public static final double SHOOTERPOT_HALF_CHAIN_COURT = 9.5;
+    public static final double SHOOTERPOT_HALF_COURT = 12.5; //10
+    public static final double SHOOTERPOT_HALF_CHAIN_COURT = 10.7;
 
-    public static final double SHOOTER_AT_PICKUP = 13.7;//MIN = 9.8 MAX = 10.8      //5.7
+    public static final double SHOOTER_AT_PICKUP = 13.4;//MIN = 9.8 MAX = 10.8      //5.7
     public static final double SHOOTERPOS_RANGE = 0.5;
     public static final double SHOOTERPOS_SMALL_RANGE = 0.2;
 

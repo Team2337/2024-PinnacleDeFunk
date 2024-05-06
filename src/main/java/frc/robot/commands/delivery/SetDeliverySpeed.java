@@ -8,13 +8,14 @@ import frc.robot.subsystems.Delivery;
 public class SetDeliverySpeed extends Command {
     private Delivery delivery;
     private double speed;
-    private Supplier<Boolean> upToSpeed, override;
+    private Supplier<Boolean> upToSpeed, override, shooterAtPos;
 
-    public SetDeliverySpeed(Delivery delivery, double speed, Supplier<Boolean> upToSpeed, Supplier<Boolean> override) {
+    public SetDeliverySpeed(Delivery delivery, double speed, Supplier<Boolean> upToSpeed, Supplier<Boolean> override, Supplier<Boolean> shooterAtPos) {
         this.delivery = delivery;
         this.speed = speed;
         this.upToSpeed = upToSpeed;
         this.override = override;
+        this.shooterAtPos = shooterAtPos;
         addRequirements(delivery);
     }
 
@@ -25,7 +26,9 @@ public class SetDeliverySpeed extends Command {
     
     @Override
     public void execute() {
-        if (upToSpeed.get() && !override.get()) {
+        if (upToSpeed.get() && !override.get() && shooterAtPos.get()) {
+            delivery.setDeliverySpeed(speed);
+        }else if (override.get()) {
             delivery.setDeliverySpeed(speed);
         } else {
             delivery.stopMotors();
