@@ -42,7 +42,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     private double m_lastSimTime;
     //private Field2d field = new Field2d();
     public double rotationAngle = 0;
-    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, visionRotate, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp, noteDetection = false;
+    public boolean driveAtAngle, endGame, lockdownEnabled, pointAtSpeaker, visionRotate, pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp, noteDetection, skipPath = false;
     public boolean useLimelight = true;
     public boolean autoUseLimelight = true;
     public boolean autoModLimelight = false;
@@ -119,7 +119,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     }
 
     public void teleOpLimits() {
-        for(int i = 0; i < 3; i++) {
+        for(int i = 0; i <= 3; i++) {
             Modules[i].getDriveMotor().getConfigurator().apply(CTREUtils.setSwerveCurrentLimit());
             Modules[i].getSteerMotor().getConfigurator().apply(CTREUtils.setSwerveCurrentLimit());
         }
@@ -216,6 +216,14 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         visionRotate = vision;
     }
 
+    public void setSkipPath(boolean skip) {
+        skipPath = skip;
+    }
+
+    public boolean getSkipPath() {
+        return skipPath;
+    }
+
     public void setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(boolean pointRandom) {
         pointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp = pointRandom;
     }
@@ -259,11 +267,11 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 useLimelight = true;
             }
         } else if (allianceColor == "blue") {
-            // if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+            if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
                 useLimelight = false;
-            // } else {
-            //     useLimelight = true;
-            // }
+            } else {
+                useLimelight = true;
+            }
         } else {
             useLimelight = true;
         }

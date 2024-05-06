@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 1.51,
-      "y": 6.454465827910569
+      "y": 6.45
     },
-    "rotation": 0.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -28,13 +28,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "1 - Step 1.5"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "1 - Step 2"
+                        "pathName": "2 - Step 1"
                       }
                     },
                     {
@@ -46,19 +40,25 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "1 - Step 4"
+                        "pathName": "2 - Step 3"
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "AutoStartDeliveryTempWithHaveNote"
+                        "name": "AutoStartDeliveryTemp"
                       }
                     },
                     {
-                      "type": "wait",
+                      "type": "path",
                       "data": {
-                        "waitTime": 0.3
+                        "pathName": "Worlds-Elim-Path1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "1 - Step 2"
                       }
                     }
                   ]

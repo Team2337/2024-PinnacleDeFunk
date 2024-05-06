@@ -77,6 +77,7 @@ public class SetShooterPosByDistance extends Command {
         if (allianceColor.get() == "blue") {
             newSetpoint -= 0.2;
         } else {
+            newSetpoint -= 0.2;
             //speakerPose = Constants.FieldElements.redSpeakerCenter;
         }
 
