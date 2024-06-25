@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
     if (m_robotContainer.drivetrain.useLimelight) {  
       if (DriverStation.isAutonomous() ) {
         //mt1_bat();
-        mt1_blue();
+        //mt1_blue();
       } else if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()){
         //mt2_blue();
         
@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
       mt1_blue();
       //TODO:Take out before matches
       //mt1_bat();
+      
     }
 
     if (gcTimer.advanceIfElapsed(5)) {
@@ -190,29 +191,32 @@ public class Robot extends TimedRobot {
   public void simulationPeriodic() {}
 
   public void mt1_blue() {
-    var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
-
+    //var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
+    LimelightHelpers.PoseEstimate lastResult = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-blue");
       
-      if (lastResult.valid) {
+          //System.out.println(lastResult.tagCount);
+      if (lastResult.tagCount > 0) {
+        
+          //System.out.println("Alex was here");
         multiBlueTargets = true;
-        if (lastResult.targets_Fiducials.length > 1) {
+        if (lastResult.tagCount > 1) {
           multiBatteryTargets = false;
         }
       } else {
         multiBlueTargets = false;
       }
-      llPose = lastResult.getBotPose2d_wpiBlue();
+      //llPose = lastResult.getBotPose2d_wpiBlue();
       double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
 
 
-      if ((lastResult.valid)) {
-        if (lastResult.targets_Fiducials.length > 1) {
+      if ((lastResult.tagCount > 0)) {
+        if (lastResult.tagCount > 1) {
           m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevsMultiTags);
         } else {
           m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
         }
         if (multiBlueTargets) {
-          m_robotContainer.drivetrain.addVisionMeasurement(llPose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
+          m_robotContainer.drivetrain.addVisionMeasurement(lastResult.pose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
         }
       }
         

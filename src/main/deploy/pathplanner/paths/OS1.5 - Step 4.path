@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.4,
-        "y": 5.472315495130435
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 7.573892243455963,
-        "y": 6.344318127038029
-      },
-      "isLocked": false,
-      "linkedName": "1-EndS2"
-    },
-    {
-      "anchor": {
         "x": 3.7542008047390127,
         "y": 7.36318436010901
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.341146926466994,
+        "y": 7.216320758945625
+      },
+      "isLocked": false,
+      "linkedName": "1.5-EndS3"
+    },
+    {
+      "anchor": {
+        "x": 2.212132992523477,
+        "y": 6.665582254582933
+      },
       "prevControl": {
-        "x": 5.5808168442086075,
-        "y": 7.629374637217643
+        "x": 2.6802607212317646,
+        "y": 6.968488431982414
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "1.5-EndS3"
+      "linkedName": "1.5-EndS4"
     }
   ],
   "rotationTargets": [],
@@ -41,30 +41,13 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos1.5-N7"
+                "name": "EngageDeliverServo"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "DisengageDeliverServo"
+                "name": "AutoStartDeliveryToSensor"
               }
             }
           ]
@@ -80,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0,
+    "rotation": 30.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "OffSeason-Yeet",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 25.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

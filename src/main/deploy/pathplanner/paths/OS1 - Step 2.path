@@ -4,31 +4,37 @@
     {
       "anchor": {
         "x": 8.4,
-        "y": 5.472315495130435
+        "y": 7.2
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.573892243455963,
-        "y": 6.344318127038029
+        "x": 2.6373441619921745,
+        "y": 7.508887100941108
       },
       "isLocked": false,
-      "linkedName": "1-EndS2"
+      "linkedName": "1-EndS1.5"
     },
     {
       "anchor": {
-        "x": 3.7542008047390127,
-        "y": 7.36318436010901
+        "x": 8.4,
+        "y": 5.472315495130435
       },
       "prevControl": {
-        "x": 5.5808168442086075,
-        "y": 7.629374637217643
+        "x": 5.002933144240039,
+        "y": 6.663465994549679
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "1.5-EndS3"
+      "linkedName": "1-EndS2"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 12.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -50,7 +56,7 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.3,
+      "waypointRelativePos": 0.2,
       "command": {
         "type": "parallel",
         "data": {
@@ -58,13 +64,47 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos1.5-N7"
+                "name": "DisengageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.75,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryToSensor"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "DisengageDeliverServo"
+                "name": "EngageDeliverServo"
               }
             }
           ]
@@ -80,13 +120,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 25.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "OffSeason-Yeet",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

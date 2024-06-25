@@ -58,12 +58,6 @@
             {
               "type": "named",
               "data": {
-                "name": "ShooterPos1.5-N7"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
                 "name": "DisengageDeliverServo"
               }
             }
@@ -84,7 +78,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "01 - Blue - YeetOut - C0-C8-C7-(C6 or C3)",
+  "folder": "OffSeason-Yeet",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
