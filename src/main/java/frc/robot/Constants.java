@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -157,7 +158,7 @@ public final class Constants {
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
     public static double driveScale = 5;
-    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 4.4; 
+    public static final double BLUE_DISABLE_LIMELIGHT_DISTANCE = 1.5; 
     public static final double RED_DISABLE_LIMELIGHT_DISTANCE = 12.2;
 
     public static final double ROBOT_AT_INTAKE_BLUE = -58.93;
@@ -166,6 +167,25 @@ public final class Constants {
     public static final double ROBOT_AT_SNIPE_RED = 120;
     public static final double HALF_COURT_RED = -150;
     public static final double HALF_COURT_BLUE = 30;
+
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.6223;//TODO
+    /**
+     * The front-to-back distance between the drivetrain wheels.
+     *
+     * Should be measured from center to center.
+     */
+    public static final double DRIVETRAIN_WHEELBASE_METERS = 0.6223;
+
+    public static final SwerveDriveKinematics KINEMATICS = new SwerveDriveKinematics(
+        // Front left
+        new Translation2d(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0),
+        // Front right
+        new Translation2d(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DRIVETRAIN_WHEELBASE_METERS / 2.0),
+        // Back left
+        new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0),
+        // Back right
+        new Translation2d(-DRIVETRAIN_TRACKWIDTH_METERS / 2.0, -DRIVETRAIN_WHEELBASE_METERS / 2.0)
+    );
   }
 
   public static final class Pixy {

@@ -19,18 +19,19 @@ public class SetShooterPosByDistance extends Command {
     private double minStringPotValue = 7;//5.3;
     private double maxStringPotValue = 15;//10.1;
     private Supplier<String> allianceColor;
-    private Supplier<Double> xVelocity;
+    private Supplier<Double> xVelocity, yVelocity;
     private Supplier<Boolean> topSensor;
     private double distanceToFloor = 1.4478; //TODO:  Validate to center of tags 4 + 7
     private double cameraHeight = 0.2667;
 
 
 
-    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity, Supplier<Boolean> topSensor) {
+    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity, Supplier<Double> yVelocity, Supplier<Boolean> topSensor) {
         this.shooterPosPot = shooterPosPot;
         this.currentPose = currentPose;
         this.allianceColor = allianceColor;
         this.xVelocity = xVelocity;
+        this.yVelocity = yVelocity;
         this.topSensor = topSensor;
         addRequirements(shooterPosPot);
     }
@@ -60,8 +61,8 @@ public class SetShooterPosByDistance extends Command {
         }
         speakerX = speakerPose.getX();      
         speakerY = speakerPose.getY(); 
-        currentX = currentPose.get().getX();
-        currentY = currentPose.get().getY();
+        currentX = (currentPose.get().getX() - (xVelocity.get()/5));
+        currentY = (currentPose.get().getY() - (yVelocity.get()/5));
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
         //newSetpoint = (-0.34540235 * Math.pow(distanceInMeters, 2)) + (3.7274448 * distanceInMeters) + 4.1656188; //FUDGE
         newSetpoint = (0.114 * Math.pow(distanceInMeters, 3)) + (-1.64 * Math.pow(distanceInMeters, 2)) + (8.34 * distanceInMeters) + -1.127;//-0.927 shot low //1.127 Blue -0.2

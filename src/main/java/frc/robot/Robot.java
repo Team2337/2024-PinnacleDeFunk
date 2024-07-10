@@ -85,12 +85,12 @@ public class Robot extends TimedRobot {
     if (m_robotContainer.drivetrain.useLimelight) {  
       if (DriverStation.isAutonomous() ) {
         //mt1_bat();
-        //mt1_blue();
+        mt1_blue();
       } else if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()){
         //mt2_blue();
         
         mt1_blue();
-        mt1_bat();
+        //mt1_bat();
       } else {
         
         mt1_blue();
@@ -222,6 +222,7 @@ public class Robot extends TimedRobot {
         
   }
 
+
   public void mt1_bat() {
       var lastResultBattery = LimelightHelpers.getLatestResults("limelight-battery").targetingResults;
       
@@ -254,7 +255,7 @@ public class Robot extends TimedRobot {
   public void mt2_blue() {
       boolean doRejectUpdate = false;
       LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-
+      SmartDashboard.putNumber("Rob Angle", m_robotContainer.drivetrain.getPose().getRotation().getDegrees());
       LimelightHelpers.PoseEstimate mt2_blue = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
       //SmartDashboard.putNumber("MT2-Blue Tag Count", mt2_blue.tagCount);
 

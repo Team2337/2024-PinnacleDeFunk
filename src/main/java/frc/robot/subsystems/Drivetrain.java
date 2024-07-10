@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import java.util.Vector;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
@@ -16,9 +17,13 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
@@ -31,6 +36,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.SystemsCheckPositions;
 import frc.robot.generated.TunerConstants;
 import frc.robot.nerdyfiles.utilities.CTREUtils;
+
 
 /**
  * Class that extends the Phoenix SwerveDrivetrain class and implements subsystem
@@ -329,6 +335,22 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 this // Reference to this subsystem to set requirements
         );
     }
+
+//     TODO private static final Vector<N3> stateStdDevs = VecBuilder.fill(0.05, 0.05, Math.toRadians(5));
+  
+//   /**
+//    * Standard deviations of the vision measurements. Increase these numbers to trust global measurements from vision
+//    * less. This matrix is in the form [x, y, theta]ᵀ, with units in meters and radians.
+//    */
+//   private static final Vector<N3> visionMeasurementStdDevs = VecBuilder.fill(0.5, 0.5, Math.toRadians(10));
+  
+//     private final SwerveDrivePoseEstimator poseEstimator =  new SwerveDrivePoseEstimator(
+//         Constants.Swerve.KINEMATICS,
+//         Rotation2d.fromDegrees(-this.getState().Pose.getRotation().getDegrees()),
+//         this.getModulePositions(),
+//         new Pose2d(),
+//         stateStdDevs,
+//         visionMeasurementStdDevs);
 
    
 }
