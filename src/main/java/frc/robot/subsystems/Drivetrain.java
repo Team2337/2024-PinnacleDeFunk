@@ -43,7 +43,7 @@ import frc.robot.nerdyfiles.utilities.CTREUtils;
  * so it can be used in command-based projects easily.
  */
 public class Drivetrain extends SwerveDrivetrain implements Subsystem {
-    private static final double kSimLoopPeriod = 0.005; // 5 ms
+    private static final double kSimLoopPeriod = 0.02; //TODO 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
     //private Field2d field = new Field2d();
@@ -254,38 +254,38 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
                 hasAppliedOperatorPerspective = true;
             });
         }
-      if (DriverStation.isAutonomous() && !DriverStation.isDisabled()) {
-        if (allianceColor == "Undefined") {
-            if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-                allianceColor = "red";
-            } else {
-                allianceColor = "blue";
-            }
-        }  
+    //   if (DriverStation.isAutonomous() && !DriverStation.isDisabled()) {
+    //     if (allianceColor == "Undefined") {
+    //         if (DriverStation.getAlliance().isPresent() && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+    //             allianceColor = "red";
+    //         } else {
+    //             allianceColor = "blue";
+    //         }
+    //     }  
 
 
-        if (DriverStation.isAutonomous() && autoModLimelight) {
-            useLimelight = autoUseLimelight;
-        } else if (allianceColor == "red") {
-            if (this.getState().Pose.getX() <= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
-                useLimelight = false;
-            } else {
-                useLimelight = true;
-            }
-        } else if (allianceColor == "blue") {
-            if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
-                useLimelight = false;
-            } else {
-                useLimelight = true;
-            }
-        } else {
-            useLimelight = true;
-        }
-        //useLimelight = true;
-    } else {
-        useLimelight = true;
-    }
-       
+    //     if (DriverStation.isAutonomous() && autoModLimelight) {
+    //         useLimelight = autoUseLimelight;
+    //     } else if (allianceColor == "red") {
+    //         if (this.getState().Pose.getX() <= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
+    //             useLimelight = false;
+    //         } else {
+    //             useLimelight = true;
+    //         }
+    //     } else if (allianceColor == "blue") {
+    //         if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+    //             useLimelight = false;
+    //         } else {
+    //             useLimelight = true;
+    //         }
+    //     } else {
+    //         useLimelight = true;
+    //     }
+    //     //useLimelight = true;
+    // } else {
+    //     useLimelight = true;
+    // }
+       useLimelight = true;
       log();
     }
 

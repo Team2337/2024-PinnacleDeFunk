@@ -21,6 +21,7 @@ public class Telemetry {
     private final double MaxSpeed;
     private double xVelocity = 0;
     private double yVelocity = 0;
+    private double angularV = 0;
 
     /**
      * Construct a telemetry object, with the specified max speed of the robot
@@ -103,6 +104,7 @@ public class Telemetry {
         odomFreq.set(1.0 / state.OdometryPeriod);
         xVelocity = velocities.getX();
         yVelocity = velocities.getY();
+        angularV = velocities.getAngle().getDegrees();
 
         /* Telemeterize the module's states */
         for (int i = 0; i < 4; ++i) {
@@ -123,5 +125,9 @@ public class Telemetry {
     
     public double getYVelocity() {
         return yVelocity;
+    }
+
+    public double getAngularV() {
+        return angularV;
     }
 }

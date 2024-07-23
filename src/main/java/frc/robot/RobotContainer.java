@@ -457,6 +457,10 @@ public class RobotContainer {
     return logger.getYVelocity();
   }
 
+  public double getDrivetrainAngularV() {
+    return logger.getAngularV();
+  }
+
   public boolean isShooterAtTrap() {
     return shooterPot.shooterAtTrap;
   }

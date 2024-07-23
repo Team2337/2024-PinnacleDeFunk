@@ -6,6 +6,7 @@ package frc.robot;
 
 import java.util.Optional;
 
+import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -14,6 +15,7 @@ import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
+
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -32,7 +34,12 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   
-  private final Pigeon2 pigeon = new Pigeon2(0);
+  private Pigeon2 pigeon = new Pigeon2(0);
+  // Pigeon2Configuration config = new Pigeon2Configuration();
+  // config.MountPoseYaw = 0;
+  // config.MountPosePitch = 0;
+  // config.MountPoseRoll = 0;
+  // pigeon.configAllSettings(config);
 
   //private final boolean UseLimelight = true;
   private double visionCounter = 0;
@@ -70,6 +77,8 @@ public class Robot extends TimedRobot {
     visionStdDevsMultiTags.set(2,0,Math.toRadians(30));//20
     m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
 
+    
+
     gcTimer.start();
 
   }
@@ -77,33 +86,43 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
       
       
+    //TODO
+    if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()) {
+      mt1_blue();
+      //System.out.println(pigeon.setYaw(0));
+      //System.out.println("Alex is the Best!!!!!!!!!!!!!!!!!!!");
+    }
+    SmartDashboard.putNumber("Current X", m_robotContainer.drivetrain.getPose().getX());
+    SmartDashboard.putNumber("Current Y", m_robotContainer.drivetrain.getPose().getY());
+    SmartDashboard.putNumber("Angular V", m_robotContainer.getDrivetrainAngularV());
 
     CommandScheduler.getInstance().run(); 
     
     pigeon.getYaw();
     SmartDashboard.putNumber("Yaw", pigeon.getYaw().getValueAsDouble());
-    if (m_robotContainer.drivetrain.useLimelight) {  
-      if (DriverStation.isAutonomous() ) {
-        //mt1_bat();
-        mt1_blue();
-      } else if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()){
-        //mt2_blue();
+    mt2_blue();
+    // if (m_robotContainer.drivetrain.useLimelight) {  
+    //   if (DriverStation.isAutonomous() ) {
+    //     //mt1_bat();
+    //     mt1_blue();
+    //   } else if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()){
+    //     //mt2_blue();
         
-        mt1_blue();
-        //mt1_bat();
-      } else {
+    //     mt1_blue();
+    //     //mt1_bat();
+    //   } else {
         
-        mt1_blue();
-      }
+    //     mt1_blue();
+    //   }
       
-    }
+    // }
 
-    if (DriverStation.isDisabled()) {
-      mt1_blue();
-      //TODO:Take out before matches
-      //mt1_bat();
+    // if (DriverStation.isDisabled()) {
+    //   mt1_blue();
+    //   //TODO:Take out before matches
+    //   //mt1_bat();
       
-    }
+    // }
 
     if (gcTimer.advanceIfElapsed(5)) {
       System.gc();
@@ -166,7 +185,6 @@ public class Robot extends TimedRobot {
         m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(m_robotContainer.drivetrain.getState().Pose.getX(), m_robotContainer.drivetrain.getState().Pose.getY()), m_robotContainer.drivetrain.getState().Pose.getRotation()));
       //}
     } 
-    //pigeon.setYaw(0);
   }
 
   @Override
@@ -253,25 +271,43 @@ public class Robot extends TimedRobot {
   }
   
   public void mt2_blue() {
-      boolean doRejectUpdate = false;
-      LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-      SmartDashboard.putNumber("Rob Angle", m_robotContainer.drivetrain.getPose().getRotation().getDegrees());
-      LimelightHelpers.PoseEstimate mt2_blue = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
-      //SmartDashboard.putNumber("MT2-Blue Tag Count", mt2_blue.tagCount);
+       boolean doRejectUpdate = false;
+      // LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      // SmartDashboard.putNumber("Rob Angle", m_robotContainer.drivetrain.getPose().getRotation().getDegrees());
+      // LimelightHelpers.PoseEstimate mt2_blue = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
+      // //SmartDashboard.putNumber("MT2-Blue Tag Count", mt2_blue.tagCount);
 
+      // if(Math.abs(pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+      // {
+      //   doRejectUpdate = true;
+      // }
+      // if (mt2_blue.tagCount == 0) {
+      //   doRejectUpdate = true;
+      // }
+      // if(!doRejectUpdate)
+      // {
+      //    m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.6,.6,9999999));
+      //    m_robotContainer.drivetrain.addVisionMeasurement(
+      //       mt2_blue.pose,
+      //       mt2_blue.timestampSeconds);
+      // }
+
+      LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
       if(Math.abs(pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
         doRejectUpdate = true;
       }
-      if (mt2_blue.tagCount == 0) {
+      if(mt2.tagCount == 0)
+      {
         doRejectUpdate = true;
       }
       if(!doRejectUpdate)
       {
-         m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.6,.6,9999999));
-         m_robotContainer.drivetrain.addVisionMeasurement(
-            mt2_blue.pose,
-            mt2_blue.timestampSeconds);
+        m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+        m_robotContainer.drivetrain.addVisionMeasurement(
+            mt2.pose,
+            mt2.timestampSeconds);
       }
   }
 
@@ -283,7 +319,7 @@ public class Robot extends TimedRobot {
 
       //SmartDashboard.putNumber("MT2-Bat Tag Count", mt2_bat.tagCount);
 
-      if(Math.abs(pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+      if(Math.abs(pigeon.getRate()) > 0.1) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
         doRejectUpdateBat = true;
       }
