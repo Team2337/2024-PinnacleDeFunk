@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.736136953015703,
-        "y": 6.569779302183426
+        "x": 7.159600556714988,
+        "y": 5.105156492221974
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.259022942296952,
-        "y": 6.558068465637645
+        "x": 6.6824865459962375,
+        "y": 5.093445655676193
       },
       "isLocked": false,
       "linkedName": "Hi"
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "Z-Tests",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -27.18111108547718,
     "velocity": 0
   },
   "useDefaultConstraints": true

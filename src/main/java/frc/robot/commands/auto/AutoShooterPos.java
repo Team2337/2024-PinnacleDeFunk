@@ -1,4 +1,4 @@
-package frc.robot.commands.shooterPosition;
+package frc.robot.commands.auto;
 
 import java.util.function.Supplier;
 
@@ -11,7 +11,7 @@ import frc.robot.nerdyfiles.vision.LimelightHelpers;
 import frc.robot.subsystems.ShooterPosPot;
 
 
-public class SetShooterPosByDistance extends Command {
+public class AutoShooterPos extends Command {
     private ShooterPosPot shooterPosPot;
     private Supplier<Pose2d> currentPose;
     private Translation2d speakerPose;
@@ -26,7 +26,7 @@ public class SetShooterPosByDistance extends Command {
 
 
 
-    public SetShooterPosByDistance(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity, Supplier<Double> yVelocity, Supplier<Boolean> topSensor) {
+    public AutoShooterPos(ShooterPosPot shooterPosPot, Supplier<Pose2d> currentPose, Supplier<String> allianceColor, Supplier<Double> xVelocity, Supplier<Double> yVelocity, Supplier<Boolean> topSensor) {
         this.shooterPosPot = shooterPosPot;
         this.currentPose = currentPose;
         this.allianceColor = allianceColor;
@@ -47,33 +47,37 @@ public class SetShooterPosByDistance extends Command {
     
     @Override
     public void execute() {
-        LimelightHelpers.PoseEstimate limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-blue");
-        double visionDistance = limelightMeasurement.avgTagDist;
 
-        double visionDistanceInMeters = Math.sqrt(Math.pow(visionDistance, 2) + Math.pow((distanceToFloor-cameraHeight), 2));
-        visionDistanceInMeters = Math.sqrt(Math.pow(visionDistanceInMeters, 2) - Math.pow(distanceToFloor, 2));
-        SmartDashboard.putNumber("Shooter/Vision Distance in meters", visionDistanceInMeters);
+        //Checks alliance to un-flip gyro from driving
+        if(allianceColor.get() == "blue") {
+            LimelightHelpers.SetRobotOrientation("limelight-blue", currentPose.get().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+        } else {
+            LimelightHelpers.SetRobotOrientation("limelight-blue", (currentPose.get().getRotation().getDegrees() - 180), 0, 0, 0, 0, 0);
+        }
 
+        //Gets Vision Pos
+        LimelightHelpers.PoseEstimate mt2_blue = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
+
+        //Sets the target goal
         if (allianceColor.get() == "blue") {
             speakerPose = Constants.FieldElements.blueSpeakerCenter;
         } else {
             speakerPose = Constants.FieldElements.redSpeakerCenter;
         }
+
+        SmartDashboard.putNumber("Auto Shots/Vision X", mt2_blue.pose.getX());
+        SmartDashboard.putNumber("Auto Shots/Vision Y", mt2_blue.pose.getY());
+        SmartDashboard.putNumber("Auto Shots/Robot X", currentPose.get().getX());
+        SmartDashboard.putNumber("Auto Shots/Robot Y", currentPose.get().getY());
+
         speakerX = speakerPose.getX();      
         speakerY = speakerPose.getY(); 
-        currentX = currentPose.get().getX();
-        currentY = currentPose.get().getY();
+        currentX = mt2_blue.pose.getX(); //(currentPose.get().getX() - (xVelocity.get()/5));
+        currentY = mt2_blue.pose.getY(); //(currentPose.get().getY() - (yVelocity.get()/5));
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
-        //newSetpoint = (-0.34540235 * Math.pow(distanceInMeters, 2)) + (3.7274448 * distanceInMeters) + 4.1656188; //FUDGE
         newSetpoint = (0.114 * Math.pow(distanceInMeters, 3)) + (-1.64 * Math.pow(distanceInMeters, 2)) + (8.34 * distanceInMeters) + -1.127;//-0.927 shot low //1.127 Blue -0.2
-        //newSetpoint = (-0.42026111 * Math.pow(distanceInMeters, 2)) + (4.2693814 * distanceInMeters) + 3.2881356; //RAW
-        //newSetpoint = (-0.42233788 * Math.pow(distanceInMeters, 2)) + (4.2114015 * distanceInMeters) + 3.5361784; //REMOVE POINTS
 
-        // if (xVelocity.get() > 0) {
-        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 2.1); //  Was 2
-        // } else if (xVelocity.get() < 0) {
-        //     modNewSetpoint = newSetpoint + (xVelocity.get() / 1.5); //  Was 2
-        // }
+        
 
         if (allianceColor.get() == "blue") {
             newSetpoint -= 0.2;

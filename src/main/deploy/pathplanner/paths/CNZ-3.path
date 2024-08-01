@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.4311279977766789,
-        "y": 6.569779302183426
+        "x": 8.444657066894601,
+        "y": 7.41825821054528
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.431127997776678,
-        "y": 6.569779302183426
+        "x": 7.572654434987006,
+        "y": 7.216320758945625
       },
       "isLocked": false,
-      "linkedName": "Hello"
+      "linkedName": "CNZ-S3"
     },
     {
       "anchor": {
-        "x": 7.159600556714988,
-        "y": 5.105156492221974
+        "x": 4.855677813464395,
+        "y": 6.601329429073953
       },
       "prevControl": {
-        "x": 6.159600556714988,
-        "y": 5.105156492221974
+        "x": 5.746038395517412,
+        "y": 6.803266880673608
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Hi"
+      "linkedName": "CNZ-S4"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 10.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Z-Tests",
+  "folder": "Blue-ChiNERDZone",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.LED.LEDRunnable;
 import frc.robot.commands.auto.AutoGetSkipPath;
 import frc.robot.commands.auto.AutoLimelight;
+import frc.robot.commands.auto.AutoShooterPos;
 import frc.robot.commands.auto.AutoStartDelivery;
 import frc.robot.commands.auto.AutoStartDeliveryTemp;
 import frc.robot.commands.auto.AutoStartDeliveryTempWithHaveNote;
@@ -395,6 +396,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ShooterPositionByDistance", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> doWeHaveNote()).withTimeout(1));
     NamedCommands.registerCommand("ShooterPositionByDistanceDrive", new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> delivery.getDeliveryTopSensor()));
+    NamedCommands.registerCommand("AutoShooterPos", new AutoShooterPos(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> delivery.getDeliveryTopSensor()));
     NamedCommands.registerCommand("AutoStartDeliveryToSensor", new AutoStartDeliveryToSensor(delivery).withTimeout(6));
     NamedCommands.registerCommand("AutoStartDeliveryToSensorNoTimeout", new AutoStartDeliveryToSensor(delivery));
     NamedCommands.registerCommand("AutoStartDeliveryToSensorTinyTimeout", new AutoStartDeliveryToSensor(delivery).withTimeout(0.4));
