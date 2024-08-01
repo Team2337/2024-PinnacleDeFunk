@@ -38,8 +38,8 @@ public class CTREUtils {
   public static CurrentLimitsConfigs setSwerveCurrentLimit() {
     //TODO: Valdiate with documentation
     CurrentLimitsConfigs defaultCurrentLimit = new CurrentLimitsConfigs();
-    defaultCurrentLimit.SupplyCurrentLimit = 45.0;
-    defaultCurrentLimit.SupplyCurrentThreshold = 50.0;
+    defaultCurrentLimit.SupplyCurrentLimit = 70.0;//45
+    defaultCurrentLimit.SupplyCurrentThreshold = 75.0;//50
     defaultCurrentLimit.SupplyTimeThreshold = 1.0;
     defaultCurrentLimit.SupplyCurrentLimitEnable = true;
 
