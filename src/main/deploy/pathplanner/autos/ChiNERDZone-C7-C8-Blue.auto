@@ -20,7 +20,7 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
@@ -52,20 +52,20 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.5
+                              "waitTime": 0.25
                             }
                           },
                           {
                             "type": "named",
                             "data": {
-                              "name": "AutoStartDeliveryTemp"
+                              "name": "AutoStartDeliveryTempWithHaveNote"
                             }
                           }
                         ]
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
@@ -103,20 +103,20 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.5
+                              "waitTime": 0.25
                             }
                           },
                           {
                             "type": "named",
                             "data": {
-                              "name": "AutoStartDeliveryTemp"
+                              "name": "AutoStartDeliveryTempWithHaveNote"
                             }
                           }
                         ]
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "deadline",
                       "data": {
                         "commands": [
                           {
@@ -154,16 +154,22 @@
                           {
                             "type": "wait",
                             "data": {
-                              "waitTime": 0.5
+                              "waitTime": 1.0
                             }
                           },
                           {
                             "type": "named",
                             "data": {
-                              "name": "AutoStartDeliveryTemp"
+                              "name": "AutoStartDeliveryTempWithHaveNote"
                             }
                           }
                         ]
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "CNZ-6"
                       }
                     }
                   ]

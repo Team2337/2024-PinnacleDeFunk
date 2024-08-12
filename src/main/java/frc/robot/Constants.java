@@ -131,8 +131,8 @@ public final class Constants {
   public static final class FieldElements {
     public static Translation2d blueSpeakerCenter = new Translation2d(0,5.55);
     public static Translation2d redSpeakerCenter = new Translation2d(16.541, 5.55); // 0,2.658
-    public static Translation2d randomPointBlue = new Translation2d(0, 7.2);
-    public static Translation2d randomPointRed = new Translation2d(16.541, 6.5); //  1.35, 1.8542
+    public static Translation2d randomPointBlue = new Translation2d(1, 8); //0,7.2
+    public static Translation2d randomPointRed = new Translation2d(16, 7); //  16.541,6.5
     public static Translation2d blueAmpRobotLocation = new Translation2d(1.8415, 7.74);//7.7216
     public static Translation2d redAmpRobotLocation = new Translation2d(14.6995, 7.74); // 1.8415, 0.3556
     public static double midFieldInMeters = 8.28; 
@@ -242,8 +242,8 @@ public final class Constants {
   
     public static final double SHOOTER_LEFTRIGHT_DIFF = -20;//30 
 
-    public static final double SHOOTER_MAX_VELOCITY_AMP = 5.5; 
-    public static final double SHOOTER_BOTTOM_DIFF_AMP = 6.5; 
+    public static final double SHOOTER_MAX_VELOCITY_AMP = 5.5; //5.5
+    public static final double SHOOTER_BOTTOM_DIFF_AMP = 7; //6.5
     public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = 0; 
 
     public static final double SHOOTER_MAX_VELOCITY_TRAP = 15; 

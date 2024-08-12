@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7990791142514586,
-        "y": 6.362676077183453
+        "x": 1.9275847652694196,
+        "y": 6.215812476020069
       },
       "isLocked": false,
       "linkedName": "CNZ-S1"
@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 2.88,
-        "y": 6.19
+        "y": 6.05
       },
       "prevControl": {
-        "x": 2.1478801670144962,
-        "y": 6.160738625583799
+        "x": 2.6341412319415465,
+        "y": 6.052913504015726
       },
       "nextControl": {
-        "x": 3.892482450641449,
-        "y": 6.230466910938936
+        "x": 3.8000956801025705,
+        "y": 6.039096575729223
       },
       "isLocked": false,
       "linkedName": null
@@ -33,11 +33,11 @@
     {
       "anchor": {
         "x": 4.855677813464395,
-        "y": 6.601329429073953
+        "y": 6.4
       },
       "prevControl": {
         "x": 4.617024461573896,
-        "y": 6.463644802983281
+        "y": 6.2623153739093285
       },
       "nextControl": null,
       "isLocked": false,
@@ -55,13 +55,13 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 5.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 10.0,
+    "rotation": 90.0,
     "rotateFast": false
   },
   "reversed": false,

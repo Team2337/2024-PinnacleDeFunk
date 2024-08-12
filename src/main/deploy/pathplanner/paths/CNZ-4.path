@@ -4,36 +4,60 @@
     {
       "anchor": {
         "x": 4.855677813464395,
-        "y": 6.601329429073953
+        "y": 6.4
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.865365071462664,
-        "y": 6.234170426165493
+        "x": 7.907220607593853,
+        "y": 6.2887192250846695
       },
       "isLocked": false,
       "linkedName": "CNZ-S4"
     },
     {
       "anchor": {
-        "x": 8.417120141676467,
-        "y": 5.756863722384493
+        "x": 8.6,
+        "y": 5.3
       },
       "prevControl": {
-        "x": 6.985082356001072,
-        "y": 5.756863722384493
+        "x": 6.0559926546386595,
+        "y": 5.28158728214746
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "CNZ-S5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 5.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

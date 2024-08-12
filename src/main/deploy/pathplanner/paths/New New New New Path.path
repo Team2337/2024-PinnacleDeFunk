@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.6,
+        "y": 7.1
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.970353683931332,
+        "y": 7.155321129472502
+      },
+      "isLocked": false,
+      "linkedName": "CNZ-S3"
+    },
+    {
+      "anchor": {
+        "x": 8.6,
+        "y": 5.3
+      },
+      "prevControl": {
+        "x": 7.6,
+        "y": 5.3
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CNZ-S5"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 5.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "New Folder",
+  "previewStartingState": {
+    "rotation": 90.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.51,
+        "y": 6.45
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.9275847652694196,
+        "y": 6.215812476020069
+      },
+      "isLocked": false,
+      "linkedName": "CNZ-S11"
+    },
+    {
+      "anchor": {
+        "x": 2.88,
+        "y": 6.05
+      },
+      "prevControl": {
+        "x": 2.6341412319415465,
+        "y": 6.052913504015726
+      },
+      "nextControl": {
+        "x": 3.8000956801025705,
+        "y": 6.039096575729223
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.855677813464395,
+        "y": 6.4
+      },
+      "prevControl": {
+        "x": 4.617024461573896,
+        "y": 6.2623153739093285
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CNZ-S12"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.9,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 5.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": 5.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red-ChiNERDZone",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}

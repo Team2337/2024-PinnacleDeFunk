@@ -10,6 +10,7 @@ public class AutoStartDeliveryTempWithHaveNote extends Command{
     
     private Delivery delivery;
     private Supplier<Boolean> haveNote;
+    private int i;
 
     public AutoStartDeliveryTempWithHaveNote(Delivery delivery, Supplier<Boolean> haveNote) {
         this.delivery = delivery;
@@ -24,7 +25,7 @@ public class AutoStartDeliveryTempWithHaveNote extends Command{
     public void execute() {
         
         delivery.setDeliverySpeed(Constants.Delivery.DELIVERY_FORWARD_SPEED);
-        
+        i++;
     }
 
     @Override
@@ -34,6 +35,6 @@ public class AutoStartDeliveryTempWithHaveNote extends Command{
 
     @Override
     public boolean isFinished() {
-        return !haveNote.get(); 
+        return (!haveNote.get() || (i > 50)); 
     }
 }

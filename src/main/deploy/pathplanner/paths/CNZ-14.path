@@ -1,0 +1,76 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.855677813464395,
+        "y": 6.4
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.759558626107266,
+        "y": 6.604911811820771
+      },
+      "isLocked": false,
+      "linkedName": "CNZ-S14"
+    },
+    {
+      "anchor": {
+        "x": 8.8,
+        "y": 5.0
+      },
+      "prevControl": {
+        "x": 6.636398977570431,
+        "y": 5.007093943821629
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CNZ-S15"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -10.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "EngageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 5.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -10.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red-ChiNERDZone",
+  "previewStartingState": {
+    "rotation": 10.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

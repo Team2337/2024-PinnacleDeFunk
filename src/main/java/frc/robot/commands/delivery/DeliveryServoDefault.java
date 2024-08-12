@@ -8,7 +8,7 @@ import frc.robot.subsystems.DeliveryServo;
 public class DeliveryServoDefault extends Command {
     private DeliveryServo deliveryServo;
     private Supplier<Boolean> deliveryTopSensor;
-    private double waitTime = 0;
+    private double waitTime, waitTime2 = 0;
 
     public DeliveryServoDefault(DeliveryServo deliveryServo, Supplier<Boolean> deliveryTopSensor) {
         this.deliveryServo = deliveryServo;
@@ -25,13 +25,15 @@ public class DeliveryServoDefault extends Command {
     public void execute() {
 
 
-        if (!deliveryTopSensor.get()) {
+        if (!deliveryTopSensor.get() && waitTime2 > 10) {
             deliveryServo.engageNoteStop();
-           
+           waitTime2 = 0;
         } else if (deliveryTopSensor.get() && waitTime > 13.5) {
             deliveryServo.disengageNoteStop();
             waitTime = 0;
-        } else {
+        } else if (!deliveryTopSensor.get()) {
+             waitTime2++;
+        } else if (deliveryTopSensor.get()) {
              waitTime++;
         }
     }

@@ -18,7 +18,9 @@
     "18-Red-Outside-N1",
     "19-Red-Outside",
     "Blue-ChiNERDZone",
+    "New Folder",
     "OffSeason-Yeet",
+    "Red-ChiNERDZone",
     "Z-Tests"
   ],
   "autoFolders": [
@@ -29,7 +31,7 @@
     "Testing Autos"
   ],
   "defaultMaxVel": 6.0,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxAccel": 5.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 6.0

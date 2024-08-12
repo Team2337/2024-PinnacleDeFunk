@@ -180,7 +180,7 @@ public class ShooterPosPot extends PIDSubsystem {
         super.periodic();
         isShooterAtIntake();
         checkForNote();
-        shooterPIDDisable();
+        //shooterPIDDisable();
         checkAmpPos();
         isShooterAtPosition();
         log();

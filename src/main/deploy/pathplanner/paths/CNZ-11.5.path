@@ -1,0 +1,114 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.51,
+        "y": 6.45
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.9275847652694196,
+        "y": 6.215812476020069
+      },
+      "isLocked": false,
+      "linkedName": "CNZ-S11"
+    },
+    {
+      "anchor": {
+        "x": 2.88,
+        "y": 6.05
+      },
+      "prevControl": {
+        "x": 2.4851032868970147,
+        "y": 6.05450249416904
+      },
+      "nextControl": {
+        "x": 3.800100478317679,
+        "y": 6.03950928964183
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 4.855677813464395,
+        "y": 6.4
+      },
+      "prevControl": {
+        "x": 4.617024461573896,
+        "y": 6.2623153739093285
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "CNZ-S12"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.2,
+      "rotationDegrees": 25.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "ShooterPosCNZ-N0"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.25,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoStartDeliveryTemp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 5.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 6.0,
+    "rotation": 25.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Red-ChiNERDZone",
+  "previewStartingState": {
+    "rotation": 0.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.444657066894601,
-        "y": 7.41825821054528
+        "x": 8.6,
+        "y": 7.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.572654434987006,
-        "y": 7.216320758945625
+        "x": 7.617849667219867,
+        "y": 7.059309456909702
       },
       "isLocked": false,
       "linkedName": "CNZ-S3"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 4.855677813464395,
-        "y": 6.601329429073953
+        "y": 6.4
       },
       "prevControl": {
         "x": 5.746038395517412,
-        "y": 6.803266880673608
+        "y": 6.601937451599655
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,16 +30,34 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "DisengageDeliverServo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 6.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 5.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 10.0,
+    "rotation": 15.0,
     "rotateFast": false
   },
   "reversed": false,

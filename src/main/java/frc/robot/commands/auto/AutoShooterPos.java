@@ -23,6 +23,7 @@ public class AutoShooterPos extends Command {
     private Supplier<Boolean> topSensor;
     private double distanceToFloor = 1.4478; //TODO:  Validate to center of tags 4 + 7
     private double cameraHeight = 0.2667;
+    private double prevX, prevY;
 
 
 
@@ -52,7 +53,7 @@ public class AutoShooterPos extends Command {
         if(allianceColor.get() == "blue") {
             LimelightHelpers.SetRobotOrientation("limelight-blue", currentPose.get().getRotation().getDegrees(), 0, 0, 0, 0, 0);
         } else {
-            LimelightHelpers.SetRobotOrientation("limelight-blue", (currentPose.get().getRotation().getDegrees() - 180), 0, 0, 0, 0, 0);
+            LimelightHelpers.SetRobotOrientation("limelight-blue", (currentPose.get().getRotation().getDegrees() - 0), 0, 0, 0, 0, 0);
         }
 
         //Gets Vision Pos
@@ -65,15 +66,22 @@ public class AutoShooterPos extends Command {
             speakerPose = Constants.FieldElements.redSpeakerCenter;
         }
 
+        speakerX = speakerPose.getX();      
+        speakerY = speakerPose.getY(); 
+
         SmartDashboard.putNumber("Auto Shots/Vision X", mt2_blue.pose.getX());
         SmartDashboard.putNumber("Auto Shots/Vision Y", mt2_blue.pose.getY());
         SmartDashboard.putNumber("Auto Shots/Robot X", currentPose.get().getX());
         SmartDashboard.putNumber("Auto Shots/Robot Y", currentPose.get().getY());
+        SmartDashboard.putNumber("Auto Shots/Robot Dis", Math.sqrt(Math.pow((currentPose.get().getX() - speakerX), 2) + Math.pow((currentPose.get().getY() - speakerY), 2)));
 
-        speakerX = speakerPose.getX();      
-        speakerY = speakerPose.getY(); 
-        currentX = mt2_blue.pose.getX(); //(currentPose.get().getX() - (xVelocity.get()/5));
-        currentY = mt2_blue.pose.getY(); //(currentPose.get().getY() - (yVelocity.get()/5));
+        if (mt2_blue.tagCount > 0) {
+            currentX = mt2_blue.pose.getX(); //(currentPose.get().getX() - (xVelocity.get()/5));
+            currentY = mt2_blue.pose.getY(); //(currentPose.get().getY() - (yVelocity.get()/5));
+
+            prevX = mt2_blue.pose.getX();
+            prevY = mt2_blue.pose.getY();
+        }
         distanceInMeters = Math.sqrt(Math.pow((currentX - speakerX), 2) + Math.pow((currentY - speakerY), 2));
         newSetpoint = (0.114 * Math.pow(distanceInMeters, 3)) + (-1.64 * Math.pow(distanceInMeters, 2)) + (8.34 * distanceInMeters) + -1.127;//-0.927 shot low //1.127 Blue -0.2
 
@@ -95,12 +103,13 @@ public class AutoShooterPos extends Command {
             modNewSetpoint = maxStringPotValue;
         }
         
-        SmartDashboard.putNumber("Shooter/Distance in meters", distanceInMeters);
+        SmartDashboard.putNumber("Auto/Vision Distance", distanceInMeters);
         // SmartDashboard.putNumber("Shooter/New Position Setpoint", newSetpoint);
         // SmartDashboard.putNumber("Shooter/Mod New Position Setpoint", modNewSetpoint);
         // SmartDashboard.putNumber("Shooter/X Velocity", xVelocity.get());
         if (topSensor.get()) { //  currentX <= Constants.FieldElements.midFieldInMeters && 
-            shooterPosPot.setSetpoint(modNewSetpoint);
+            //shooterPosPot.setSetpoint(modNewSetpoint);
+            shooterPosPot.setSetpoint(13.7);//13.5, 13.8
         } else {
             shooterPosPot.setSetpoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP);
         }
