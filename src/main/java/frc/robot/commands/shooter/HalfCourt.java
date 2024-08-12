@@ -23,13 +23,11 @@ public class HalfCourt extends Command {
     
     @Override
     public void execute() {
-        if (!chainShot.get()) {
-            shooter.halfCourt();
+        if (chainShot.get()) {
+            shooter.setAllPercentVelocity();
         } else {
             //shooter.halfCourtChain();
-            shooter.halfCourt();
         }
-        SmartDashboard.putBoolean("Chain Shot", chainShot.get());
     }
 
     @Override

@@ -105,121 +105,36 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
     led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> delivery.getDeliveryBottomSensor(), () -> shooter.getShooterUpToSpeed(), () -> operatorJoystick.rightBumper().getAsBoolean()).ignoringDisable(true));
     
-    //driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
-    driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
-    // driverJoystick.rightStick().onTrue(new InstantCommand(() -> drivetrain.setNoteDetection(true)));
-    // driverJoystick.rightStick().onFalse(new InstantCommand(() -> drivetrain.setNoteDetection(false)));
 
-    driverJoystick.povRight().whileTrue(Commands.sequence(
-        new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle())),
-        new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()),
-        Commands.parallel(
-          drivetrain.followPathCommand(goToAmp()),
-          new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)),
-          new SetMotorVelocityBySide(shooter, () -> true, () -> false)
-        )
-      ));
 
-    driverJoystick.leftStick().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
-      .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> delivery.getDeliveryTopSensor())));
+
+    driverJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> false, () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
+    driverJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -75, () -> doWeHaveNote()));
+
+   
+    driverJoystick.leftTrigger().whileTrue(new PoopShoot(shooter));
+
+    driverJoystick.a().whileTrue(new HalfCourt(shooter, () -> operatorStation.yellowSwitch.getAsBoolean()));
+
+    driverJoystick.a().onTrue(new InstantCommand(() -> setMaxSpeed(6)));
+    driverJoystick.a().onFalse(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.MaxSpeed)));
+
+    driverJoystick.leftStick().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true)));
     driverJoystick.leftStick().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
 
-    driverJoystick.rightStick().whileTrue(new AutoShooterPos(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> delivery.getDeliveryTopSensor()));
-    // driverJoystick.a().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())
-    //   .alongWith(new VisionRotate(drivetrain, driverJoystick, "limelight-blue", () -> allianceColor)));
-    //driverJoystick.leftStick().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
-    // driverJoystick.b().onTrue(new InstantCommand(() -> delivery.engageNoteStop()));
-    // driverJoystick.b().onFalse(new InstantCommand(() -> delivery.disengageNoteStop()));
-    //driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
-    driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
-    driverJoystick.leftBumper().onTrue(new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()));
-    driverJoystick.leftBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
     driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
     driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
 
-    // driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> isChainShot()),
-    //   new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
-    //   new ConditionalCommand(
-    //     new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
-    //     new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_CHAIN_COURT)),
-    //     () -> (isChainShot())
-    //   ),
-    //   // new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
-    //   new ConditionalCommand(
-    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_BLUE)), 
-    //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_RED)),
-    //   () -> isAllianceColorBlue()),
-    //   new InstantCommand(() -> drivetrain.setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(true))
-    // ));
-    driverJoystick.leftTrigger().onTrue( new InstantCommand(() -> drivetrain.setPointAtCartesianVectorOfTheSlopeBetweenTheStageAndTheAmp(true)));
-    driverJoystick.leftTrigger().onFalse( new InstantCommand(() -> drivetrain.setCartesianVectorFalse()));
-    // driverJoystick.leftTrigger().onFalse(Commands.sequence(
-    //   new ConditionalCommand(
-    //     new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
-    //     new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
-    //     () -> isAllianceColorBlue()),
-    //   new InstantCommand(() -> drivetrain.setCartesianVectorFalse()),
-    //   new InstantCommand(() -> drivetrain.setDriveAtAngleTrue())
-    // ));
     driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed(), () -> operatorStation.blackSwitch.getAsBoolean(), () -> shooterPot.shooterAtPosition));
     driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
-    //driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
-    
-    // reset the field-centric heading on left bumper press
-    // driverJoystick.rightBumper().whileTrue(new VisionRotate(drivetrain, driverJoystick, "limelight-orange"));
-    
-    //*************Operator Control ******************/
-    operatorJoystick.rightBumper().whileTrue(new SetIntakeVelocity(intake, () -> getDrivetrainVelocityX(), () -> isShooterAtIntake(), () -> doWeHaveNote(), () -> false, () -> delivery.getDeliveryBottomSensor(), () -> delivery.getDeliveryTopSensor()));
-    operatorJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -75, () -> doWeHaveNote()));
-    
-    operatorJoystick.leftTrigger().whileTrue(new InstantCommand(() -> servo.disengageNoteStop())
-      .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(17.3)))
-      .andThen(new PoopShoot(shooter)));
-    operatorJoystick.rightTrigger().whileTrue(new SetMotorVelocityBySide(shooter, () -> operatorJoystick.x().getAsBoolean(), () -> operatorStation.isYellowSwitchOn()));
-    
-    operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.6))); //Subwoofer Shot 8.1
-    operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //Also Chain Shot
-    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3))); //Manual Chain Shot
-    
-    operatorJoystick.x().whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
-    .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
-    .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
     
     
-    operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true, () -> false, () -> true).withTimeout(0.05));
-    
-    operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
-    
-    // operatorJoystick.povLeft().onTrue(new ConditionalCommand(
-      //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_BLUE)), 
-      //   new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.ROBOT_AT_INTAKE_RED)),
-      //   () -> isAllianceColorBlue()));
-      
-      operatorJoystick.povLeft().onTrue(new OpPOVLeftDriveAtAngle(drivetrain, () -> isAllianceColorBlue()));
-      //operatorJoystick.povRight().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()));
-      operatorJoystick.povRight().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> isChainShot()),
-        new ConditionalCommand(
-        new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_BLUE)), 
-        new InstantCommand(() -> drivetrain.setRotationAngle(Constants.Swerve.HALF_COURT_RED)),
-        () -> isAllianceColorBlue()),
-        new ConditionalCommand(
-          new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_COURT)),
-          new InstantCommand(() -> shooterPot.setSetpoint(Constants.ShooterPosPot.SHOOTERPOT_HALF_CHAIN_COURT)),
-          () -> (isChainShot())
-        )
-        // new DelayedDelivery(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed()),
-      ));
-      
-      
-      
-      
-      //operatorJoystick.back().whileTrue(new SetClimbSpeed(climb, () -> Utilities.deadband(operatorJoystick.getRightY(), 0.1)));
     //*************Operator Station *****************/
     //operatorStation.blueButton.onTrue(new InstantCommand(() -> climb.setClimberPosition(-65)));
-    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
-    operatorStation.whiteButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
-    operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
+    // operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    // operatorStation.whiteButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    // operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
     operatorStation.blackButton.whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
     .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
     .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
