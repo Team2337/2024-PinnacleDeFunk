@@ -153,7 +153,7 @@ public final class Constants {
   public static final class Swerve {
 
     public static double MaxSpeed = 2; // 6.21792 meters per second desired top speed
-    public static double MaxAngularRate = 3 * Math.PI; // 3/4 of a rotation per second max angular velocity @ 1.5 //1.5
+    public static double MaxAngularRate = 1 * Math.PI; // 3/4 of a rotation per second max angular velocity @ 1.5 //3
     public static double driveAdjustment = 1;
     public static double driveDeadband = 0.1;
     public static double angularDeadband = 0.1;
@@ -242,17 +242,17 @@ public final class Constants {
   
     public static final double SHOOTER_LEFTRIGHT_DIFF = -20;//30 
 
-    public static final double SHOOTER_MAX_VELOCITY_AMP = 5.5; //5.5
-    public static final double SHOOTER_BOTTOM_DIFF_AMP = 7; //6.5
-    public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = 0; 
+    public static final double SHOOTER_MAX_VELOCITY_AMP = 8; //5.5
+    public static final double SHOOTER_BOTTOM_DIFF_AMP = 0; //6.5
+    public static final double SHOOTER_LEFTRIGHT_DIFF_AMP = -2; 
 
     public static final double SHOOTER_MAX_VELOCITY_TRAP = 15; 
     public static final double SHOOTER_BOTTOM_DIFF_TRAP = 15; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 0; 
 
-    public static final double SHOOTER_MAX_VELOCITY_CENTER = 35; 
+    public static final double SHOOTER_MAX_VELOCITY_CENTER = 30; 
     public static final double SHOOTER_BOTTOM_DIFF_CENTER = 0; 
-    public static final double SHOOTER_LEFTRIGHT_DIFF_CENTER = -20; 
+    public static final double SHOOTER_LEFTRIGHT_DIFF_CENTER = -10; 
 
     // public static final double SHOOTER_MAX_VELOCITY_TRAP = 16.5; 
     // public static final double SHOOTER_BOTTOM_DIFF_TRAP = 8; 

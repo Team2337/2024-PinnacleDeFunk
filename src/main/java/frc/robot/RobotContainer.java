@@ -112,29 +112,30 @@ public class RobotContainer {
     driverJoystick.leftBumper().whileTrue(new SetMotorSpeed(intake, -75, () -> doWeHaveNote()));
 
    
-    driverJoystick.leftTrigger().whileTrue(new PoopShoot(shooter));
 
-    driverJoystick.a().whileTrue(new HalfCourt(shooter, () -> operatorStation.yellowSwitch.getAsBoolean()));
+    driverJoystick.leftTrigger().whileTrue(new HalfCourt(shooter, () -> operatorStation.yellowSwitch.getAsBoolean()));
 
-    driverJoystick.a().onTrue(new InstantCommand(() -> setMaxSpeed(6)));
-    driverJoystick.a().onFalse(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.MaxSpeed)));
+    driverJoystick.a().whileTrue(new InstantCommand(() -> shooter.setAllPercentVelocityAmp()));
+
+    operatorStation.yellowSwitch.onTrue(new InstantCommand(() -> setMaxSpeed(6)));
+    operatorStation.yellowSwitch.onFalse(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.MaxSpeed)));
 
     driverJoystick.leftStick().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true)));
     driverJoystick.leftStick().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
 
-    driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
-    driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
+    // driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
+    // driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
 
-    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed(), () -> operatorStation.blackSwitch.getAsBoolean(), () -> shooterPot.shooterAtPosition));
+    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed(), () -> operatorStation.blackSwitch.getAsBoolean(), () -> true));
     driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     
     
     //*************Operator Station *****************/
     //operatorStation.blueButton.onTrue(new InstantCommand(() -> climb.setClimberPosition(-65)));
-    // operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
-    // operatorStation.whiteButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
-    // operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
+    operatorStation.blueButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    operatorStation.whiteButton.whileTrue(new SetClimbSpeed(climb, () -> -0.6));
+    operatorStation.yellowButton.whileTrue(new SetClimbSpeed(climb, () -> 0.6));
     operatorStation.blackButton.whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
     .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
     .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));

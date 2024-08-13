@@ -26,7 +26,7 @@ public class HalfCourt extends Command {
         if (chainShot.get()) {
             shooter.setAllPercentVelocity();
         } else {
-            //shooter.halfCourtChain();
+            shooter.poopShoot();
         }
     }
 
