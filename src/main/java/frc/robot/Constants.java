@@ -250,15 +250,15 @@ public final class Constants {
     public static final double SHOOTER_BOTTOM_DIFF_TRAP = 15; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 0; 
 
-    public static final double SHOOTER_MAX_VELOCITY_CENTER = 30; 
-    public static final double SHOOTER_BOTTOM_DIFF_CENTER = 0; 
+    public static final double SHOOTER_MAX_VELOCITY_CENTER = 65; 
+    public static final double SHOOTER_BOTTOM_DIFF_CENTER = -5; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_CENTER = -10; 
 
     // public static final double SHOOTER_MAX_VELOCITY_TRAP = 16.5; 
     // public static final double SHOOTER_BOTTOM_DIFF_TRAP = 8; 
     // public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 10; 
     
-    public static final double SHOOTER_POOP_VELOCITY = 15; 
+    public static final double SHOOTER_POOP_VELOCITY = 35; 
     public static final double SHOOTER_INTAKE_VELOCITY = -5;
     
     public static final double SHOOTER_SENDIT_VELOCITY = 68; 

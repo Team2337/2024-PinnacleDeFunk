@@ -115,7 +115,7 @@ public class RobotContainer {
 
     driverJoystick.leftTrigger().whileTrue(new HalfCourt(shooter, () -> operatorStation.yellowSwitch.getAsBoolean()));
 
-    driverJoystick.a().whileTrue(new InstantCommand(() -> shooter.setAllPercentVelocityAmp()));
+    driverJoystick.a().whileTrue(new SetMotorVelocityBySide(shooter, () -> true, () -> false));
 
     operatorStation.yellowSwitch.onTrue(new InstantCommand(() -> setMaxSpeed(6)));
     operatorStation.yellowSwitch.onFalse(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.MaxSpeed)));
