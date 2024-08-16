@@ -12,7 +12,7 @@ import frc.robot.nerdyfiles.vision.LimelightHelpers;
 public class LEDRunnable extends Command {
   private final LED led;
   private Supplier<Boolean> intakeSensor, deliveryTopSensor, deliveryBottomSensor, upToSpeed, intakeSpinning;
-  
+  private final Boolean demoMode = true;
 
   public LEDRunnable(LED led, Supplier<Boolean> intakeSensor, Supplier<Boolean> deliveryTopSensor, Supplier<Boolean> deliveryBottomSensor, Supplier<Boolean> upToSpeed, Supplier<Boolean> intakeSpinning) {
     this.led = led;
@@ -23,6 +23,7 @@ public class LEDRunnable extends Command {
     this.intakeSpinning = intakeSpinning;
     addRequirements(led);
   }
+  Boolean red = true;
   @Override
   public void execute() {
     if (DriverStation.isTeleopEnabled() && upToSpeed.get()) {
@@ -35,6 +36,19 @@ public class LEDRunnable extends Command {
         led.setLowerUprightColors(Color.kBlue);
     } else if (DriverStation.isTeleopEnabled() && intakeSpinning.get()) {
         led.setIntakeColor(Color.kRed);
+    } else if (demoMode) {
+        if (red) {
+          led.setColor(Color.kRed);
+          red = false;
+        } else {
+          led.setColor(Color.kWhite);
+          red = true;
+        }
+        try {
+          Thread.sleep(250);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
     } else if (DriverStation.isTeleopEnabled()) {
         led.setColor(Color.kBlack);
     }
@@ -50,9 +64,9 @@ public class LEDRunnable extends Command {
         led.setColor(Color.kBlack); 
     }
     
-    if (DriverStation.isDisabled()) {
-        led.setColor(Color.kRed);
-    } 
+    // if (DriverStation.isDisabled()) {
+    //     led.setColor(Color.kRed);
+    // } 
 
     // if (DriverStation.isTeleop() && hasGamepiece.get() == true) {
     //   led.setLeftColor(Color.kRed);
