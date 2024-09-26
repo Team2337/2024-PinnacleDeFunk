@@ -114,6 +114,9 @@ public class RobotContainer {
    
 
     driverJoystick.leftTrigger().whileTrue(new HalfCourt(shooter, () -> operatorStation.yellowSwitch.getAsBoolean()));
+    driverJoystick.x().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.6))); //Subwoofer Shot 8.1
+
+    driverJoystick.b().whileTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP)));
 
     driverJoystick.a().whileTrue(new SetMotorVelocityBySide(shooter, () -> true, () -> false));
 
