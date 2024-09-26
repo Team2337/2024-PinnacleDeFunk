@@ -250,7 +250,7 @@ public final class Constants {
     public static final double SHOOTER_BOTTOM_DIFF_TRAP = 15; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 0; 
 
-    public static final double SHOOTER_MAX_VELOCITY_CENTER = 75; 
+    public static final double SHOOTER_MAX_VELOCITY_CENTER = 55; 
     public static final double SHOOTER_BOTTOM_DIFF_CENTER = 0; 
     public static final double SHOOTER_LEFTRIGHT_DIFF_CENTER = -20; 
 
@@ -278,7 +278,7 @@ public final class Constants {
     public static final double SHOOTERPOT_HALF_COURT = 12.5; //10
     public static final double SHOOTERPOT_HALF_CHAIN_COURT = 10.7;
 
-    public static final double SHOOTER_AT_PICKUP = 13.4;//MIN = 9.8 MAX = 10.8      //5.7
+    public static final double SHOOTER_AT_PICKUP = 13.4;//13.4
     public static final double SHOOTERPOS_RANGE = 0.5;
     public static final double SHOOTERPOS_SMALL_RANGE = 0.2;
 

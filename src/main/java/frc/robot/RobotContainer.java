@@ -310,12 +310,12 @@ public class RobotContainer {
     //Sped Up Spikes
       NamedCommands.registerCommand("ShooterPos4-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(0.1));
       NamedCommands.registerCommand("ShooterPos4-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.4)).withTimeout(0.1));//10
-      NamedCommands.registerCommand("ShooterPos4-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.2)).withTimeout(0.1));//13.3
+      NamedCommands.registerCommand("ShooterPos4-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13)).withTimeout(0.1));//13.2
       NamedCommands.registerCommand("ShooterPos4-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));
       NamedCommands.registerCommand("ShooterPos4-N6", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(0.1));//13.6
 
       //Red
-      NamedCommands.registerCommand("ShooterPos14-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.85)).withTimeout(0.1));
+      NamedCommands.registerCommand("ShooterPos14-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.6)).withTimeout(0.1));
       NamedCommands.registerCommand("ShooterPos14-N1", new InstantCommand(() -> shooterPot.setShooterPositionPoint(9.8)).withTimeout(0.1));//10
       NamedCommands.registerCommand("ShooterPos14-N2", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3)).withTimeout(0.1));//13.3
       NamedCommands.registerCommand("ShooterPos14-N3", new InstantCommand(() -> shooterPot.setShooterPositionPoint(10)).withTimeout(0.1));

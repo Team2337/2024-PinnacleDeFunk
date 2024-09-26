@@ -3,32 +3,38 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.4,
-        "y": 4.2
+        "x": 3.7817377299571477,
+        "y": 5.389704719476032
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.683770861659371,
-        "y": 3.8695568973823855
+        "x": 4.782246012882704,
+        "y": 3.388688153624919
       },
       "isLocked": false,
-      "linkedName": "4-EndS5"
+      "linkedName": "14-EndS3"
     },
     {
       "anchor": {
-        "x": 4.6,
-        "y": 4.949113915985879
+        "x": 8.3,
+        "y": 4.627
       },
       "prevControl": {
-        "x": 5.4329845172453926,
-        "y": 4.484057527027374
+        "x": 6.1793876755345085,
+        "y": 3.8467871188195204
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "14-EndS5"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
@@ -41,30 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "AutoStartDeliveryToSensor"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "ShooterPos4-N6"
+                "name": "ShooterPositionPickup"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "DisengageDeliverServo"
+                "name": "AutoStartDeliveryToSensorNoTimeout"
               }
             }
           ]
@@ -80,13 +69,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -8.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "04-Blue-SpedUpSpikes",
+  "folder": "14-Red-Spikes",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

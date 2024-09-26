@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.75,
+        "y": 5.4806715034257465
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.7382891634542184,
+        "y": 0.3630359329192259
+      },
+      "isLocked": false,
+      "linkedName": "14-EndS2"
+    },
+    {
+      "anchor": {
+        "x": 4.38225880731362,
+        "y": 0.33961425982766297
+      },
+      "prevControl": {
+        "x": 2.227464882889821,
+        "y": 0.5386984811059498
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 6.0,
+    "maxAcceleration": 5.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Z-Tests",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

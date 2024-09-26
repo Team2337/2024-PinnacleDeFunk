@@ -87,11 +87,11 @@ public class Robot extends TimedRobot {
     if (m_robotContainer.drivetrain.useLimelight) {  
       if (DriverStation.isAutonomous() ) {
         //mt1_bat();
-        mt1_blue();
+        //mt1_blue();
       } else if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()){
         //mt2_blue();
         
-        mt1_blue();
+        //mt1_blue();
         //mt1_bat();
       } else {
         
