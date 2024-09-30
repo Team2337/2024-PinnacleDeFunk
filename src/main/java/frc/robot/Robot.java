@@ -163,6 +163,7 @@ public class Robot extends TimedRobot {
         m_robotContainer.drivetrain.seedFieldRelative(new Pose2d(new Translation2d(m_robotContainer.drivetrain.getState().Pose.getX(), m_robotContainer.drivetrain.getState().Pose.getY()), m_robotContainer.drivetrain.getState().Pose.getRotation()));
       //}
     } 
+    //if (m_robotContainer.driverJoystick.y().getAsBoolean()) {pigeon.reset();}
     //pigeon.setYaw(0);
   }
 

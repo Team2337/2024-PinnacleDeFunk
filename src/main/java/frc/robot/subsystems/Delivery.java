@@ -14,7 +14,7 @@ public class Delivery extends SubsystemBase {
     
     private VictorSPX deliveryMotor = new VictorSPX(30);
     private DigitalInput deliveryTopSensor = new DigitalInput(1);
-    private DigitalInput deliveryBottomSensor = new DigitalInput(2);
+    private DigitalInput deliveryBottomSensor = new DigitalInput(5);
     // private Servo noteStopperServo = new Servo(2);
     // private LaserCan laserCan = new LaserCan(0);
 

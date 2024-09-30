@@ -142,10 +142,10 @@ public class SwerveDriveCommand extends Command{
                 .withVelocityX(forward)
                 .withVelocityY(strafe);
         
-        } else if (drivetrain.endGame) {
+        } else if (true){//(drivetrain.endGame) {
             swerveRequest = robotCentric
-                .withVelocityX(forward)
-                .withVelocityY(strafe)
+                .withVelocityX(-forward)
+                .withVelocityY(-strafe)
                 .withRotationalRate(rotation);
 
         } else if (drivetrain.noteDetection) {

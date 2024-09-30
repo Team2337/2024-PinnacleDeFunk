@@ -258,7 +258,7 @@ public final class Constants {
     // public static final double SHOOTER_BOTTOM_DIFF_TRAP = 8; 
     // public static final double SHOOTER_LEFTRIGHT_DIFF_TRAP = 10; 
     
-    public static final double SHOOTER_POOP_VELOCITY = 35; 
+    public static final double SHOOTER_POOP_VELOCITY = 45; 
     public static final double SHOOTER_INTAKE_VELOCITY = -5;
     
     public static final double SHOOTER_SENDIT_VELOCITY = 68; 

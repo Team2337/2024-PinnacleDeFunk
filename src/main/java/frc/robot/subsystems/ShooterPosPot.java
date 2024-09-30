@@ -99,7 +99,7 @@ public class ShooterPosPot extends PIDSubsystem {
     }
 
     public void isShooterAtIntake() {
-        if ((pot.get() >= (Constants.ShooterPosPot.SHOOTER_AT_PICKUP - Constants.ShooterPosPot.SHOOTERPOS_RANGE)) && (pot.get() <= (Constants.ShooterPosPot.SHOOTER_AT_PICKUP + Constants.ShooterPosPot.SHOOTERPOS_RANGE))) {
+       if ((pot.get() >= (Constants.ShooterPosPot.SHOOTER_AT_PICKUP - Constants.ShooterPosPot.SHOOTERPOS_RANGE)) && (pot.get() <= (Constants.ShooterPosPot.SHOOTER_AT_PICKUP + Constants.ShooterPosPot.SHOOTERPOS_RANGE))) {
             shooterAtIntake = true;
         } else {
             shooterAtIntake = false;
@@ -107,7 +107,7 @@ public class ShooterPosPot extends PIDSubsystem {
     }
 
     public void isShooterAtPosition() {
-        if ((pot.get() >= (getSetpoint() - Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE)) && (pot.get() <= (getSetpoint() + Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE))) {
+       if ((pot.get() >= (getSetpoint() - Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE)) && (pot.get() <= (getSetpoint() + Constants.ShooterPosPot.SHOOTERPOS_SMALL_RANGE))) {
             shooterAtPosition = true;
         } else {
             shooterAtPosition = false;
@@ -179,7 +179,7 @@ public class ShooterPosPot extends PIDSubsystem {
     public void periodic() {
         super.periodic();
         isShooterAtIntake();
-        checkForNote();
+        //checkForNote();
         //shooterPIDDisable();
         checkAmpPos();
         isShooterAtPosition();

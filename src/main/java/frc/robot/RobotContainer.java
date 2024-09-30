@@ -69,7 +69,7 @@ import frc.robot.subsystems.ShooterPosPot;
 public class RobotContainer {
   
   /* Setting up bindings for necessary control of the swerve drive platform */
-  private final CommandXboxController driverJoystick = new CommandXboxController(0);
+  public final CommandXboxController driverJoystick = new CommandXboxController(0);
   private final CommandXboxController operatorJoystick = new CommandXboxController(1); 
   public final NerdyOperatorStation operatorStation = new NerdyOperatorStation(2);
   private final CommandXboxController testJoystick = new CommandXboxController(5);
@@ -129,7 +129,9 @@ public class RobotContainer {
     // driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
     // driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
 
-    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed(), () -> operatorStation.blackSwitch.getAsBoolean(), () -> true));
+    driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, 0.6, () -> shooter.getShooterUpToSpeed(), () -> true, () -> true));
+    
+    driverJoystick.y().whileTrue(new SetDeliverySpeed(delivery, -0.3, () -> shooter.getShooterUpToSpeed(), () -> true, () -> true));
     driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
     driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     
