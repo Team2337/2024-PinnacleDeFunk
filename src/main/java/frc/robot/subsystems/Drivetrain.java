@@ -264,24 +264,24 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         }  
 
 
-        if (DriverStation.isAutonomous() && autoModLimelight) {
-            useLimelight = autoUseLimelight;
-        } else if (allianceColor == "red") {
-            if (this.getState().Pose.getX() <= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
-                useLimelight = false;
-            } else {
-                useLimelight = true;
-            }
-        } else if (allianceColor == "blue") {
-            if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
-                useLimelight = false;
-            } else {
-                useLimelight = true;
-            }
-        } else {
-            useLimelight = true;
-        }
-        //useLimelight = true;
+        // if (DriverStation.isAutonomous() && autoModLimelight) {
+        //     useLimelight = autoUseLimelight;
+        // } else if (allianceColor == "red") {
+        //     if (this.getState().Pose.getX() <= Constants.Swerve.RED_DISABLE_LIMELIGHT_DISTANCE) {
+        //         useLimelight = false;
+        //     } else {
+        //         useLimelight = true;
+        //     }
+        // } else if (allianceColor == "blue") {
+        //     if (this.getState().Pose.getX() >= Constants.Swerve.BLUE_DISABLE_LIMELIGHT_DISTANCE) {
+        //         useLimelight = false;
+        //     } else {
+        //         useLimelight = true;
+        //     }
+        // } else {
+        //     useLimelight = true;
+        // }
+        useLimelight = true;
     } else {
         useLimelight = true;
     }

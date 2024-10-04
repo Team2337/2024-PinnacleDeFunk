@@ -193,33 +193,31 @@ public class Robot extends TimedRobot {
   public void simulationPeriodic() {}
 
   public void mt1_blue() {
-    //var lastResult = LimelightHelpers.getLatestResults("limelight-blue").targetingResults;
-    LimelightHelpers.PoseEstimate lastResult = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-blue");
+    boolean doRejectUpdate = false;
+    LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-blue");
       
-          //System.out.println(lastResult.tagCount);
-      if (lastResult.tagCount > 0) {
-        
-          //System.out.println("Alex was here");
-        multiBlueTargets = true;
-        if (lastResult.tagCount > 1) {
-          multiBatteryTargets = false;
+      if(mt1.tagCount == 1 && mt1.rawFiducials.length == 1)
+      {
+        if(mt1.rawFiducials[0].ambiguity > .7)
+        {
+          doRejectUpdate = true;
         }
-      } else {
-        multiBlueTargets = false;
+        if(mt1.rawFiducials[0].distToCamera > 3)
+        {
+          doRejectUpdate = true;
+        }
       }
-      //llPose = lastResult.getBotPose2d_wpiBlue();
-      double latency = LimelightHelpers.getLatency_Pipeline("limelight-blue");
+      if(mt1.tagCount == 0)
+      {
+        doRejectUpdate = true;
+      }
 
-
-      if ((lastResult.tagCount > 0)) {
-        if (lastResult.tagCount > 1) {
-          m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevsMultiTags);
-        } else {
-          m_robotContainer.drivetrain.setVisionMeasurementStdDevs(visionStdDevs);
-        }
-        if (multiBlueTargets) {
-          m_robotContainer.drivetrain.addVisionMeasurement(lastResult.pose, Timer.getFPGATimestamp() - ((Constants.Vision.IMAGE_PROCESSING_LATENCY_MS + latency + 2) / 1000));
-        }
+      if(!doRejectUpdate)
+      {
+        m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
+        m_robotContainer.drivetrain.addVisionMeasurement(
+            mt1.pose,
+            mt1.timestampSeconds);
       }
         
   }
@@ -257,23 +255,21 @@ public class Robot extends TimedRobot {
   public void mt2_blue() {
       boolean doRejectUpdate = false;
       LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
-      SmartDashboard.putNumber("Rob Angle", m_robotContainer.drivetrain.getPose().getRotation().getDegrees());
-      LimelightHelpers.PoseEstimate mt2_blue = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
-      //SmartDashboard.putNumber("MT2-Blue Tag Count", mt2_blue.tagCount);
-
+      LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
       if(Math.abs(pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
         doRejectUpdate = true;
       }
-      if (mt2_blue.tagCount == 0) {
+      if(mt2.tagCount == 0)
+      {
         doRejectUpdate = true;
       }
       if(!doRejectUpdate)
       {
-         m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.6,.6,9999999));
-         m_robotContainer.drivetrain.addVisionMeasurement(
-            mt2_blue.pose,
-            mt2_blue.timestampSeconds);
+        m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+        m_robotContainer.drivetrain.addVisionMeasurement(
+            mt2.pose,
+            mt2.timestampSeconds);
       }
   }
 
