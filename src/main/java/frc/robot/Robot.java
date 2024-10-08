@@ -32,7 +32,6 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   
-  private final Pigeon2 pigeon = new Pigeon2(0);
 
   //private final boolean UseLimelight = true;
   private double visionCounter = 0;
@@ -82,19 +81,20 @@ public class Robot extends TimedRobot {
 
     CommandScheduler.getInstance().run(); 
     
-    pigeon.getYaw();
-    SmartDashboard.putNumber("Yaw", pigeon.getYaw().getValueAsDouble());
+    m_robotContainer.drivetrain.pigeon.getYaw();
+    SmartDashboard.putNumber("Yaw", m_robotContainer.drivetrain.pigeon.getYaw().getValueAsDouble());
     if (m_robotContainer.drivetrain.useLimelight) {  
       if (DriverStation.isAutonomous() ) {
         //mt1_bat();
         //mt1_blue();
       } else if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()){
-        //mt2_blue();
+        mt2_blue();
         
         //mt1_blue();
         //mt1_bat();
       } else {
         
+        // mt1_blue();
         mt1_blue();
       }
       
@@ -254,9 +254,9 @@ public class Robot extends TimedRobot {
   
   public void mt2_blue() {
       boolean doRejectUpdate = false;
-      LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
       LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-blue");
-      if(Math.abs(pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+      if(Math.abs(m_robotContainer.drivetrain.pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
         doRejectUpdate = true;
       }
@@ -266,34 +266,33 @@ public class Robot extends TimedRobot {
       }
       if(!doRejectUpdate)
       {
-        m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
-        m_robotContainer.drivetrain.addVisionMeasurement(
+        m_robotContainer.drivetrain.m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+        m_robotContainer.drivetrain.m_poseEstimator.addVisionMeasurement(
             mt2.pose,
             mt2.timestampSeconds);
       }
   }
 
   public void mt2_bat() {
-    boolean doRejectUpdateBat = false;
+    boolean doRejectUpdate = false;
       LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.getPose().getRotation().getDegrees(), 0, 0, 0, 0, 0);
 
-      LimelightHelpers.PoseEstimate mt2_bat = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-battery");
-
-      //SmartDashboard.putNumber("MT2-Bat Tag Count", mt2_bat.tagCount);
-
-      if(Math.abs(pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
+      LimelightHelpers.SetRobotOrientation("limelight-blue", m_robotContainer.drivetrain.m_poseEstimator.getEstimatedPosition().getRotation().getDegrees(), 0, 0, 0, 0, 0);
+      LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+      if(Math.abs(m_robotContainer.drivetrain.pigeon.getRate()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
-        doRejectUpdateBat = true;
+        doRejectUpdate = true;
       }
-      if (mt2_bat.tagCount == 0) {
-        doRejectUpdateBat = true;
-      }
-      if(!doRejectUpdateBat)
+      if(mt2.tagCount == 0)
       {
-         m_robotContainer.drivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.6,.6,9999999));
-         m_robotContainer.drivetrain.addVisionMeasurement(
-            mt2_bat.pose,
-            mt2_bat.timestampSeconds);
+        doRejectUpdate = true;
+      }
+      if(!doRejectUpdate)
+      {
+        m_robotContainer.drivetrain.m_poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7,.7,9999999));
+        m_robotContainer.drivetrain.m_poseEstimator.addVisionMeasurement(
+            mt2.pose,
+            mt2.timestampSeconds);
       }
   }
 

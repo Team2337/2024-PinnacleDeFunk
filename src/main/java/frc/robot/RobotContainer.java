@@ -187,7 +187,9 @@ public class RobotContainer {
     .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
     
     
-    operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true, () -> false, () -> true).withTimeout(0.05));
+    
+    operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true, () -> false, () -> true).withTimeout(0.05)
+    );
     
     operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
     

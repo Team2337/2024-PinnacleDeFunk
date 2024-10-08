@@ -4,6 +4,7 @@ import java.util.Vector;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
@@ -23,7 +24,9 @@ import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
@@ -63,6 +66,23 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
 
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
 
+    
+    public final Pigeon2 pigeon = new Pigeon2(0);
+
+    public final SwerveDrivePoseEstimator m_poseEstimator =
+      new SwerveDrivePoseEstimator(
+          m_kinematics,
+          pigeon.getRotation2d(),
+          new SwerveModulePosition[] {
+            Modules[0].getPosition(true),
+            Modules[1].getPosition(true),
+            Modules[2].getPosition(true),
+            Modules[3].getPosition(true)
+          },
+          new Pose2d(),
+          VecBuilder.fill(0.05, 0.05, Units.degreesToRadians(5)),
+          VecBuilder.fill(0.5, 0.5, Units.degreesToRadians(30)));
+
     public Drivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
         configurePathPlanner();
@@ -90,6 +110,18 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
         double x = pose.getX();
         double y = pose.getY();
         return new Pose2d(x, y, newRotation);
+    }
+
+    public void updatePos() {
+        m_poseEstimator.update(
+        pigeon.getRotation2d(),
+          new SwerveModulePosition[] {
+            Modules[0].getPosition(true),
+            Modules[1].getPosition(true),
+            Modules[2].getPosition(true),
+            Modules[3].getPosition(true)
+        });
+
     }
 
     public Pose2d getPose() {
@@ -240,6 +272,7 @@ public class Drivetrain extends SwerveDrivetrain implements Subsystem {
     
     @Override
     public void periodic() {
+        updatePos();
         //field.setRobotPose(this.getState().Pose); 
         PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
         //field.getObject("target pose").setPose(pose);
