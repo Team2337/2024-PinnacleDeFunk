@@ -105,11 +105,6 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(new SwerveDriveCommand(drivetrain, driverJoystick, () -> getDrivetrainVelocityY(), () -> getAllianceColor()));   
     led.setDefaultCommand(new LEDRunnable(led, ()-> intake.getIntakeSensor(), () -> delivery.getDeliveryTopSensor(), () -> delivery.getDeliveryBottomSensor(), () -> shooter.getShooterUpToSpeed(), () -> operatorJoystick.rightBumper().getAsBoolean()).ignoringDisable(true));
     
-    //driverJoystick.back().whileTrue(new InstantCommand(() -> setMaxSpeed(Constants.Swerve.driveScale))).onFalse(new InstantCommand(() -> setMaxSpeed(1)));
-    driverJoystick.povLeft().onTrue(new InstantCommand(() -> drivetrain.setRotationAngle(90)));
-    // driverJoystick.rightStick().onTrue(new InstantCommand(() -> drivetrain.setNoteDetection(true)));
-    // driverJoystick.rightStick().onFalse(new InstantCommand(() -> drivetrain.setNoteDetection(false)));
-
     driverJoystick.povRight().whileTrue(Commands.sequence(
         new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle())),
         new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()),
@@ -120,22 +115,22 @@ public class RobotContainer {
         )
       ));
 
-    driverJoystick.leftStick().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
+    driverJoystick.rightBumper().whileTrue(new InstantCommand(() -> drivetrain.setPointAtSpeaker(true))
       .alongWith(new SetShooterPosByDistance(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> delivery.getDeliveryTopSensor())));
-    driverJoystick.leftStick().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
+    driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setPointAtSpeaker(false)));
 
-    driverJoystick.rightStick().whileTrue(new AutoShooterPos(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> delivery.getDeliveryTopSensor()));
-    // driverJoystick.a().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())
-    //   .alongWith(new VisionRotate(drivetrain, driverJoystick, "limelight-blue", () -> allianceColor)));
-    //driverJoystick.leftStick().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
-    // driverJoystick.b().onTrue(new InstantCommand(() -> delivery.engageNoteStop()));
-    // driverJoystick.b().onFalse(new InstantCommand(() -> delivery.disengageNoteStop()));
-    //driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
-    driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
-    driverJoystick.leftBumper().onTrue(new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()));
-    driverJoystick.leftBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
-    driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
-    driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
+    // driverJoystick.rightStick().whileTrue(new AutoShooterPos(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> getDrivetrainVelocityY(), () -> delivery.getDeliveryTopSensor()));
+    // // driverJoystick.a().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor())
+    // //   .alongWith(new VisionRotate(drivetrain, driverJoystick, "limelight-blue", () -> allianceColor)));
+    // //driverJoystick.leftStick().whileTrue(new SetShooterPosByVision(shooterPot, () -> drivetrain.getPose(), () -> getAllianceColor(), () -> getDrivetrainVelocityX(), () -> delivery.getDeliveryTopSensor()));
+    // // driverJoystick.b().onTrue(new InstantCommand(() -> delivery.engageNoteStop()));
+    // // driverJoystick.b().onFalse(new InstantCommand(() -> delivery.disengageNoteStop()));
+    // //driverJoystick.x().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
+    // driverJoystick.y().toggleOnTrue(new InstantCommand(() -> drivetrain.enableLockdown()));
+    // driverJoystick.leftBumper().onTrue(new InstantCommand(() -> drivetrain.setDriveAtAngleTrue()));
+    // driverJoystick.leftBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
+    // driverJoystick.rightBumper().onTrue(new InstantCommand(() -> drivetrain.setAngleToZero()));
+    // driverJoystick.rightBumper().onFalse(new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()));
 
     // driverJoystick.leftTrigger().whileTrue(Commands.parallel(new HalfCourt(shooter, () -> isChainShot()),
     //   new InstantCommand(() -> drivetrain.setDriveAtAngleFalse()),
@@ -162,8 +157,8 @@ public class RobotContainer {
     //   new InstantCommand(() -> drivetrain.setDriveAtAngleTrue())
     // ));
     driverJoystick.rightTrigger().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_FORWARD_SPEED, () -> shooter.getShooterUpToSpeed(), () -> operatorStation.blackSwitch.getAsBoolean(), () -> shooterPot.shooterAtPosition));
-    driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
-    driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
+    // driverJoystick.start().onTrue(new InstantCommand(() -> drivetrain.setEndGame(true)));
+    // driverJoystick.start().onFalse(new InstantCommand(() -> drivetrain.setEndGame(false)));
     //driverJoystick.b().whileTrue(drivetrain.applyRequest(() -> point.withModuleDirection(new Rotation2d(-driverJoystick.getLeftY(), -driverJoystick.getLeftX()))));
     
     // reset the field-centric heading on left bumper press
@@ -180,14 +175,16 @@ public class RobotContainer {
     
     operatorJoystick.a().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.6))); //Subwoofer Shot 8.1
     operatorJoystick.b().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //Also Chain Shot
-    operatorJoystick.y().onTrue(new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.3))); //Manual Chain Shot
+  
     
     operatorJoystick.x().whileTrue(new InstantCommand(() -> drivetrain.setRotationAngle(getAmpRotationAngle()))
     .andThen(new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTERPOT_AT_AMP)))
     .andThen(new SetMotorVelocityBySide(shooter, () -> true, () -> false)));
     
     
-    operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true, () -> false, () -> true).withTimeout(0.05));
+    
+    operatorJoystick.back().whileTrue(new SetDeliverySpeed(delivery, Constants.Delivery.DELIVERY_REVERSE_SPEED, () -> true, () -> false, () -> true).withTimeout(0.05)
+    );
     
     operatorJoystick.start().whileTrue(new SetShooterPosPot(shooterPot, () -> operatorJoystick.povUp().getAsBoolean(), () -> operatorJoystick.povDown().getAsBoolean()));
     
@@ -261,7 +258,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("AutoStartIntake", new AutoStartIntake(intake, 70));
     NamedCommands.registerCommand("AutoStartDelivery", new AutoStartDelivery(delivery, () -> shooter.getShooterUpToSpeed()).withTimeout(2));
     NamedCommands.registerCommand("ShooterPositionPickup", new InstantCommand(() -> shooterPot.setShooterPositionPoint(Constants.ShooterPosPot.SHOOTER_AT_PICKUP))); //5.15, 8.1, 9.95
-    NamedCommands.registerCommand("ShooterPosSpeakerSide", new InstantCommand(() -> shooterPot.setShooterPositionPoint(8)).withTimeout(1));
+    NamedCommands.registerCommand("ShooterPosSpeakerSide", new InstantCommand(() -> shooterPot.setShooterPositionPoint(7.8)).withTimeout(1));
 
     NamedCommands.registerCommand("ShooterPosCNZ-N0", new InstantCommand(() -> shooterPot.setShooterPositionPoint(13.6)).withTimeout(1));//13.9
 

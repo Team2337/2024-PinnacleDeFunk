@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.855677813464395,
-        "y": 6.7
+        "x": 1.2208036846706325,
+        "y": 6.51871865341955
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.855677813464395,
-        "y": 6.7
+        "x": 1.2666985600341902,
+        "y": 6.858340731109876
       },
       "isLocked": false,
-      "linkedName": "CNZ-S14"
+      "linkedName": "Girls-Start"
     },
     {
       "anchor": {
-        "x": 8.343688341094774,
-        "y": 6.4
+        "x": 1.4502780614884208,
+        "y": 7.372363335181721
       },
       "prevControl": {
-        "x": 7.343688341094774,
-        "y": 6.4
+        "x": 1.3768462609067285,
+        "y": 7.152067933436645
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Girls-Middle"
     }
   ],
   "rotationTargets": [],
@@ -38,14 +38,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 0,
+    "velocity": 0.0,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Red-ChiNERDZone",
+  "folder": "Girls-Blue",
   "previewStartingState": {
-    "rotation": 10.0,
+    "rotation": 20.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

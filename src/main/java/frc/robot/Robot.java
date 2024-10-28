@@ -91,11 +91,11 @@ public class Robot extends TimedRobot {
       } else if (m_robotContainer.operatorStation.yellowSwitch.getAsBoolean()){
         //mt2_blue();
         
-        //mt1_blue();
+        mt1_blue();
         //mt1_bat();
       } else {
         
-        mt1_blue();
+        //mt1_blue();
       }
       
     }

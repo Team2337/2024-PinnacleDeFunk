@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 8.8,
-        "y": 7.0
+        "y": 7.3
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.250497982308376,
-        "y": 6.979658581285779
+        "y": 7.279658581285779
       },
       "isLocked": false,
       "linkedName": "CNZ-S13"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 4.855677813464395,
-        "y": 6.4
+        "y": 6.7
       },
       "prevControl": {
         "x": 5.746038395517412,
-        "y": 6.601937451599655
+        "y": 6.901937451599655
       },
       "nextControl": null,
       "isLocked": false,

@@ -12,16 +12,16 @@
         "y": 6.5880453293648
       },
       "isLocked": false,
-      "linkedName": "CNZ-S14"
+      "linkedName": "CNZ-S12"
     },
     {
       "anchor": {
         "x": 8.8,
-        "y": 7.0
+        "y": 7.3
       },
       "prevControl": {
         "x": 7.239574237639043,
-        "y": 6.972463074781864
+        "y": 7.2724630747818635
       },
       "nextControl": null,
       "isLocked": false,
